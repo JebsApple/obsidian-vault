@@ -4,7 +4,7 @@ tags: [guia, configuracion, mcp]
 
 # Cómo usar este vault
 
-## Para [[[[opencode]]]]
+## Para [[opencode]]
 El servidor MCP está configurado en `[[opencode]].jsonc`. Usa herramientas como:
 - \search-vault\ - Buscar notas
 - \

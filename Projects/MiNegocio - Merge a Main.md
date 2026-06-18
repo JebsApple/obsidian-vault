@@ -10,17 +10,16 @@ tags: [proyecto/MiNegocio, estado/pendiente]
 
 Repositorios involucrados (Gitea: `http://192.168.50.28:3000`):
 
-| Repo | Rama feature | Estado actual |
-|------|-------------|---------------|
-| `VHerrera/MiNegocio-frontend` | `S2-HU04-Frontend-Galeria` | ✅ Pusheada |
-| `VHerrera/MiNegocio-frontend` | `S2-STL-Frontend-Redesign` | ✅ Pusheada |
-| `VHerrera/MiNegocio-frontend` | `S2-HU04-Frontend-CargaImagenes` | Solo en remoto |
-| `VHerrera/MiNegocio-backend` | `main` | ✅ Ya integrado S2-HU04 |
-| `VHerrera/MiNegocio-backend-Busqueda` | `S2-HU04-API-Busqueda` | ✅ Pusheada (repo nuevo) |
-| `VHerrera/MiNegocio-backend-imagenes` | `main` | ✅ Pusheado (repo nuevo) |
-| `VHerrera/MiNegocio-database` | `main` | ✅ Al día |
+| Repo                                  | Rama feature                     | Estado actual           |
+| ------------------------------------- | -------------------------------- | ----------------------- |
+| `VHerrera/MiNegocio-frontend`         | `S2-HU04-Frontend-Galeria`       | ✅ Pusheada              |
+| `VHerrera/MiNegocio-frontend`         | `S2-STL-Frontend-Redesign`       | ✅ Pusheada              |
+| `VHerrera/MiNegocio-frontend`         | `S2-HU04-Frontend-CargaImagenes` | Solo en remoto          |
+| `VHerrera/MiNegocio-backend`          | `main`                           | ✅ Ya integrado S2-HU04  |
+| `VHerrera/MiNegocio-backend-Busqueda` | `S2-HU04-API-Busqueda`           | ✅ Pusheada (repo nuevo) |
+| `VHerrera/MiNegocio-backend-imagenes` | `main`                           | ✅ Pusheado (repo nuevo) |
+| `VHerrera/MiNegocio-database`         | `main`                           | ✅ Al día                |
 
-Token Gitea: `5fe5db1c422094eb30f3c5ac9a76b16c17eed7a9`
 
 ### 2. Tareas para Claude Code (pesadas)
 
