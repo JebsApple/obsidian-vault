@@ -31,3 +31,9 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-18] Creada carpeta Research/ — notas de investigación sobre MCP, Tailscale, CachyOS, self-hosting, manga sync
 - [2026-06-18] Gitea: repos separados MiNegocio-backend-Busqueda, MiNegocio-backend-imagenes y alo eliminados. Su contenido se pusheó como ramas de MiNegocio-backend (S2-HU04-API-Busqueda y S2-HU04-API-Imagenes) antes de borrarlos
 - [2026-06-18] Smoke test DEV: 3 bloqueantes encontrados — contenedor backend desactualizado (Jun 15, no tiene S2-HU04), feat/inventario-endpoints sin mergear + ruta no registrada en routes.go, frontend caído. Veredicto: NO LISTO. Plan documentado en Projects/MiNegocio - Merge a Main.md
+- [2026-06-18] Reestructuración completa de MiNegocio: 3 repos (frontend, backend, database) con git init local. Zips extraídos en /home/apuru/minegocio/. Pendiente push a Gitea.
+- [2026-06-18] Login usa texto plano contra password_hash — migrado a bcrypt (golang.org/x/crypto). Requiere regenerar hash en DB seed.
+- [2026-06-18] stock_status se agregó como columna VARCHAR a productos (migration 001_add_stock_status.sql). Default 'sin_clasificar'. Backend model actualizado con StockStatus + queries INSERT/UPDATE/SELECT. Antes solo existía en frontend.
+- [2026-06-18] DnD en KanbanBoard: usar `event.dataTransfer.set/getData('application/json', ...)` en vez de estado interno del componente, para que drag desde sidebar (fuera del KanbanBoard) funcione correctamente.
+- [2026-06-18] Al integrar bcrypt: el password_hash en DB debe ser el hash, no el texto plano. Para seed: generar con `bcrypt.GenerateFromPassword([]byte("1234"), bcrypt.DefaultCost)`.
+- [2026-06-18] ventasService.js no incluía header Authorization — corregido. Todas las llamadas API protegidas deben llevar Bearer token.
