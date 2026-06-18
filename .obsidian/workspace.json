@@ -1,1 +1,214 @@
-{}
+{
+  "main": {
+    "id": "b97d785949920dd8",
+    "type": "split",
+    "children": [
+      {
+        "id": "522a8e72c93706b5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7badfd404506d30c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Knowledge/decisiones.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "decisiones"
+            }
+          },
+          {
+            "id": "bd0b00eeeaa9aa4f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Knowledge/NotaDePrueba2.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "NotaDePrueba2"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e7cbee4699814111",
+    "type": "split",
+    "children": [
+      {
+        "id": "7097cbeb7471d21f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a65bfe5fad684883",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de archivos"
+            }
+          },
+          {
+            "id": "38b52a73e208291d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Buscar"
+            }
+          },
+          {
+            "id": "0527a848359768b7",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "2e704064f8895805",
+    "type": "split",
+    "children": [
+      {
+        "id": "2894aa1319349900",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7e6a141cb9a030ee",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Knowledge/decisiones.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Enlaces entrantes de decisiones"
+            }
+          },
+          {
+            "id": "f348d120d65dd2a9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Knowledge/decisiones.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Enlaces salientes de decisiones"
+            }
+          },
+          {
+            "id": "d38cf80f554bb763",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "48d4053277bca22c",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas las propiedades"
+            }
+          },
+          {
+            "id": "eef28650518c264e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Knowledge/decisiones.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Esquema de decisiones"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "canvas:Crear nuevo lienzo": false,
+      "daily-notes:Abrir la nota de hoy": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Crear nueva base": false
+    }
+  },
+  "active": "bd0b00eeeaa9aa4f",
+  "lastOpenFiles": [
+    "Knowledge/NotaDePrueba1.md",
+    "token gitea.md",
+    "Projects/README.md",
+    "Projects/MiNegocio - Merge a Main.md",
+    "Knowledge/decisiones.md",
+    "Knowledge/NotaDePrueba2.md",
+    "Knowledge/memoria-persistente.md",
+    "Knowledge/conexion-remota.md",
+    "Knowledge/lecciones.md",
+    "Projects/_template.md"
+  ]
+}
