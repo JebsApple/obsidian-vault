@@ -1,73 +1,127 @@
 ---
-tags: [proyecto/MiNegocio, estado/pendiente]
+tags: [proyecto/MiNegocio, estado/bloqueado]
+---
+# MiNegocio — Smoke Test & Merge a Main
+
+> **LEER Y ELIMINAR** — Esta nota se auto-destruye. Después de leerla, bórrala con `rm` o `trash`.
+
 ---
 
-# MiNegocio — Merge a Main
+## ⛔ RESULTADO DEL SMOKE TEST (2026-06-18)
 
-## Instrucciones para Claude Code
+**VEREDICTO: NO LISTO — 3 BLOQUEANTES**
 
-### 1. Contexto general
+---
 
-Repositorios involucrados (Gitea: `http://192.168.50.28:3000`):
+### 🔴 BUG-001 — Backend container desactualizado
+**Componente:** c-devops | **Severidad:** BLOQUEANTE
 
-| Repo                                  | Rama feature                     | Estado actual           |
-| ------------------------------------- | -------------------------------- | ----------------------- |
-| `VHerrera/MiNegocio-frontend`         | `S2-HU04-Frontend-Galeria`       | ✅ Pusheada              |
-| `VHerrera/MiNegocio-frontend`         | `S2-STL-Frontend-Redesign`       | ✅ Pusheada              |
-| `VHerrera/MiNegocio-frontend`         | `S2-HU04-Frontend-CargaImagenes` | Solo en remoto          |
-| `VHerrera/MiNegocio-backend`          | `main`                           | ✅ Ya integrado S2-HU04  |
-| `VHerrera/MiNegocio-backend-Busqueda` | `S2-HU04-API-Busqueda`           | ✅ Pusheada (repo nuevo) |
-| `VHerrera/MiNegocio-backend-imagenes` | `main`                           | ✅ Pusheado (repo nuevo) |
-| `VHerrera/MiNegocio-database`         | `main`                           | ✅ Al día                |
+El contenedor backend en `192.168.50.25:3000` fue construido el **2026-06-15**. Los merges S2-HU04 son del **2026-06-18**. El binario NO tiene:
+- `GET /api/productos/buscar` → 404
+- `GET /api/inventario` → 404 (ni en routes.go)
+- Endpoints de imágenes → 404
 
+**Fix:**
+```bash
+# En el servidor DEV
+cd /ruta/a/MiNegocio-backend
+git checkout main
+git pull origin main
+docker build -t minegocio-backend:latest .
+docker stop backend 2>/dev/null ; docker rm backend 2>/dev/null
+docker run -d --name backend -p 3000:3000 minegocio-backend:latest
+```
 
-### 2. Tareas para Claude Code (pesadas)
+---
 
-- **Revisar ramas de compañeros**: Mirar `remotes/origin/` en cada repo. Identificar errores, malas prácticas, código muerto, falta de tests.
-- **Simular merge a main**: Hacer `git merge --no-commit --no-ff` de cada rama feature contra main para detectar conflictos reales.
-- **Reportar hallazgos**: Crear issues en Gitea o notas en Obsidian con los errores/conflictos encontrados.
-- **Planificar merge ordenado**: Definir orden de merge (ej: database → backend → frontend).
+### 🔴 BUG-002 — BD sin seed data
+**Componente:** c-database | **Severidad:** BAJO
 
-### 3. Tareas ligeras para OpenCode (yo — OpenCode)
+El único producto en BD tiene campos vacíos (imagen_url, codigo_barras, etc.). Agregar seed data para validar campos completos en la respuesta JSON.
 
-Cuando Claude Code necesite algo trivial (consultar archivos, ejecutar comandos rápidos, verificar ramas), que delegue via `opencode-mcp` con `opencode_run` / `opencode_ask`.
+---
 
-### 4. Ramas de compañeros a revisar
+### 🔴 BUG-003 — feat/inventario-endpoints sin mergear + ruta faltante
+**Componente:** c-back | **Severidad:** BLOQUEANTE
 
-Buscar en remotes de cada repo:
+Dos problemas:
+1. La rama `feat/inventario-endpoints` tiene 2 commits que nunca se mergearon a `main`
+2. El endpoint `/api/inventario` nunca se registró en `routes.go` — el archivo `inventario_handler.go` existe pero está huérfano
 
-**MiNegocio-backend:**
-- `origin/#28-Endpoints-de-Inventario`
-- `origin/#48-S2-HU01`
-- `origin/S2-HU03`
-- `origin/S2-Backend`
-- `origin/S2-HU02-API`
-- `origin/hotfix/smoke-test-bugs`
+**Fix:**
+```bash
+cd /ruta/a/MiNegocio-backend
+git checkout main
+git merge feat/inventario-endpoints
+# Luego editar routes.go y agregar:
+#   router.HandleFunc("/api/inventario", inventario_handler.GetInventario).Methods("GET")
+git add -A && git commit -m "fix: merge inventario-endpoints + registrar ruta /api/inventario"
+git push origin main
+```
 
-**MiNegocio-frontend:**
-- `origin/#47-S2-HU01`
-- `origin/26TabladeGestióndeProductos`
-- `origin/S2-HU03`
-- `origin/S2-Frontend`
-- `origin/S2-HU02-Punto-de-Venta`
+---
 
-**MiNegocio-database:**
-- `origin/#27-Vista-de-Inventario-database`
-- `origin/S2-HU03`
-- `origin/S2-HU01-BD-indice-y-constraint-en-campo-codigo-de-barras`
+### 🔴 BUG-004 — Frontend bundle desactualizado
+**Componente:** c-devops | **Severidad:** BLOQUEANTE
 
-### 5. Pasos de merge recomendados
+El frontend compilado no incluye `GaleriaProductos` ni `BuscadorProductos`. Solo existe el formulario de carga de imágenes. Puerto 8081 caído (sin container/servicio).
 
-1. Hacer fetch de todos los remotos
-2. Revisar cada rama de compañeros (code review)
-3. Merge database → main (sin riesgo)
-4. Merge backend branches → main (uno por uno, resolver conflictos)
-5. Merge frontend branches → main (último, más conflictos potenciales)
-6. Verificar CI/CD en Jenkins
+**Fix:**
+```bash
+cd /ruta/a/MiNegocio-frontend
+git checkout main
+git pull origin main
+npm install
+npm run build
+# Copiar a donde sirva nginx:
+sudo cp -r dist/* /var/www/dev/frontend/
+# o levantar contenedor:
+docker build -t minegocio-frontend:latest .
+docker stop frontend 2>/dev/null; docker rm frontend 2>/dev/null
+docker run -d --name frontend -p 8081:80 minegocio-frontend:latest
+```
 
-### 6. Notas adicionales
+---
 
-- Las ramas `S2-STL-*` son de estilos/rediseño, deberían tener prioridad baja
-- Las ramas `S2-HU*` son funcionales, prioridad alta
-- `main` recibe cambios solo vía PR desde Gitea (según COMMITS.md)
-- Token Gitea: [[token gitea]]
+## 📋 ORDEN DE ACCIÓN RECOMENDADO
+
+```
+1. c-back:   Mergear feat/inventario-endpoints → main + routes.go
+2. c-database: Agregar seed data a BD (opcional, baja prioridad)
+3. c-devops: Rebuild backend container desde main
+4. c-devops: Rebuild frontend bundle + levantar servicio
+5. QA:       Re-ejecutar smoke test completo
+```
+
+---
+
+## 🔍 DETALLE DEL SMOKE TEST
+
+### Endpoints verificados (los que respondieron)
+| Endpoint | Método | Status | Response |
+|---|---|---|---|
+| `/api/productos` | GET | ✅ 200 | Array vacío (sin seed data) |
+| `/api/login` | POST | ✅ 200 | Token JWT |
+| `/api/productos` | POST | ✅ 201 | Producto creado (admin/admin) |
+| `/api/productos/buscar?q=test` | GET | ❌ 404 | No implementado en binario |
+| `/api/productos/{id}/imagenes` | GET | ❌ 404 | No implementado en binario |
+| `/api/inventario` | GET | ❌ 404 | No implementado en routes.go |
+
+### Estado de repos (Gitea)
+- `VHerrera/MiNegocio-backend`: 11 ramas, main OK (pero feat/inventario-endpoints sin mergear)
+- `VHerrera/MiNegocio-database`: 5 ramas, main OK
+- `VHerrera/MiNegocio-frontend`: 10 ramas, main OK
+
+### Credenciales DEV
+- URL Backend: http://192.168.50.25:3000
+- URL Frontend: http://192.168.50.25:8081 (CAÍDO)
+- Login: admin / admin (comparación texto plano contra password_hash)
+
+---
+
+> **⚠️ INSTRUCCIÓN DE ELIMINACIÓN**
+> Después de leer, borra esta nota:
+> ```bash
+> rm /ruta/al/vault/Projects/MiNegocio\ -\ Merge\ a\ Main.md
+> ```
+> O desde Obsidian: botón derecho → "Delete file"
