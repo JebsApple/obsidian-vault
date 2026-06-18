@@ -12,6 +12,9 @@ Registra aquí errores y soluciones para no repetirlos.
 - **Causa raíz:** Por qué ocurrió
 
 ## Historial
+- [2026-06-17] Mihon+Suwayomi sync: celular probablemente estaba en datos móviles (5G) al fallar pruebas de red local — siempre desactivar datos al testear IPs locales
+- [2026-06-17] Para diagnosticar conectividad local: `python3 -m http.server 8888` en PC, abrir `http://IP:8888` desde celular con WiFi y sin datos móviles
+- [2026-06-17] Suwayomi en CachyOS corre como servicio nativo (no Docker), escucha en `*:4567`, usuario `suwayomi`
 - [2026-06-18] Configurado servidor MCP obsidian-mcp para opencode y Claude Code
 - [2026-06-18] Instalado mcp-fetch-server (web fetching ligero)
 - [2026-06-18] Instalado github MCP server (desactivado por defecto para ahorrar tokens)
@@ -20,3 +23,5 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-18] Push masivo a Gitea: MiNegocio-backend (main con rebase + conflictos), MiNegocio-backend-Busqueda (repo+rama creados), MiNegocio-backend-imagenes (repo+main creados), MiNegocio-database (main), MiNegocio-frontend (S2-HU04-Frontend-Galeria + S2-STL-Frontend-Redesign)
 - [2026-06-18] Token Gitea en `token gitea.md` del vault. Usado para pushear via `http://TOKEN@192.168.50.28:3000/VHerrera/...git`
 - [2026-06-18] Conflicto en rebase de MiNegocio-backend: producto_handler.go, main.go, producto_service.go (S2-HU04 vs tests). Resuelto combinando ambos cambios y tabs normailzados con gofmt
+- [2026-06-17] Creada nota Knowledge/opencode.md documentando el role de opencode en el vault
+- [2026-06-17] Cambiado obsidian-mcp de `npx -y obsidian-mcp` a `node path/to/main.js` para evitar latencia de npx
