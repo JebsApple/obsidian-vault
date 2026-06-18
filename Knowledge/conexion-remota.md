@@ -54,7 +54,7 @@ Si tienes una partición NTFS compartida entre Windows y Linux:
 
 ## Config MCP en cada máquina
 
-### opencode.jsonc (~/.config/opencode/opencode.jsonc)
+### [[opencode]].jsonc (~/.config/[[opencode]]/[[opencode]].jsonc)
 ```jsonc
 {
   "mcp": {

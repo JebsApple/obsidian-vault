@@ -1,2 +1,9 @@
 
 token gitea.md
+.obsidian/workspace.json
+.obsidian/graph.json
+.obsidian/cache/
+.obsidian/plugins/
+!.obsidian/community-plugins.json
+!.obsidian/plugins/automatic-linker/data.json
+!.obsidian/plugins/obsidian-git/data.json

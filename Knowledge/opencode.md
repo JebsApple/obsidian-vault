@@ -9,7 +9,7 @@ opencode es un asistente de terminal tipo Claude Code pero open-source. Usa el m
 ## Cómo interactúa opencode con el vault
 
 - **Lee** notas via MCP para mantener contexto entre sesiones
-- **Escribe** en `Knowledge/lecciones.md` cuando aprende algo nuevo
+- **Escribe** en `Knowledge/[[[[lecciones]]]].md` cuando aprende algo nuevo
 - **Crea notas** en `Knowledge/` o `Projects/` según lo que se necesite
 
 ## Configuración local
