@@ -1,38 +1,34 @@
 {
   "main": {
-    "id": "b97d785949920dd8",
+    "id": "40b4674d8c12cb23",
     "type": "split",
     "children": [
       {
-        "id": "522a8e72c93706b5",
+        "id": "514f63ccf16d04c7",
         "type": "tabs",
         "children": [
           {
-            "id": "7badfd404506d30c",
+            "id": "98e10b22ee3d2f90",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Knowledge/decisiones.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "decisiones"
+              "title": "index"
             }
           },
           {
-            "id": "bd0b00eeeaa9aa4f",
+            "id": "41eba007e6e62772",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Knowledge/NotaDePrueba2.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "NotaDePrueba2"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Vista gráfica"
             }
           }
         ],
@@ -42,15 +38,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "e7cbee4699814111",
+    "id": "ad390a7af5575eca",
     "type": "split",
     "children": [
       {
-        "id": "7097cbeb7471d21f",
+        "id": "e0acc64ba7ec5743",
         "type": "tabs",
         "children": [
           {
-            "id": "a65bfe5fad684883",
+            "id": "22e66730c2c92eba",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -63,7 +59,7 @@
             }
           },
           {
-            "id": "38b52a73e208291d",
+            "id": "afe3269bfdc283bc",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -80,7 +76,7 @@
             }
           },
           {
-            "id": "0527a848359768b7",
+            "id": "dab24a42f2128c07",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -96,20 +92,20 @@
     "width": 300
   },
   "right": {
-    "id": "2e704064f8895805",
+    "id": "b9daeffa454e1b4a",
     "type": "split",
     "children": [
       {
-        "id": "2894aa1319349900",
+        "id": "ca79c35849eb63a3",
         "type": "tabs",
         "children": [
           {
-            "id": "7e6a141cb9a030ee",
+            "id": "6bd1820f73fed9b2",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Knowledge/decisiones.md",
+                "file": "Projects/mihon-suwayomi-sync.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,25 +115,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Enlaces entrantes de decisiones"
+              "title": "Enlaces entrantes de mihon-suwayomi-sync"
             }
           },
           {
-            "id": "f348d120d65dd2a9",
+            "id": "8daaf7a84afa1d43",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Knowledge/decisiones.md",
+                "file": "Projects/mihon-suwayomi-sync.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Enlaces salientes de decisiones"
+              "title": "Enlaces salientes de mihon-suwayomi-sync"
             }
           },
           {
-            "id": "d38cf80f554bb763",
+            "id": "af9b7196e0bb76fe",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -152,7 +148,7 @@
             }
           },
           {
-            "id": "48d4053277bca22c",
+            "id": "0e52828d945750f5",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -166,18 +162,18 @@
             }
           },
           {
-            "id": "eef28650518c264e",
+            "id": "6b30b6fc585784d4",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Knowledge/decisiones.md",
+                "file": "Projects/mihon-suwayomi-sync.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de decisiones"
+              "title": "Esquema de mihon-suwayomi-sync"
             }
           }
         ]
@@ -195,20 +191,30 @@
       "daily-notes:Abrir la nota de hoy": false,
       "templates:Insertar plantilla": false,
       "command-palette:Abrir paleta de comandos": false,
-      "bases:Crear nueva base": false
+      "bases:Crear nueva base": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "bd0b00eeeaa9aa4f",
+  "active": "41eba007e6e62772",
   "lastOpenFiles": [
+    "Knowledge/NotaDePrueba2.md",
     "Knowledge/NotaDePrueba1.md",
-    "token gitea.md",
+    "Projects/mihon-suwayomi-sync.md",
+    "obsidian-vault",
     "Projects/README.md",
     "Projects/MiNegocio - Merge a Main.md",
-    "Knowledge/decisiones.md",
-    "Knowledge/NotaDePrueba2.md",
-    "Knowledge/memoria-persistente.md",
+    "[[mcp-ecosistema-2026.md",
+    "index.md",
     "Knowledge/conexion-remota.md",
+    "Research/suwayomi-mihon-updates.md",
+    "Research/selfhosted-recomendados-2026.md",
+    "Research/cachyos-performance.md",
+    "Research/tailscale-headscale-2026.md",
+    "Research/mcp-ecosistema-2026.md",
+    "Research",
+    "Knowledge/setup-sincronizacion.md",
     "Knowledge/lecciones.md",
-    "Projects/_template.md"
+    "Knowledge/opencode.md",
+    "Knowledge/memoria-persistente.md"
   ]
 }
