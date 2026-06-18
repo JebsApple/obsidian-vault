@@ -52,6 +52,56 @@ Si tienes una partición NTFS compartida entre Windows y Linux:
 # Ambos apuntan al MISMO disco físico, sin sync necesario
 ```
 
+## SSH a Gitea (para agentes AI)
+
+Gitea corre en `192.168.50.28:22`. Hay una clave SSH dedicada sin passphrase para que agentes (opencode, Claude Code) hagan git push/pull/clone.
+
+### Setup (una sola vez)
+```bash
+# 1. Generar clave sin passphrase
+ssh-keygen -t ed25519 -f ~/.ssh/id_gitea -N "" -C "opencode-gitea"
+
+# 2. Configurar ~/.ssh/config
+cat >> ~/.ssh/config << 'EOF'
+
+Host gitea
+    HostName 192.168.50.28
+    Port 22
+    User git
+    IdentityFile ~/.ssh/id_gitea
+    IdentitiesOnly yes
+EOF
+
+# 3. Mostrar clave pública para agregar en Gitea
+cat ~/.ssh/id_gitea.pub
+```
+
+### Agregar clave en Gitea
+1. Ir a http://192.168.50.28:3000/user/settings/keys
+2. "Add Key" → pegar `id_gitea.pub`
+3. Si pide firma, copiar el token y ejecutar:
+   ```bash
+   echo -n "<TOKEN>" | ssh-keygen -Y sign -f ~/.ssh/id_gitea -n "gitea"
+   ```
+   Pegar la firma en Gitea.
+
+### Verificar conexión
+```bash
+ssh -T git@gitea
+# Debería responder: "Hi there, VHerrera! You've successfully authenticated..."
+```
+
+### Usar SSH en remotos git
+```bash
+# Ejemplo para cambiar un repo de HTTP a SSH:
+git remote set-url origin git@gitea:VHerrera/MiNegocio-frontend.git
+```
+
+### Notas
+- La clave `~/.ssh/id_gitea` **no tiene passphrase** — puede usarse desde scripts y agentes sin TTY
+- El host `gitea` en SSH config resuelve a `192.168.50.28`
+- Los agentes AI pueden usar `git@gitea` como remote en lugar de HTTP+token
+
 ## Config MCP en cada máquina
 
 ### [[opencode]].jsonc (~/.config/[[opencode]]/[[opencode]].jsonc)
