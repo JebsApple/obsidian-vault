@@ -41,3 +41,50 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-18] LoginPage.vue con toggle Login/Registro: mantener el mismo padding/margins que base.css define; no duplicar estilos de botones en CSS de página.
 - [2026-06-18] AuthHandler mock necesita Register() para que handler tests compilen al agregar registro de usuarios.
 - [2026-06-18] La tabla registro_ventas ya existía en la BD pero con esquema distinto (id en vez de id_venta, sin FK, sin CHECK). Recreada para coincidir con venta_repository.go que espera id_venta, FK a productos/usuarios, y CHECK en precio_producto y cantidad.
+- [2026-06-18] nginx sites-available debe tener symlink en sites-enabled para activarse; minegocio-dev no estaba enabled
+- [2026-06-18] ALL: `Scan()` en PostgreSQL con NULL en campos string requiere `COALESCE(col, '')` o el Scan falla silenciosamente
+- [2026-06-18] Gitea API push via SSH requiere remote `git@gitea:user/repo.git`; HTTP requiere interactive auth o token en URL
+- [2026-06-18] Puertos originales: DEV=8080 PROD=8000 con nginx reverse proxy. Docker cambió a 3000/8081. nginx config tiene minegocio-dev que apunta a 8080→3000 correctamente
+
+## 2026-06-18 — Sesión 3: Auth reactivo + redundancia nav
+
+### localStorage no es reactivo en Vue
+`computed: { isLoggedIn() { return !!localStorage.getItem("token") } }` NO se re-evaluaba después del login porque `localStorage` no es una dependencia reactiva. Solución: usar `reactive({})` de Vue 3 como store compartido, y que el store sincronice bidireccionalmente con `localStorage`.
+
+### Auth guard en router
+`router.beforeEach` con `meta: { requiresAuth: true }` en las rutas protegidas. Si no está autenticado, redirige a `/login?redirect=/ruta-original`.
+
+### SideBar y NavBar duplicados
+Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redundantes con el SideBar, que ya tiene navegación más completa (Ventas, submenú de Productos). Se eliminaron los links del NavBar — ahora solo muestra logo + menú de usuario.
+
+### Store auth (src/store/auth.js)
+- `reactive()` para reactividad
+- `setAuth(token, user)` → actualiza store + localStorage
+- `clearAuth()` → limpia store + localStorage
+- Servicios siguen usando `localStorage.getItem('token')` directo (store persiste en localStorage)
+
+## 2026-06-18 — Sesión 4: Registro usuarios + separación DEV/PROD
+
+### User registration endpoint
+- Crear endpoint: repository.Create + service.Register + handler.Register + route
+- `RegisterRequest` ya existía en models pero no se usaba
+- Validar duplicados con `GetByNombre()` y errores con `errors.New()`
+- Toda la cadena: handler → service → repository
+
+### docker cp con Go binary
+- El contenedor corre el binario en `/app/main` (según Dockerfile `CMD ["./main"]`)
+- Copiar a `/app/minegocio-backend` no funciona — hay que copiar a `/app/main`
+- **Mejor:** construir dentro del contenedor con `docker exec backend sh -c "cd /app && go build -o main ."` — evita problemas de glibc vs musl (host=glibc, alpine=musl)
+
+### Separación DEV/PROD completa
+- DEV: nginx 8080 → frontend `/var/www/dev/frontend/` → API proxy localhost:3000 → `cliente_dev`
+- PROD: nginx 80 → frontend `/var/www/prod/frontend/` → API proxy localhost:3001 → `cliente_prod`
+- Backend PROD corre como contenedor separado `backend-prod` con `DB_NAME=cliente_prod`
+- JWT_SECRET debe ser diferente entre entornos
+- PROD DB necesitó crear tablas manualmente (solo tenía usuarios)
+
+### Gitea SSH vs HTTP
+- SSH remote `git@gitea:user/repo.git` funciona sin contraseña
+- HTTP remote `http://192.168.50.28:3000/user/repo.git` requiere token en URL o auth interactiva
+- `git push gitea branch` funciona con SSH; origin (HTTP) requiere token
+>>>>>>> 9e15ebc (feat: S2-Post-STL-Revert ejecutado + reporte de trabajo)
