@@ -32,8 +32,20 @@ Ver [[MiNegocio]] para contexto completo.
 - Actualizado [[MiNegocio]] con estado completo del proyecto
 - Creada guía [[MiNegocio - Deploy Prod]] con instrucciones Jenkins paso a paso
 
+## ✅ COMPLETADO — Auditoría Pre-Presentación 2026-06-19
+
+- Smoke test PROD completo: 11/11 endpoints OK → [[SmokeTest-PROD-2026-06-19]]
+- Commit y push fix token reactivity + endpoint `/api/auth/login` en frontend
+- Build de producción actualizado (`app.a97460aa.js`) en `/var/www/prod/frontend`
+- Password hash en DB corregido (revertido a texto plano, compatible con backend actual)
+- Credenciales confirmadas: `Victor@user.cl` / `Victor264`
+- Reporte de auditoría creado → [[Auditoria-Presentacion-2026-06-20]]
+
 ## Pendiente para próxima sesión
 - Revisar ERS de Google Drive para planificar próximos sprints
 - Arreglar Dockerfile del backend para cross-compilation (GOARCH explícito) así Jenkins puede desplegar sin problemas
 - Configurar pipeline Jenkins también para frontend
-- Mergear ramas feature a develop/main si existen
+- Mergear/cerrar PR#10 y PR#11 en frontend
+- Reparar nginx DEV: cambiar proxy de localhost:3000 → localhost:3001
+- Migrar passwords en DB a bcrypt real (ahora están en texto plano)
+- Resolver conflicto git en `Knowledge/lecciones.md`
