@@ -3,8 +3,6 @@ Permitir que Jenkins (Server A) despliegue aplicaciones en Tomcat (Server B) med
 
 Servidor A: 192.168.50.28 - Icin2026
 
-  
-  
 
 PASO 1: Crear usuario de despliegue en Server B (reemplazar por la ultima letra "N" por el numero de su equipo) sudo adduser deployadminN
 
