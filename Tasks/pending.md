@@ -1,6 +1,6 @@
 ---
 tags: [tasks, handoff, backend, auth]
-updated: 2026-06-18
+updated: 2026-06-19
 assignee: ai-reader
 ---
 
@@ -12,57 +12,28 @@ Ver [[MiNegocio]] para contexto completo.
 
 ---
 
-## ✅ COMPLETADO — Sesión 2026-06-18
+## ✅ COMPLETADO — Sesión 2026-06-19
 
-### Auth store reactivo (`src/store/auth.js`)
-- Creado store con `reactive()` de Vue 3 sincronizado con localStorage
-- `setAuth(token, user)` y `clearAuth()` actualizan store + localStorage
-- App.vue, NavBar, AnalisePage, LoginPage ahora usan `auth.isAuthenticated` (reactivo real)
+### Bugs reparados
+- Ventas: payload corregido a `{items: [{producto_id, cantidad, precio_venta}], id_vendedor}` + productos cargados desde API real
+- HomePage: auto-redirect a `/login` o `/servicios` según auth
+- Nav: centrado con flex, condicional según sesión
 
-### Router guard (`router.beforeEach`)
-- Agregado `beforeEach` con `meta: { requiresAuth: true }` en rutas protegidas
-- `/` redirige a `/analisis` (elimina duplicado con `/analisis`)
-- Sin guard: `/login`, `/registro`, `/contacto`
+### Páginas agregadas
+- InventarioPage.vue (GET /api/inventario)
+- RegistroVentasPage.vue (GET /api/ventas)
+- ServiciosPage.vue (dashboard con enlaces a todo)
 
-### NavBar sin redundancia
-- Eliminados los 3 links centrales (Inventario, Análisis, Productos) — duplicados con SideBar
-- Solo logo + menú usuario (login/logout/registro)
+### Git
+- Frontend: commit `0c7e5f3` push a main
+- Backend: commit `efaf857` (gitignore + rm main binario) push a main
 
-### Login CSS mejorado
-- Contenedor 440px centrado
-- Formulario con sombra, inputs grandes, botón full-width
-
-### User Registration (backend)
-- `POST /api/registro` — endpoint público
-- Validación: nombre y password requeridos, duplicados detectados
-- Rol por defecto: `vendedor`, activo=true
-- Retorna JWT (auto-login tras registro)
-
-### User Registration (frontend)
-- `src/views/RegistroPage.vue` — formulario de registro
-- Ruta `/registro` en router
-- Link "Regístrate aquí" en LoginPage
-- Link "Registrarse" en NavBar (cuando no logueado)
-
-### Auth en ventasService.js
-- Agregados headers `Authorization: Bearer` a todas las llamadas del servicio de ventas
-
-### Entornos DEV/PROD separados
-- **DEV:** nginx 8080 → frontend `/var/www/dev/frontend/` → API proxy localhost:3000 → `cliente_dev`
-- **PROD:** nginx 80 → frontend `/var/www/prod/frontend/` → API proxy localhost:3001 → `cliente_prod`
-- Backend PROD: contenedor `backend-prod` con `DB_NAME=cliente_prod`
-- PROD DB tiene tablas: usuarios, productos, registro_ventas, registro_sesiones
-
-### Branches en Gitea
-- `feat/registro-usuarios` creada y push en backend + frontend
-- Backend: commit `f2ce5d3`
-- Frontend: commit `f4706b3`
-
-### nginx PROD
-- Agregado `location /uploads/ { proxy_pass http://localhost:3001; }` en ambos configs
-- PROD nginx ahora proxy a 3001 (backend-prod)
+### Obsidian
+- Actualizado [[MiNegocio]] con estado completo del proyecto
+- Creada guía [[MiNegocio - Deploy Prod]] con instrucciones Jenkins paso a paso
 
 ## Pendiente para próxima sesión
-- Configurar deploy PROD via Jenkins (Jenkinsfile ya existe)
 - Revisar ERS de Google Drive para planificar próximos sprints
-- Mergear `feat/registro-usuarios` a `main` cuando esté aprobado
+- Arreglar Dockerfile del backend para cross-compilation (GOARCH explícito) así Jenkins puede desplegar sin problemas
+- Configurar pipeline Jenkins también para frontend
+- Mergear ramas feature a develop/main si existen

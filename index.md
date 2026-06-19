@@ -1,16 +1,38 @@
-# Mi Vault de Memoria Persistente
+# MiVault
 
-Bienvenido a mi vault de conocimiento. Aquí [[opencode]] y Claude Code almacenan contexto persistente entre sesiones.
+## Proyectos
+- [[MiNegocio]]
+- [[MiNegocio - Dashboard]]
+- [[MiNegocio - Deploy Prod]] — Instrucciones Jenkins + despliegue producción
+- [[S2-Post-STL-Revert-Report]]
+- [[S2-Post-STL-Revert-Plan]]
+- [[S2-HU04 - Explicacion Codigo]]
+- [[mihon-suwayomi-sync]]
 
-## Estructura
-- \Knowledge/\ - Conceptos, [[decisiones]] técnicas, [[lecciones]] aprendidas
-- \Projects/\ - Contexto específico de proyectos
-- \Research/\ - Investigaciones de temas relevantes
-- \index.md\ - Este archivo (página de inicio)
+## Knowledge
+- [[agentes]]
+- [[como-usar]]
+- [[conexion-remota]]
+- [[configuracion-sesiones-ia]]
+- [[decisiones]]
+- [[lecciones]]
+- [[memoria-persistente]]
+- [[minegocio-sprint2]]
+- [[opencode]]
+- [[orden]]
+- [[ponytail]]
+- [[setup-sincronizacion]]
 
-## Research activo
-- [[mcp-ecosistema-2026]] — MCP ecosystem update
-- [[tailscale-headscale-2026]] — VPN mesh self-hosted
-- [[cachyos-performance]] — Tips de optimización
-- [[selfhosted-recomendados-2026]] — Apps para correr uno mismo
-- [[suwayomi-mihon-updates]] — Estado del proyecto manga sync
+## Research
+- [[cachyos-performance]]
+- [[mcp-ecosistema-2026]]
+- [[selfhosted-recomendados-2026]]
+- [[suwayomi-mihon-updates]]
+- [[tailscale-headscale-2026]]
+
+## Tasks
+- [[pending]]
+
+## Archivos Universitarios
+- [[Configuración de usuario de despliegue entre Server A (Jenkins) y Server B (Tomcat) Objetivo]]
+- [[Cuentas Jenkins-sonarqube]]
