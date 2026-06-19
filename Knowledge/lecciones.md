@@ -37,3 +37,7 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-18] DnD en KanbanBoard: usar `event.dataTransfer.set/getData('application/json', ...)` en vez de estado interno del componente, para que drag desde sidebar (fuera del KanbanBoard) funcione correctamente.
 - [2026-06-18] Al integrar bcrypt: el password_hash en DB debe ser el hash, no el texto plano. Para seed: generar con `bcrypt.GenerateFromPassword([]byte("1234"), bcrypt.DefaultCost)`.
 - [2026-06-18] ventasService.js no incluía header Authorization — corregido. Todas las llamadas API protegidas deben llevar Bearer token.
+- [2026-06-18] Al borrar CSS huérfanos (carritocompras.css), verificar imports en componentes. CarritoCompras.vue importaba el archivo eliminado y rompía el build.
+- [2026-06-18] LoginPage.vue con toggle Login/Registro: mantener el mismo padding/margins que base.css define; no duplicar estilos de botones en CSS de página.
+- [2026-06-18] AuthHandler mock necesita Register() para que handler tests compilen al agregar registro de usuarios.
+- [2026-06-18] La tabla registro_ventas ya existía en la BD pero con esquema distinto (id en vez de id_venta, sin FK, sin CHECK). Recreada para coincidir con venta_repository.go que espera id_venta, FK a productos/usuarios, y CHECK en precio_producto y cantidad.
