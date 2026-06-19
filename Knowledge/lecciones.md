@@ -45,6 +45,8 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-18] ALL: `Scan()` en PostgreSQL con NULL en campos string requiere `COALESCE(col, '')` o el Scan falla silenciosamente
 - [2026-06-18] Gitea API push via SSH requiere remote `git@gitea:user/repo.git`; HTTP requiere interactive auth o token en URL
 - [2026-06-18] Puertos originales: DEV=8080 PROD=8000 con nginx reverse proxy. Docker cambió a 3000/8081. nginx config tiene minegocio-dev que apunta a 8080→3000 correctamente
+- [2026-06-18] Investigación foto celular → `capture="environment"` en `<input type="file">` es lo mínimo. Para PC+celular como cámara externa: DroidCam/Iriun + getUserMedia. Docs en Research/foto-celular-minegocio.md
+- [2026-06-18] Investigación sync Obsidian+MCP multi-máquina → Syncthing para sync LAN + Git para backup. MCP configs sincronizados via vault. Docs en Research/sync-obsidian-mcp-multi-maquina.md
 
 ## 2026-06-18 — Sesión 3: Auth reactivo + redundancia nav
 
