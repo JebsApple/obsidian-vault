@@ -1,4 +1,6 @@
-tags: [proyecto/MiNegocio, documentacion, S2-HU04]
+---
+tags: [proyecto/minegocio, documentacion, S2-HU04]
+---
 
 # S2-HU04 — Explicación del Código Línea a Línea
 

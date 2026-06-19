@@ -28,4 +28,5 @@ Contraseña:
 Equipo1234567!
 
 [[Configuración de usuario de despliegue entre Server A (Jenkins) y Server B (Tomcat) Objetivo]]
-[[MiNegocio - Merge a Main]]
+[[MiNegocio - Deploy Prod]]
+[[Propuesta Taiga Sprint 3]]

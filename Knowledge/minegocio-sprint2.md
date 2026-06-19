@@ -1,3 +1,7 @@
+---
+tags: [proyecto/minegocio, sprint-2, plan]
+---
+
 # Minegocio — Sprint 2: Plan de trabajo
 
 **Fecha:** 2026-06-18  

@@ -1,3 +1,7 @@
+---
+tags: [configuracion, sincronizacion, obsidian, setup]
+---
+
 # Setup de sincronización en máquina nueva
 
 Instrucciones para que cualquier computadora pueda leer y escribir en el vault.

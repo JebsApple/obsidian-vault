@@ -1,4 +1,6 @@
+---
 tags: [configuracion, agentes, ia, setup]
+---
 
 # Configuración de Sesiones IA
 
