@@ -87,4 +87,16 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - SSH remote `git@gitea:user/repo.git` funciona sin contraseña
 - HTTP remote `http://192.168.50.28:3000/user/repo.git` requiere token en URL o auth interactiva
 - `git push gitea branch` funciona con SSH; origin (HTTP) requiere token
->>>>>>> 9e15ebc (feat: S2-Post-STL-Revert ejecutado + reporte de trabajo)
+
+## 2026-06-18 — Sesión 5: Documentación de código para exposición
+### Notas por integrante en Obsidian
+Se actualizaron/crearon 4 notas en `Projects/MiNegocio/` con explicación capa-por-capa del código actual post-revert:
+- **Ignacio Varela.md** — Ventas (S2-HU02): handler/service/repository ventas + POS frontend
+- **Gabriel Flores.md** — JWT (S2-HU03): auth middleware, jwt config, login/refresh/sesiones
+- **Nicolás Valdés.md** — Barcode + Inventario (S2-HU01): escáner en FormularioProducto + inventario_view
+- **Victor Herrera.md** — Imágenes (S2-HU04): upload middleware (magic bytes), galería, DB schema
+
+Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al profe ("¿dónde va función X?"), y cambios del post-revert.
+
+### Código extraído a ~/Downloads
+`~/Downloads/minegocio-frontend/` y `~/Downloads/minegocio-backend/` con el estado post-commit `898137e` y `19bbc55` respectivamente.

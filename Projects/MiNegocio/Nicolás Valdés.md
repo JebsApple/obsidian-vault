@@ -1,77 +1,179 @@
 ---
-tags: [proyecto/minegocio, integrante, nicolas, backend, inventario, database]
+tags: [proyecto/minegocio, integrante, nicolas, inventario, barcode]
 ---
 
-# Nicolás Valdés — Inventario API + Database Build
+# Nicolás Valdés — S2-HU01: Código de Barras + Inventario
 
-## Responsabilidad
+## Tasks del S2-Post-STL-Revert-Plan
 
-Endpoints de inventario (backend Go), vista de inventario en base de datos, y proceso de entrega de artefactos del proyecto.
+- **Inventario API:** Endpoints GET `/api/inventario` (backend Go) — se conservó post-revert.
+- **Código de barras:** Lector en `FormularioProducto.vue` (frontend) — se conservó.
+- **Base de datos:** Migraciones SQL, vista `inventario_view`.
 
-## Arquitectura (flujo inventario)
+---
+
+## Arquitectura general (capas — para el profe)
 
 ```
-Vue.js (InventarioPage.vue)
-  → GET /api/inventario
-    → Nginx → localhost:3000
-      → routes.go → inventario_handler.GetInventario
-        → inventario_service.GetAll (delega directo al repo)
-          → inventario_repository.GetAll
-            → SELECT ... FROM inventario_view WHERE activo = true
-              → PostgreSQL ejecuta la VIEW (CASE WHEN stock...)
+routes.go           → "direcciona la URL al handler"
+middleware/         → "filtros: JWT, validación de archivos"
+handler/            → "recibe HTTP, parsea parámetros, responde JSON"
+service/            → "lógica de negocio (acá casi no hay, es passthrough)"
+repository/         → "queries SQL a PostgreSQL"
+models/             → "structs con tags JSON"
 ```
 
-## Archivos a su cargo
+---
 
-### `handler/inventario_handler.go`
+## Feature A: Inventario API (Backend)
 
-**Línea por línea:**
+### Flujo GET /api/inventario
 
-1. `type InventarioHandler struct` — struct con referencia a `InventarioService`.
-2. `NewInventarioHandler(is)` — constructor (inyección de dependencias).
-3. `GetInventario(w, r)`:
-   - Setea Content-Type: application/json
-   - Llama `h.inventarioService.GetAll()` → lista de productos con stock y estado
-   - Si error → 500 con mensaje JSON
-   - Si ok → `json.NewEncoder(w).Encode(lista)`
-4. `PatchStock(w, r)`:
-   - Extrae `{id}` de la URL con `mux.Vars(r)`
-   - Decodifica `ActualizarStockReq{Stock}` del body
-   - Valida stock >= 0
-   - Llama `inventarioService.UpdateStock(id, req.Stock)`
-   - Responde con `{status:"ok", mensaje:"Stock actualizado"}`
+```
+Vue (InventarioPage.vue) → fetch GET /api/inventario
+  → routes.go:44 → protected subrouter → AuthMiddleware
+    → inventarioHandler.GetInventario (handler/inventario_handler.go:22)
+      → inventarioService.GetAll (service/inventario_service.go:16)
+        → inventarioRepository.GetAll (repository/inventario_repository.go:17)
+          → SELECT v.id, v.nombre, v.stock, v.estado
+            FROM inventario_view v
+            INNER JOIN productos p ON v.id = p.id
+            WHERE p.activo = true ORDER BY v.id ASC
+```
 
-### `service/inventario_service.go`
+### Handler (`handler/inventario_handler.go`)
 
-Capa de servicio que delega directamente al repositorio. `GetAll()` → `repo.GetAll()`, `UpdateStock()` → `repo.UpdateStock()`. Capa delgada que existe para mantener la arquitectura en capas uniforme, aunque actualmente no añade lógica de negocio extra.
+```go
+type InventarioHandler struct {
+    inventarioService *service.InventarioService  // ← usa tipo concreto, NO interfaz
+}
 
-### `repository/inventario_repository.go`
+GetInventario(w, r) → llama service.GetAll() → responde JSON array
+PatchStock(w, r)    → decodifica ActualizarStockReq, valida stock >= 0, actualiza
+```
 
-**Línea por línea:**
+⚠️ **Dato para el profe:** InventarioHandler usa tipo concreto (`*service.InventarioService`) en vez de interfaz, a diferencia de los demás handlers. Esto es una inconsistencia arquitectónica.
 
-1. `GetAll()`:
-   - Query: `SELECT v.id, v.nombre, v.stock, v.estado FROM inventario_view v INNER JOIN productos p ON v.id = p.id WHERE p.activo = true ORDER BY v.id ASC`
-   - Usa la `inventario_view` (creada por Victor) que calcula el estado del stock
-   - Filtra solo productos activos (soft delete)
-   - Itera rows con `rows.Next()` escaneando cada fila a `InventarioProducto{ID, Nombre, Stock, Estado}`
-   - Retorna slice de productos
+### Service (`service/inventario_service.go`)
 
-2. `UpdateStock(id, stock)`:
-   - `UPDATE productos SET stock = $1 WHERE id = $2 AND activo = true`
-   - Actualiza stock de un producto específico
+Passthrough puro. `GetAll()` → repo. `UpdateStock()` → repo. Sin lógica de negocio.
 
-### `inventario_view.sql`
+### Repository (`repository/inventario_repository.go`)
 
-Script SQL que crea la vista `inventario_view` (compartido con Victor — colaboración). Ver [[Victor Herrera#inventario_view.sql]].
+```go
+GetAll()      → SELECT ... FROM inventario_view v JOIN productos p ON v.id=p.id WHERE p.activo=true
+UpdateStock() → UPDATE productos SET stock=$1 WHERE id=$2 AND activo=true
+```
 
-### Database build (`backup_server.sql`)
+Usa `inventario_view` — una SQL VIEW que Victor creó (ver [[Victor Herrera]]).
 
-Scripts de carga inicial de la base de datos (`postgres/backup_server.sql`). Nicolás subió los archivos SQL iniciales al repositorio y creó el proceso de entrega de artefactos.
+### Ruta
 
-## Cómo explicar el flujo al exponer
+```go
+protected.HandleFunc("/inventario", inventarioHandler.GetInventario).Methods("GET")
+// PatchStock NO TIENE RUTA asignada (código muerto)
+```
 
-> "Cuando el usuario entra a Inventario, el frontend llama `GET /api/inventario`. El backend recibe la petición en `routes.go` que la dirige al `InventarioHandler.GetInventario()`. Este handler pide los datos al `InventarioService`, que se los pide al `InventarioRepository`. El repositorio ejecuta `SELECT * FROM inventario_view WHERE activo = true`. La vista `inventario_view` calcula el estado (Normal/Bajo/Agotado) según el stock. Los resultados vuelven como JSON al frontend, que los muestra en una tabla con colores según el estado."
+---
 
-## Proceso de Entrega (Gitea)
+## Feature B: Código de Barras (Frontend)
 
-Commit `7ccdc16 "🛠️ Proceso de Entrega y Carga de Artefactos (Gitea)"` en database. Nicolás creó el flujo de entrega: subir archivos SQL a Gitea para que el equipo pueda descargarlos y ejecutarlos en sus entornos locales.
+### ¿Dónde está?
+
+En `FormularioProducto.vue` (`src/components/FormularioProducto.vue`).
+
+### Cómo funciona
+
+```
+[Escáner USB/HID] → escribe dígitos + Enter en el input
+  → input @keyup.enter="procesarEscaneo"
+    → valida que sea solo dígitos
+    → busca en this.productos si el código ya existe
+      └→ Sí existe → carga producto en modo edición
+      └→ No existe → limpia formulario, mantiene código escaneado listo para completar datos
+```
+
+El escáner es tratado como un teclado externo. No tiene librería ni API especial. Solo escucha `keyup.enter` en un `<input>` con estilo diferenciado (borde azul + fondo verde).
+
+### Flujo de creación de producto con código de barras
+
+```
+FormularioProducto.vue
+  → input escanea código → procesarEscaneo()
+  → usuario llena nombre, precios, stock
+  → submit → fetch POST /api/productos
+    → routes.go → AuthMiddleware → CreateProducto handler
+      → productoService.Create → productoRepository.Insert
+        → INSERT INTO productos (nombre, codigo_barras, ...) RETURNING id
+```
+
+### Dependencias
+
+- No hay librería de escaneo — usa eventos nativos del DOM
+- `FormularioProducto.vue` es usado por `ProductosPage.vue` (ruta `/productos`)
+
+---
+
+## Feature C: Búsqueda de Productos (compartido)
+
+### `BuscadorProductos.vue`
+
+Componente reutilizable con:
+- Input de búsqueda con debounce 400ms
+- Filtros: precio min/max, stock status, orden
+- Emite evento `@buscar` con objeto de filtros al padre
+
+### `productosService.buscarProductos(params)`
+
+```javascript
+→ fetch GET /api/productos/buscar?q=...&precio_min=...&precio_max=...&stock_status=...&orden=...&limit=12&offset=...
+  → BuscarProductos handler (producto_handler.go:39)
+    → construye BuscarParams a partir de query params
+    → productoService.BuscarProductos(params)
+      → productoRepository.BuscarProductos(params)
+        → SELECT con ILIKE dinámico, price range, stock filter, ordering, pagination, total count
+```
+
+---
+
+## Base de Datos
+
+### Vista inventario_view
+
+```sql
+CREATE OR REPLACE VIEW inventario_view AS
+SELECT id, nombre, stock,
+    CASE WHEN stock >= 5 THEN 'Normal'
+         WHEN stock BETWEEN 1 AND 4 THEN 'Bajo'
+         ELSE 'Agotado'
+    END AS estado
+FROM productos;
+```
+
+### Migraciones
+
+- `registro_ventas/sprint2_create_registro_ventas.sql` — tabla `registro_ventas` con FK a `productos` y `usuarios`
+- `registro_sesiones/sprint2_create_registro_sesiones` — tabla `registro_sesiones`
+- Índice UNIQUE en `codigo_barras` de `productos`
+
+---
+
+## Keywords para la exposición
+
+| Pregunta del profe | Respuesta |
+|---|---|
+| ¿Dónde se procesa el escaneo de código de barras? | En `FormularioProducto.vue`, método `procesarEscaneo()` |
+| ¿El escáner necesita driver o librería especial? | No, es un HID que emula teclado. Solo escucha `keyup.enter` |
+| ¿Dónde se calcula el estado del inventario? | En la SQL VIEW `inventario_view`, con un `CASE WHEN` sobre stock |
+| ¿El inventario usa interfaz o tipo concreto? | Usa tipo concreto — inconsistencia arquitectónica |
+| ¿Dónde está la ruta de inventario? | `routes.go:44` — protegida con JWT |
+| ¿Cómo se busca un producto por código de barras? | `productosService.buscarProductos({q: codigo})` → backend hace ILIKE sobre nombre y codigo_barras |
+
+---
+
+## Post-Revert: qué cambió
+
+- `InventarioPage.vue` y `KanbanBoard.vue` del STL-redesign se eliminaron (pospuestos a S3)
+- El endpoint GET `/api/inventario` se conservó (estaba en `origin/main`)
+- El escáner de barras en `FormularioProducto.vue` se conservó (era parte de S2-HU01)
+- `PatchStock` quedó sin ruta (handler existe pero no se usa)

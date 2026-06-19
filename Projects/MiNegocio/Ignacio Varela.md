@@ -1,121 +1,135 @@
 ---
-tags: [proyecto/minegocio, integrante, ignacio, frontend]
+tags: [proyecto/minegocio, integrante, ignacio, ventas]
 ---
 
-# Ignacio Varela — Frontend Vue.js 3
+# Ignacio Varela — S2-HU02: Punto de Venta (Ventas API + POS)
 
-## Responsabilidad
+## Tasks del S2-Post-STL-Revert-Plan
 
-Estructura completa del frontend: App.vue, router, vistas principales, componentes reutilizables, estilos CSS.
+- **Backend:** Portar `venta_handler.go`, `venta_service.go`, `venta_repository.go` a la estructura post-revert.
+- **Frontend:** Mantener su POS (`VentasPage.vue` + `CarritoCompras.vue` + `ventasService.js`).
 
-## Arquitectura (flujo de una interacción)
+---
+
+## Arquitectura general (para estudiar)
+
+El backend está en capas. Cuando el profe pregunte "¿a dónde va esta función?", la respuesta es una de estas 5:
 
 ```
-App.vue (layout + nav global)
-  → router/index.js (carga la vista según la URL)
-    → views/*.vue (página completa con template + script + style)
-      → components/*.vue (componentes reutilizables dentro de vistas)
-        → services/*.js (fetch a API backend)
-          → Nginx proxy (/api/ → localhost:3000)
-            → Backend Go
+HTTP Request
+  → routes.go          (define qué URL → qué handler)
+    → middleware/       (filtros: JWT, upload — interceptan antes del handler)
+      → handler/        (recibe HTTP, parsea JSON, valida, llama al service)
+        → service/      (lógica de negocio — en este proyecto es mayormente passthrough)
+          → repository/  (SQL queries a PostgreSQL)
+            → models/    (structs con tags JSON)
+
+Respuesta JSON ← el camino inverso
 ```
 
-## Archivos a su cargo
+**Regla de oro:** Handler nunca toca la BD. Repository nunca ve HTTP. Service orquesta.
 
-### `src/App.vue`
+---
 
-**Template — línea por línea:**
+## Tu Feature: Ventas (Backend)
 
-1. `<header class="topbar">` — barra superior roja `#d60000` con logo, nav y botón login/logout.
-2. `<router-link to="/" class="logo">MiNegocio.cl</router-link>` — logo que redirige a home.
-3. `<nav class="nav-links">` — navegación central. Condicional: si hay token muestra todos los enlaces (Productos, Galería, Ventas, Inventario, Registro Ventas), si no solo "Inicio".
-4. `v-if="!token"` para Login, `v-else` para "Salir" (cierra sesión limpiando localStorage y redirigiendo).
-5. `<router-view />` — punto de entrada de las vistas cargadas por el router.
+### Flujo completo POST /api/ventas
 
-**Script:**
+```
+VentasPage.vue (click "Confirmar Venta")
+  → ventasService.registrarVenta(items)     → fetch POST /api/ventas
+    → routes.go (protected subrouter)        → AuthMiddleware (JWT)
+      → VentaHandler.RegistrarVenta()        → parsea JSON, valida items
+        → ventaService.Registrar(items, 0)   → passthrough
+          → ventaRepository.Insert(items)    → SQL transacción:
+               INSERT INTO registro_ventas + UPDATE stock
+```
 
-1. `computed: { token() }` — reactivo: cada vez que `localStorage.getItem('token')` cambia, Vue lo detecta y re-renderiza el nav.
-2. `cerrarSesion()` — elimina token y refresh_token del localStorage, redirige a `/login`.
+### Rutas (routes.go:47-48)
 
-**Style — puntos clave:**
-- `* { margin:0; padding:0; box-sizing:border-box }` — reset CSS básico.
-- `.topbar` — flexbox con `justify-content: space-between`, fondo `#d60000`.
-- `.nav-links` — flex `flex:1` centrado con `justify-content: center`.
-- `.login-btn` — botón blanco con texto rojo, destacado sobre el fondo rojo.
-- `.content` — padding 30px, min-height 70vh.
+```go
+protected.HandleFunc("/ventas", ventaHandler.RegistrarVenta).Methods("POST")
+protected.HandleFunc("/ventas", ventaHandler.GetVentas).Methods("GET")
+```
 
-### `src/router/index.js`
+Ambas protegidas con JWT (subrouter `/api` tiene `AuthMiddleware`).
 
-**Línea por línea:**
+### Handler (`handler/venta_handler.go`)
 
-1. `import { createRouter, createWebHistory }` — WebHistory = URLs sin `#` (ej: `/productos` en vez de `/#/productos`). Requiere que el servidor web (nginx) siempre sirva el index.html para rutas desconocidas.
-2. `import { getToken, isTokenExpired }` — funciones de `authService.js` para verificar sesión.
-3. **Array `routes`** — define 9 rutas con su componente, nombre, y opcionalmente `meta: { requiresAuth: true }`.
-4. `createRouter({ history: createWebHistory(), routes })` — crea la instancia.
-5. **`router.beforeEach((to, from, next) => ...)`** — guard de navegación: antes de cada ruta, si requiere auth y no hay token válido, redirige a `/login`.
+| Método | Qué hace | Cómo responder si el profe pregunta |
+|--------|----------|--------------------------------------|
+| `RegistrarVenta` | Decodifica `VentaRequest` del body → valida que items tengan `cantidad > 0` y `producto_id > 0` → llama `service.Registrar` → responde 201 con `{status:"ok", id}` | "El handler recibe la request HTTP, parsea el JSON, valida campos obligatorios, y delega al service" |
+| `GetVentas` | Llama `service.GetAll()` → responde JSON con lista | "Obtiene todas las ventas, las devuelve como JSON" |
 
-### `src/views/HomePage.vue`
+### Service (`service/venta_service.go`)
 
-**Línea por línea:**
+Passthrough puro. No tiene lógica de negocio. Solo llama al repository. Si el profe pregunta por qué existe: "Mantiene la arquitectura en capas uniforme; si en el futuro hay reglas de negocio (calcular impuestos, validar crédito), van aquí."
 
-1. `mounted()` — al cargar la página, si hay token redirige a `/servicios`, si no redirige a `/login`.
-2. Template: si no hay token, muestra mensaje "Bienvenido" con link a Login. Si hay token, muestra dashboard con enlaces.
+### Repository (`repository/venta_repository.go`)
 
-### `src/views/LoginPage.vue`
+Aquí está la lógica real:
 
-**Línea por línea:**
+- **Insert:** Usa una **transacción SQL**. Por cada item: `INSERT INTO registro_ventas (id_producto, precio_producto, cantidad, id_vendedor)` + `UPDATE productos SET stock = stock - $1 WHERE id=$2 AND stock >= $1`. Si stock insuficiente, el UPDATE no afecta filas y se hace rollback.
+- **GetAll:** `SELECT ... FROM registro_ventas LEFT JOIN productos ON ... ORDER BY fecha DESC LIMIT 100`
 
-1. `<form @submit.prevent="login">` — evita el refresh del formulario.
-2. `v-model="user"` y `v-model="pass"` — binding bidireccional a los datos del componente.
-3. `async login()`:
-   - `fetch('/api/login', { method:'POST', body: JSON.stringify({user,pass}) })` — llama al backend
-   - Si response.ok: guarda `data.token` en localStorage, redirige a `/servicios`
-   - Si no: muestra error "Usuario o contraseña incorrectos"
-   - Si hay error de red: muestra "Error conectando al servidor"
+### Models usados (`models/models.go`)
 
-### `src/views/ServiciosPage.vue`
+```go
+VentaItemReq   { ProductoID, Cantidad, PrecioUnitario }
+VentaRequest   { Items []VentaItemReq }
+VentaItem      { IDVenta, ProductoID, ProductoNombre, PrecioProducto, Cantidad, FechaVenta, IDVendedor }
+VentaResponse  { Status, ID }
+```
 
-Dashboard con botones-card para cada sección: Productos, Galería, Punto de Venta, Inventario, Registro Ventas. Cada card es un `<router-link>` con ícono y nombre.
+---
 
-### `src/views/ProductosPage.vue`
+## Tu Feature: Frontend POS
 
-**Línea por línea:**
+### VentasPage.vue — ruta `/ventas`
 
-1. `data()` — estado: `mostrarFormulario` (toggle), `productoEditando` (producto seleccionado), `productos` (lista desde API).
-2. `mounted()` → `cargarProductos()` — fetch GET /api/productos con token en header.
-3. `conmutarFormulario()` — toggle del formulario de crear/editar.
-4. `editarProducto(p)` — carga datos del producto en el formulario y hace scroll al inicio.
-5. `async eliminarProducto(id)` — confirm() → DELETE /api/productos/{id} → filtra localmente.
-6. Template: tabla con columnas (nombre con imagen, categoría, marca, stock con badge de color, precios, ganancia, código de barras, acciones editar/eliminar).
+```javascript
+mounted() → cargarProductos()
+  → productosService.buscarProductos({q, limit:20, offset, orden:'nombre'})
+  → pinta grid de cards con imagen, precio, stock
+  → click en card → agregarAlCarrito(p) → push a this.carrito
+  → CarritoCompras componente maneja cantidades y confirma venta
+```
 
-### `src/views/ProductosRegistrados.vue`
+Layout: panel izquierdo (grid productos) + panel derecho (CarritoCompras, 400px). Responsive: 1 columna en < 900px.
 
-Usa los componentes `BuscadorProductos` y `GaleriaProductos`. Maneja la búsqueda con filtros, paginación, y subida/eliminación de imágenes.
+### CarritoCompras.vue
 
-### `src/components/FormularioProducto.vue`
+Props: `items`. Botón "Confirmar Venta" → `ventasService.registrarVenta(items)` → emite `venta-completada`.
 
-**Componente destacado — 426 líneas.** Puntos clave:
+### ventasService.js
 
-1. **Props:** `producto` (para editar) y `productos` (lista para detectar duplicados por código de barras).
-2. **Drag & drop de imágenes:** usa eventos HTML5 nativos `@dragover.prevent`, `@drop.prevent`, `@change` en input file. Valida tipo MIME y tamaño ≤ 5MB.
-3. **Escáner de código de barras:** input con `@keyup.enter="procesarEscaneo"`. Al presionar Enter, valida que sea solo dígitos, busca si ya existe en la lista, y si existe carga sus datos para editar. Si no existe, limpia el formulario para crear nuevo producto con ese código.
-4. **Ganancia estimada:** computed property que calcula `precio_venta - precio_compra` en tiempo real.
-5. **Guardado:** POST/PUT a `/api/productos` según sea creación o edición, y si hay imagen pendiente la sube después con `productosService.uploadImagen()`.
+```javascript
+registrarVenta(items) → fetch POST /api/ventas con Bearer token
+getVentas()           → fetch GET /api/ventas con Bearer token
+```
 
-### `src/components/GaleriaProductos.vue`
+Lee token de `localStorage`. Usa `API_BASE` desde `config/api.js`.
 
-Grid de cards (4 columnas → 2 → 1 responsive) mostrando imagen, nombre, categoría, precio, stock badge. Botones para editar, eliminar, cambiar imagen. Método `formatPrecio()` con `toLocaleString('es-CL')`.
+### Dependencias
 
-### `src/components/BuscadorProductos.vue`
+**NO tiene axios.** Usa `fetch()` nativo. **NO** hay auth guards en router — cualquiera puede navegar a `/ventas`.
 
-Input de búsqueda con debounce (400ms) + filtros (precio min/max, stock status, orden). Emite evento `buscar` con el objeto de filtros al componente padre.
+---
 
-### Archivos CSS (`src/styles/`)
+## Keywords para la exposición
 
-6 archivos: `productos.css`, `login.css`, `servicios.css`, `home.css`, `contacto.css`, `carritocompras.css`. Cada vista importa su CSS correspondiente con `@import`.
+| Pregunta del profe | Respuesta |
+|---|---|
+| ¿Dónde se valida que los items tengan cantidad > 0? | En el handler `venta_handler.go:34-45` |
+| ¿Dónde se descuenta el stock al vender? | En el repository `venta_repository.go`, dentro de la transacción SQL |
+| ¿El service hace algo o solo pasa datos? | En ventas es passthrough — la lógica está en el repository (SQL transaccional) |
+| ¿Cómo llega la petición del frontend al backend? | `VentasPage.vue` → `ventasService.js` → `fetch POST /api/ventas` → nginx → `routes.go` → middleware → handler |
 
-## Colaboradores
+---
 
-- **LaManzana:** Separó estilos en capas y centralizó.
-- **IgVml:** Creó la página de Ventas original y ajustes de estilo.
-- **GFlores:** Cambios solicitados desde Taiga.
+## Post-Revert: qué cambió
+
+- Se eliminaron NavBar/SideBar/KanbanBoard/AnalisePage/InventarioPage del STL-redesign
+- Tu POS quedó intacto
+- LoginPage ahora guarda token en localStorage (antes no)
+- Las rutas protegidas ahora usan `AuthMiddleware` via subrouter

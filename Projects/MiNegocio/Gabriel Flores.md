@@ -1,145 +1,195 @@
 ---
-tags: [proyecto/minegocio, integrante, gabriel, backend]
+tags: [proyecto/minegocio, integrante, gabriel, auth, backend]
 ---
 
-# Gabriel Flores — Backend Go (Arquitectura en Capas)
+# Gabriel Flores — S2-HU03: JWT + Sesiones (Autenticación)
 
-## Responsabilidad
+## Tasks del S2-Post-STL-Revert-Plan
 
-Estructura completa del backend: configuración, inicialización, routing, handlers, servicios, repositorios, y middleware de autenticación.
+- **Backend:** Portar `config/jwt.go`, `middleware/auth_middleware.go`, `handler/auth_handler.go`, `service/auth_service.go` a la rama post-revert. NO portar archivos de reestructuración antigua.
+- **Frontend:** LoginPage guarda token en localStorage, router debería tener `beforeEach` global con `meta.requiresAuth`.
+- **Sesiones:** Endpoints `/api/sesiones/inicio` y `/api/sesiones/cierre`.
 
-## Arquitectura (flujo de una petición)
+---
+
+## Arquitectura general (capas)
+
+Cuando el profe pregunte "¿en qué capa está la lógica de X?", recordar:
 
 ```
-main.go (conexiones + wiring)
-  → routes.go (gorilla/mux: qué ruta llama a qué handler)
-    → middleware/auth_middleware.go (valida JWT antes de llegar al handler)
-      → handler/ (recibe HTTP request, parsea JSON, llama al service)
-        → service/ (lógica de negocio, orquesta repositorios)
-          → repository/ (SQL queries a PostgreSQL)
-            → models/ (structs de datos)
+routes.go          → "acá se definen las rutas y qué middleware las protege"
+middleware/        → "acá se intercepta la request antes del handler (JWT, upload)"
+handler/           → "acá se parsea el HTTP request y se delega al service"
+service/           → "acá está la lógica de negocio (generar tokens, hashear passwords)"
+repository/        → "acá están las queries SQL"
+models/            → "acá están las estructuras de datos compartidas"
 ```
 
-## Archivos a su cargo
+---
 
-### `main.go`
+## Tu Feature: JWT Auth (Backend)
 
-**Línea por línea:**
+### Flujo Login
 
-1. `func corsMiddleware(next http.Handler) http.Handler` — wrapper que añade headers CORS (`Access-Control-Allow-Origin: *`, métodos, headers) y maneja OPTIONS (preflight). Sin esto, el frontend en otro puerto no podría llamar al backend.
-2. `db, err := config.ConnectDB()` — conecta a PostgreSQL usando variables de entorno (DB_PASSWORD es obligatoria).
-3. `defer db.Close()` — cierra la conexión al terminar el programa.
-4. Creación de repositorios → servicios → handlers (inyección de dependencias manual).
-5. `router := routes.SetupRoutes(...)` — pasa todos los handlers al configurador de rutas.
-6. `os.MkdirAll("uploads/productos", 0755)` — crea directorio para imágenes si no existe.
-7. `router.PathPrefix("/uploads/").Handler(...)` — sirve archivos estáticos de imágenes.
-8. `http.ListenAndServe(":"+port, h)` — inicia el servidor HTTP.
+```
+POST /api/login (pública, sin JWT)
+  → routes.go:26 → authHandler.Login
+    → handler/auth_handler.go → parsea LoginRequest{user, pass}
+      → service/auth_service.go → Login(user, pass)
+        → repository/usuario_repository.go → GetByCredentials(user)
+          → SELECT ... FROM usuarios WHERE (nombre=$1 OR email=$1) AND activo=true
+        → bcrypt.CompareHashAndPassword
+        → config/jwt.go → GenerateToken(claims{UserID, Nombre, Rol})
+      → responde TokenResponse{status:"ok", token, refresh_token}
+```
 
-### `config/db.go`
+### Flujo Refresh Token
 
-**Línea por línea:**
+```
+POST /api/auth/refresh (pública)
+  → authHandler.Refresh → parsea RefreshTokenRequest
+    → authService.RefreshToken(refreshToken)
+      → jwt.ParseWithClaims → extrae UserID, Nombre, Rol
+      → config.GenerateToken (nuevo token de acceso, mismo refresh)
+```
 
-1. `ConnectDB()`:
-   - Lee `DB_PASSWORD` de entorno (falla si no existe — seguridad: no permite default).
-   - Construye connection string con `fmt.Sprintf` usando `getEnv()` para host (default `172.17.0.1` = IP del gateway Docker), port (5432), user (postgres), dbname (cliente_dev), sslmode (disable).
-   - `sql.Open("postgres", connStr)` abre la conexión (no la verifica — la verificación ocurre al primer query).
+### Archivo por archivo
 
-2. `getEnv(key, fallback)` — helper: si la variable de entorno existe la usa, si no usa el valor por defecto. Patrón común en Go para config 12-factor.
+#### `config/jwt.go`
 
-### `config/jwt.go`
+```go
+var JWTSecret          // clave HMAC desde JWT_SECRET env
+type Claims struct {   // payload del token
+    UserID, Nombre, Rol string
+    jwt.RegisteredClaims  // exp, iat, issuer
+}
+GenerateToken()         → JWT 24h firmado HMAC-SHA256
+GenerateRefreshToken()  → JWT 7 días
+```
 
-**Línea por línea:**
+**Pregunta típica:** "¿Dónde se define la duración del token?" → `config/jwt.go`, 86400s (24h) vía `JWT_EXPIRY` env.
 
-1. `var JWTSecret` — clave HMAC para firmar tokens, leída de `JWT_SECRET` o default hardcodeado (⚠️ cambiar en producción).
-2. `func init()` — Go ejecuta init() automáticamente al importar el paquete. Configura duración: token normal 86400s (24h), refresh 604800s (7 días), configurable vía entorno.
-3. `type Claims struct` — struct con `UserID`, `Nombre`, `Rol` + `jwt.RegisteredClaims` (estándar: issuer, exp, iat).
-4. `GenerateToken()` — crea token JWT firmado con HMAC-SHA256. Claims incluyen user_id, nombre, rol.
-5. `GenerateRefreshToken()` — igual pero con expiración más larga (7 días).
+#### `middleware/auth_middleware.go`
 
-### `handler/auth_handler.go`
+```go
+AuthMiddleware(next http.Handler) http.Handler
+  → Extrae header "Authorization"
+  → Verifica "Bearer " prefix
+  → jwt.ParseWithClaims → valida firma y expiración
+  → Si inválido → 401 "Token inválido o expirado"
+  → Si válido → next.ServeHTTP(w, r)  // pasa al handler
+```
 
-**Línea por línea:**
+⚠️ **Deuda técnica:** No extrae los claims (user_id, rol) para pasarlos al handler. El handler no sabe qué usuario hizo la request. El profe puede preguntar "¿cómo mejorarían esto?" → respuesta: "Extraer claims del token y ponerlos en el context de la request con `context.WithValue`."
 
-1. `type AuthHandler struct` — almacena referencia a `AuthServiceI` (interfaz, no struct concreto — permite testing con mocks).
-2. `Login(w, r)`:
-   - Setea Content-Type: application/json
-   - Decodifica body JSON a `LoginRequest{user, pass}`
-   - Valida: si JSON inválido → 400 "Datos inválidos"
-   - Llama `h.authService.Login(req.User, req.Pass)`
-   - Si error → 401 "Usuario o contraseña incorrectos"
-   - Si ok → encodea `AuthResponse` (token, refresh_token)
-3. `Refresh(w, r)`:
-   - Similar, decodifica `RefreshTokenRequest`
-   - Llama `authService.RefreshToken(req.RefreshToken)`
-   - Si inválido → 401
+#### `handler/auth_handler.go`
 
-### `handler/producto_handler.go`
+| Método | Ruta | Qué hace |
+|--------|------|----------|
+| `Login` | `POST /api/login` | Decodifica `LoginRequest`, llama `authService.Login`, responde token |
+| `Register` | `POST /api/register` | Decodifica `RegisterRequest`, llama `authService.Register` |
+| `Refresh` | `POST /api/auth/refresh` | Decodifica `RefreshTokenRequest`, llama `authService.RefreshToken` |
 
-Contiene 7 métodos: `GetProductos`, `BuscarProductos`, `CreateProducto`, `UpdateProducto`, `DeleteProducto`, `UploadProductoImagen`, `DeleteProductoImagen`. Cada uno sigue el mismo patrón: decodificar request → validar → llamar service → responder JSON.
+#### `service/auth_service.go`
 
-### `service/auth_service.go`
+Es el **único service con lógica real** (los demás son passthrough):
 
-**Línea por línea:**
+- **Login:** busca usuario por credenciales → bcrypt verify → genera tokens
+- **Register:** bcrypt hash → insert usuario → genera tokens
+- **RefreshToken:** parsea refresh token → extrae claims → genera nuevo token de acceso
 
-1. `Login(user, pass)`:
-   - Llama `usuarioRepo.GetByCredentials(user, pass)` — busca en DB donde `(nombre = $1 OR email = $1) AND password_hash = $2`
-   - Si encuentra: genera token JWT + refresh token con user info
-   - Retorna `AuthResponse{status:"ok", token, refresh_token}`
-2. `RefreshToken(refreshToken)`:
-   - Parsea el refresh token con `jwt.ParseWithClaims`
-   - Si válido: extrae claims (userID, nombre, rol)
-   - Genera NUEVO token de acceso (no refresh — el refresh sigue siendo el mismo)
-   - Retorna solo el nuevo token de acceso
+#### `repository/usuario_repository.go`
 
-### `service/producto_service.go`
+```go
+GetByCredentials(user) → SELECT ... WHERE (nombre=$1 OR email=$1) AND activo=true
+Insert(nombre, email, passwordHash, rol) → INSERT ... RETURNING id, nombre, email, rol
+```
 
-Lógica para CRUD de productos. `GetAllActive()` filtra con `activo = true`. `BuscarProductos()` construye query dinámicamente según filtros. `SoftDeleteProducto()` hace UPDATE activo=false en vez de DELETE real.
+Usa placeholders `$1`, `$2` de PostgreSQL (previene SQL injection).
 
-### `repository/usuario_repository.go`
+---
 
-**Línea por línea:**
+## Tu Feature: Sesiones (Backend)
 
-1. `GetByCredentials(user, pass string)`:
-   - `SELECT id, nombre, email, rol, activo FROM usuarios WHERE (nombre = $1 OR email = $1) AND password_hash = $2 AND activo = true`
-   - `$1` y `$2` son placeholders de PostgreSQL (evita SQL injection)
-   - `OR` permite login por nombre de usuario o por email
-   - `password_hash` se compara directamente (⚠️ deuda técnica: debería ser bcrypt)
+### Rutas (routes.go:51-52)
 
-### `middleware/auth_middleware.go`
+```go
+protected.HandleFunc("/sesiones/inicio", sesionHandler.RegistrarInicio).Methods("POST")
+protected.HandleFunc("/sesiones/cierre", sesionHandler.RegistrarCierre).Methods("POST")
+```
 
-**Línea por línea:**
+### Flujo
 
-1. `AuthMiddleware(next http.Handler) http.Handler` — patrón decorator de Go. Retorna un handler que:
-   - Extrae header `Authorization`
-   - Verifica que empiece con "Bearer "
-   - Si no → 401 "Token requerido"
-   - Extrae el token (saca "Bearer " del string)
-   - Lo parsea y valida con `jwt.ParseWithClaims` usando `JWTSecret`
-   - Si expiró o inválido → 401
-   - Si válido → `next.ServeHTTP(w, r)` (pasa al handler real)
-   - **No extrae los claims** (user_id, rol) para pasarlos al handler — solo valida existencia. ❌ Esto significa que los handlers no saben qué usuario hizo la petición.
+```
+POST /api/sesiones/inicio {id_usuario: 1}
+  → SesionHandler.RegistrarInicio → parsea SesionRequest{IDUsuario}
+    → sesionService.RegistrarInicio(idUsuario) → passthrough
+      → sesionRepository.InsertInicio(idUsuario)
+        → INSERT INTO registro_sesiones (id_usuario, inicio_sesion) VALUES ($1, NOW())
 
-### `models/models.go`
+POST /api/sesiones/cierre {id_usuario: 1}
+  → SesionHandler.RegistrarCierre
+    → sesionService.RegistrarCierre(idUsuario)
+      → sesionRepository.InsertCierre(idUsuario)
+        → UPDATE registro_sesiones SET cierre_sesion=NOW()
+          WHERE id_usuario=$1 AND cierre_sesion IS NULL
+          ORDER BY inicio_sesion DESC LIMIT 1
+```
 
-Define todas las structs del proyecto con sus tags JSON. Punto central de datos compartido entre handler → service → repository.
+### Models
 
-### `routes/routes.go`
+```go
+SesionRequest { IDUsuario int }
+SesionItem    { ID, IDUsuario, UsuarioNombre, InicioSesion, CierreSesion }
+```
 
-**Línea por línea:**
+---
 
-1. `func SetupRoutes(...) *mux.Router` — recibe los 4 handlers como parámetros (inyección de dependencias desde main.go).
-2. Crea `mux.NewRouter()`.
-3. **Rutas públicas** (sin middleware): POST `/api/login`, POST `/api/auth/login`, POST `/api/auth/refresh`.
-4. **Rutas protegidas** (con `AuthMiddleware`): todos los endpoints de productos, inventario y ventas.
-5. Imagen upload tiene doble middleware: `AuthMiddleware` + `UploadMiddleware` (valida tipo MIME y tamaño).
+## Tu Feature: Frontend Auth
 
-### `middleware/upload.go`
+### LoginPage.vue — ruta `/login`
 
-Valida que las imágenes subidas sean JPG/PNG/WebP y ≤ 5MB usando `DetectImageMIME()` que lee los primeros bytes del archivo (magic numbers) en vez de confiar en la extensión.
+```javascript
+login() → fetch POST /api/login
+  → guardarSesion(data) → localStorage.setItem('token', data.token)
+                           localStorage.setItem('usuario', JSON.stringify({nombre, email, rol}))
+  → this.$router.push('/analisis')
 
-## Colaboradores
+registrar() → fetch POST /api/register (similar)
+```
 
-- **MelusineZoe:** Implementó JWT (login, refresh, claims) sobre la estructura que Gabriel creó.
-- **NValdes:** Agregó endpoints de inventario (`inventario_handler.go`, `service`, `repository`).
-- **IgVml:** Agregó funciones de ventas (`venta_handler.go`, `venta_service.go`).
-- **LaManzana:** Agregó tests unitarios, interfaces y Jenkinsfile.
+**Dato clave:** No hay axios. No hay interceptors. No hay authGuard en el router. El router (`router/index.js`) **no tiene** `beforeEach` — cualquier ruta es accesible sin token. La protección visual es: NavBar oculta enlaces si no hay token (`v-if="!token"`).
+
+### authHeaders() en services
+
+Cada service (`ventasService.js`, `productosService.js`) tiene:
+
+```javascript
+function authHeaders() {
+  const token = localStorage.getItem('token') || ''
+  return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+}
+```
+
+---
+
+## Keywords para la exposición
+
+| Pregunta del profe | Respuesta |
+|---|---|
+| ¿Dónde se genera el JWT? | En `config/jwt.go:GenerateToken()` |
+| ¿Dónde se valida el JWT en cada request? | En `middleware/auth_middleware.go` |
+| ¿Qué pasa si el token expiró? | El middleware responde 401 "Token inválido o expirado" |
+| ¿Cómo se almacena la sesión? | No hay sesión del lado del servidor — es stateless JWT. Solo se registran inicio/cierre en `registro_sesiones` |
+| ¿Qué protege el middleware JWT? | Todas las rutas bajo `/api` excepto `/api/login` y `/api/register` |
+| ¿Cómo se enteran los handlers de quién es el usuario? | **No pueden** — el middleware no pasa los claims al context. Es deuda técnica. |
+| ¿Dónde están los secretos? | `JWT_SECRET` env var, con fallback a un string hardcodeado (⚠️ cambiar en prod) |
+
+---
+
+## Post-Revert: qué cambió
+
+- JWT se portó manteniendo estructura (no se mergeó `origin/S2-HU03` directamente — se portó manual)
+- Se agregó refresh token endpoint (`POST /api/auth/refresh`)
+- LoginPage ahora guarda token en localStorage (antes del revert, el STL-redesign tenía su propio store/auth.js)
+- Sesiones son feature aparte con sus propios handler/service/repository
