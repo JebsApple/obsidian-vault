@@ -112,7 +112,14 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 
 - [2026-06-20] XDG dirs en español: PICTURES=`~/Imágenes/`, Capturas=`~/Imágenes/Capturas de pantalla/`. Usar `xdg-user-dir PICTURES` en scripts en vez de hardcodear `~/Pictures/`.
 - [2026-06-20] En Hyprland .conf: `bindr` = key release, útil para hold-to-show (abrir al presionar, cerrar al soltar)
-- [2026-06-20] Python GTK3 `set_type_hint(Gdk.WindowTypeHint.POPUP_MENU)` fuerza floating en Hyprland sin window rules (que están rotas en 0.55)
+- [2026-06-20] wofi usa wlr-layer-shell por defecto → siempre flota, no necesita window rules ni togglefloating. Ideal para popups que antes requerían GTK+hyprctl hacks.
+- [2026-06-20] Python GTK3 para popup flotante en Hyprland requiere hacks (set_type_hint, togglefloating, delay) y window rules (rotas en 0.55). Alternativa: wofi --dmenu + CSS, nativamente flotante.
+
+- [2026-06-21] grimblast lock file en `$XDG_RUNTIME_DIR/grimblast.lock` — si el proceso no termina, el lock impide nuevas capturas. Solución: `rm -f $XDG_RUNTIME_DIR/grimblast.lock` antes de llamar grimblast.
+- [2026-06-21] `hyprctl notify` no muestra notificaciones con `vfr=true` (default). Workaround: incluir `fontsize:20` en el mensaje fuerza renderizado.
+- [2026-06-21] `notify-send` bloquea si no hay notification daemon. Siempre background (`&`) o con timeout.
+- [2026-06-21] Window rules (`windowrule=`, `windowrulev2=`) rotas en Hyprland 0.55 .conf parser. Para flotar ventanas: `hyprctl dispatch togglefloating` por script o `set_type_hint()` en GTK.
+- [2026-06-21] `yad --picture` para preview de screenshot, pero se abre como ventana tiled. Pendiente: lograr que flote sin window rules.
 
 ## 2026-06-18 — Sesión 5: Documentación de código para exposición
 ### Notas por integrante en Obsidian
