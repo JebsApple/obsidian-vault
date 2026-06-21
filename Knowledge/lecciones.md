@@ -53,6 +53,11 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-20] Audio HDMI distorsionado → cambiar perfil de `hdmi-surround71` a `hdmi-stereo` con `pavucontrol` o `wpctl`
 - [2026-06-20] SDDM funciona como DM para Hyprland; plasmalogin oculta sesión Hyprland
 - [2026-06-20] `~/.npm-global/bin` en PATH para opencode
+- [2026-06-20] Screenshots en Hyprland: `grim` (captura) + `wl-copy` (portapapeles). `spectacle` no funciona bien con `-b` (background)
+- [2026-06-20] Mouse buttons: `mouse:275` y `mouse:276` para botones laterales. Si no funcionan, probar otros números (277/278). Sin modificador ni `mod +`
+- [2026-06-20] Paste+Enter: `wl-paste | wtype -` y luego `wtype -k Return`. `wtype` simula tecleo en Wayland
+- [2026-06-20] Dwindle equalize: `splitratio 1` para splits 50/50, `splitratio 0.5` para 3 columnas iguales
+- [2026-06-20] Show desktop: toggle entre workspace actual y 99 (vacío) guardando estado en `/tmp/`
 
 ## 2026-06-18 — Sesión 3: Auth reactivo + redundancia nav
 
