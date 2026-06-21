@@ -61,6 +61,7 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-20] Ctrl+Shift+letra NO funciona en Hyprland 0.55 (bug conocido, binds se registran en `hyprctl binds` pero no ejecutan). Solución: usar Alt+Shift en vez de Ctrl+Shift.
 - [2026-06-20] Webcam Realtek 0bda:5855 (Hy FHD5350) falla con error -71 (EPROTO) constantemente. Fix: `options uvcvideo quirks=0x100` en modprobe.d + udev rule para deshabilitar autosuspend USB.
 - [2026-06-20] Sesiones SDDM: elegir "Hyprland" (sin paréntesis). "(direct)" y "(uwsm-managed)" son variantes que no se usan.
+- [2026-06-20] hyprpaper falla con "Monitor X has no target" si no matchea outputs correctamente. Solución: usar `wallpaper = eDP-1,/path` en vez de comodín.
 
 ## 2026-06-18 — Sesión 3: Auth reactivo + redundancia nav
 
