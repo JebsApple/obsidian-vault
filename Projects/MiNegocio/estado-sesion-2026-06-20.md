@@ -25,8 +25,13 @@ Configuración de Hyprland 0.55.4 en CachyOS. Post-it widget con atajos, webcam 
 - **Mouse 276/275**: screenshot / pegar+enter
 
 ### ❌ No funciona
-- **Ctrl+Shift+letra**: bug conocido Hyprland 0.55
-- **Fondo de pantalla**: hyprpaper corre pero "Monitor X has no target"
+- **Ctrl+Shift+letra**: bug conocido Hyprland 0.55 (workaround: Alt+Shift)
+- ~~**Fondo de pantalla**: hyprpaper corre pero "Monitor X has no target"~~ ✅ **FIXED** 2026-06-20: sintaxis anticuada (pre-v0.8). hyprpaper v0.8.4+ requiere bloques `wallpaper { monitor = ; path = ; }`. Se actualizó `hyprpaper.conf`.
+
+### 🛠️ Cambios realizados (2026-06-20)
+- **hyprpaper.conf**: convertido de sintaxis plana a bloques para v0.8.4
+- **hyprland.conf**: renombrado a `.bak` — Lua es el formato activo, el .conf viejo estaba huérfano
+- Verificado: `hyprctl hyprpaper listactive` → los 3 monitores (eDP-1, HDMI-A-1, WAYLAND-1) tienen wallpaper
 
 ### Archivos clave
 - `~/.config/hypr/hyprland.lua`
