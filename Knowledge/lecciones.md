@@ -47,6 +47,12 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-18] Puertos originales: DEV=8080 PROD=8000 con nginx reverse proxy. Docker cambió a 3000/8081. nginx config tiene minegocio-dev que apunta a 8080→3000 correctamente
 - [2026-06-18] Investigación foto celular → `capture="environment"` en `<input type="file">` es lo mínimo. Para PC+celular como cámara externa: DroidCam/Iriun + getUserMedia. Docs en Research/foto-celular-minegocio.md
 - [2026-06-18] Investigación sync Obsidian+MCP multi-máquina → Syncthing para sync LAN + Git para backup. MCP configs sincronizados via vault. Docs en Research/sync-obsidian-mcp-multi-maquina.md
+- [2026-06-20] Hyprland 0.55 en CachyOS requiere config Lua (.lua) — `.conf` deprecated
+- [2026-06-20] Dispatchers en Hyprland 0.55: `hl.dsp.focus({ workspace = N })`, `hl.dsp.layout("preselect right")`, `hl.dsp.window.resize({ x = -N, y = 0, relative = true })` — layout() toma UN solo string
+- [2026-06-20] 3 columnas iguales en dwindle: abrir con `preselect right` en cadena, luego resize -320px en win1 izquierda
+- [2026-06-20] Audio HDMI distorsionado → cambiar perfil de `hdmi-surround71` a `hdmi-stereo` con `pavucontrol` o `wpctl`
+- [2026-06-20] SDDM funciona como DM para Hyprland; plasmalogin oculta sesión Hyprland
+- [2026-06-20] `~/.npm-global/bin` en PATH para opencode
 
 ## 2026-06-18 — Sesión 3: Auth reactivo + redundancia nav
 
