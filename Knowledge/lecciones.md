@@ -59,6 +59,8 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-20] Dwindle equalize: `splitratio 1` para splits 50/50, `splitratio 0.5` para 3 columnas iguales
 - [2026-06-20] Show desktop: toggle entre workspace actual y 99 (vacío) guardando estado en `/tmp/`
 - [2026-06-20] Ctrl+Shift+letra NO funciona en Hyprland 0.55 (bug conocido, binds se registran en `hyprctl binds` pero no ejecutan). Solución: usar Alt+Shift en vez de Ctrl+Shift.
+- [2026-06-20] Webcam Realtek 0bda:5855 (Hy FHD5350) falla con error -71 (EPROTO) constantemente. Fix: `options uvcvideo quirks=0x100` en modprobe.d + udev rule para deshabilitar autosuspend USB.
+- [2026-06-20] Sesiones SDDM: elegir "Hyprland" (sin paréntesis). "(direct)" y "(uwsm-managed)" son variantes que no se usan.
 
 ## 2026-06-18 — Sesión 3: Auth reactivo + redundancia nav
 
