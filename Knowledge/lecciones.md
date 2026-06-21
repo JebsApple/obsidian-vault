@@ -110,6 +110,10 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - HTTP remote `http://192.168.50.28:3000/user/repo.git` requiere token en URL o auth interactiva
 - `git push gitea branch` funciona con SSH; origin (HTTP) requiere token
 
+- [2026-06-20] XDG dirs en español: PICTURES=`~/Imágenes/`, Capturas=`~/Imágenes/Capturas de pantalla/`. Usar `xdg-user-dir PICTURES` en scripts en vez de hardcodear `~/Pictures/`.
+- [2026-06-20] En Hyprland .conf: `bindr` = key release, útil para hold-to-show (abrir al presionar, cerrar al soltar)
+- [2026-06-20] Python GTK3 `set_type_hint(Gdk.WindowTypeHint.POPUP_MENU)` fuerza floating en Hyprland sin window rules (que están rotas en 0.55)
+
 ## 2026-06-18 — Sesión 5: Documentación de código para exposición
 ### Notas por integrante en Obsidian
 Se actualizaron/crearon 4 notas en `Projects/MiNegocio/` con explicación capa-por-capa del código actual post-revert:
