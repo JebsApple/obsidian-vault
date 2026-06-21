@@ -62,6 +62,11 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-20] Webcam Realtek 0bda:5855 (Hy FHD5350) falla con error -71 (EPROTO) constantemente. Fix: `options uvcvideo quirks=0x100` en modprobe.d + udev rule para deshabilitar autosuspend USB.
 - [2026-06-20] Sesiones SDDM: elegir "Hyprland" (sin paréntesis). "(direct)" y "(uwsm-managed)" son variantes que no se usan.
 - [2026-06-20] hyprpaper falla con "Monitor X has no target" si no matchea outputs correctamente. Solución: usar `wallpaper = eDP-1,/path` en vez de comodín.
+- [2026-06-20] Wiki Hyprland: `https://wiki.hypr.land/` — versionada, elegir tag release (no "latest git"). v0.55 usa Lua.
+- [2026-06-20] Marca de agua "read the wiki" en esquina: es branding de Hyprland (versión + link). Se oculta con `hl.config({ misc = { disable_hyprland_logo = true } })` pero necesita `hyprctl reload config` o reinicio para aplicar.
+- [2026-06-20] hyprpaper socket en `$XDG_RUNTIME_DIR/hypr/INSTANCE/.hyprpaper.sock`. Si hyprpaper está colgado (PID viejo), `hyprctl hyprpaper` falla. Solución: `killall hyprpaper && hyprpaper -c ~/.config/hypr/hyprpaper.conf &`
+- [2026-06-20] hyprctl hyprpaper comandos útiles: `listactive` (ver wallpapers activos), `preload`, `wallpaper monitor,path`. Si falla con "invalid request", reiniciar hyprpaper.
+- [2026-06-20] Regla ponytail: la config Lua en Hyprland 0.55 no requiere `.conf` ni `.lua` — Hyprland busca `hyprland.lua` automáticamente. Renombrar `.conf` a `.bak` para evitar confusión.
 
 ## 2026-06-18 — Sesión 3: Auth reactivo + redundancia nav
 
