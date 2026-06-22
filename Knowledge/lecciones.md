@@ -136,13 +136,23 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - [2026-06-21] Waybar no soporta `@keyframes` animations en su parser CSS (GTK CSS). Para efectos de parpadeo, usar cambio de color directo.
 
 - [2026-06-21] `hypr-player` creado: mini reproductor GTK3 flotante (esquina inferior-derecha). Polling cada 500ms con `playerctl`, album art vía Thread+urlopen, controles (play/pause/prev/next/seek/vol), cierre con ESC o ✕, singleton via PID file.
+- [2026-06-22] Documentación de sesión en `Projects/HyprPlayer-Audit.md` — auditoría completa con checklist de requerimientos, bugs conocidos, simplificaciones deliberadas y comandos de verificación.
 - [2026-06-21] `wl-gammarelay` registra D-Bus name `rs.wl-gammarelay`, object path `/`, interface `rs.wl.gammarelay`, propiedades `Brightness` (double) y `Temperature` (uint16). `busctl` requiere `--user` para session bus. `dbus-send` siempre funciona.
 - [2026-06-21] Waybar `mpris` module: nativo, sin exec, formato `{player_icon} {title}`, player-icons por nombre. `on-click` → `playerctl play-pause`, scroll → volumen.
 - [2026-06-21] brightness-focused: script que detecta monitor enfocado via `hyprctl monitors -j | jq`, usa `brightnessctl` para eDP-1, `ddcutil` fallback para externos (falla si DDC/CI no soportado).
 - [2026-06-21] **hyprsunset (custom build con PR #87 + IPC extendido)**: solución real para brillo per-monitor en HDMI sin DDC/CI. Usa `hyprland-ctm-control-v1` de Hyprland (per-output CTM). Comando IPC: `hyprctl hyprsunset gamma_output HDMI-A-1 0.5` (o `identity` para remover). Build desde fork con PR #87, modificado para aceptar `gamma_output` dinámico y usar `identity=true` para dimming puro sin cambio de temperatura de color.
 - [2026-06-21] **PR #87** (eam/hyprsunset) agrega per-output config pero solo estática. Se extendió con `gamma_output` IPC para control dinámico desde waybar. `SOutputOverride` movido a public para acceso desde IPC.
 - [2026-06-21] **brightness-cursor**: reemplaza brightness-focused. Detecta monitor vía coordenadas del cursor (no workspace enfocado). eDP-1 usa `brightnessctl` (hardware), HDMI-A-1 usa `hyprctl hyprsunset gamma_output` (gamma per-output). Estado persistido en `~/.local/state/brightness-hdmi`.
-- [2026-06-22] **hypr-player v3**: Layout horizontal 16:9 con Revealer SLIDE_UP. Ventana compacta (solo video) por defecto, se expande al mover mouse. YouTube thumbnail auto-extract: cuando `mpris:artUrl` es file:// y no existe, extrae video ID de `xesam:url` y descarga `i.ytimg.com/vi/{id}/hqdefault.jpg`. Colores Catppuccin morado/lavanda. Drag con `begin_move_drag`. Teclas ←/→ para seek.
+- [2026-06-22] **grim -T captura window content** con `stableId` (no `address`). `grim -t ppm` es 4x más rápido que PNG (~25ms vs 140ms por frame). Usado para capturar ventana de browser sin overlay del mini-player.
+- [2026-06-22] **hypr-player v4**: migración a `GDK_BACKEND=x11` + `Gtk.Socket` para embeber `mpv --vo=x11 --wid=<XID>`. Elimina captura con grim (muy lento). En su lugar, `yt-dlp -g` extrae stream URL de YouTube y mpv lo reproduce directo en el socket. `--no-audio` para no duplicar audio del browser.
+- [2026-06-22] **mpv --wid NO funciona en Wayland nativo** — crea su propia ventana separada. Necesita `--vo=x11` para forzar X11 VO y embederse correctamente en un socket XWayland.
+- [2026-06-22] **yt-dlp -g** devuelve 2 líneas (video + audio). Siempre usar `.split("\n")[0]` para tomar solo la primera URL.
+- [2026-06-22] **Avoid `subprocess.run` en callbacks de GTK** — bloquea el main loop. Usar `threading.Thread` para tareas largas (yt-dlp, descarga de imágenes).
+- [2026-06-22] **Race condition en _ensure_mpv**: si `update()` se llama cada 500ms y yt-dlp tarda 5s, se lanzan múltiples threads. Solución: flag `self.mpv_pending` que impide lanzar un segundo thread mientras el primero corre.
+- [2026-06-22] **position_window vs drag**: timer cada 200ms llama `win.move()` que pelea con `begin_move_drag`. Solución: skip `position_window` si `self.dragging`.
+- [2026-06-22] **Revealer animation resize** confunde a mpv embebido (X11 child window recibe resize events intermedios). Solución: `set_transition_duration(0)` — instántaneo.
+- [2026-06-22] **mpv IPC**: `--input-ipc-server=/tmp/hypr-mpv-{pid}.sock` + socket Unix desde Python. Comandos: `set_property time-pos` (seek), `set_property pause`, `add time-pos` (flechas).
+- [2026-06-22] **Iconos por player** en hypr-player: detectar via `playerctl -l` + `xesam:url`. YouTube →  + video embebido, Spotify →  + album art, etc.
 - [2026-06-21] `wl-gammarelay` reemplazado por hyprsunset. wl-gammarelay usa `wlr-gamma-control-v1` (global, todos los outputs afectados). hyprsunset usa `hyprland-ctm-control-v1` (per-output con CTM matrix). Servicio systemd deshabilitado.
 
 ## 2026-06-18 — Sesión 5: Documentación de código para exposición
