@@ -121,6 +121,29 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - [2026-06-21] `notify-send` bloquea si no hay notification daemon. Siempre background (`&`) o con timeout.
 - [2026-06-21] Window rules (`windowrule=`, `windowrulev2=`) rotas en Hyprland 0.55 .conf parser. Para flotar ventanas: `hyprctl dispatch togglefloating` por script o `set_type_hint()` en GTK.
 - [2026-06-21] `yad --picture` para preview de screenshot, pero se abre como ventana tiled. Pendiente: lograr que flote sin window rules.
+- [2026-06-21] **AudioSource** (gdzx/audiosource): app F-Droid + script Python (6KB). ADB forward del mic del celular → PulseAudio/PipeWire. No necesita módulos kernel ni virtual sinks. Instalar APK desde F-Droid, script en `~/.local/bin/audiosource`.
+- [2026-06-21] **AVream** (Kacoze/avream): celular como webcam+mic sin app dedicada. v1.0.11, activo (Mar 2026). No necesita app en el celular (usa ADB+scrcpy). GTK4/libadwaita, UI en español. Requiere `android-tools` (adb). En CachyOS con Hyprland funciona bien el mic (PipeWire), cámara requiere v4l2loopback que puede fallar con kernel custom.
+- [2026-06-21] **CachyOsTools** (XetalEngine): gestor completo en Qt6 (paquetes, servicios, tweaks, backup, red, logs). Compilar con CMake. Binario en `/usr/local/bin/CachyOsTools`. No requiere instalación, solo `cmake .. -DCMAKE_BUILD_TYPE=Release && make`.
+- [2026-06-21] **Better Control** (better-ecosystem/better-control): panel GTK3 moderno para Hyprland/GNOME/KDE. En AUR como `better-control-git`. Comandos: `control` (GUI), `betterctl` (update/uninstall). Probado en Hyprland, respeta dark/light theme.
+- [2026-06-21] **qpwgraph** (`pacman -S qpwgraph`): visualizador de grafos PipeWire, útil para depurar rutas de audio y conectar virtual sinks manualmente.
+- [2026-06-21] `audiosource volume 200%` — el volumen del micrófono desde celular suele ser bajo, necesita amplificación >100%.
+- [2026-06-21] PipeWire virtual mic permanente: config en `~/.config/pipewire/pipewire.conf.d/10-virtual-mic.conf` con módulo loopback. Temporal: `pw-loopback --capture-props='media.class=Audio/Source ...'`.
+- [2026-06-21] `control -L es` abre Better Control en español. El flag `-L` + código de idioma (es/en/pt) cambia el idioma de la UI.
+- [2026-06-21] CachyOsTools se compila con `cmake .. -DCMAKE_BUILD_TYPE=Release && make`. No necesita `make install` — el binario está en el build dir. Se copió a `/usr/local/bin/CachyOsTools`.
+- [2026-06-21] Waybar: los módulos `pulseaudio`, `network`, `battery`, `clock`, `bluetooth`, `custom/brightness`, `custom/power` tienen `on-click` apuntando a `control` (Better Control). Audio click izquierdo → `control -V`, derecho → `pavucontrol`. Brillo usa scroll up/down con `brightnessctl`.
+- [2026-06-21] Waybar bluetooth module necesita `bluez` corriendo. Formato: `` (off), ` {device}` (connected). `on-click` → `control -b`.
+- [2026-06-21] Waybar CSS: transiciones CSS (`transition: all 0.2s ease`) para hover en todos los módulos. Workspaces activos con `background: rgba(...)`. No usar `@keyframes` — el parser CSS de Waybar (GTK) falla con animaciones.
+- [2026-06-21] Waybar no soporta `@keyframes` animations en su parser CSS (GTK CSS). Para efectos de parpadeo, usar cambio de color directo.
+
+- [2026-06-21] `hypr-player` creado: mini reproductor GTK3 flotante (esquina inferior-derecha). Polling cada 500ms con `playerctl`, album art vía Thread+urlopen, controles (play/pause/prev/next/seek/vol), cierre con ESC o ✕, singleton via PID file.
+- [2026-06-21] `wl-gammarelay` registra D-Bus name `rs.wl-gammarelay`, object path `/`, interface `rs.wl.gammarelay`, propiedades `Brightness` (double) y `Temperature` (uint16). `busctl` requiere `--user` para session bus. `dbus-send` siempre funciona.
+- [2026-06-21] Waybar `mpris` module: nativo, sin exec, formato `{player_icon} {title}`, player-icons por nombre. `on-click` → `playerctl play-pause`, scroll → volumen.
+- [2026-06-21] brightness-focused: script que detecta monitor enfocado via `hyprctl monitors -j | jq`, usa `brightnessctl` para eDP-1, `ddcutil` fallback para externos (falla si DDC/CI no soportado).
+- [2026-06-21] **hyprsunset (custom build con PR #87 + IPC extendido)**: solución real para brillo per-monitor en HDMI sin DDC/CI. Usa `hyprland-ctm-control-v1` de Hyprland (per-output CTM). Comando IPC: `hyprctl hyprsunset gamma_output HDMI-A-1 0.5` (o `identity` para remover). Build desde fork con PR #87, modificado para aceptar `gamma_output` dinámico y usar `identity=true` para dimming puro sin cambio de temperatura de color.
+- [2026-06-21] **PR #87** (eam/hyprsunset) agrega per-output config pero solo estática. Se extendió con `gamma_output` IPC para control dinámico desde waybar. `SOutputOverride` movido a public para acceso desde IPC.
+- [2026-06-21] **brightness-cursor**: reemplaza brightness-focused. Detecta monitor vía coordenadas del cursor (no workspace enfocado). eDP-1 usa `brightnessctl` (hardware), HDMI-A-1 usa `hyprctl hyprsunset gamma_output` (gamma per-output). Estado persistido en `~/.local/state/brightness-hdmi`.
+- [2026-06-22] **hypr-player v3**: Layout horizontal 16:9 con Revealer SLIDE_UP. Ventana compacta (solo video) por defecto, se expande al mover mouse. YouTube thumbnail auto-extract: cuando `mpris:artUrl` es file:// y no existe, extrae video ID de `xesam:url` y descarga `i.ytimg.com/vi/{id}/hqdefault.jpg`. Colores Catppuccin morado/lavanda. Drag con `begin_move_drag`. Teclas ←/→ para seek.
+- [2026-06-21] `wl-gammarelay` reemplazado por hyprsunset. wl-gammarelay usa `wlr-gamma-control-v1` (global, todos los outputs afectados). hyprsunset usa `hyprland-ctm-control-v1` (per-output con CTM matrix). Servicio systemd deshabilitado.
 
 ## 2026-06-18 — Sesión 5: Documentación de código para exposición
 ### Notas por integrante en Obsidian
