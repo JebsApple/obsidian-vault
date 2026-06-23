@@ -29,26 +29,26 @@ Corregir `Dockerfile` con `GOOS=linux GOARCH=amd64` explícito. Crear/actualizar
 #### S3-HU01-T04: SonarQube local + Jenkins (Nicolás) — 30 jun → 4 jul
 Integrar análisis SonarQube en el pipeline de Jenkins y documentar cómo ejecutarlo localmente. Verificar que el escáner funcione desde ambos entornos.
 
-#### S3-HU01-T05: Limpieza de código muerto (Ignacio) — 23 jun → 27 jun
-Eliminar `HelloWorld.vue`, `plugins/axios.js`, `middleware/authGuard.js`, `esquema.sql`. Consolidar CSS duplicado en `GaleriaProductos.vue`. Remover `ventasService.getVenta(id)` si no se usa. Relación: DT-07, DT-08, DT-09, DT-13, DT-15, DT-16
+#### S3-HU01-T05: Limpieza de código muerto — frontend + backend (Ignacio) — 23 jun → 27 jun
+**Frontend:** Eliminar `HelloWorld.vue`, `plugins/axios.js` (+ dependencia axios de package.json), `middleware/authGuard.js`, `ContactoPage.vue`, `contacto.css`, `ventasService.getVenta(id)`. Consolidar CSS duplicado de botones/badges entre `GaleriaProductos.vue` y `productos.css`. Unificar umbral de stock bajo (Actual: <=4 en ProductosPage/InventarioPage vs <=10 en GaleriaProductos → usar constante en `src/utils/stockStatus.js`). Extraer `authHeaders()` duplicado a `src/utils/authHeaders.js`. `App.vue.cerrarSesion` usa `authService.logout()` en vez de replicar localStorage.removeItem. **Backend:** Eliminar `var magicBytes` de `middleware/upload.go`, structs `RegisterRequest`/`TokenResponse` de `models/models.go`, alias `/api/login` de `routes/routes.go`, campo `productRepo` no usado de `VentaService`. Colapsar `GenerateToken`/`GenerateRefreshToken` en una función con parámetro duration. Relación: DT-07, DT-08, DT-09, DT-13, DT-15, DT-16 + hallazgos PonytailAudit
 
 #### S3-HU01-T06: Control de acceso por rol + id_vendedor dinámico (Gabriel + Ignacio) — 27 jun → 2 jul
-AuthMiddleware extrae `user_id` y `rol` del JWT y los pasa al handler. Middleware `RequireRole("admin")` para rutas sensibles. Frontend obtiene `id_vendedor` desde localStorage en vez de hardcodear `1`. Archivos: `middleware/auth_middleware.go`, `middleware/role_middleware.go`, `routes/routes.go`, `CarritoCompras.vue`, `handler/venta_handler.go`. Relación: DT-04, DT-12
+AuthMiddleware extrae `user_id` y `rol` del JWT y los pasa al handler via `context.WithValue`. Middleware `RequireRole("admin")` para rutas sensibles (CRUD productos, inventario). Frontend obtiene `id_vendedor` desde `JSON.parse(localStorage.getItem('usuario')).id` en vez de hardcodear `1`. Backend valida que id_vendedor coincida con el token. Resolver inconsistencia arquitectónica: unificar que todos los handlers reciban interfaces (como AuthHandler/ProductoHandler) o ninguno. Archivos: `middleware/auth_middleware.go`, `middleware/role_middleware.go`, `routes/routes.go`, `CarritoCompras.vue`, `handler/venta_handler.go`, `handler/inventario_handler.go`, `handler/interfaces.go`, `service/interfaces.go`. Relación: DT-04, DT-12
 
 #### S3-HU01-T07: Sistema de Logs (Gabriel) — 2 jul → 6 jul
-Implementar logging estructurado del backend a un archivo (`logs/minegocio.log`) con rotación. Registrar peticiones HTTP, errores, y eventos de autenticación.
+Implementar logging estructurado del backend a archivo (`logs/minegocio.log`) con rotación diaria. Registrar: peticiones HTTP entrantes (método, ruta, status, duración), errores de base de datos, eventos de autenticación (login exitoso/fallido, token expirado). Niveles: INFO, WARN, ERROR. No usar librerías externas (log estándar de Go + writer a archivo).
 
 #### S3-HU01-T08: EndPoints documentados (Ignacio) — 5 jul → 8 jul
-Crear documento (PDF) con todos los endpoints de la API, métodos, parámetros, ejemplos de request/response.
+Crear documento (PDF) listando todos los endpoints de la API actual. Por cada endpoint: método HTTP, ruta completa, parámetros (query/body/headers), ejemplo de request, ejemplo de response (200/400/401/404/500), si requiere JWT. Incluir tabla de códigos de error del sistema y mapa de URLs (dev:8080, prod:8000, backend directo:3001 según mapeo de infraestructura actual).
 
 #### S3-HU01-T09: Reportes PDF y Excel (Nicolás) — 2 jul → 8 jul
-Implementar generación de reportes en formato PDF y Excel desde el backend. Endpoints `/api/reportes/ventas` que devuelvan archivos descargables con filtros por fecha.
+Implementar endpoints de generación de reportes descargables en el backend: `GET /api/reportes/ventas?formato=pdf&desde=&hasta=` y `GET /api/reportes/ventas?formato=xlsx&desde=&hasta=`. El reporte debe incluir: lista de ventas en el período, totales, top productos vendidos. En frontend, botón de descarga en la página de Ventas. Sin librerías externas para PDF (generar HTML → convertir con wkhtmltopdf o similar ya instalado en el servidor). Para XLSX, usar `excelize` o similar de Go.
 
 #### S3-HU01-T10: Quitar comentarios en inglés del código (Victor) — 23 jun → 27 jun
-Revisar todo el códigobase (frontend y backend) y reemplazar comentarios en inglés por español, o eliminarlos si son redundantes. Aplicar criterio ponytail: si el código se explica solo, el comentario sobra.
+Revisar todo el códigobase. Comentarios en inglés → español o eliminar si son redundantes. Objetivos específicos: comentarios en `models/models.go` que no aportan ("model se usa para identificar las tablas de bd y como dto"), código comentado (`//import "time"` en repository/usuario_repository.go), y hallazgos de PonytailAudit. Aplicar criterio ponytail: si el código se explica solo, el comentario sobra.
 
 #### S3-HU01-T11: Reparar READMEs del proyecto (Victor) — 27 jun → 30 jun
-Actualizar `README.md` de frontend y backend con: descripción del proyecto, stack tecnológico, instrucciones de instalación/ejecución, estructura de directorios, y enlaces a documentación relacionada. Unificar formato entre ambos.
+Reescribir `README.md` de frontend y backend con contenido consistente. Debe incluir: descripción del proyecto, stack tecnológico (Go + gorilla/mux + PostgreSQL para backend, Vue 3 + vue-router para frontend), instrucciones paso a paso para dev (clonar, variables de entorno, DB, npm install/go run, puertos) y para prod (Docker, build, despliegue), URLs de ambientes (http://192.168.50.25:8000 prod, :8080 dev), estructura de directorios, y enlaces a documentación. Corregir inconsistencia actual (rubric: README dice nginx pero usan Docker en prod).
 
 ---
 
@@ -59,16 +59,16 @@ Actualizar `README.md` de frontend y backend con: descripción del proyecto, sta
 ### Tareas
 
 #### S3-HU02-T01: NavBar y SideBar (Victor) — 23 jun → 30 jun
-Recuperar componentes NavBar y SideBar del STL-redesign. NavBar superior con logo, menú de usuario y notificaciones. SideBar colapsable con enlaces a todas las secciones. Adaptar a la paleta actual (#D60000, blanco, #2C3E50). Archivos: `src/components/NavBar.vue`, `src/components/SideBar.vue`, `src/components/LogoSVG.vue`
+Recuperar componentes NavBar y SideBar del STL-redesign (commits pasados). NavBar superior con logo SVG, menú de usuario (nombre desde localStorage), indicador de sesión activa y botón de cerrar sesión. SideBar colapsable con iconos y enlaces a: Dashboard, Productos, Registrados, Ventas, Inventario. Adaptar paleta actual (#D60000 primario, blanco fondo, #2C3E50 texto). Responsive: SideBar se oculta en <768px mostrando solo iconos o menú hamburguesa. Archivos: `src/components/NavBar.vue`, `src/components/SideBar.vue`, `src/components/LogoSVG.vue`, `src/App.vue` (layout con sidebar)
 
 #### S3-HU02-T02: KanbanBoard de Inventario (Victor) — 30 jun → 4 jul
-Recuperar componente KanbanBoard del STL-redesign. Tablero drag & drop con 4 columnas (Agotado, Bajo, Normal, Exceso). Integrar con endpoint `PATCH /api/inventario/{id}/stock`. Archivos: `src/components/KanbanBoard.vue`, `routes/routes.go` (backend, si falta la ruta)
+Recuperar componente KanbanBoard del STL-redesign. Tablero drag & drop con 4 columnas (Agotado — stock=0, Bajo — stock 1-4, Normal — stock 5+, Exceso — stock>20). Las cards muestran nombre, código de barras, imagen (thumbnail) y stock actual. Al soltar en otra columna, llama `PATCH /api/inventario/{id}/stock` con el nuevo valor. Si la ruta PATCH no existe en backend, crearla en `routes/routes.go`. Usar umbrales unificados (definir constante en utils/stockStatus.js). Archivos: `src/components/KanbanBoard.vue`, `routes/routes.go`, `handler/inventario_handler.go`
 
 #### S3-HU02-T03: Dashboard principal (Victor) — 4 jul → 8 jul
-Página de inicio con resumen visual: cards con KPIs (total productos, ventas del día, stock bajo), enlaces rápidos a secciones. Archivos: `src/views/AnalisePage.vue`
+Rediseñar página de inicio (`AnalisePage.vue`) con cards de KPIs: total productos, ventas del día, stock bajo (umbral <=4), productos agotados. Cada card con icono y color semántico. Enlaces rápidos a Galería, Ventas, Inventario. Últimas 5 ventas registradas (tabla pequeña). Sin librerías externas — CSS grid/flexbox nativo. Archivos: `src/views/AnalisePage.vue`
 
 #### S3-HU02-T04: Testing frontend (Victor) — 5 jul → 8 jul
-Agregar tests básicos al frontend (al menos 1 test por componente principal) usando Vitest o Vue Test Utils.
+Agregar tests básicos con Vitest. Prioridad: 1 test por componente recuperado (NavBar, SideBar, KanbanBoard) verificando render básico y props. 1 test de integración para flujo login → token en localStorage → redirección. Sin TypeScript, sin librerías de test adicionales (vitest ya viene con vue-cli). Archivos: tests en `src/__tests__/`
 
 ---
 
@@ -79,20 +79,24 @@ Agregar tests básicos al frontend (al menos 1 test por componente principal) us
 ### Tareas
 
 #### S3-HU03-T01: Endpoints de estadísticas de ventas (Ignacio) — 23 jun → 28 jun
-Crear endpoints en el backend:
-- `GET /api/ventas/stats` — resumen: total ventas mes, ventas hoy, ticket promedio
-- `GET /api/ventas/top-productos?limit=10&desde=&hasta=` — productos más vendidos
-- `GET /api/ventas/tendencias?meses=12` — evolución mensual de ventas
-Archivos: `handler/venta_handler.go`, `service/venta_service.go`, `repository/venta_repository.go`
+Crear endpoints backend para el dashboard:
+- `GET /api/ventas/stats` — resumen del día/mes: cantidad ventas, total $, ticket promedio, producto más vendido
+- `GET /api/ventas/top-productos?limite=10&desde=&hasta=` — top N productos por cantidad vendida, con nombre, código, total unidades, total $, % del total
+- `GET /api/ventas/tendencias?meses=12` — array mes a mes: {mes, año, total_ventas, cantidad_ventas, variacion_% respecto al mes anterior}
+Todos los endpoints requieren JWT y responden JSON. Response con errores semánticos (400 bad request si faltan parámetros, 401 si token inválido). Archivos: `handler/venta_handler.go`, `service/venta_service.go`, `repository/venta_repository.go`, `routes/routes.go`
 
 #### S3-HU03-T02: Backend — agrupar ventas por período (Ignacio) — 28 jun → 2 jul
-Consultas SQL para agrupar ventas por día, mes, año. Calcular variación porcentual respecto al período anterior. Implementar en repository con escaneo a structs.
+Consultas SQL en `venta_repository.go` para agrupar ventas: por día (`DATE(fecha_venta)`), por mes (`DATE_TRUNC('month', fecha_venta)`), por año. Calcular variación porcentual con LAG. JOIN con productos para top-productos (tabla venta_items). Escanear resultados a structs nuevas en models. Archivos: `repository/venta_repository.go`, `models/models.go`
 
 #### S3-HU03-T03: Componentes de gráficos en frontend (Ignacio) — 2 jul → 6 jul
-Crear componentes Vue para visualizar datos: `TopProductos.vue` (tabla/barras con productos más vendidos), `TendenciaVentas.vue` (gráfico de línea con evolución mensual), `ResumenStats.vue` (cards con KPIs). Sin librerías externas (CSS nativo o SVG inline).
+Componentes Vue para visualización de datos (sin librerías externas — CSS nativo + SVG inline o divs con height dinámico):
+- `TopProductos.vue` — tabla ordenable + barras horizontales proporcionales al %
+- `TendenciaVentas.vue` — gráfico de línea SVG con meses en eje X, monto en eje Y, tooltip al hover
+- `ResumenStats.vue` — 4 cards: ventas hoy, ventas mes, ticket promedio, producto top
+Props tipadas (sin TS, usar comentarios JSDoc). Cada componente acepta datos y estado de carga/error. Archivos: `src/components/TopProductos.vue`, `src/components/TendenciaVentas.vue`, `src/components/ResumenStats.vue`
 
 #### S3-HU03-T04: Página Dashboard Ventas (Ignacio) — 6 jul → 8 jul
-Nueva ruta `/dashboard-ventas` con layout de estadísticas. Integrar todos los componentes de gráficos. Filtros por rango de fechas. Archivos: `src/views/DashboardVentas.vue`, `src/router/index.js`
+Nueva vista `DashboardVentas.vue` que integra los 3 componentes de stats. Layout: ResumenStats arriba (fila de 4 cards), luego TendenciaVentas (ancho completo), luego TopProductos (tabla). Selector de rango de fechas (fecha inicio, fecha fin) que recarga los datos. Ruta `/dashboard-ventas` registrada en router/index.js con meta.requiresAuth. Llamadas a los 3 endpoints con fetch nativo + auth headers. Manejo de estados: loading (skeleton/spinner), error (mensaje visible), empty (texto "sin datos"). Archivos: `src/views/DashboardVentas.vue`, `src/router/index.js`
 
 ---
 
@@ -104,21 +108,21 @@ Nueva ruta `/dashboard-ventas` con layout de estadísticas. Integrar todos los c
 | S3-HU01-T02 | JWT_SECRET por entorno | Gabriel | 23 jun → 27 jun | 🔴 Crítica |
 | S3-HU01-T03 | Docker multi-arch + Jenkins | Nicolás | 23 jun → 30 jun | 🔴 Crítica |
 | S3-HU01-T04 | SonarQube local + Jenkins | Nicolás | 30 jun → 4 jul | 🟡 Alta |
-| S3-HU01-T05 | Limpieza código muerto | Ignacio | 23 jun → 27 jun | 🟢 Media |
-| S3-HU01-T06 | Control acceso + id_vendedor | Gabriel + Ignacio | 27 jun → 2 jul | 🟡 Alta |
-| S3-HU01-T07 | Sistema de Logs | Gabriel | 2 jul → 6 jul | 🟡 Alta |
-| S3-HU01-T08 | EndPoints documentados | Ignacio | 5 jul → 8 jul | 🟡 Alta |
-| S3-HU01-T09 | Reportes PDF y Excel | Nicolás | 2 jul → 8 jul | 🟡 Alta |
-| S3-HU01-T10 | Quitar comentarios inglés | Victor | 23 jun → 27 jun | 🟢 Media |
-| S3-HU01-T11 | Reparar READMEs | Victor | 27 jun → 30 jun | 🟢 Media |
-| S3-HU02-T01 | NavBar y SideBar | Victor | 23 jun → 30 jun | 🟡 Alta |
-| S3-HU02-T02 | KanbanBoard | Victor | 30 jun → 4 jul | 🟡 Alta |
-| S3-HU02-T03 | Dashboard principal | Victor | 4 jul → 8 jul | 🟡 Alta |
-| S3-HU02-T04 | Testing frontend | Victor | 5 jul → 8 jul | 🟢 Media |
-| S3-HU03-T01 | Endpoints estadísticas | Ignacio | 23 jun → 28 jun | 🟡 Alta |
-| S3-HU03-T02 | SQL agrupación ventas | Ignacio | 28 jun → 2 jul | 🟡 Alta |
-| S3-HU03-T03 | Componentes gráficos | Ignacio | 2 jul → 6 jul | 🟡 Alta |
-| S3-HU03-T04 | Página Dashboard Ventas | Ignacio | 6 jul → 8 jul | 🟡 Alta |
+| S3-HU01-T05 | Limpieza código muerto (frontend+backend) | Ignacio | 23 jun → 27 jun | 🟢 Media |
+| S3-HU01-T06 | Control acceso por rol + id_vendedor dinámico | Gabriel + Ignacio | 27 jun → 2 jul | 🟡 Alta |
+| S3-HU01-T07 | Sistema de Logs backend | Gabriel | 2 jul → 6 jul | 🟡 Alta |
+| S3-HU01-T08 | Documentación de EndPoints (PDF) | Ignacio | 5 jul → 8 jul | 🟡 Alta |
+| S3-HU01-T09 | Reportes PDF y Excel descargables | Nicolás | 2 jul → 8 jul | 🟡 Alta |
+| S3-HU01-T10 | Quitar comentarios en inglés del código | Victor | 23 jun → 27 jun | 🟢 Media |
+| S3-HU01-T11 | Reparar READMEs (frontend+backend) | Victor | 27 jun → 30 jun | 🟢 Media |
+| S3-HU02-T01 | NavBar y SideBar desde STL-redesign | Victor | 23 jun → 30 jun | 🟡 Alta |
+| S3-HU02-T02 | KanbanBoard de Inventario drag & drop | Victor | 30 jun → 4 jul | 🟡 Alta |
+| S3-HU02-T03 | Dashboard principal con KPIs | Victor | 4 jul → 8 jul | 🟡 Alta |
+| S3-HU02-T04 | Testing frontend con Vitest | Victor | 5 jul → 8 jul | 🟢 Media |
+| S3-HU03-T01 | Endpoints de estadísticas de ventas | Ignacio | 23 jun → 28 jun | 🟡 Alta |
+| S3-HU03-T02 | SQL agrupación ventas por período | Ignacio | 28 jun → 2 jul | 🟡 Alta |
+| S3-HU03-T03 | Componentes de gráficos (Top/Tendencia/Stats) | Ignacio | 2 jul → 6 jul | 🟡 Alta |
+| S3-HU03-T04 | Página Dashboard Ventas con filtros | Ignacio | 6 jul → 8 jul | 🟡 Alta |
 
 ---
 
@@ -127,3 +131,5 @@ Nueva ruta `/dashboard-ventas` con layout de estadísticas. Integrar todos los c
 - [[Deuda Técnica]] — items DT-01 a DT-16
 - [[Propuesta Taiga Sprint 3]] — propuesta anterior con más HUs
 - [[rubricaEquipo6]] — rúbrica de evaluación
+- [[PonytailAudit-2026-06-19]] — auditoría de código muerto e inconsistencias
+- [[Auditoria-Presentacion-2026-06-20]] — auditoría de estado pre-presentación
