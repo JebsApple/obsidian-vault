@@ -102,14 +102,52 @@ La clase `expanded` es la que activa el background highlight en CSS.
 - Si título > 29 chars y hover=True → ticker marquee a 6 chars/seg
 - Sin reproducción → ícono  dimmed
 
-## hypr-player
+## hypr-player (v7 — 2026-06-23)
 
-GTK4, app_id `com.github.hypr-player`. Hyprland rules:
+GTK3 (XWayland, `GDK_BACKEND=x11`), título `hypr-player`. **Sin mpv, sin yt-dlp.**
+
+### Approach actual: MPRIS puro
+- Controla el browser directamente via `playerctl` (prev/next/play-pause/seek/position)
+- `playerctl position` sí devuelve posición real de YouTube en tiempo real (via plasma-browser-integration)
+- Polling 500ms → progress bar + tiempo sincronizados con el browser
+- D-Bus `PropertiesChanged` → cambio de canción detectado instantáneamente
+
+### Arquitectura
 ```
-windowrulev2 = float, class:^(com.github.hypr-player)$
-windowrulev2 = pin,   class:^(com.github.hypr-player)$
-windowrulev2 = size 420 300, class:^(com.github.hypr-player)$
+PlayerWin
+  ├── ArtWidget (Gtk.DrawingArea + Cairo) — esquinas redondeadas, cover fill, gradiente inferior
+  ├── Labels: título (bold), artista (muted)
+  ├── HScale progress + label tiempo "MM:SS / MM:SS"
+  └── HBox: [prev] [play (pill)] [next] ── [VolumeButton]
+
+Threading:
+  Main loop GTK ← GLib.idle_add ← background threads (playerctl)
+  Poll 500ms → _fetch_position → GLib.idle_add(_update_position)
+  D-Bus signal → thread → _fetch_meta → GLib.idle_add(_apply_meta)
 ```
+
+### Dimensiones
+- Ventana: 380px ancho, RGBA (`rgba(24,24,37,0.95)`) con border-radius 16px
+- Art: 380×210px, DrawingArea con Cairo (rounded top 12px, cover-fill, gradiente)
+- Posición: esquina inferior-derecha del monitor donde está el cursor
+
+### Parámetros
+```bash
+hypr-player --player=yt     # YouTube (default)
+hypr-player --player=music  # Spotify / YouTube Music
+hypr-player --player=vlc    # VLC
+```
+
+### Hyprland (posicionamiento manual via hyprctl)
+La ventana usa `title:hypr-player`. `_position_window()` llama `hyprctl dispatch movewindowpixel exact X Y` a los 300ms del arranque.
+
+### Versiones anteriores
+| Versión | Approach | Problema |
+|---------|----------|----------|
+| v4 | GTK3 + Gtk.Socket + mpv XWayland | `realize` signal ya disparado cuando se conecta |
+| v5 | python-mpv + D-Bus polling | Threading deadlock en terminate() |
+| v6 | mpv subprocess + IPC socket JSON | Reproduce stream independiente (no sync con browser) |
+| v7 | MPRIS puro (playerctl) | ✓ Sincronizado con el browser en tiempo real |
 
 ## Backups
 

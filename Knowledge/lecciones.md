@@ -165,6 +165,17 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - [2026-06-22] **css font-size 0 + font_size='10pt' en Pango markup** para ocultar texto de módulo sin ocultar el icono. El span del icono usa tamaño absoluto Pango, el texto hereda font-size 0 del widget.
 - [2026-06-22] **VLC no setea xesam:title** — fallback a `os.path.basename(urllib.parse.unquote(xesam:url))` para extraer nombre de archivo.
 
+## 2026-06-23 — Audio cleanup + hypr-player v7
+
+- [2026-06-23] **`playerctl position` sí devuelve posición real del video YouTube** via `plasma-browser-integration` MPRIS bridge. No hace falta mpv paralelo para sync — `playerctl position <seg>` seek también llega al browser.
+- [2026-06-23] **mpv subprocess paralelo (yt-dlp stream) no sincroniza con el browser** — si el usuario seekea en el browser, mpv sigue en la posición anterior. Para control real del browser, usar MPRIS puro.
+- [2026-06-23] **`snd_aloop` (ALSA loopback)** se carga via `/etc/modules-load.d/snd-aloop.conf`. Eliminar el archivo + `rmmod snd_aloop` es suficiente para quitarlo permanentemente. No afecta audio real.
+- [2026-06-23] **WirePlumber default-nodes** persiste en `~/.local/state/wireplumber/default-nodes`. Si apunta a un dispositivo eliminado (`snd_aloop`), el audio vuelve al loopback en cada reinicio. Limpiar manualmente con `wpctl set-default <id>` + editar el state file.
+- [2026-06-23] **WirePlumber `api.acp.auto-profile = true`** en `~/.config/wireplumber/wireplumber.conf.d/50-audio-defaults.conf` hace que el card profile correcto (`analog-stereo+input`) se seleccione automáticamente en cada boot, sin necesidad de `pactl set-card-profile` manual.
+- [2026-06-23] **Cairo `LinearGradient` en GTK3**: `import cairo` (pycairo, incluido con PyGObject). `cr` en callbacks `draw` ya es `cairo.Context`. Usar `cairo.LinearGradient(x0,y0,x1,y1)` + `add_color_stop_rgba`.
+- [2026-06-23] **`Gtk.DrawingArea` para arte con esquinas redondeadas**: hacer clip Cairo antes de pintar el pixbuf. `cr.arc()` + `cr.clip()` + `Gdk.cairo_set_source_pixbuf()`. Más confiable que CSS `border-radius` que no clipea widgets hijos.
+- [2026-06-23] **Cover-fill en Cairo**: `scale = max(W/pw, H/ph)` → centra con `x = (W-nw)/2, y = (H-nh)/2`. `Pixbuf.scale_simple(nw, nh, BILINEAR)` antes de `set_source_pixbuf`.
+
 ## 2026-06-18 — Sesión 5: Documentación de código para exposición
 ### Notas por integrante en Obsidian
 Se actualizaron/crearon 4 notas en `Projects/MiNegocio/` con explicación capa-por-capa del código actual post-revert:

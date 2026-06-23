@@ -2,7 +2,46 @@
 tags: [audit, hyprland, ponytail]
 ---
 
-# HyprPlayer Audit — 2026-06-22
+# HyprPlayer Audit — 2026-06-23 (v7)
+**Stack actual:** Python/GTK3 + MPRIS/playerctl puro + Cairo ArtWidget + XWayland RGBA
+
+## Estado: ACTIVO — pendiente prueba con player real
+
+### ¿Por qué v7?
+v6 (mpv subprocess) extraía un stream independiente con yt-dlp y lo reproducía en un socket XWayland embebido. El video en sí funcionaba, pero **no estaba sincronizado con el browser**: el usuario seekea en el browser y el reproductor queda desincronizado. Eran dos reproducciones paralelas.
+
+Descubrimiento clave: `playerctl position` devuelve la posición real del video en YouTube (via `plasma-browser-integration`). Entonces no hace falta mpv — solo escuchar y reenviar comandos.
+
+## Requerimientos v7
+
+### Funcionales
+- [x] Controles conectados al player real del browser (no stream paralelo)
+- [x] Progress bar sincronizada via polling 500ms
+- [x] Cambio de canción detectado instantáneamente (D-Bus PropertiesChanged)
+- [x] Album art: `mpris:artUrl` (file/http) + fallback YouTube thumbnail
+- [x] Controles: prev, play/pause, next, seek (drag), volumen, cerrar
+- [x] Seek via `playerctl position <segundos>` (browser responde)
+- [x] Teclas: ESC, Space, ←/→ seek ±5s
+- [x] Drag para mover ventana (`begin_move_drag`)
+- [x] Singleton PID file (segundo toggle cierra)
+- [x] Reconexión automática si el player muere (3s check)
+- [x] Placeholder con ícono Nerd Font por hint cuando no hay arte
+
+### No funcionales
+- [x] RGBA window (border-radius real, compositing via XWayland)
+- [x] Cairo ArtWidget: cover-fill, rounded top corners 12px, gradiente inferior
+- [x] Sin bloqueos en main loop (threads para playerctl/red)
+- [x] Lock para state compartido entre threads
+- [x] Catppuccin Mocha + JetBrainsMono Nerd Font
+
+## Pendiente
+- [ ] Probar con Brave YouTube reproduciendo video
+- [ ] Verificar seek llega al browser (no solo playerctl)
+- [ ] Verificar album art thumbnail YouTube
+
+---
+
+# HyprPlayer Audit — 2026-06-22 (v4–v6)
 **Modo ponytail:** full | **Stack:** Python/GTK3 + mpv + yt-dlp + XWayland
 
 ## Resultado: ENTREGABLE (con deuda técnica documentada)
