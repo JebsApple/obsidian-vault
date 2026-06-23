@@ -46,8 +46,7 @@ Implementar logging estructurado del backend a archivo (`logs/minegocio.log`) co
 #### S3-HU01-T08: EndPoints documentados (Ignacio) — 5 jul → 8 jul `[backend]`
 Crear documento (PDF) listando todos los endpoints de la API actual. Por cada endpoint: método HTTP, ruta completa, parámetros (query/body/headers), ejemplo de request, ejemplo de response (200/400/401/404/500), si requiere JWT. Incluir tabla de códigos de error del sistema y mapa de URLs (dev:8080, prod:8000, backend directo:3001 según mapeo de infraestructura actual).
 
-#### S3-HU01-T09: Reportes PDF y Excel (Nicolás) — 2 jul → 8 jul `[backend]` `[frontend]`
-Implementar endpoints de generación de reportes descargables en el backend: `GET /api/reportes/ventas?formato=pdf&desde=&hasta=` y `GET /api/reportes/ventas?formato=xlsx&desde=&hasta=`. El reporte debe incluir: lista de ventas en el período, totales, top productos vendidos. En frontend, botón de descarga en la página de Ventas. Sin librerías externas para PDF (generar HTML → convertir con wkhtmltopdf o similar ya instalado en el servidor). Para XLSX, usar `excelize` o similar de Go.
+
 
 #### S3-HU01-T10: Quitar comentarios en inglés del código (Victor) — 23 jun → 27 jun `[backend]` `[frontend]`
 Revisar todo el códigobase. Comentarios en inglés → español o eliminar si son redundantes. Objetivos específicos: comentarios en `models/models.go` que no aportan ("model se usa para identificar las tablas de bd y como dto"), código comentado (`//import "time"` en repository/usuario_repository.go), y hallazgos de PonytailAudit. Aplicar criterio ponytail: si el código se explica solo, el comentario sobra.
@@ -107,6 +106,9 @@ Props tipadas (sin TS, usar comentarios JSDoc). Cada componente acepta datos y e
 #### S3-HU03-T04: Página Dashboard Ventas (Ignacio) — 6 jul → 8 jul `[frontend]`
 Nueva vista `DashboardVentas.vue` que integra los 3 componentes de stats. Layout: ResumenStats arriba (fila de 4 cards), luego TendenciaVentas (ancho completo), luego TopProductos (tabla). Selector de rango de fechas (fecha inicio, fecha fin) que recarga los datos. Ruta `/dashboard-ventas` registrada en router/index.js con meta.requiresAuth. Llamadas a los 3 endpoints con fetch nativo + auth headers. Manejo de estados: loading (skeleton/spinner), error (mensaje visible), empty (texto "sin datos"). Archivos: `src/views/DashboardVentas.vue`, `src/router/index.js`
 
+#### S3-HU03-T05: Reportes PDF y Excel descargables (Gabriel) — 2 jul → 8 jul `[backend]` `[frontend]`
+Implementar endpoints de generación de reportes descargables en el backend: `GET /api/reportes/ventas?formato=pdf&desde=&hasta=` y `GET /api/reportes/ventas?formato=xlsx&desde=&hasta=`. El reporte debe incluir: lista de ventas en el período, totales, top productos vendidos. En frontend, botón de descarga en la página de Ventas. Sin librerías externas para PDF (generar HTML → convertir con wkhtmltopdf o similar ya instalado en el servidor). Para XLSX, usar `excelize` o similar de Go.
+
 ---
 
 ## S3-HU04: Administración de Usuarios — Creación por Admin
@@ -149,13 +151,14 @@ Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creaci�
 | S3-HU04-T01 | Endpoint creación usuarios (admin-only)       | Nicolás                    | 2 jul → 5 jul   | 🟡 Alta    |
 | S3-HU01-T07 | Sistema de Logs backend                       | Gabriel                    | 2 jul → 6 jul   | 🟡 Alta    |
 | S3-HU03-T03 | Componentes de gráficos (Top/Tendencia/Stats) | Ignacio                    | 2 jul → 6 jul   | 🟡 Alta    |
-| S3-HU01-T09 | Reportes PDF y Excel descargables             | Nicolás                    | 2 jul → 8 jul   | 🟡 Alta    |
+
 | S3-HU02-T03 | Dashboard principal con KPIs                  | Victor                     | 4 jul → 8 jul   | 🟡 Alta    |
 | S3-HU04-T02 | Endpoint listar usuarios (admin-only)         | Nicolás                    | 5 jul → 7 jul   | 🟡 Alta    |
 | S3-HU01-T08 | Documentación de EndPoints (PDF)              | Ignacio                    | 5 jul → 8 jul   | 🟡 Alta    |
 | S3-HU02-T04 | Testing frontend con Vitest                   | Victor                     | 5 jul → 8 jul   | 🟢 Media   |
 | S3-HU04-T03 | Página Gestión de Usuarios                    | Nicolás                    | 5 jul → 8 jul   | 🟡 Alta    |
-| S3-HU03-T04 | Página Dashboard Ventas con filtros           | Ignacio                    | 6 jul → 8 jul   | 🟡 Alta    |
+| S3-HU03-T04 | Página Dashboard Ventas con filtros | Ignacio | 6 jul → 8 jul | 🟡 Alta |
+| S3-HU03-T05 | Reportes PDF y Excel descargables | Gabriel | 2 jul → 8 jul | 🟡 Alta |
 
 ---
 
