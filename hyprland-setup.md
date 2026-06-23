@@ -20,9 +20,16 @@ tags:
 ## Autostart
 - `/usr/bin/lxqt-policykit-agent`
 - `/usr/lib/xdg-desktop-portal-hyprland`
-- `waybar`
+- `waybar` (systemd user service) + `waybar-hover-daemon` (BindsTo=waybar)
 - `hyprpaper`
 - ~~`dunst`~~ (no funciona, reemplazar)
+
+## Waybar
+Ver [[waybar-hyprland]] para arquitectura completa.
+- Config: `~/.config/waybar/config` + `~/.config/waybar/style.css`
+- Scripts: `~/.local/bin/{clock,pulseaudio,battery,network,bluetooth,brightness-edp,brightness-hdmi,mpris}`
+- Hover daemon: `~/.local/bin/waybar-hover-daemon`
+- **Bug crítico resuelto (2026-06-22):** `font-size: 0px` → Pango assertion → rendering failure → módulos invisibles. Solución: scripts emiten texto condicionalmente según GROUP_FILE.
 
 ## Keyhint
 - `SUPER / ALT / CTRL / ALT+SHIFT + SPACE` → popup buscable con atajos
