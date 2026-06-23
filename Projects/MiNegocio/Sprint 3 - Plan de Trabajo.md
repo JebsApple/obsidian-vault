@@ -13,6 +13,8 @@ tags: [proyecto/minegocio, sprint-3, plan]
 
 ## S3-HU01: Resolución de Deuda Técnica y Pipeline CI/CD
 
+> **UX:** 0 | **Design:** 0 | **Front:** 3 | **Back:** 13 | **Total:** 16
+
 > **Como** administrador del sistema, **quiero** resolver las vulnerabilidades de seguridad y establecer un pipeline CI/CD completo **para** garantizar un despliegue seguro, auditado y automatizado.
 
 ### Tareas
@@ -54,6 +56,8 @@ Reescribir `README.md` de frontend y backend con contenido consistente. Debe inc
 
 ## S3-HU02: Mejora de Frontend — Interfaz Moderna con Kanban y Navegación
 
+> **UX:** 3 | **Design:** 3 | **Front:** 13 | **Back:** 2 | **Total:** 21
+
 > **Como** usuario, **quiero** una interfaz renovada con navegación intuitiva y un tablero Kanban de inventario **para** gestionar productos visualmente y moverme ágilmente entre secciones.
 
 ### Tareas
@@ -73,6 +77,8 @@ Agregar tests básicos con Vitest. Prioridad: 1 test por componente recuperado (
 ---
 
 ## S3-HU03: Dashboard de Ventas con Estadísticas
+
+> **UX:** 3 | **Design:** 3 | **Front:** 5 | **Back:** 8 | **Total:** 19
 
 > **Como** administrador, **quiero** un dashboard visual de ventas con productos más vendidos, tendencias mensuales y estadísticas clave **para** tomar decisiones comerciales informadas.
 
@@ -100,6 +106,27 @@ Nueva vista `DashboardVentas.vue` que integra los 3 componentes de stats. Layout
 
 ---
 
+## S3-HU04: Administración de Usuarios — Creación por Admin
+
+> **UX:** 2 | **Design:** 1 | **Front:** 3 | **Back:** 5 | **Total:** 11
+
+> **Como** administrador, **quiero** una página para crear cuentas de usuario para mis trabajadores **para** que cada vendedor tenga su propio acceso sin necesidad de registro público.
+
+**Dependencia:** S3-HU01-T06 (control de acceso por rol) — solo accesible con rol admin.
+
+### Tareas
+
+#### S3-HU04-T01: Endpoint backend creación de usuarios (Nicolás) — 2 jul → 5 jul
+`POST /api/usuarios` (requiere JWT + rol admin). Recibe: `{nombre, email, password, rol}`. Validaciones: email único, password mínimo 8 chars, rol válido ("admin" o "vendedor"). Guarda con bcrypt. Response: `{id, nombre, email, rol, creado_en}`. Sin endpoint de registro público — solo creación por admin. Archivos: `handler/usuario_handler.go`, `service/usuario_service.go`, `repository/usuario_repository.go`, `routes/routes.go`
+
+#### S3-HU04-T02: Endpoint listar usuarios para admin (Nicolás) — 5 jul → 7 jul
+`GET /api/usuarios` (requiere JWT + rol admin). Lista todos los usuarios del sistema: id, nombre, email, rol, fecha creación, último login. Sin contraseñas. Para que el admin pueda ver quiénes tienen acceso. Archivos: `handler/usuario_handler.go`, `repository/usuario_repository.go`
+
+#### S3-HU04-T03: Página frontend Gestión de Usuarios (Nicolás) — 5 jul → 8 jul
+Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creación: nombre, email, password, selector de rol (admin/vendedor), botón crear. Validaciones en frontend (email válido, password coinciden, campos obligatorios). Tabla de usuarios existentes con opción de desactivar (sin eliminar). Ruta `/gestion-usuarios` con meta.requiresAuth + meta.role="admin". Archivos: `src/views/GestionUsuarios.vue`, `src/router/index.js`
+
+---
+
 ## Resumen de asignaciones
 
 | HU | Tarea | Asignado | Fechas | Prioridad |
@@ -123,6 +150,9 @@ Nueva vista `DashboardVentas.vue` que integra los 3 componentes de stats. Layout
 | S3-HU03-T02 | SQL agrupación ventas por período | Ignacio | 28 jun → 2 jul | 🟡 Alta |
 | S3-HU03-T03 | Componentes de gráficos (Top/Tendencia/Stats) | Ignacio | 2 jul → 6 jul | 🟡 Alta |
 | S3-HU03-T04 | Página Dashboard Ventas con filtros | Ignacio | 6 jul → 8 jul | 🟡 Alta |
+| S3-HU04-T01 | Endpoint creación usuarios (admin-only) | Nicolás | 2 jul → 5 jul | 🟡 Alta |
+| S3-HU04-T02 | Endpoint listar usuarios (admin-only) | Nicolás | 5 jul → 7 jul | 🟡 Alta |
+| S3-HU04-T03 | Página Gestión de Usuarios | Nicolás | 5 jul → 8 jul | 🟡 Alta |
 
 ---
 
