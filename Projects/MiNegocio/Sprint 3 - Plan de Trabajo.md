@@ -132,30 +132,30 @@ Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creaci�
 
 ## Resumen de asignaciones
 
-| HU | Tarea | Asignado | Fechas | Prioridad |
-| --- | --- | --- | --- | --- |
-| S3-HU01-T01 | bcrypt passwords | Gabriel | 23 jun → 27 jun | 🔴 Crítica |
-| S3-HU01-T02 | JWT_SECRET por entorno | Gabriel | 23 jun → 27 jun | 🔴 Crítica |
-| S3-HU01-T03 | Docker multi-arch + Jenkins | Nicolás | 23 jun → 30 jun | 🔴 Crítica |
-| S3-HU01-T04 | SonarQube local + Jenkins | Nicolás | 30 jun → 4 jul | 🟡 Alta |
-| S3-HU01-T05 | Limpieza código muerto (frontend+backend) | Gabriel / Ignacio / Victor | 23 jun → 27 jun | 🟢 Media |
-| S3-HU01-T06 | Control acceso por rol + id_vendedor dinámico | Gabriel + Ignacio | 27 jun → 2 jul | 🟡 Alta |
-| S3-HU01-T07 | Sistema de Logs backend | Gabriel | 2 jul → 6 jul | 🟡 Alta |
-| S3-HU01-T08 | Documentación de EndPoints (PDF) | Ignacio | 5 jul → 8 jul | 🟡 Alta |
-| S3-HU01-T09 | Reportes PDF y Excel descargables | Nicolás | 2 jul → 8 jul | 🟡 Alta |
-| S3-HU01-T10 | Quitar comentarios en inglés del código | Victor | 23 jun → 27 jun | 🟢 Media |
-| S3-HU01-T11 | Reparar READMEs (frontend+backend) | Victor | 27 jun → 30 jun | 🟢 Media |
-| S3-HU02-T01 | NavBar y SideBar desde STL-redesign | Victor | 23 jun → 30 jun | 🟡 Alta |
-| S3-HU02-T02 | KanbanBoard de Inventario drag & drop | Victor | 30 jun → 4 jul | 🟡 Alta |
-| S3-HU02-T03 | Dashboard principal con KPIs | Victor | 4 jul → 8 jul | 🟡 Alta |
-| S3-HU02-T04 | Testing frontend con Vitest | Victor | 5 jul → 8 jul | 🟢 Media |
-| S3-HU03-T01 | Endpoints de estadísticas de ventas | Ignacio | 23 jun → 28 jun | 🟡 Alta |
-| S3-HU03-T02 | SQL agrupación ventas por período | Ignacio | 28 jun → 2 jul | 🟡 Alta |
-| S3-HU03-T03 | Componentes de gráficos (Top/Tendencia/Stats) | Ignacio | 2 jul → 6 jul | 🟡 Alta |
-| S3-HU03-T04 | Página Dashboard Ventas con filtros | Ignacio | 6 jul → 8 jul | 🟡 Alta |
-| S3-HU04-T01 | Endpoint creación usuarios (admin-only) | Nicolás | 2 jul → 5 jul | 🟡 Alta |
-| S3-HU04-T02 | Endpoint listar usuarios (admin-only) | Nicolás | 5 jul → 7 jul | 🟡 Alta |
-| S3-HU04-T03 | Página Gestión de Usuarios | Nicolás | 5 jul → 8 jul | 🟡 Alta |
+| HU          | Tarea                                         | Asignado                   | Fechas          | Prioridad  |
+| ----------- | --------------------------------------------- | -------------------------- | --------------- | ---------- |
+| S3-HU01-T01 | bcrypt passwords                              | Gabriel                    | 23 jun → 27 jun | 🔴 Crítica |
+| S3-HU01-T02 | JWT_SECRET por entorno                        | Gabriel                    | 23 jun → 27 jun | 🔴 Crítica |
+| S3-HU01-T05 | Limpieza código muerto (frontend+backend)     | Gabriel / Ignacio / Victor | 23 jun → 27 jun | 🟢 Media   |
+| S3-HU01-T10 | Quitar comentarios en inglés del código       | Victor                     | 23 jun → 27 jun | 🟢 Media   |
+| S3-HU03-T01 | Endpoints de estadísticas de ventas           | Ignacio                    | 23 jun → 28 jun | 🟡 Alta    |
+| S3-HU01-T03 | Docker multi-arch + Jenkins                   | Nicolás                    | 23 jun → 30 jun | 🔴 Crítica |
+| S3-HU02-T01 | NavBar y SideBar desde STL-redesign           | Victor                     | 23 jun → 30 jun | 🟡 Alta    |
+| S3-HU01-T06 | Control acceso por rol + id_vendedor dinámico | Gabriel + Ignacio          | 27 jun → 2 jul  | 🟡 Alta    |
+| S3-HU01-T11 | Reparar READMEs (frontend+backend)            | Victor                     | 27 jun → 30 jun | 🟢 Media   |
+| S3-HU03-T02 | SQL agrupación ventas por período             | Ignacio                    | 28 jun → 2 jul  | 🟡 Alta    |
+| S3-HU01-T04 | SonarQube local + Jenkins                     | Nicolás                    | 30 jun → 4 jul  | 🟡 Alta    |
+| S3-HU02-T02 | KanbanBoard de Inventario drag & drop         | Victor                     | 30 jun → 4 jul  | 🟡 Alta    |
+| S3-HU04-T01 | Endpoint creación usuarios (admin-only)       | Nicolás                    | 2 jul → 5 jul   | 🟡 Alta    |
+| S3-HU01-T07 | Sistema de Logs backend                       | Gabriel                    | 2 jul → 6 jul   | 🟡 Alta    |
+| S3-HU03-T03 | Componentes de gráficos (Top/Tendencia/Stats) | Ignacio                    | 2 jul → 6 jul   | 🟡 Alta    |
+| S3-HU01-T09 | Reportes PDF y Excel descargables             | Nicolás                    | 2 jul → 8 jul   | 🟡 Alta    |
+| S3-HU02-T03 | Dashboard principal con KPIs                  | Victor                     | 4 jul → 8 jul   | 🟡 Alta    |
+| S3-HU04-T02 | Endpoint listar usuarios (admin-only)         | Nicolás                    | 5 jul → 7 jul   | 🟡 Alta    |
+| S3-HU01-T08 | Documentación de EndPoints (PDF)              | Ignacio                    | 5 jul → 8 jul   | 🟡 Alta    |
+| S3-HU02-T04 | Testing frontend con Vitest                   | Victor                     | 5 jul → 8 jul   | 🟢 Media   |
+| S3-HU04-T03 | Página Gestión de Usuarios                    | Nicolás                    | 5 jul → 8 jul   | 🟡 Alta    |
+| S3-HU03-T04 | Página Dashboard Ventas con filtros           | Ignacio                    | 6 jul → 8 jul   | 🟡 Alta    |
 
 ---
 
