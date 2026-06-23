@@ -157,6 +157,14 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - [2026-06-22] **Iconos por player** en hypr-player: detectar via `playerctl -l` + `xesam:url`. YouTube →  + video embebido, Spotify →  + album art, etc.
 - [2026-06-21] `wl-gammarelay` reemplazado por hyprsunset. wl-gammarelay usa `wlr-gamma-control-v1` (global, todos los outputs afectados). hyprsunset usa `hyprland-ctm-control-v1` (per-output con CTM matrix). Servicio systemd deshabilitado.
 
+- [2026-06-22] **`python-mpv` con `vo="x11"` y `wid=str(xid)`** funciona para video embebido en Gtk.Socket (GTK3). `GDK_BACKEND=x11` obligatorio (sin él `get_id()` falla).
+- [2026-06-22] **`playerctl --player=<name>` no tiene comando `volume`** — para controlar volumen con mpv embebido, usar `self.mpv.volume = v` directamente sin pasar por playerctl.
+- [2026-06-22] **Gtk.Revealer + GLib.timeout_add** para auto-ocultar controles tras inactividad. `SLIDE_UP` con `transition_duration(200)`. Mostrar en `motion-notify-event`, ocultar tras 5s sin movimiento.
+- [2026-06-22] **VLC y xesam:url**: pasar la URL directa a mpv (sin yt-dlp). Solo YouTube pasa por `yt-dlp -g`.
+- [2026-06-22] **Separar playerctl en 3 daemons** (mpris-yt, mpris-music, mpris-vlc) permite marquee ticker independiente por módulo. Cada daemon es continuo (no interval) con loop que actualiza cada 500ms y mueve el texto 6 chars/segundo.
+- [2026-06-22] **css font-size 0 + font_size='10pt' en Pango markup** para ocultar texto de módulo sin ocultar el icono. El span del icono usa tamaño absoluto Pango, el texto hereda font-size 0 del widget.
+- [2026-06-22] **VLC no setea xesam:title** — fallback a `os.path.basename(urllib.parse.unquote(xesam:url))` para extraer nombre de archivo.
+
 ## 2026-06-18 — Sesión 5: Documentación de código para exposición
 ### Notas por integrante en Obsidian
 Se actualizaron/crearon 4 notas en `Projects/MiNegocio/` con explicación capa-por-capa del código actual post-revert:
