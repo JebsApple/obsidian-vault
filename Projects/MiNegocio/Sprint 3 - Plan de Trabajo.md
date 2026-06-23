@@ -104,7 +104,7 @@ Componentes Vue para visualización de datos (sin librerías externas — CSS na
 - `ResumenStats.vue` — 4 cards: ventas hoy, ventas mes, ticket promedio, producto top
 Props tipadas (sin TS, usar comentarios JSDoc). Cada componente acepta datos y estado de carga/error. Archivos: `src/components/TopProductos.vue`, `src/components/TendenciaVentas.vue`, `src/components/ResumenStats.vue`
 
-#### S3-HU03-T04: Página Dashboard Ventas (Ignacio) — 6 jul → 8 jul
+#### S3-HU03-T04: Página Dashboard Ventas (Ignacio) — 6 jul → 8 jul `[frontend]`
 Nueva vista `DashboardVentas.vue` que integra los 3 componentes de stats. Layout: ResumenStats arriba (fila de 4 cards), luego TendenciaVentas (ancho completo), luego TopProductos (tabla). Selector de rango de fechas (fecha inicio, fecha fin) que recarga los datos. Ruta `/dashboard-ventas` registrada en router/index.js con meta.requiresAuth. Llamadas a los 3 endpoints con fetch nativo + auth headers. Manejo de estados: loading (skeleton/spinner), error (mensaje visible), empty (texto "sin datos"). Archivos: `src/views/DashboardVentas.vue`, `src/router/index.js`
 
 ---
@@ -119,13 +119,13 @@ Nueva vista `DashboardVentas.vue` que integra los 3 componentes de stats. Layout
 
 ### Tareas
 
-#### S3-HU04-T01: Endpoint backend creación de usuarios (Nicolás) — 2 jul → 5 jul
+#### S3-HU04-T01: Endpoint backend creación de usuarios (Nicolás) — 2 jul → 5 jul `[backend]` `[database]`
 `POST /api/usuarios` (requiere JWT + rol admin). Recibe: `{nombre, email, password, rol}`. Validaciones: email único, password mínimo 8 chars, rol válido ("admin" o "vendedor"). Guarda con bcrypt. Response: `{id, nombre, email, rol, creado_en}`. Sin endpoint de registro público — solo creación por admin. Archivos: `handler/usuario_handler.go`, `service/usuario_service.go`, `repository/usuario_repository.go`, `routes/routes.go`
 
-#### S3-HU04-T02: Endpoint listar usuarios para admin (Nicolás) — 5 jul → 7 jul
+#### S3-HU04-T02: Endpoint listar usuarios para admin (Nicolás) — 5 jul → 7 jul `[backend]`
 `GET /api/usuarios` (requiere JWT + rol admin). Lista todos los usuarios del sistema: id, nombre, email, rol, fecha creación, último login. Sin contraseñas. Para que el admin pueda ver quiénes tienen acceso. Archivos: `handler/usuario_handler.go`, `repository/usuario_repository.go`
 
-#### S3-HU04-T03: Página frontend Gestión de Usuarios (Nicolás) — 5 jul → 8 jul
+#### S3-HU04-T03: Página frontend Gestión de Usuarios (Nicolás) — 5 jul → 8 jul `[frontend]`
 Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creación: nombre, email, password, selector de rol (admin/vendedor), botón crear. Validaciones en frontend (email válido, password coinciden, campos obligatorios). Tabla de usuarios existentes con opción de desactivar (sin eliminar). Ruta `/gestion-usuarios` con meta.requiresAuth + meta.role="admin". Archivos: `src/views/GestionUsuarios.vue`, `src/router/index.js`
 
 ---
