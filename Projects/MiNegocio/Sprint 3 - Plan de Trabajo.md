@@ -42,6 +42,12 @@ Crear documento (PDF) con todos los endpoints de la API, métodos, parámetros, 
 #### S3-HU01-T09: Reportes PDF y Excel (Nicolás)
 Implementar generación de reportes en formato PDF y Excel desde el backend. Endpoints `/api/reportes/ventas` que devuelvan archivos descargables con filtros por fecha.
 
+#### S3-HU01-T10: Quitar comentarios en inglés del código (Victor)
+Revisar todo el códigobase (frontend y backend) y reemplazar comentarios en inglés por español, o eliminarlos si son redundantes. Aplicar criterio ponytail: si el código se explica solo, el comentario sobra.
+
+#### S3-HU01-T11: Reparar READMEs del proyecto (Victor)
+Actualizar `README.md` de frontend y backend con: descripción del proyecto, stack tecnológico, instrucciones de instalación/ejecución, estructura de directorios, y enlaces a documentación relacionada. Unificar formato entre ambos.
+
 ---
 
 ## S3-HU02: Mejora de Frontend — Interfaz Moderna con Kanban y Navegación
@@ -90,25 +96,27 @@ Nueva ruta `/dashboard-ventas` con layout de estadísticas. Integrar todos los c
 
 ## Resumen de asignaciones
 
-| HU | Tarea | Asignado | Prioridad |
-|----|-------|----------|-----------|
-| S3-HU01-T01 | bcrypt passwords | Gabriel | 🔴 Crítica |
-| S3-HU01-T02 | JWT_SECRET por entorno | Gabriel | 🔴 Crítica |
-| S3-HU01-T03 | Docker multi-arch + Jenkins | Nicolás | 🔴 Crítica |
-| S3-HU01-T04 | SonarQube local + Jenkins | Nicolás | 🟡 Alta |
-| S3-HU01-T05 | Limpieza código muerto | Ignacio | 🟢 Media |
-| S3-HU01-T06 | Control acceso + id_vendedor | Gabriel + Ignacio | 🟡 Alta |
-| S3-HU01-T07 | Sistema de Logs | Gabriel | 🟡 Alta |
-| S3-HU01-T08 | EndPoints documentados | Ignacio | 🟡 Alta |
-| S3-HU01-T09 | Reportes PDF y Excel | Nicolás | 🟡 Alta |
-| S3-HU02-T01 | NavBar y SideBar | Victor | 🟡 Alta |
-| S3-HU02-T02 | KanbanBoard | Victor | 🟡 Alta |
-| S3-HU02-T03 | Dashboard principal | Victor | 🟡 Alta |
-| S3-HU02-T04 | Testing frontend | Victor | 🟢 Media |
-| S3-HU03-T01 | Endpoints estadísticas | Ignacio | 🟡 Alta |
-| S3-HU03-T02 | SQL agrupación ventas | Ignacio | 🟡 Alta |
-| S3-HU03-T03 | Componentes gráficos | Ignacio | 🟡 Alta |
-| S3-HU03-T04 | Página Dashboard Ventas | Ignacio | 🟡 Alta |
+| HU          | Tarea                        | Asignado          | Prioridad  |
+| ----------- | ---------------------------- | ----------------- | ---------- |
+| S3-HU01-T01 | bcrypt passwords             | Gabriel           | 🔴 Crítica |
+| S3-HU01-T02 | JWT_SECRET por entorno       | Gabriel           | 🔴 Crítica |
+| S3-HU01-T03 | Docker multi-arch + Jenkins  | Nicolás           | 🔴 Crítica |
+| S3-HU01-T04 | SonarQube local + Jenkins    | Nicolás           | 🟡 Alta    |
+| S3-HU01-T05 | Limpieza código muerto       | Ignacio           | 🟢 Media   |
+| S3-HU01-T06 | Control acceso + id_vendedor | Gabriel + Ignacio | 🟡 Alta    |
+| S3-HU01-T07 | Sistema de Logs              | Gabriel           | 🟡 Alta    |
+| S3-HU01-T08 | EndPoints documentados       | Ignacio           | 🟡 Alta    |
+| S3-HU01-T09 | Reportes PDF y Excel         | Nicolás           | 🟡 Alta    |
+| S3-HU01-T10 | Quitar comentarios inglés    | Victor            | 🟢 Media   |
+| S3-HU01-T11 | Reparar READMEs              | Victor            | 🟢 Media   |
+| S3-HU02-T01 | NavBar y SideBar             | Victor            | 🟡 Alta    |
+| S3-HU02-T02 | KanbanBoard                  | Victor            | 🟡 Alta    |
+| S3-HU02-T03 | Dashboard principal          | Victor            | 🟡 Alta    |
+| S3-HU02-T04 | Testing frontend             | Victor            | 🟢 Media   |
+| S3-HU03-T01 | Endpoints estadísticas       | Ignacio           | 🟡 Alta    |
+| S3-HU03-T02 | SQL agrupación ventas        | Ignacio           | 🟡 Alta    |
+| S3-HU03-T03 | Componentes gráficos         | Ignacio           | 🟡 Alta    |
+| S3-HU03-T04 | Página Dashboard Ventas      | Ignacio           | 🟡 Alta    |
 
 ---
 
