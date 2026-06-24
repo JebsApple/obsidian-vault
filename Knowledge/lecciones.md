@@ -296,5 +296,11 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - **Regla izquierda vs derecha:** los módulos icon-only van a la izquierda; el sistema hover-expand solo vive en la mitad derecha de la barra (el daemon escribe el state file global). Solo glyphs Nerd Font, sin emojis.
 - **Bug `grep -c` + `|| echo 0`:** `grep -c .` imprime `0` Y sale con código 1 cuando no hay coincidencias → el `|| echo 0` añade OTRO `0` → `"0\n0"` → error aritmético. Usar `grep -c .` solo (ya imprime 0), con `${var:-0}` de respaldo.
 
+### MPRIS idle state: FG_EMPTY definido pero no usado
+- **Problema:** los 3 daemons mpris (yt/music/vlc) definían `FG_EMPTY` pero cuando no hay ningún player activo emitían `"text": ""` → iconos **invisibles**. El color gris dim (`#585b70`) existía como variable pero nunca se asignaba a la salida.
+- **Causa raíz:** `if not meta:` → `print(json.dumps({"text": ""}))` en vez de mostrar el icono en color dim.
+- **Fix:** cambiar idle output a `f"<span foreground='{FG_EMPTY}' …>{ICON}</span>"`. Ahora los 3 iconos siempre se ven; se iluminan al detectar un player activo.
+- **Daemon startup:** también se fijó `zones = get_waybar_zones()` inmediato en vez de esperar 2s.
+
 ### Aún pendiente / deuda
 - **Config muerta:** `hyprland.conf`, `monitors.conf/.lua`, `workspaces.conf/.lua` (de nwg-displays) están huérfanos — la activa es `hyprland.lua` y no los hace `require`. Decidir: borrar/renombrar los `.conf`, y si se quiere que nwg-displays funcione, hacer `require` de sus `.lua` o inlinear. **OJO:** nwg-displays guarda en esos archivos huérfanos → sus cambios de monitores NO se aplican hoy.
