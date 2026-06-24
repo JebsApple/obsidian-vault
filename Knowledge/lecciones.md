@@ -176,6 +176,29 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - [2026-06-23] **`Gtk.DrawingArea` para arte con esquinas redondeadas**: hacer clip Cairo antes de pintar el pixbuf. `cr.arc()` + `cr.clip()` + `Gdk.cairo_set_source_pixbuf()`. Más confiable que CSS `border-radius` que no clipea widgets hijos.
 - [2026-06-23] **Cover-fill en Cairo**: `scale = max(W/pw, H/ph)` → centra con `x = (W-nw)/2, y = (H-nh)/2`. `Pixbuf.scale_simple(nw, nh, BILINEAR)` antes de `set_source_pixbuf`.
 
+## 2026-06-23 — HU01-T05: Limpieza código muerto + reorganización Gitea
+
+### Gitea: limpieza de ramas S2
+- Las ramas S2 viejas se respaldaron como `archive/` tags antes de eliminar, para no perder trabajo.
+- Desde `main` se crearon `develop` + 8 feature branches: `feature/hu01-t01-*` a `feature/hu02-t02-*`.
+
+### HU01-T05: código eliminado
+- `HelloWorld.vue` (componente por defecto de Vue CLI)
+- `src/middleware/authGuard.js` (no importado en router)
+- `src/plugins/axios.js` (proyecto usa fetch nativo, no axios)
+- NavBar: placeholders "Perfil" y "Configuración" eliminados
+- SideBar: prop `isLoggedIn` eliminada (no se usaba internamente)
+
+### authService.logout() unificado
+- `authService.js` ya existía en Gitea con `logout()`. Se importó en NavBar, SideBar y App.vue en vez de manipular localStorage inline.
+
+### stockStatus.js creado
+- `src/utils/stockStatus.js` con `STOCK_BAJO = 4` y `getStockStatus(stock)` → `agotado|bajo|normal|exceso`.
+
+### Componentes integrados desde local
+- NavBar, SideBar, LogoSVG → `feature/hu02-t01-navbar-sidebar`
+- KanbanBoard → `feature/hu02-t02-kanban`
+
 ## 2026-06-18 — Sesión 5: Documentación de código para exposición
 ### Notas por integrante en Obsidian
 Se actualizaron/crearon 4 notas en `Projects/MiNegocio/` con explicación capa-por-capa del código actual post-revert:
