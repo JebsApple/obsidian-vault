@@ -176,6 +176,14 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 - [2026-06-23] **`Gtk.DrawingArea` para arte con esquinas redondeadas**: hacer clip Cairo antes de pintar el pixbuf. `cr.arc()` + `cr.clip()` + `Gdk.cairo_set_source_pixbuf()`. Más confiable que CSS `border-radius` que no clipea widgets hijos.
 - [2026-06-23] **Cover-fill en Cairo**: `scale = max(W/pw, H/ph)` → centra con `x = (W-nw)/2, y = (H-nh)/2`. `Pixbuf.scale_simple(nw, nh, BILINEAR)` antes de `set_source_pixbuf`.
 
+## 2026-06-23 — SLT-Control-de-Versiones
+
+### Ramas
+- `SLT-control-de-versiones` creada en frontend, backend y database (desde main)
+- Esquema: `3.0.0` (sprint.feature.hotfix)
+- Nota en `Projects/MiNegocio/SLT-Control-de-Versiones.md`
+- No bloquea, hacer antes del primer merge a main
+
 ## 2026-06-23 — HU01-T05: Limpieza código muerto + reorganización Gitea
 
 ### Nomenclatura de ramas
