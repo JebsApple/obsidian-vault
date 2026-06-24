@@ -130,6 +130,31 @@ Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creaci�
 
 ---
 
+## S3-HU05: Cierre y QA — Cobertura Rúbrica
+
+> **UX:** 1 | **Design:** 1 | **Front:** 6 | **Back:** 6 | **DevOps:** 10 | **Total:** 24
+
+> **Como** equipo, **quiero** cubrir los puntos faltantes de la rúbrica y preparar la presentación final **para** maximizar la nota del último sprint.
+
+### Tareas
+
+#### S3-HU05-T01: Frontend CI/CD — Jenkinsfile + build + deploy (Nicolás) — 5 jul → 8 jul `[devops]` `[frontend]`
+Crear `Jenkinsfile` para frontend con stages: checkout → npm build → copiar `dist/` a producción. Configurar webhook Gitea → Jenkins.
+
+#### S3-HU05-T02: Validaciones + mensajes de error globales frontend (Victor) — 5 jul → 8 jul `[frontend]`
+Revisar todas las páginas: validaciones visibles en formularios, manejo de errores con mensajes al usuario, botones con texto descriptivo.
+
+#### S3-HU05-T03: Usuario BD dedicado (Ignacio) — 5 jul → 7 jul `[database]` `[devops]`
+Crear usuario PostgreSQL `minegocio` con permisos solo a su base de datos. Reemplazar uso de `postgres` directo.
+
+#### S3-HU05-T04: Usuario Jenkins con permisos mínimos (Nicolás) — 5 jul → 8 jul `[devops]`
+Crear usuario `jenkins-deploy` en servidor de producción con SSH por clave y permisos mínimos (docker + copiar archivos). Reemplazar `icin` en Jenkinsfiles.
+
+#### S3-HU05-T05: Preparar presentación final (Todos) — 8 jul → 10 jul `[presentacion]`
+Coordinar demo + presentación. Cada integrante prepara su parte. Entorno dev listo.
+
+---
+
 ## Resumen de asignaciones
 
 | HU          | Tarea                                         | Asignado                   | Fechas          | Prioridad  |
@@ -156,6 +181,11 @@ Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creaci�
 | S3-HU02-T04 | Testing frontend con Vitest                   | Victor                     | 5 jul → 8 jul   | 🟢 Media   |
 | S3-HU04-T03 | Página Gestión de Usuarios                    | Nicolás                    | 5 jul → 8 jul   | 🟡 Alta    |
 | S3-HU03-T04 | Página Dashboard Ventas con filtros           | Ignacio                    | 6 jul → 8 jul   | 🟡 Alta    |
+| S3-HU05-T03 | Usuario BD dedicado                           | Ignacio                    | 5 jul → 7 jul   | 🟡 Alta    |
+| S3-HU05-T01 | Frontend CI/CD                                | Nicolás                    | 5 jul → 8 jul   | 🔴 Crítica |
+| S3-HU05-T02 | Validaciones + errores globales frontend      | Victor                     | 5 jul → 8 jul   | 🟡 Alta    |
+| S3-HU05-T04 | Usuario Jenkins permisos mínimos              | Nicolás                    | 5 jul → 8 jul   | 🟢 Media   |
+| S3-HU05-T05 | Preparar presentación final                   | Todos                      | 8 jul → 10 jul  | 🔴 Crítica |
 
 ---
 
@@ -166,3 +196,4 @@ Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creaci�
 - [[rubricaEquipo6]] — rúbrica de evaluación
 - [[PonytailAudit-2026-06-19]] — auditoría de código muerto e inconsistencias
 - [[Auditoria-Presentacion-2026-06-20]] — auditoría de estado pre-presentación
+- [[Sprint 3 - HU05 - Cierre y QA]] — HU05 detallada
