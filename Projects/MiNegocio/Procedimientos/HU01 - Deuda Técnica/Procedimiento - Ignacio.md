@@ -71,3 +71,28 @@ No hay ningún documento que liste los endpoints con sus parámetros y respuesta
    - Backend directo: `http://192.168.50.25:3001`
 
 5. **Generar PDF** con el documento para entregar.
+
+---
+
+## 4. S3-HU01-T13: Usuario BD dedicado `[database]` `[devops]`
+**Fechas:** 5 jul → 7 jul
+
+### ¿Qué estamos haciendo y por qué?
+
+Hoy la aplicación se conecta a PostgreSQL con el usuario `postgres` (el superusuario). Esto es mala práctica: si alguien explota una vulnerabilidad en la app, tiene acceso total a la base de datos. Vamos a crear un usuario `minegocio` con permisos solo para lo que necesita.
+
+### Pasos
+
+1. **Crear el usuario en PostgreSQL:**
+   ```sql
+   CREATE USER minegocio WITH PASSWORD 'una-clave-segura';
+   GRANT CONNECT ON DATABASE minegocio TO minegocio;
+   GRANT USAGE, SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO minegocio;
+   ```
+
+2. **Actualizar variables de entorno.** Cambiar `DB_USER=postgres` por `DB_USER=minegocio` y `DB_PASSWORD=una-clave-segura` en:
+   - Desarrollo local (`.env` o export)
+   - Jenkins (Jenkins Credentials)
+   - Servidor de producción
+
+3. **Documentar en README.** Agregar el paso de creación del usuario en las instrucciones de configuración de la base de datos.

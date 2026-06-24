@@ -62,3 +62,47 @@ Hoy el backend se despliega "a mano". Vamos a **automatizar** con Jenkins: cuand
 3. **Probar análisis local.** Ejecutá `sonar-scanner` manualmente desde tu terminal.
 
 4. **Revisar resultados.** El análisis debe pasar sin errores "bloqueantes". Los problemas típicos: variables no usadas, código duplicado, funciones muy largas.
+
+---
+
+## 3. S3-HU01-T12: Frontend CI/CD — Jenkinsfile + build + deploy `[devops]` `[frontend]`
+**Fechas:** 5 jul → 8 jul
+
+### ¿Qué estamos haciendo y por qué?
+
+El frontend se despliega manualmente (correr `npm run build` y copiar archivos). Esto no escala y la rúbrica penaliza no tener pipeline automatizado. Vas a crear el mismo sistema que hiciste para backend, pero para el frontend.
+
+### Pasos
+
+1. **Crear Jenkinsfile** en la raíz del frontend con stages:
+   - **Checkout:** `checkout scm` — descarga el código
+   - **Build:** `npm ci && npm run build` — instala dependencias y genera `dist/`
+   - **Deploy:** copiar `dist/*` al servidor de producción via SSH
+
+2. **Configurar webhook en Gitea** para el repo frontend: igual que hiciste con backend, Settings → Webhooks → URL de Jenkins + Push events.
+
+3. **Probar.** Hacé un push a `main` del frontend y verificá que Jenkins ejecute el build y los archivos aparezcan en producción.
+
+---
+
+## 4. S3-HU01-T14: Usuario Jenkins con permisos mínimos `[devops]`
+**Fechas:** 5 jul → 8 jul
+
+### ¿Qué estamos haciendo y por qué?
+
+Hoy los pipelines de Jenkins usan el usuario `icin` que tiene demasiados permisos. La rúbrica observa que debería ser un usuario con permisos mínimos (principio de seguridad). Vas a crear `jenkins-deploy`.
+
+### Pasos
+
+1. **Crear usuario en el servidor de producción (192.168.50.25):**
+   ```bash
+   sudo useradd -m -s /bin/bash jenkins-deploy
+   ```
+   Configurar acceso SSH por clave (no password): agregar la clave pública de Jenkins a `~jenkins-deploy/.ssh/authorized_keys`.
+
+2. **Restringir permisos:** el usuario solo debe poder:
+   - Ejecutar `docker` (pull, run, stop)
+   - Copiar archivos al directorio de la app
+   - Sin sudo, sin acceso a otros directorios
+
+3. **Actualizar Jenkinsfiles.** En ambos pipelines (frontend y backend), reemplazar `icin` por `jenkins-deploy` en los comandos SSH.

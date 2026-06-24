@@ -13,7 +13,7 @@ tags: [proyecto/minegocio, sprint-3, plan]
 
 ## S3-HU01: Resolución de Deuda Técnica y Pipeline CI/CD
 
-> **UX:** 0 | **Design:** 0 | **Front:** 3 | **Back:** 13 | **Total:** 16
+> **UX:** 0 | **Design:** 0 | **Front:** 3 | **Back:** 13 | **DevOps:** 10 | **Total:** 26
 
 > **Como** administrador del sistema, **quiero** resolver las vulnerabilidades de seguridad y establecer un pipeline CI/CD completo **para** garantizar un despliegue seguro, auditado y automatizado.
 
@@ -52,11 +52,20 @@ Revisar todo el códigobase. Comentarios en inglés → español o eliminar si s
 #### S3-HU01-T11: Reparar READMEs del proyecto (Victor) — 27 jun → 30 jun `[backend]` `[frontend]`
 Reescribir `README.md` de frontend y backend con contenido consistente. Debe incluir: descripción del proyecto, stack tecnológico (Go + gorilla/mux + PostgreSQL para backend, Vue 3 + vue-router para frontend), instrucciones paso a paso para dev (clonar, variables de entorno, DB, npm install/go run, puertos) y para prod (Docker, build, despliegue), URLs de ambientes (http://192.168.50.25:8000 prod, :8080 dev), estructura de directorios, y enlaces a documentación. Corregir inconsistencia actual (rubric: README dice nginx pero usan Docker en prod).
 
+#### S3-HU01-T12: Frontend CI/CD — Jenkinsfile + build + deploy (Nicolás) — 5 jul → 8 jul `[devops]` `[frontend]`
+Crear `Jenkinsfile` en raíz del frontend con stages: checkout → `npm ci && npm run build` → copiar `dist/*` a `/var/www/prod/frontend/` vía SSH. Configurar webhook Gitea → Jenkins para el repo frontend. Pipeline se dispara automáticamente al hacer push a `main`. Archivos: `Jenkinsfile` (raíz frontend).
+
+#### S3-HU01-T13: Usuario BD dedicado (Ignacio) — 5 jul → 7 jul `[database]` `[devops]`
+Crear usuario PostgreSQL `minegocio` con permisos solo a su base de datos en vez de usar `postgres` directo. `CREATE USER minegocio WITH PASSWORD '...'; GRANT CONNECT ON DATABASE minegocio TO minegocio;`. Actualizar variables de entorno en dev y Jenkins. Documentar en README.
+
+#### S3-HU01-T14: Usuario Jenkins con permisos mínimos (Nicolás) — 5 jul → 8 jul `[devops]`
+Crear usuario `jenkins-deploy` en servidor de producción con SSH por clave, sin sudo, solo permisos para `docker pull/run` y copiar archivos al directorio de la app. Reemplazar `icin` en ambos Jenkinsfiles (frontend y backend).
+
 ---
 
 ## S3-HU02: Mejora de Frontend — Interfaz Moderna con Kanban y Navegación
 
-> **UX:** 3 | **Design:** 3 | **Front:** 13 | **Back:** 2 | **Total:** 21
+> **UX:** 3 | **Design:** 3 | **Front:** 16 | **Back:** 2 | **Total:** 24
 
 > **Como** usuario, **quiero** una interfaz renovada con navegación intuitiva y un tablero Kanban de inventario **para** gestionar productos visualmente y moverme ágilmente entre secciones.
 
@@ -73,6 +82,13 @@ Rediseñar página de inicio (`AnalisePage.vue`) con cards de KPIs: total produc
 
 #### S3-HU02-T04: Testing frontend (Victor) — 5 jul → 8 jul `[frontend]` `[test]`
 Agregar tests básicos con Vitest. Prioridad: 1 test por componente recuperado (NavBar, SideBar, KanbanBoard) verificando render básico y props. 1 test de integración para flujo login → token en localStorage → redirección. Sin TypeScript, sin librerías de test adicionales (vitest ya viene con vue-cli). Archivos: tests en `src/__tests__/`
+
+#### S3-HU02-T05: Validaciones + mensajes de error globales frontend (Victor) — 5 jul → 8 jul `[frontend]`
+Revisar **todas** las páginas del frontend. Asegurar que:
+- Todo formulario tenga validaciones visibles antes de enviar (campos requeridos marcados, formato email, longitud password)
+- Toda llamada API maneje errores con mensaje visible al usuario (no console.log, no alert() genérico)
+- Botones de acción tengan texto descriptivo (no solo iconos sin label)
+- Mensajes de error en español y específicos ("El email ya está registrado" y no "Error 500")
 
 ---
 
@@ -130,30 +146,11 @@ Nueva vista `GestionUsuarios.vue` solo visible para admin. Formulario de creaci�
 
 ---
 
-## S3-HU05: Cierre y QA — Cobertura Rúbrica
+## Presentación final
 
-> **UX:** 1 | **Design:** 1 | **Front:** 6 | **Back:** 6 | **DevOps:** 10 | **Total:** 24
+> **Todos** — 8 jul → 10 jul
 
-> **Como** equipo, **quiero** cubrir los puntos faltantes de la rúbrica y preparar la presentación final **para** maximizar la nota del último sprint.
-
-### Tareas
-
-#### S3-HU05-T01: Frontend CI/CD — Jenkinsfile + build + deploy (Nicolás) — 5 jul → 8 jul `[devops]` `[frontend]`
-Crear `Jenkinsfile` para frontend con stages: checkout → npm build → copiar `dist/` a producción. Configurar webhook Gitea → Jenkins.
-
-#### S3-HU05-T02: Validaciones + mensajes de error globales frontend (Victor) — 5 jul → 8 jul `[frontend]`
-Revisar todas las páginas: validaciones visibles en formularios, manejo de errores con mensajes al usuario, botones con texto descriptivo.
-
-#### S3-HU05-T03: Usuario BD dedicado (Ignacio) — 5 jul → 7 jul `[database]` `[devops]`
-Crear usuario PostgreSQL `minegocio` con permisos solo a su base de datos. Reemplazar uso de `postgres` directo.
-
-#### S3-HU05-T04: Usuario Jenkins con permisos mínimos (Nicolás) — 5 jul → 8 jul `[devops]`
-Crear usuario `jenkins-deploy` en servidor de producción con SSH por clave y permisos mínimos (docker + copiar archivos). Reemplazar `icin` en Jenkinsfiles.
-
-#### S3-HU05-T05: Preparar presentación final (Todos) — 8 jul → 10 jul `[presentacion]`
-Coordinar demo + presentación. Cada integrante prepara su parte. Entorno dev listo.
-
----
+Coordinar demo + presentación del Sprint 3. Cada integrante prepara su parte. Tener entorno dev listo y funcionando.
 
 ## Resumen de asignaciones
 
@@ -181,11 +178,11 @@ Coordinar demo + presentación. Cada integrante prepara su parte. Entorno dev li
 | S3-HU02-T04 | Testing frontend con Vitest                   | Victor                     | 5 jul → 8 jul   | 🟢 Media   |
 | S3-HU04-T03 | Página Gestión de Usuarios                    | Nicolás                    | 5 jul → 8 jul   | 🟡 Alta    |
 | S3-HU03-T04 | Página Dashboard Ventas con filtros           | Ignacio                    | 6 jul → 8 jul   | 🟡 Alta    |
-| S3-HU05-T03 | Usuario BD dedicado                           | Ignacio                    | 5 jul → 7 jul   | 🟡 Alta    |
-| S3-HU05-T01 | Frontend CI/CD                                | Nicolás                    | 5 jul → 8 jul   | 🔴 Crítica |
-| S3-HU05-T02 | Validaciones + errores globales frontend      | Victor                     | 5 jul → 8 jul   | 🟡 Alta    |
-| S3-HU05-T04 | Usuario Jenkins permisos mínimos              | Nicolás                    | 5 jul → 8 jul   | 🟢 Media   |
-| S3-HU05-T05 | Preparar presentación final                   | Todos                      | 8 jul → 10 jul  | 🔴 Crítica |
+| S3-HU01-T13 | Usuario BD dedicado                           | Ignacio                    | 5 jul → 7 jul   | 🟡 Alta    |
+| S3-HU01-T12 | Frontend CI/CD                                | Nicolás                    | 5 jul → 8 jul   | 🔴 Crítica |
+| S3-HU01-T14 | Usuario Jenkins permisos mínimos              | Nicolás                    | 5 jul → 8 jul   | 🟢 Media   |
+| S3-HU02-T05 | Validaciones + errores globales frontend      | Victor                     | 5 jul → 8 jul   | 🟡 Alta    |
+| —           | Presentación final                            | Todos                      | 8 jul → 10 jul  | 🔴 Crítica |
 
 ---
 
@@ -196,4 +193,4 @@ Coordinar demo + presentación. Cada integrante prepara su parte. Entorno dev li
 - [[rubricaEquipo6]] — rúbrica de evaluación
 - [[PonytailAudit-2026-06-19]] — auditoría de código muerto e inconsistencias
 - [[Auditoria-Presentacion-2026-06-20]] — auditoría de estado pre-presentación
-- [[Sprint 3 - HU05 - Cierre y QA]] — HU05 detallada
+

@@ -94,3 +94,27 @@ Escribir tests automatizados para demostrar que los componentes funcionan. La r�
 3. Usar **Vitest** (viene con Vue CLI). Tests en `src/__tests__/`.
 
 4. Son 4 tests en total — no te vuelvas loco.
+
+---
+
+## 5. S3-HU02-T05: Validaciones + mensajes de error globales `[frontend]`
+**Fechas:** 5 jul → 8 jul
+
+### ¿Qué estamos haciendo y por qué?
+
+La rúbrica nos bajó puntos porque los formularios no tienen validaciones visibles, los errores no le llegan al usuario y los botones no dicen bien qué hacen. Vamos a revisar **todas las páginas** y arreglarlo.
+
+### Pasos
+
+1. **Revisar formularios uno por uno.** En cada página con formulario (Productos, Ventas, Inventario, Login, Gestión Usuarios, Dashboard), asegurate que:
+   - Los campos requeridos tengan un indicador visible (ej: asterisco rojo o texto "obligatorio")
+   - Antes de enviar, se validen: email con @, password ≥ 8 caracteres, números donde corresponda
+   - Si la validación falla, mostrar el error al lado del campo (no un alert() genérico)
+
+2. **Revisar llamadas API.** Cada `fetch` debe tener un `.catch()` o `try/catch` que muestre un mensaje visible al usuario. Nada de `console.log`. Los mensajes deben estar en español y ser específicos:
+   - Mal: "Error 500"
+   - Bien: "No se pudieron cargar los productos. Intenta de nuevo."
+
+3. **Revisar botones.** Si un botón tiene solo un icono sin texto, agregale un label. Ej: el botón "+" debe decir "Agregar producto" o al menos tener un tooltip.
+
+4. **Probar casos borde:** enviar formulario vacío, email inválido, password corta, y verificar que los mensajes de error aparezcan.
