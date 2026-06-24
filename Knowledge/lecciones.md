@@ -178,9 +178,18 @@ Los 3 links centrales del NavBar (Inventario, Análisis, Productos) eran redunda
 
 ## 2026-06-23 — HU01-T05: Limpieza código muerto + reorganización Gitea
 
+### Nomenclatura de ramas
+- Ramas renombradas de `feature/huXX-tXX-*` a `S3-HUXX-TXX-*` en español:
+  - `feature/hu01-t11-readmes` → `S3-HU01-T11-documentacion`
+  - `feature/hu02-t01-navbar-sidebar` → `S3-HU02-T01-navegacion-barra-lateral`
+  - `feature/hu02-t02-kanban` → `S3-HU02-T02-tablero-kanban`
+  - `feature/hu02-t03-dashboard` → `S3-HU02-T03-panel-principal`
+  - `feature/hu02-t04-testing` → `S3-HU02-T04-pruebas`
+  - El resto se mantuvieron igual (ya en español)
+
 ### Gitea: limpieza de ramas S2
 - Las ramas S2 viejas se respaldaron como `archive/` tags antes de eliminar, para no perder trabajo.
-- Desde `main` se crearon `develop` + 8 feature branches: `feature/hu01-t01-*` a `feature/hu02-t02-*`.
+- Desde `main` se crearon `develop` + 8 ramas S3: `S3-HU01-T05-limpieza` a `S3-HU02-T05-validaciones`.
 
 ### HU01-T05: código eliminado
 - `HelloWorld.vue` (componente por defecto de Vue CLI)
