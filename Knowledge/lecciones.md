@@ -231,3 +231,35 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 
 ### Código extraído a ~/Downloads
 `~/Downloads/minegocio-frontend/` y `~/Downloads/minegocio-backend/` con el estado post-commit `898137e` y `19bbc55` respectivamente.
+
+## 2026-06-23 — Waybar hover roto + hypr-player a layer-shell + limpieza
+
+### El hover de Waybar dejó de expandir los módulos → daemon muerto
+- **Causa raíz:** `waybar-hover-daemon.service` tenía `BindsTo=waybar.service`. `BindsTo` **detiene** el daemon cuando waybar para, pero **NO lo rearranca** cuando waybar vuelve. Al hacer `waybar-reload` (killall + systemctl start), el daemon quedó muerto y el state file `~/.local/state/waybar-hover-group` clavado en "0" → los módulos nunca expanden.
+- **Fix:** quitar `BindsTo`/`PartOf` y hacer el daemon **independiente** (`WantedBy=default.target`, `Restart=always`, `After=waybar.service`). El daemon ya es self-healing: relee `pidof waybar` y `hyprctl layers` en cada ciclo, así que sobrevive a cualquier reinicio de waybar sin quedar huérfano. El `BindsTo` era una optimización prematura que causó justo la caída.
+- **Lección:** para un daemon auxiliar que solo escribe un state file y señaliza a waybar, NO atarlo al ciclo de vida de waybar; hacerlo independiente y resiliente.
+- **Test del mecanismo (sin tocar el cursor):** `echo "1" > ~/.local/state/waybar-hover-group; <script>` → debe emitir ícono+texto+`"class":"expanded"`. `echo "0"` → solo ícono.
+
+### Hyprland 0.55: `hyprctl dispatch` interpreta los argumentos como Lua
+- `hyprctl dispatch togglefloating address:0x...` → `error: hl.dispatch(togglefloating address:0x...): ')' expected near 'address'`. El IPC envuelve los args en `hl.dispatch(...)` y los parsea como Lua → los selectores clásicos (`address:`, `title:`, `exact X Y,...`) son sintaxis inválida.
+- Incluso `togglefloating` pelado falla: `hl.dispatch: expected a dispatcher (e.g. hl.dsp.window.close())`. La API es `hl.dsp.<ns>.<dispatcher>(...)` con tablas Lua, pero el nombre exacto del dispatcher de floating no es `toggleFloating`/`togglefloating` (ambos → nil).
+- **Conclusión:** `hyprctl dispatch movewindowpixel exact ... ,title:...` y `windowrulev2 = float,...` son **poco fiables/rotos en 0.55**. No depender de ellos para flotar/posicionar ventanas desde scripts.
+
+### Solución correcta para flotar GTK en Hyprland 0.55: GtkLayerShell
+- `gi.require_version("GtkLayerShell","0.1")` + `GtkLayerShell.init_for_window(win)` **antes** de `show_all()`. Flota nativamente, sin window rules ni dispatch.
+- Anclar a **dos bordes adyacentes** (BOTTOM+RIGHT) + `set_margin` → la ventana conserva su tamaño de contenido y se pega a la esquina (réplica de un snap-to-corner). Anclar a bordes opuestos la estiraría.
+- `set_keyboard_mode(ON_DEMAND)` → teclas (ESC/Space/←/→/C) funcionan al hacer foco con clic, sin robar el teclado global (eso sería EXCLUSIVE).
+- `set_monitor(gdk_monitor)` para elegir monitor; mapear cursor→GdkMonitor con `Gdk.Display.get_monitor_at_point(x,y)` usando `hyprctl cursorpos -j`.
+- **Requiere backend Wayland nativo** (`GDK_BACKEND=wayland`). GtkLayerShell NO funciona bajo XWayland. hypr-player tenía `GDK_BACKEND=x11` como residuo de las versiones con mpv `--wid`; v8 (MPRIS puro) no lo necesita.
+- La superficie aparece en `hyprctl layers` con su `namespace` (no en `hyprctl clients`). Estilizar con `layerrule = blur, hypr-player` (no `windowrulev2`).
+
+### hypr-player v8 — 3 bugs encontrados con subagentes de testing
+1. **Parsing de args:** solo aceptaba `--player=yt` (con `=`). El config de Waybar usa `--player music`/`--player vlc` (con espacio) → clicar esos módulos abría el player de YouTube. Fix: aceptar ambas formas.
+2. **Singleton hacía "replace", no "toggle-off":** el 2º lanzamiento mataba al 1º pero abría uno nuevo → nunca cerraba. Fix: si hay instancia viva (`os.kill(pid,0)`), mandarle SIGTERM y `sys.exit(0)` sin abrir ventana. Ahora clic abre / clic cierra.
+3. **No flotaba** (window rules rotas en 0.55) → resuelto con GtkLayerShell (arriba).
+
+### Limpieza de ~/.local/bin y ~/.config/waybar
+- Eliminados daemons MPRIS huérfanos (reemplazados por los 3 split mpris-yt/music/vlc): `mpris` (daemon único viejo), `mpris-scroll`, `mpris-waybar`. Verificado sin referencias en config/hypr/systemd antes de borrar.
+- Eliminado `hypr-toast.bak` (el real existe) y 4 `.bak` sueltos en `~/.config/waybar/` (estados ya archivados en `bak/` con fecha).
+- Snapshot del estado funcional en `~/.config/waybar/bak/20260623-working/` (config + style + scripts) y `hypr-player.pre-layershell` por si hay que revertir.
+- **Nota multimonitor:** con 2 monitores, Waybar lanza 2 instancias de cada daemon mpris (1 por barra). Es correcto/inherente, no fuga.

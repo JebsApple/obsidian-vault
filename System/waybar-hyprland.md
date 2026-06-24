@@ -22,8 +22,14 @@ hyprland
 
 ```
 ~/.config/systemd/user/waybar.service
-~/.config/systemd/user/waybar-hover-daemon.service  (BindsTo=waybar)
+~/.config/systemd/user/waybar-hover-daemon.service  (independiente, Restart=always)
 ```
+
+> ⚠️ **2026-06-23:** el hover-daemon usaba `BindsTo=waybar.service`, que lo
+> mataba al reiniciar waybar pero NO lo rearrancaba → quedaba huérfano y los
+> módulos dejaban de expandir. Ahora es **independiente** (`WantedBy=default.target`,
+> `Restart=always`, `After=waybar.service`); el daemon ya relee `pidof waybar`
+> y `hyprctl layers` en cada ciclo, así que sobrevive a cualquier `waybar-reload`.
 
 Comandos:
 ```bash
@@ -102,11 +108,24 @@ La clase `expanded` es la que activa el background highlight en CSS.
 - Si título > 29 chars y hover=True → ticker marquee a 6 chars/seg
 - Sin reproducción → ícono  dimmed
 
-## hypr-player (v7 — 2026-06-23)
+## hypr-player (v8 — 2026-06-23)
 
-GTK3 (XWayland, `GDK_BACKEND=x11`), título `hypr-player`. **Sin mpv, sin yt-dlp.**
+GTK3 **Wayland nativo** (`GDK_BACKEND=wayland`) + **GtkLayerShell**. **Sin mpv, sin yt-dlp.**
+Clases: `PlayerController` (MPRIS/playerctl) · `ArtWidget` (Cairo cross-fade) ·
+`MarqueeLabel` · `ProgressBar` · `PlayerWindow` (modos MUSIC / COMPACT, tecla `C`).
 
-### Approach actual: MPRIS puro
+### Flotado: GtkLayerShell (no window rules)
+- En 0.55 las `windowrulev2 = float,...` y `hyprctl dispatch movewindowpixel`
+  están rotos (dispatch parsea args como Lua). Solución: la ventana es una
+  **superficie layer-shell** anclada a BOTTOM+RIGHT con margen `MARGIN`.
+- `set_keyboard_mode(ON_DEMAND)` (teclas al hacer foco con clic).
+- `set_monitor()` al monitor del cursor; sigue al cursor entre monitores cada 10s.
+- Aparece en `hyprctl layers` (namespace `hypr-player`), NO en `hyprctl clients`.
+- Estilo en hyprland.conf: `layerrule = blur, hypr-player`.
+- Singleton **toggle real**: clic abre / 2º clic cierra (no replace).
+- Args: acepta `--player yt|music|vlc` (con espacio) y `--player=...`.
+
+### Approach de control: MPRIS puro
 - Controla el browser directamente via `playerctl` (prev/next/play-pause/seek/position)
 - `playerctl position` sí devuelve posición real de YouTube en tiempo real (via plasma-browser-integration)
 - Polling 500ms → progress bar + tiempo sincronizados con el browser
@@ -169,3 +188,7 @@ La ventana usa `title:hypr-player`. `_position_window()` llama `hyprctl dispatch
 | Bluetooth/mpris desaparecían en 1280px | `margin: 2px 37px` → overflow | `margin: 2px 2px` |
 | brightness no respondía a señal | Sin `"signal": 1` en config | Agregado `"signal": 1` |
 | mpris huérfanos al reiniciar waybar | Procesos no terminados | Corregido; systemd limpia hijos |
+| Hover dejó de expandir módulos | `BindsTo=waybar` mataba el daemon al `waybar-reload` y no lo rearrancaba | Daemon independiente: `WantedBy=default.target`, `Restart=always`, sin `BindsTo` |
+| hypr-player abría tiled (grande) | window rules + `hyprctl dispatch` rotos en 0.55 | Migrado a **GtkLayerShell** (Wayland), anclado a esquina |
+| Módulos music/VLC abrían el player de YouTube | parser solo aceptaba `--player=X` | Aceptar también `--player X` (con espacio) |
+| Clic en módulo no cerraba el player | singleton hacía replace en vez de toggle | Si hay instancia viva → SIGTERM + `sys.exit(0)` |
