@@ -284,3 +284,17 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - **Causa:** waybar lo lanzaban a la vez el autostart de Hyprland (`hl.exec_cmd("waybar")` en `hl.on("hyprland.start")`) **y** `waybar.service` (systemd). Al re-loguear ambos ganaron → 4 superficies (2 apiladas por monitor) y 12 daemons mpris.
 - **Fix:** quitar `hl.exec_cmd("waybar")` del `.lua`; dejar systemd como único lanzador (tiene `Restart=always` y el hover-daemon depende de su orden). Limpieza runtime: `systemctl --user stop waybar` + `pkill -x waybar` + matar mpris huérfanos + `start`.
 - **Footgun de pkill:** `pkill -f "bin/mpris-yt"` **mata el propio shell** (su cmdline contiene ese texto). Matar daemons solo si `comm==python3`: `for pid in $(pgrep -f /mpris-); do [ "$(ps -o comm= -p $pid)" = python3 ] && kill $pid; done`. Mismo cuidado al contar con `pgrep -cf`.
+
+### Workspaces persistentes (en la config ACTIVA `hyprland.lua`)
+- `for i=1,10 do hl.workspace_rule({ workspace = tostring(i), persistent = true }) end` → 10 workspaces que siempre existen y NO se pierden al hotplug de HDMI. Sin `monitor` = sin reasignar (cada uno vive donde se abra; Hyprland reubica al desconectar).
+- Verificar: `hyprctl workspacerules -j` (debe listar 10 con `persistent=true`).
+- **Validar Lua ANTES de `hyprctl reload`:** `luac -p hyprland.lua` (parse-only, no ejecuta). El reload re-corre el top-level pero NO re-dispara `hl.on("hyprland.start")`, así que no relanza apps de autostart.
+
+### 4 módulos nuevos de Waybar (2026-06-24)
+- **Izquierda (icono fijo, sin hover-expand):** `idle_inhibitor` (nativo waybar, eye/eye-slash) + `custom/dnd` (script `dnd`, dunstctl pause, bell/bell-slash). DND refresca instantáneo con `signal:4` + on-click `dunstctl set-paused toggle; pkill -RTMIN+4 waybar`.
+- **Derecha (hover-expand, leen el state file):** `custom/resources` (script `resources`: CPU% por delta de /proc/stat + RAM% de /proc/meminfo + temp de `x86_pkg_temp`; color adaptativo) + `custom/updates` (script `updates`: `checkupdates`+`paru -Qua`, **cacheado** en `~/.cache/waybar-updates` con MAXAGE para no martillar en cada hover/signal).
+- **Regla izquierda vs derecha:** los módulos icon-only van a la izquierda; el sistema hover-expand solo vive en la mitad derecha de la barra (el daemon escribe el state file global). Solo glyphs Nerd Font, sin emojis.
+- **Bug `grep -c` + `|| echo 0`:** `grep -c .` imprime `0` Y sale con código 1 cuando no hay coincidencias → el `|| echo 0` añade OTRO `0` → `"0\n0"` → error aritmético. Usar `grep -c .` solo (ya imprime 0), con `${var:-0}` de respaldo.
+
+### Aún pendiente / deuda
+- **Config muerta:** `hyprland.conf`, `monitors.conf/.lua`, `workspaces.conf/.lua` (de nwg-displays) están huérfanos — la activa es `hyprland.lua` y no los hace `require`. Decidir: borrar/renombrar los `.conf`, y si se quiere que nwg-displays funcione, hacer `require` de sus `.lua` o inlinear. **OJO:** nwg-displays guarda en esos archivos huérfanos → sus cambios de monitores NO se aplican hoy.
