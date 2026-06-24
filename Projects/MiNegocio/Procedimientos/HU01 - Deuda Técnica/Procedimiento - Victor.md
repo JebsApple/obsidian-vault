@@ -50,7 +50,7 @@ Hay comentarios en inglés y líneas de código comentadas que deberían haberse
 
 3. **Criterio ponytail:** el comentario vale cuando explica el **por qué** de algo (ej: "multiplicamos por 1.19 porque el IVA es 19%"), no cuando dice el **qué** (el código ya lo muestra).
 
-4. Revisá los hallazgos de la auditoría [[PonytailAudit-2026-06-19]] que identificaron varios casos.
+4. Revisá los hallazgos de la auditoría [[PonytailAudit - Sprint 2]] que identificaron varios casos.
 
 ---
 

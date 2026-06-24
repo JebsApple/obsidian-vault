@@ -35,7 +35,7 @@ Integrar análisis SonarQube en el pipeline de Jenkins y documentar cómo ejecut
 - **Gabriel:** Eliminar `plugins/axios.js` (+ dependencia axios de package.json), `middleware/authGuard.js`, alias `/api/login` de `routes/routes.go`, structs `RegisterRequest`/`TokenResponse` de `models/models.go`. Colapsar `GenerateToken`/`GenerateRefreshToken` en una función con parámetro duration.
 - **Ignacio:** Eliminar `ventasService.getVenta(id)`, `ContactoPage.vue`, `contacto.css`, campo `productRepo` no usado de `VentaService`. Extraer `authHeaders()` duplicado a `src/utils/authHeaders.js`.
 - **Victor:** Eliminar `HelloWorld.vue`, `var magicBytes` de `middleware/upload.go`. Consolidar CSS duplicado de botones/badges entre `GaleriaProductos.vue` y `productos.css`. Unificar umbral de stock bajo en `src/utils/stockStatus.js` (Actual: <=4 en ProductosPage/InventarioPage vs <=10 en GaleriaProductos). `App.vue.cerrarSesion` usa `authService.logout()` en vez de replicar localStorage.removeItem.
-Relación: DT-07, DT-08, DT-09, DT-13, DT-15, DT-16 + hallazgos PonytailAudit
+Relación: DT-07, DT-08, DT-09, DT-13, DT-15, DT-16 + hallazgos [[PonytailAudit - Sprint 2]]
 
 #### S3-HU01-T06: Control de acceso por rol + id_vendedor dinámico (Gabriel + Ignacio) — 27 jun → 2 jul `[backend]` `[frontend]` `[bugfix]`
 AuthMiddleware extrae `user_id` y `rol` del JWT y los pasa al handler via `context.WithValue`. Middleware `RequireRole("admin")` para rutas sensibles (CRUD productos, inventario). Frontend obtiene `id_vendedor` desde `JSON.parse(localStorage.getItem('usuario')).id` en vez de hardcodear `1`. Backend valida que id_vendedor coincida con el token. Resolver inconsistencia arquitectónica: unificar que todos los handlers reciban interfaces (como AuthHandler/ProductoHandler) o ninguno. Archivos: `middleware/auth_middleware.go`, `middleware/role_middleware.go`, `routes/routes.go`, `CarritoCompras.vue`, `handler/venta_handler.go`, `handler/inventario_handler.go`, `handler/interfaces.go`, `service/interfaces.go`. Relación: DT-04, DT-12
@@ -47,7 +47,7 @@ Implementar logging estructurado del backend a archivo (`logs/minegocio.log`) co
 Crear documento (PDF) listando todos los endpoints de la API actual. Por cada endpoint: método HTTP, ruta completa, parámetros (query/body/headers), ejemplo de request, ejemplo de response (200/400/401/404/500), si requiere JWT. Incluir tabla de códigos de error del sistema y mapa de URLs (dev:8080, prod:8000, backend directo:3001 según mapeo de infraestructura actual).
 
 #### S3-HU01-T10: Quitar comentarios en inglés del código (Victor) — 23 jun → 27 jun `[backend]` `[frontend]`
-Revisar todo el códigobase. Comentarios en inglés → español o eliminar si son redundantes. Objetivos específicos: comentarios en `models/models.go` que no aportan ("model se usa para identificar las tablas de bd y como dto"), código comentado (`//import "time"` en repository/usuario_repository.go), y hallazgos de PonytailAudit. Aplicar criterio ponytail: si el código se explica solo, el comentario sobra.
+Revisar todo el códigobase. Comentarios en inglés → español o eliminar si son redundantes. Objetivos específicos: comentarios en `models/models.go` que no aportan ("model se usa para identificar las tablas de bd y como dto"), código comentado (`//import "time"` en repository/usuario_repository.go), y hallazgos de [[PonytailAudit - Sprint 2]]. Aplicar criterio ponytail: si el código se explica solo, el comentario sobra.
 
 #### S3-HU01-T11: Reparar READMEs del proyecto (Victor) — 27 jun → 30 jun `[backend]` `[frontend]`
 Reescribir `README.md` de frontend y backend con contenido consistente. Debe incluir: descripción del proyecto, stack tecnológico (Go + gorilla/mux + PostgreSQL para backend, Vue 3 + vue-router para frontend), instrucciones paso a paso para dev (clonar, variables de entorno, DB, npm install/go run, puertos) y para prod (Docker, build, despliegue), URLs de ambientes (http://192.168.50.25:8000 prod, :8080 dev), estructura de directorios, y enlaces a documentación. Corregir inconsistencia actual (rubric: README dice nginx pero usan Docker en prod).
@@ -191,6 +191,7 @@ Coordinar demo + presentación del Sprint 3. Cada integrante prepara su parte. T
 - [[Deuda Técnica]] — items DT-01 a DT-16
 - [[Propuesta Taiga Sprint 3]] — propuesta anterior con más HUs
 - [[rubricaEquipo6]] — rúbrica de evaluación
-- [[PonytailAudit-2026-06-19]] — auditoría de código muerto e inconsistencias
+- [[PonytailAudit - Sprint 2]] — auditoría de código muerto e inconsistencias (Sprint 2)
+- [[PonytailAudit - Sprint 3]] — auditoría de hallazgos y plan Sprint 3
 - [[Auditoria-Presentacion-2026-06-20]] — auditoría de estado pre-presentación
 
