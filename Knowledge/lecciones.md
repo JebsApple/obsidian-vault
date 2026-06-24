@@ -11,6 +11,9 @@ Registra aquí errores y soluciones para no repetirlos.
 - **Solución:** Cómo se resolvió
 - **Causa raíz:** Por qué ocurrió
 
+## Regla fija — Ramas en español
+Todas las ramas se nombran en **español**. Nada de inglés (no `readmes`, `testing`, `dashboard`). Nomenclatura estricta: `SPRINT-HUXX-TXX-descripcion-breve` o `SLT-descripcion`. Confirmar con el usuario antes de renombrar ramas que no creaste tú mismo.
+
 ## Historial
 - [2026-06-17] Mihon+Suwayomi sync: celular probablemente estaba en datos móviles (5G) al fallar pruebas de red local — siempre desactivar datos al testear IPs locales
 - [2026-06-17] Para diagnosticar conectividad local: `python3 -m http.server 8888` en PC, abrir `http://IP:8888` desde celular con WiFi y sin datos móviles
