@@ -1,3 +1,7 @@
+---
+tags: [minegocio, testing, produccion]
+---
+
 # Smoke Test PROD — MiNegocio
 **Fecha:** 2026-06-19 | **Ambiente:** http://192.168.50.25:8000 | **Veredicto: ✅ LISTO**
 

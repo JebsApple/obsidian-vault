@@ -27,7 +27,7 @@ Registra aquí errores y soluciones para no repetirlos.
 - [2026-06-17] Cambiado obsidian-mcp de `npx -y obsidian-mcp` a `node path/to/main.js` para evitar latencia de npx
 - [2026-06-18] Sincronización del vault: git + systemd timer (auto-push/pull c/30 min) + plugin Obsidian Git (c/10 min desde la UI)
 - [2026-06-18] Comando `vault-sync` (alias `vsync`) — sync manual sin gastar tokens. Solo usa Claude + opencode si hay conflictos de merge
-- [2026-06-18] Instalado plugin Automatic Linker — convierte texto en `[[links]]` automáticamente al guardar, sin AI
+- [2026-06-18] Instalado plugin Automatic Linker — convierte texto en wikilinks automáticamente al guardar, sin AI
 - [2026-06-18] Creada carpeta Research/ — notas de investigación sobre MCP, Tailscale, CachyOS, self-hosting, manga sync
 - [2026-06-18] Gitea: repos separados MiNegocio-backend-Busqueda, MiNegocio-backend-imagenes y alo eliminados. Su contenido se pusheó como ramas de MiNegocio-backend (S2-HU04-API-Busqueda y S2-HU04-API-Imagenes) antes de borrarlos
 - [2026-06-18] Smoke test DEV: 3 bloqueantes encontrados — contenedor backend desactualizado (Jun 15, no tiene S2-HU04), feat/inventario-endpoints sin mergear + ruta no registrada en routes.go, frontend caído. Veredicto: NO LISTO. Plan documentado en Projects/MiNegocio - Merge a Main.md

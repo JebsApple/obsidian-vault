@@ -1,3 +1,6 @@
+---
+tags: [universidad, jenkins, despliegue]
+---
 
 Permitir que Jenkins (Server A) despliegue aplicaciones en Tomcat (Server B) mediante SSH sin contraseña y con permisos mínimos necesarios.
 

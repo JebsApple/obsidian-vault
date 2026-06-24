@@ -1,3 +1,7 @@
+---
+tags: [minegocio, ponytail, auditoria]
+---
+
 # Ponytail Audit — MiNegocio Sprint 3
 **Fecha:** 2026-06-23 | **Scope:** Backend Go + Frontend Vue.js + DevOps | **Modo:** full
 

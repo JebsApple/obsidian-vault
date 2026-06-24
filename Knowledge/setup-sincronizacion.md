@@ -74,7 +74,7 @@ En Obsidian:
 4. Activar **Git** y **Automatic Linker** desde la lista
 
 Listo. El plugin **Git** sincronizará automáticamente: cada 10 min hace commit, cada 30 min sube a GitHub.
-El plugin **Automatic Linker** crea `[[enlaces]]` entre notas automáticamente al guardar.
+El plugin **Automatic Linker** crea enlaces entre notas automáticamente al guardar.
 
 ---
 

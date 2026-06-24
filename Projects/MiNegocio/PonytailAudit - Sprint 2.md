@@ -1,3 +1,7 @@
+---
+tags: [minegocio, ponytail, auditoria]
+---
+
 # Ponytail Audit — MiNegocio
 **Fecha:** 2026-06-19 | **Scope:** Backend Go + Frontend Vue.js | **Modo:** full
 

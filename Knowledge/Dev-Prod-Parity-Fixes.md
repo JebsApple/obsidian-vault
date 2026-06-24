@@ -1,3 +1,7 @@
+---
+tags: [minegocio, devops, configuracion]
+---
+
 # Dev-Prod Parity Fixes
 
 ## Date

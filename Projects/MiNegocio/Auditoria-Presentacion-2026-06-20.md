@@ -1,3 +1,7 @@
+---
+tags: [minegocio, auditoria, presentacion]
+---
+
 # Auditoría Pre-Presentación — MiNegocio
 **Fecha:** 2026-06-19 | **Presentación:** 2026-06-20
 
