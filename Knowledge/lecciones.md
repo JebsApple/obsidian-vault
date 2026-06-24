@@ -263,3 +263,24 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - Eliminado `hypr-toast.bak` (el real existe) y 4 `.bak` sueltos en `~/.config/waybar/` (estados ya archivados en `bak/` con fecha).
 - Snapshot del estado funcional en `~/.config/waybar/bak/20260623-working/` (config + style + scripts) y `hypr-player.pre-layershell` por si hay que revertir.
 - **Nota multimonitor:** con 2 monitores, Waybar lanza 2 instancias de cada daemon mpris (1 por barra). Es correcto/inherente, no fuga.
+
+## 2026-06-24 — Lock Super+Esc, doble-waybar y footguns de testing
+
+### Super+Esc cerraba la sesión en vez de bloquear
+- **Causa:** `hyprland.lua:181` tenía `hl.bind(mainMod .. " + Escape", hl.dsp.exit())` → `hl.dsp.exit()` **cierra Hyprland entero** (pierdes TODAS las ventanas y workspaces). No es un lock.
+- **Fix:** `hl.dsp.exec_cmd("sh -c 'pidof hyprlock || hyprlock'")` (el `pidof` evita doble hyprlock). Para SALIR de Hyprland queda wlogout (módulo power de waybar).
+- **OJO config activa:** la fuente de verdad es **`hyprland.lua`**, NO `hyprland.conf`. Confirmar con `hyprctl binds` (dispatchers `__lua N`). Los `.conf`, `monitors.lua`/`monitors.conf`, `workspaces.lua`/`workspaces.conf` (de nwg-displays) están **huérfanos**: `hyprland.lua` no los hace `require`. Editar el `.conf` no hace NADA.
+
+### ⚠️ NUNCA lanzar/matar hyprlock en la sesión viva para "probar"
+- El protocolo Wayland `ext-session-lock` mantiene la pantalla **bloqueada si el locker se cae** (diseño de seguridad). Si lanzas `hyprlock` y lo matas con `timeout`/`pkill`, muere sin liberar el lock → Hyprland muestra "el locker crasheó, recupera por TTY" → pantalla negra, hay que ir a un TTY (Ctrl+Alt+F2).
+- **Validar la config de hyprlock por inspección, no lanzándolo.** Editar `hyprlock.conf` NO requiere reload de Hyprland (hyprlock lee su config al arrancar). Recuperación de emergencia: Ctrl+Alt+F2 → login → `pkill hyprlock` / `loginctl unlock-session`.
+
+### hyprlock 0.9.5 — opciones removidas/movidas del config viejo
+- Inválidas en `general`: `disable_loading_bar`, `grace` (ahora CLI `--grace`), `no_fade_in`, `no_fade_out`.
+- Inválidas en `input-field`: `fail_timeout`, `fail_transition`.
+- Las opciones desconocidas se loguean como error en cada lanzamiento; limpiarlas. El parser de hyprlock es el oráculo de qué es válido.
+
+### waybar se arrancaba DOS veces → barras dobles + daemons mpris x2
+- **Causa:** waybar lo lanzaban a la vez el autostart de Hyprland (`hl.exec_cmd("waybar")` en `hl.on("hyprland.start")`) **y** `waybar.service` (systemd). Al re-loguear ambos ganaron → 4 superficies (2 apiladas por monitor) y 12 daemons mpris.
+- **Fix:** quitar `hl.exec_cmd("waybar")` del `.lua`; dejar systemd como único lanzador (tiene `Restart=always` y el hover-daemon depende de su orden). Limpieza runtime: `systemctl --user stop waybar` + `pkill -x waybar` + matar mpris huérfanos + `start`.
+- **Footgun de pkill:** `pkill -f "bin/mpris-yt"` **mata el propio shell** (su cmdline contiene ese texto). Matar daemons solo si `comm==python3`: `for pid in $(pgrep -f /mpris-); do [ "$(ps -o comm= -p $pid)" = python3 ] && kill $pid; done`. Mismo cuidado al contar con `pgrep -cf`.
