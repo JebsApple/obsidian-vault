@@ -12,7 +12,7 @@ hyprland
   └── waybar (systemd user service)
         ├── módulos izquierda: workspaces
         ├── módulo centro: custom/clock
-        └── módulos derecha: pulseaudio, brightness-edp, brightness-hdmi,
+        └── módulos derecha: pulseaudio, brightness (unificado),
                              network, bluetooth, mpris, battery, tray
   └── waybar-hover-daemon (systemd user service, BindsTo=waybar)
   └── hypr-player (GTK4, flotante, se abre desde clic en mpris)
@@ -48,8 +48,9 @@ systemctl --user status waybar-hover-daemon
 | `~/.local/bin/battery` | Bash: batería desde /sys |
 | `~/.local/bin/network` | Bash: wifi/ethernet con nmcli |
 | `~/.local/bin/bluetooth` | Bash: estado con bluetoothctl |
-| `~/.local/bin/brightness-edp` | Bash: brillo laptop con brightnessctl |
-| `~/.local/bin/brightness-hdmi` | Bash: brillo HDMI desde state file |
+| `~/.local/bin/hypr-active-monitor` | Python: JSON del monitor bajo el cursor (name/scale/w_log/internal). Helper reutilizable de conciencia de monitores |
+| `~/.local/bin/brightness` | Bash: módulo brillo UNIFICADO — interno→brightnessctl, externo→hyprsunset gamma, según monitor activo |
+| `~/.local/bin/brightness-{edp,hdmi,edp-scroll,cursor}` | (respaldo, sin uso — reemplazados por `brightness`) |
 | `~/.local/bin/mpris` | Python3 daemon: MPRIS + marquee ticker |
 | `~/.local/bin/waybar-hover-daemon` | Python3 daemon: expande módulos en hover |
 | `~/.local/bin/hypr-player` | Python3 GTK4: reproductor flotante |
@@ -93,8 +94,7 @@ La clase `expanded` es la que activa el background highlight en CSS.
 | Módulo | Ícono colapsado | Texto expandido | on-click |
 |--------|----------------|-----------------|----------|
 | pulseaudio | /  según volumen | `75%` | pavucontrol |
-| brightness-edp | | `80%` | nwg-displays |
-| brightness-hdmi |  | `100%` | nwg-displays |
+| brightness |  (amarillo=interno / teal=externo) | `80%` del monitor activo | nwg-displays |
 | network | /󰈁/ | SSID o IP | nm-connection-editor |
 | bluetooth | /󰂲 | dispositivo conectado | blueman-manager |
 | mpris |  player icon | título • artista (marquee) | hypr-player |
@@ -167,6 +167,31 @@ La ventana usa `title:hypr-player`. `_position_window()` llama `hyprctl dispatch
 | v5 | python-mpv + D-Bus polling | Threading deadlock en terminate() |
 | v6 | mpv subprocess + IPC socket JSON | Reproduce stream independiente (no sync con browser) |
 | v7 | MPRIS puro (playerctl) | ✓ Sincronizado con el browser en tiempo real |
+
+## Zen PiP toggle (2026-06-25)
+
+Activa el **Picture-in-Picture nativo de Zen** desde Waybar y atajo global, sin extensión
+(Zen bloquea extensiones sin firmar; ver [[lecciones]]).
+
+- Script `~/.local/bin/zen-pip-toggle`: `focuswindow class:zen` + poll hasta que Zen tenga foco + `wtype -M ctrl -M shift -k bracketright -m shift -m ctrl` (atajo nativo `Ctrl+Shift+]`). El poll arregla el disparo desde otro workspace (antes la tecla llegaba antes de que Zen tomara foco).
+- **Hyprland — editar `hyprland.lua` (NO `.conf`, ver [[lecciones]]):** línea `hl.bind(mainMod .. " + P", hl.dsp.exec_cmd(".../zen-pip-toggle"))` (reemplazó `hl.dsp.window.pseudo()`).
+- **Float:** `hl.window_rule({ match={title="Picture-in-Picture"}, float=true, pin=true })` en `hyprland.lua` — sin esto el PiP sale en mosaico. `pin` = visible en todos los workspaces.
+- **Waybar:** `custom/mpris-yt` → `on-click` ahora es `zen-pip-toggle` (antes `hypr-player --player yt`). `mpris-music` y `mpris-vlc` sin cambios (Spotify sin video / VLC otra app).
+- **`toggle-reload` al arranque:** añadido al autostart Lua (`hl.on("hyprland.start")`) con `sleep 5` porque waybar aún no está lista al ejecutarse.
+
+## Conciencia de monitores (2026-06-25)
+
+"Algo que lea correctamente los monitores y sus tamaños" **no es un driver** — es un helper de
+espacio de usuario que lee lo que Hyprland ya sabe (`hyprctl monitors -j`, `hyprctl cursorpos -j`).
+
+- **`~/.local/bin/hypr-active-monitor`**: imprime JSON del monitor **bajo el cursor** (fallback:
+  `focused`): `{name,x,y,scale,w_phys,h_phys,w_log,h_log,internal}`. `w_log = w_phys / scale`
+  (tamaño lógico real). `internal` = nombre matchea `^(eDP|LVDS|DSI)`. Reutilizable por cualquier script.
+- **Brillo unificado** (`brightness`): usa el helper → si el monitor activo es interno controla
+  `brightnessctl` (hardware), si es externo `hyprctl hyprsunset gamma_output` (gamma). Un solo módulo,
+  el scroll afecta la pantalla donde está el cursor. Con `follow_mouse=1` coincide con la enfocada.
+- **hypr-player**: `WIN_W` ahora es proporcional al ancho lógico del monitor (`~30 %`, 300–420px) y
+  se fuerza `GDK_SCALE=1` para evitar el "gigante" en eDP (scale 1.5) — ver [[lecciones]].
 
 ## Backups
 

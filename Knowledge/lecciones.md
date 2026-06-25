@@ -303,4 +303,22 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - **Daemon startup:** también se fijó `zones = get_waybar_zones()` inmediato en vez de esperar 2s.
 
 ### Aún pendiente / deuda
-- **Config muerta:** `hyprland.conf`, `monitors.conf/.lua`, `workspaces.conf/.lua` (de nwg-displays) están huérfanos — la activa es `hyprland.lua` y no los hace `require`. Decidir: borrar/renombrar los `.conf`, y si se quiere que nwg-displays funcione, hacer `require` de sus `.lua` o inlinear. **OJO:** nwg-displays guarda en esos archivos huérfanos → sus cambios de monitores NO se aplican hoy.
+- **Config muerta:** `hyprland.conf`, `monitors.conf/.lua`, `workspaces.conf/.lua` (de nwg-displays) están huérfanos — la activa es `hyprland.lua` y no los hace `require`. **[Resuelto 2026-06-25]** `hyprland.conf` movido a `orphans/hyprland.conf.20260625` para evitar confusión. Quedan vacíos en la raíz `monitors.conf`/`workspaces.conf` (0 bytes, inofensivos). **OJO:** nwg-displays guarda en hyprlang `.conf` → sus cambios de monitores NO se aplican; configurar monitores en `hl.monitor{}` dentro del `.lua`.
+
+## Zen Browser — disparar Picture-in-Picture (PiP) desde fuera (2026-06-25)
+- **Objetivo:** activar la ventana flotante de video de Zen desde Waybar y un atajo global.
+- **Hallazgo 1:** Zen (Firefox release) **bloquea extensiones sin firmar** — `xpinstall.signatures.required` no se puede desactivar en builds release (limitación upstream Gecko). Solo carga temporal vía `about:debugging` (se borra al reiniciar). → Extensión propia permanente = inviable.
+- **Hallazgo 2:** No hace falta extensión. Firefox/Zen trae **atajo nativo de PiP: `Ctrl+Shift+]`** (Linux). Lanza/cierra el video más relevante de la página.
+- **El truco:** PiP no tiene disparador externo (ni D-Bus/MPRIS/CLI) y `requestPictureInPicture()` exige *user gesture*. Una pulsación real con `wtype` SÍ cuenta como gesto → enfocar Zen (`class:zen`) e inyectar el atajo.
+- **Implementación:** script `~/.local/bin/zen-pip-toggle` (focuswindow zen + poll hasta que Zen tenga foco + `wtype -M ctrl -M shift -k bracketright -m shift -m ctrl`). Lo llaman el bind `SUPER+P` y el `on-click` de `custom/mpris-yt`.
+- **¡Editar `hyprland.lua`, NO `.conf`!** (ver deuda «Config muerta» arriba y línea 272). Primera vez edité `hyprland.conf` → `SUPER+P` seguía haciendo `pseudo`. La activa es `hyprland.lua` (`configProvider: lua`). API Lua: `hl.bind`, `hl.dsp.exec_cmd`, `hl.window_rule({...})`, `hl.on("hyprland.start",...)`. Headers en `/usr/include/hyprland/src/config/lua/`.
+- **Floating:** el PiP salía en mosaico → `hl.window_rule({ match={title="Picture-in-Picture"}, float=true, pin=true })` en `hyprland.lua`. `pin` = visible en todos los workspaces.
+- **toggle-reload al arranque:** estaba solo en el `.conf` ignorado → no corría. Añadido al autostart Lua con `hl.exec_cmd("sh -c 'sleep 5 && toggle-reload'")` (delay porque waybar aún no está lista).
+- **`wtype`** sube su propio keymap → funciona pese al layout `latam` (confirmado: el PiP abrió en la prueba). Caveat: disparar desde otro workspace enfoca Zen y cambia de workspace (limitación Wayland).
+
+## Conciencia de monitores en Hyprland — helper + escala fraccionaria GTK3 (2026-06-25)
+- **No es un "driver".** Driver = kernel↔hardware. Lo que se necesita para que scripts/ventanas "lean los monitores" es leer la IPC de Hyprland: `hyprctl monitors -j` (name, width, height, scale, x, y, focused) y `hyprctl cursorpos -j`. El tamaño LÓGICO de un monitor = `width / scale` (no el `width` físico).
+- **Helper reutilizable:** `~/.local/bin/hypr-active-monitor` → JSON del monitor bajo el cursor (fallback focused) con `w_log`/`h_log` y flag `internal` (`^(eDP|LVDS|DSI)`). Lo usan el brillo unificado y (idea) cualquier futuro script.
+- **GTK3 + escala fraccionaria = ventanas gigantes.** GTK3 NO soporta scale fraccionario (1.5). En eDP a scale 1.5, una ventana GTK3 (p.ej. hypr-player layer-shell) se renderiza agrandada; en un monitor a scale 1.0 sale bien. **Fix:** exportar `GDK_SCALE=1` antes de importar Gtk → GTK renderiza 1× y Hyprland aplica el scale uniformemente (queda algo menos nítido en HiDPI, aceptable).
+- **Superficie layer-shell ≠ ventana:** no se puede mover/redimensionar con dispatchers de ventana (`SUPER+click-derecho` = resize no le aplica). Por eso hypr-player "no se podía achicar". El tamaño se controla en el código (WIN_W), ahora proporcional al ancho lógico del monitor (~30 %, 300–420px).
+- **Brillo:** hay dos backends — eDP = `brightnessctl` (hardware real); externo/HDMI = `hyprctl hyprsunset gamma_output` (gamma software, state file en `~/.local/state/brightness-<name>`). El módulo `brightness` unifica ambos según el monitor activo.
