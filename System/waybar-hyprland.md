@@ -44,7 +44,8 @@ systemctl --user status waybar-hover-daemon
 | `~/.config/waybar/config` | Configuración de módulos y acciones |
 | `~/.config/waybar/style.css` | Estilos (colores Catppuccin Mocha) |
 | `~/.local/bin/clock` | Bash: hora+fecha en español |
-| `~/.local/bin/pulseaudio` | Bash: volumen/mute con pactl |
+| `~/.local/bin/pulseaudio` | Bash: volumen/mute con pactl (módulo) |
+| `~/.local/bin/hypr-audio` | Python GTK3 layer-shell: panel flotante (clic-derecho en el módulo) — volumen + cambiar salida (altavoces/audífonos/HDMI/BT) |
 | `~/.local/bin/battery` | Bash: batería desde /sys |
 | `~/.local/bin/network` | Bash: wifi/ethernet con nmcli |
 | `~/.local/bin/bluetooth` | Bash: estado con bluetoothctl |

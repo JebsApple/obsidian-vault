@@ -329,3 +329,15 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - **Fix:** en el `.service` → `WantedBy=default.target` (igual que waybar y waybar-hover-daemon, que SÍ arrancan), quitar `PartOf=graphical-session.target`; `systemctl --user daemon-reload && reenable && start`.
 - **Regla:** en esta sesión Hyprland, los servicios user que deban arrancar al login van con `WantedBy=default.target`, NO `graphical-session.target`.
 - **Verificar daemon vivo:** `pgrep -x hyprsunset` y `hyprctl hyprsunset gamma_output <mon> 0.5` debe devolver `ok` (no error de socket).
+
+## Audio: cambiar salida = perfil de tarjeta, no solo sink (2026-06-25)
+- **Clave:** en este laptop hay UNA tarjeta (HDA Intel PCH). Integrado y HDMI son **perfiles distintos de la misma tarjeta**, así que solo existe UN sink a la vez. Cambiar de salida NO es solo `set-default-sink`:
+  - **Integrado (altavoces):** `pactl set-card-profile <card> output:analog-stereo+input:analog-stereo` + `set-sink-port <sink> analog-output-speaker`.
+  - **Audífonos (jack):** mismo perfil analógico + puerto `analog-output-headphones` (el puerto solo está `available` si hay algo enchufado).
+  - **HDMI:** `set-card-profile <card> output:hdmi-stereo+input:analog-stereo`.
+  - **Bluetooth/USB:** sink aparte (aparece al conectar) → `set-default-sink`.
+- Preferir el perfil con `+input:analog-stereo` para conservar el micrófono. Tras conmutar: `set-default-sink` + mover streams (`pactl move-sink-input <id> <sink>`); PipeWire suele moverlos solo igual.
+- Detectar salida activa: `pactl get-default-sink` (`.hdmi`/`.analog` en el nombre) + `Active Port` de `pactl list sinks`.
+- Live updates de un panel: hilo con `pactl subscribe` → `GLib.idle_add(refresh)` (debounce 200ms).
+- Nuevo panel: `~/.local/bin/hypr-audio` (GTK3 layer-shell, clic-derecho en el módulo de volumen). Reusa andamiaje de `hypr-player` (paleta, singleton-toggle por PID, GtkLayerShell).
+- **Gotcha:** `pkill -f 'patrón'` se auto-mata si el patrón aparece en la línea de comando del propio shell (exit 144). Matar por PID file o `ps -eo pid,args | awk '/[p]atrón/'` (clase de char evita el self-match).
