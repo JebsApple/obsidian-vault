@@ -217,3 +217,4 @@ espacio de usuario que lee lo que Hyprland ya sabe (`hyprctl monitors -j`, `hypr
 | hypr-player abría tiled (grande) | window rules + `hyprctl dispatch` rotos en 0.55 | Migrado a **GtkLayerShell** (Wayland), anclado a esquina |
 | Módulos music/VLC abrían el player de YouTube | parser solo aceptaba `--player=X` | Aceptar también `--player X` (con espacio) |
 | Clic en módulo no cerraba el player | singleton hacía replace en vez de toggle | Si hay instancia viva → SIGTERM + `sys.exit(0)` |
+| Brillo unificado sin espaciado → se solapaba con CPU y el scroll caía en el módulo equivocado | al renombrar `brightness-edp`/`-hdmi` → `brightness`, el `style.css` seguía con los nombres viejos (`#custom-brightness-edp/-hdmi`) en padding/margin/hover/expanded | actualizar los selectores a `#custom-brightness`. **Regla: renombrar un módulo waybar = actualizar también `style.css`** |
