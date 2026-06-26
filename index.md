@@ -51,6 +51,7 @@
 ## System
 - [[hyprland-setup]]
 - [[waybar-hyprland]]
+- [[hyprland-lua-dispatch-y-zen-pip]]
 - [[backup-keybinds-2026-06-20]]
 
 ## Tasks

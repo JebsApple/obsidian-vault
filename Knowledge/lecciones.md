@@ -11,9 +11,6 @@ Registra aquí errores y soluciones para no repetirlos.
 - **Solución:** Cómo se resolvió
 - **Causa raíz:** Por qué ocurrió
 
-## Regla fija — Solo hyprland.lua
-Toda configuración de Hyprland se edita en **`hyprland.lua`**. Los archivos `.conf` están muertos — Hyprland 0.55+ los ignora cuando existe un `.lua`. No tocar `hyprland.conf`, `monitors.conf`, `workspaces.conf` ni ningún otro `.conf` de Hyprland.
-
 ## Regla fija — Ramas en español
 Todas las ramas se nombran en **español**. Nada de inglés (no `readmes`, `testing`, `dashboard`). Nomenclatura estricta: `SPRINT-HUXX-TXX-descripcion-breve` o `SLT-descripcion`. Confirmar con el usuario antes de renombrar ramas que no creaste tú mismo.
 
@@ -313,11 +310,19 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - **Hallazgo 1:** Zen (Firefox release) **bloquea extensiones sin firmar** — `xpinstall.signatures.required` no se puede desactivar en builds release (limitación upstream Gecko). Solo carga temporal vía `about:debugging` (se borra al reiniciar). → Extensión propia permanente = inviable.
 - **Hallazgo 2:** No hace falta extensión. Firefox/Zen trae **atajo nativo de PiP: `Ctrl+Shift+]`** (Linux). Lanza/cierra el video más relevante de la página.
 - **El truco:** PiP no tiene disparador externo (ni D-Bus/MPRIS/CLI) y `requestPictureInPicture()` exige *user gesture*. Una pulsación real con `wtype` SÍ cuenta como gesto → enfocar Zen (`class:zen`) e inyectar el atajo.
-- **Implementación:** script `~/.local/bin/zen-pip-toggle` (focuswindow zen + poll hasta que Zen tenga foco + `wtype -M ctrl -M shift -k bracketright -m shift -m ctrl`). Lo llaman el bind `SUPER+P` y el `on-click` de `custom/mpris-yt`.
+- **Implementación:** script `~/.local/bin/zen-pip-toggle` (enfocar la ventana Zen del video + poll hasta que tenga foco + `wtype -M ctrl -M shift -k bracketright -m shift -m ctrl`). Lo llaman el bind `SUPER+P` y el `on-click` de `custom/mpris-yt`. (Los otros dos módulos no cambian: `custom/mpris-music` nota ♪ → `hypr-player --player music`; `custom/mpris-vlc` cono → `hypr-player --player vlc`.)
 - **¡Editar `hyprland.lua`, NO `.conf`!** (ver deuda «Config muerta» arriba y línea 272). Primera vez edité `hyprland.conf` → `SUPER+P` seguía haciendo `pseudo`. La activa es `hyprland.lua` (`configProvider: lua`). API Lua: `hl.bind`, `hl.dsp.exec_cmd`, `hl.window_rule({...})`, `hl.on("hyprland.start",...)`. Headers en `/usr/include/hyprland/src/config/lua/`.
 - **Floating:** el PiP salía en mosaico → `hl.window_rule({ match={title="Picture-in-Picture"}, float=true, pin=true })` en `hyprland.lua`. `pin` = visible en todos los workspaces.
 - **toggle-reload al arranque:** estaba solo en el `.conf` ignorado → no corría. Añadido al autostart Lua con `hl.exec_cmd("sh -c 'sleep 5 && toggle-reload'")` (delay porque waybar aún no está lista).
 - **`wtype`** sube su propio keymap → funciona pese al layout `latam` (confirmado: el PiP abrió en la prueba). Caveat: disparar desde otro workspace enfoca Zen y cambia de workspace (limitación Wayland).
+
+### Reparación 2026-06-25 (parte 2) — el focus se rompió por el provider Lua
+- **Síntoma:** clic en el módulo YT (y `SUPER+P`) dejó de abrir el PiP. El `wtype` aterrizaba en la ventana equivocada (p.ej. Okular) porque **el focus nunca ocurría**.
+- **Causa raíz:** el script usaba `hyprctl dispatch focuswindow class:zen`. Con `configProvider: lua`, **`hyprctl dispatch` evalúa su argumento como Lua** (shorthand de `hl.dispatch(...)`) → `focuswindow class:zen` es Lua inválido (`')' expected near 'class'`) y falla en silencio (el script tenía `2>/dev/null`). Mismo patrón que el dispatch roto de hypr-player.
+- **API Lua correcta del focus:** `hl.dsp.focus({ window = "address:0x..." })`. La tabla `hl.dsp` (curada, NO 1:1 con dispatchers clásicos) tiene top-level: `exec_cmd, exec_raw, focus, send_key_state, window`. `window.*` = `close`(killactive)/`float`(togglefloating)/`fullscreen`/`alter_zorder`… `focus` espera **tabla**: `{ direction|monitor|window|urgent_or_last|last }`.
+- **Truco para inspeccionar la API Lua en runtime** (no hay docs locales; los headers solo listan *window-rule effects*): `hyprctl dispatch 'error("K="..table.concat((function() local t={} for k in pairs(hl.dsp) do t[#t+1]=k end return t end)(),","))'` → el mensaje de `error()` revela las claves de cualquier tabla `hl.*`.
+- **Selección de ventana:** ahora el script identifica la ventana del **video que reproduce** vía título MPRIS (`playerctl -p firefox… metadata --format '{{title}}'` ⊂ título de ventana) en vez de agarrar la primera Zen (que podía ser "Library"/PiP). Fallback: excluir títulos `Library|Settings|New Tab|Picture-in-Picture`.
+- **`wtype` NO dispara keybinds del compositor:** verificado que ni `SUPER+V` ni `SUPER+P` inyectados con `wtype -M logo` togglean nada (el modificador virtual no entra al matcher de binds de Hyprland). → No se puede probar `SUPER+P` de forma sintética; hay que pulsarlo físicamente. El script directo y el `on-click` sí se validan sin teclado.
 
 ## Conciencia de monitores en Hyprland — helper + escala fraccionaria GTK3 (2026-06-25)
 - **No es un "driver".** Driver = kernel↔hardware. Lo que se necesita para que scripts/ventanas "lean los monitores" es leer la IPC de Hyprland: `hyprctl monitors -j` (name, width, height, scale, x, y, focused) y `hyprctl cursorpos -j`. El tamaño LÓGICO de un monitor = `width / scale` (no el `width` físico).
@@ -344,11 +349,29 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - Live updates de un panel: hilo con `pactl subscribe` → `GLib.idle_add(refresh)` (debounce 200ms).
 - Nuevo panel: `~/.local/bin/hypr-audio` (GTK3 layer-shell, clic-derecho en el módulo de volumen). Reusa andamiaje de `hypr-player` (paleta, singleton-toggle por PID, GtkLayerShell).
 - **Gotcha:** `pkill -f 'patrón'` se auto-mata si el patrón aparece en la línea de comando del propio shell (exit 144). Matar por PID file o `ps -eo pid,args | awk '/[p]atrón/'` (clase de char evita el self-match).
-- **Gotcha copia-de-código:** al copiar andamiaje de `hypr-player` a `hypr-audio`, `_gdk_monitor_for_cursor()` no existía en el destino → el panel nunca se abría. También faltaban `_tick_vol` y `_tick_outs` (referenciados en `__init__` como callbacks de `GLib.timeout_add` pero nunca definidos). **Regla: al copiar una clase GTK con timers, verificar que los callbacks referenciados estén definidos.**
 
-## hypr-player no tomaba el player de Zen + hypr-audio refinado (2026-06-25)
-- **Zen expone MPRIS como `firefox.instance_N_XXXX`** (es Firefox-based, NO se llama "zen"). Reproduciendo YouTube → `xesam:url = youtube.com/watch...`. Buses reales: `busctl --user list | grep MediaPlayer2`.
-- **Bug `_find_player`:** para hint `vlc`/`music` devolvía un match por nombre AUNQUE estuviera detenido, y no excluía `playerctld` (proxy MPRIS) → abría un player viejo/equivocado en vez del activo.
-- **Fix:** prioridad `hint-match+Playing` → `hint-match+con-media` → `cualquiera Playing` → `cualquiera con media` → primero; excluir `playerctld`. Ahora cualquier módulo abre el player ACTIVO (Zen). Verificado: muestra el tema en curso.
-- Recordatorio del wiring: módulo **yt** → PiP (`zen-pip-toggle`); **music/vlc** → `hypr-player` (que ahora cae en Zen vía fallback).
-- **hypr-audio** afinado: la ventana se ancla **bajo el cursor** (TOP+LEFT, margen = cursorX − WIN_W/2 acotado al monitor) en vez de la esquina; y el sync de volumen es por **polling** (500ms vol con guard `_updating` + debounce 0.6s para no pisar el arrastre; 1.5s lista con firma barata) porque `pactl subscribe` por pipe sufre buffering por bloque.
+## [2026-06-25] Waybar: per-module CSS hover sin layout shift
+
+**Problema:** 11 módulos en `modules-right` se expandían simultáneamente al hover (vía daemon global con state file), empujando el reloj central.
+
+**Solución:** Reemplazar el daemon global por CSS `:hover` por módulo individual:
+- Cada script siempre emite icono + label completo (sin branch `EXP`)
+- CSS usa `overflow: hidden; max-width: 32px;` para colapsar por defecto
+- `:hover` cambia `max-width: 240px` → solo el módulo bajo el cursor se expande
+- `#custom-clock { min-width: 200px }` ancla el centro y evita reflow
+- Módulos reordenados: los más pequeños (battery, bluetooth) cerca del centro, los MPRIS (largos) al borde derecho
+- Toggle `SUPER+CTRL+B` con `~/.local/bin/toggle-waybar-mode` permite cambiar entre modo moderno (CSS hover) y legacy (daemon global)
+- Archivos legacy guardados en `~/.config/waybar/legacy-scripts/` + `.legacy`/`.modern` variants
+
+## [2026-06-25] Waybar v0.15 no soporta overflow/max-width en CSS
+
+**Problema:** GTK3 CSS via SFCSS (Waybar 0.15) rechaza `overflow`, `max-width`, `white-space` — propiedades web no implementadas. Intentar usarlas crashea waybar.
+
+**Solución:** Reemplazar control de expansión por CSS → daemon per-module:
+- Daemon escribe nombre del módulo hovered a `~/.local/state/waybar-hover-module`
+- Cada script lee el archivo y solo se expande si su nombre coincide
+- CSS solo usa `min-width` (soportado) para fijar el centro: `#custom-clock { min-width: 200px }`
+- Daemon escribe ambos formatos (module name + legacy "1"/"0") para que el toggle funcione
+- Módulos reordenados: pequeños (battery) cerca del centro, grandes (mpris) al borde
+- Toggle `SUPER+CTRL+B` entre modern (per-module) y legacy (global daemon)
+- Archivos en `~/.config/waybar/{legacy,modern}-scripts/` + `.legacy`/`.modern` variants
