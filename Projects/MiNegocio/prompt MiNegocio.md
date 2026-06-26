@@ -4,8 +4,13 @@ Como experto en programación fullstack, verifica el estado de la historia de us
 funcionalidades a entregar:
 
 pagina "Ventas":
-
+carrito de compras, agregar productos desde un inventario, buscar por nombre o codigo de barras, 
 Pagina "Inventario + productos":
 
 Pagina "dashboard":
 
+Pagina "Inicio":
+
+Pagina "Administrar usuarios":
+
+Pagina "Login":
