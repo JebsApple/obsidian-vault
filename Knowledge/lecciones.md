@@ -11,6 +11,9 @@ Registra aquí errores y soluciones para no repetirlos.
 - **Solución:** Cómo se resolvió
 - **Causa raíz:** Por qué ocurrió
 
+## Regla fija — Solo hyprland.lua
+Toda configuración de Hyprland se edita en **`hyprland.lua`**. Los archivos `.conf` están muertos — Hyprland 0.55+ los ignora cuando existe un `.lua`. No tocar `hyprland.conf`, `monitors.conf`, `workspaces.conf` ni ningún otro `.conf` de Hyprland.
+
 ## Regla fija — Ramas en español
 Todas las ramas se nombran en **español**. Nada de inglés (no `readmes`, `testing`, `dashboard`). Nomenclatura estricta: `SPRINT-HUXX-TXX-descripcion-breve` o `SLT-descripcion`. Confirmar con el usuario antes de renombrar ramas que no creaste tú mismo.
 
@@ -341,3 +344,11 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - Live updates de un panel: hilo con `pactl subscribe` → `GLib.idle_add(refresh)` (debounce 200ms).
 - Nuevo panel: `~/.local/bin/hypr-audio` (GTK3 layer-shell, clic-derecho en el módulo de volumen). Reusa andamiaje de `hypr-player` (paleta, singleton-toggle por PID, GtkLayerShell).
 - **Gotcha:** `pkill -f 'patrón'` se auto-mata si el patrón aparece en la línea de comando del propio shell (exit 144). Matar por PID file o `ps -eo pid,args | awk '/[p]atrón/'` (clase de char evita el self-match).
+- **Gotcha copia-de-código:** al copiar andamiaje de `hypr-player` a `hypr-audio`, `_gdk_monitor_for_cursor()` no existía en el destino → el panel nunca se abría. También faltaban `_tick_vol` y `_tick_outs` (referenciados en `__init__` como callbacks de `GLib.timeout_add` pero nunca definidos). **Regla: al copiar una clase GTK con timers, verificar que los callbacks referenciados estén definidos.**
+
+## hypr-player no tomaba el player de Zen + hypr-audio refinado (2026-06-25)
+- **Zen expone MPRIS como `firefox.instance_N_XXXX`** (es Firefox-based, NO se llama "zen"). Reproduciendo YouTube → `xesam:url = youtube.com/watch...`. Buses reales: `busctl --user list | grep MediaPlayer2`.
+- **Bug `_find_player`:** para hint `vlc`/`music` devolvía un match por nombre AUNQUE estuviera detenido, y no excluía `playerctld` (proxy MPRIS) → abría un player viejo/equivocado en vez del activo.
+- **Fix:** prioridad `hint-match+Playing` → `hint-match+con-media` → `cualquiera Playing` → `cualquiera con media` → primero; excluir `playerctld`. Ahora cualquier módulo abre el player ACTIVO (Zen). Verificado: muestra el tema en curso.
+- Recordatorio del wiring: módulo **yt** → PiP (`zen-pip-toggle`); **music/vlc** → `hypr-player` (que ahora cae en Zen vía fallback).
+- **hypr-audio** afinado: la ventana se ancla **bajo el cursor** (TOP+LEFT, margen = cursorX − WIN_W/2 acotado al monitor) en vez de la esquina; y el sync de volumen es por **polling** (500ms vol con guard `_updating` + debounce 0.6s para no pisar el arrastre; 1.5s lista con firma barata) porque `pactl subscribe` por pipe sufre buffering por bloque.
