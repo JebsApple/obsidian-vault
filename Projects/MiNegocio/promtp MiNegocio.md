@@ -7,4 +7,4 @@ pagina "Ventas":
 
 Pagina "Inventario + productos":
 
-Pagina ""
+Pagina "dashboard":
