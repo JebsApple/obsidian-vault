@@ -72,23 +72,23 @@ El repo `tempMiNegocio` (GitHub/JebsApple) funciona como un **branch alternativo
 
 ### Endpoints consumidos por el frontend oficial
 
-| Endpoint | Backend existe | Coinciden |
-|---|---|---|
-| `POST /api/login` | ✅ | ✅ |
-| `POST /api/auth/login` | ✅ | ✅ |
-| `POST /api/auth/refresh` | ✅ | ✅ |
-| `GET /api/productos` | ✅ | ✅ |
-| `GET /api/productos/buscar` | ✅ | ✅ |
-| `POST /api/productos` | ✅ | ✅ |
-| `PUT /api/productos/{id}` | ✅ | ✅ |
-| `DELETE /api/productos/{id}` | ✅ | ✅ |
-| `POST /api/productos/{id}/imagen` | ✅ | ✅ |
-| `DELETE /api/productos/{id}/imagen` | ✅ | ✅ |
-| `POST /api/ventas` | ✅ | ✅ |
-| `GET /api/ventas` | ✅ | ✅ |
-| `GET /api/ventas/{id}` | ⚠️ Handler no existe (venta individual no implementada) | ❌ |
-| `GET /api/inventario` | ✅ | ✅ |
-| `PATCH /api/inventario/{id}` | ✅ | ✅ |
+| Endpoint                            | Backend existe                                          | Coinciden |
+| ----------------------------------- | ------------------------------------------------------- | --------- |
+| `POST /api/login`                   | ✅                                                       | ✅         |
+| `POST /api/auth/login`              | ✅                                                       | ✅         |
+| `POST /api/auth/refresh`            | ✅                                                       | ✅         |
+| `GET /api/productos`                | ✅                                                       | ✅         |
+| `GET /api/productos/buscar`         | ✅                                                       | ✅         |
+| `POST /api/productos`               | ✅                                                       | ✅         |
+| `PUT /api/productos/{id}`           | ✅                                                       | ✅         |
+| `DELETE /api/productos/{id}`        | ✅                                                       | ✅         |
+| `POST /api/productos/{id}/imagen`   | ✅                                                       | ✅         |
+| `DELETE /api/productos/{id}/imagen` | ✅                                                       | ✅         |
+| `POST /api/ventas`                  | ✅                                                       | ✅         |
+| `GET /api/ventas`                   | ✅                                                       | ✅         |
+| `GET /api/ventas/{id}`              | ⚠️ Handler no existe (venta individual no implementada) | ❌         |
+| `GET /api/inventario`               | ✅                                                       | ✅         |
+| `PATCH /api/inventario/{id}`        | ✅                                                       | ✅         |
 
 ### Endpoints NO consumidos por el frontend
 - `POST /api/register` — existe en `tempMiNegocio` pero NO en el backend oficial
