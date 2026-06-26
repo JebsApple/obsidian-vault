@@ -15,4 +15,5 @@ Pagina "Administrar usuarios":
 prepara una pagina para que el administrador desde su cuenta tenga la facultad de agregar usuarios trabajadores y administrar sus permisos (solo prepara la pagina, esta tarea pertenece a otro integrante, puedes dejar instrucciones en obsidian para esta tarea)
 
 Pagina "Login":
-alinearse al frontend, pero quitar el boton de registro, solo debe funcionar para ingresar el admin y los usuarios que él regi
+alinearse al frontend, pero quitar el boton de registro, solo debe funcionar para ingresar el admin y los usuarios que él registre en la base de datos (trabajadores/subordinados)
+
