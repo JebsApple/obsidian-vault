@@ -1,282 +1,103 @@
 ---
-tags: [proyecto/minegocio, sprint-3, procedimiento, victor, hu05]
+tags: [proyecto/minegocio, sprint-3, hu05]
 ---
 
-# Procedimiento — Victor — HU05: Separación de Entornos Dev/Prod
+## S3-HU05: Separación de Entornos Dev/Prod
 
-> **Fechas:** 27 jun → 2 jul (después de T05/T10)
-> **Dependencias:** N/A (no depende de otros — otros dependen de esto)
-> **Bloquea:** T13 de Ignacio (usuarios DB), tests de integración de Gabriel, despliegues de Nicolás
+> **UX:** 0 | **Design:** 0 | **Front:** 0 | **Back:** 2 | **DevOps:** 3 | **Total:** 5
 
-## ¿Qué estamos haciendo y por qué?
+> **Como** administrador del sistema, **quiero** entornos de desarrollo y producción separados con sus propios usuarios de base de datos **para** evitar que cambios en dev afecten a prod y cumplir con el principio de mínimo privilegio exigido en la rúbrica.
 
-Hoy el backend PROD (`:3001`) y el futuro backend DEV (`:3000`) comparten el superusuario `postgres` de PostgreSQL. El profesor nos bajó puntos por esto en la rúbrica. Vamos a:
-
-1. Crear **dos usuarios PostgreSQL dedicados**, uno por entorno
-2. Dockerizar el backend DEV en puerto `:3000` (hoy caído/muerto)
-3. Actualizar el backend PROD para usar el nuevo usuario
-4. Limpiar contenedores fantasma
-5. Dejar la infraestructura lista para el resto del equipo
+**Contexto:** Antes de esta HU, ambos entornos compartían el superusuario `postgres` de PostgreSQL y el backend DEV estaba caído. Se crearon usuarios DB dedicados, se dockerizó DEV en `:3000`, se actualizó PROD a su propio usuario, y se limpiaron contenedores fantasma. Jenkins deploya solo a PROD desde `main` — DEV se actualiza manualmente.
 
 **Arquitectura final:**
 
 ```
-Usuario → :8080 (nginx DEV) → :3000 (Docker backend DEV) → cliente_dev (user: minegocio_dev)
-Usuario → :8000 (nginx PROD) → :3001 (Docker backend PROD) → cliente_prod (user: minegocio_prod)
-                                     ambas DBs en PostgreSQL nativo :5432
+Usuario → :8080 (nginx DEV) → :3000 (Docker backend DEV) → cliente_dev (minegocio_dev)
+Usuario → :8000 (nginx PROD) → :3001 (Docker backend PROD) → cliente_prod (minegocio_prod)
+                              PostgreSQL nativo :5432
 ```
 
-Jenkins solo deploya a PROD desde `main`. DEV se actualiza manualmente.
+### Tareas
 
----
-
-## Fase 0 — Crear usuarios PostgreSQL
-
-Conectar a PostgreSQL como superusuario y crear los dos usuarios:
-
-```bash
-sudo -u postgres psql
-```
+#### S3-HU05-T01: Usuarios PostgreSQL dedicados (Victor) — 27 jun → 27 jun `[database]` `[devops]`
+Crear dos usuarios PostgreSQL con permisos mínimos, uno por entorno, eliminando la dependencia del superusuario `postgres`. Cada usuario solo puede conectar a su base de datos correspondiente (cross-DB access bloqueado).
 
 ```sql
--- Usuario DEV
 CREATE USER minegocio_dev WITH PASSWORD 'Icin2026Dev';
 GRANT CONNECT ON DATABASE cliente_dev TO minegocio_dev;
-GRANT USAGE ON SCHEMA public TO minegocio_dev;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO minegocio_dev;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO minegocio_dev;
 
--- Usuario PROD
 CREATE USER minegocio_prod WITH PASSWORD 'Icin2026Prod';
 GRANT CONNECT ON DATABASE cliente_prod TO minegocio_prod;
-GRANT USAGE ON SCHEMA public TO minegocio_prod;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO minegocio_prod;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO minegocio_prod;
 
--- Verificar
-\du
-\c cliente_dev
-SELECT current_user;
-\c cliente_prod
-SELECT current_user;
+REVOKE CONNECT ON DATABASE cliente_dev FROM PUBLIC;
+REVOKE CONNECT ON DATABASE cliente_prod FROM PUBLIC;
 ```
 
-Salir de psql con `\q`.
+Verificación: `PGPASSWORD=Icin2026Dev psql -h localhost -U minegocio_dev -d cliente_dev -c "SELECT count(*) FROM productos;"` debe responder 14. Archivos: N/A (SQL directo en DB).
 
-### Verificación
-
-```bash
-PGPASSWORD=Icin2026Dev psql -h localhost -U minegocio_dev -d cliente_dev -c "SELECT count(*) FROM productos;"
-PGPASSWORD=Icin2026Prod psql -h localhost -U minegocio_prod -d cliente_prod -c "SELECT count(*) FROM productos;"
-```
-
-Ambos deben responder con un número (no "access denied").
-
----
-
-## Fase 1 — Backend DEV en Docker (:3000)
-
-### 1. Buildear imagen
+#### S3-HU05-T02: Dockerizar backend DEV en :3000 (Victor) — 27 jun → 28 jun `[backend]` `[devops]`
+Buildear imagen `minegocio-backend:dev` desde el código actual y correr contenedor `minegocio-backend-dev` en puerto `:3000`. Variables de entorno apuntan a `cliente_dev` / `minegocio_dev` con `JWT_SECRET=MiNegocioDev2026!` y `APP_ENV=development`. Verificar login (admin/1234), productos, inventario y que nginx `:8080` proxy correctamente.
 
 ```bash
-cd /home/icin/minegocio-backend
 docker build -t minegocio-backend:dev .
+docker run -d --name minegocio-backend-dev -p 3000:3000 \
+  -e DB_HOST=172.17.0.1 -e DB_PORT=5432 -e DB_NAME=cliente_dev \
+  -e DB_USER=minegocio_dev -e DB_PASSWORD=Icin2026Dev -e DB_SSLMODE=disable \
+  -e JWT_SECRET=MiNegocioDev2026! -e JWT_EXPIRATION=86400 \
+  -e JWT_REFRESH_EXPIRATION=604800 -e APP_ENV=development \
+  --restart unless-stopped minegocio-backend:dev
 ```
 
-### 2. Correr contenedor DEV
+Archivos: `Dockerfile`
+
+#### S3-HU05-T03: Migrar backend PROD a minegocio_prod (Victor) — 28 jun → 28 jun `[backend]` `[devops]`
+Recrear contenedor `minegocio-backend` (`:3001`) con `DB_USER=minegocio_prod` y `DB_PASSWORD=Icin2026Prod` en vez de `postgres`. Mismos JWT_SECRET y APP_ENV que antes. Verificar login (Victor/Victor264), productos, y que nginx `:8000` proxy correctamente. Opcional: usar rename trick para evitar downtime.
 
 ```bash
-docker run -d \
-  --name minegocio-backend-dev \
-  -p 3000:3000 \
-  -e DB_HOST=172.17.0.1 \
-  -e DB_PORT=5432 \
-  -e DB_NAME=cliente_dev \
-  -e DB_USER=minegocio_dev \
-  -e DB_PASSWORD=Icin2026Dev \
-  -e DB_SSLMODE=disable \
-  -e JWT_SECRET=MiNegocioDev2026! \
-  -e JWT_EXPIRATION=86400 \
-  -e JWT_REFRESH_EXPIRATION=604800 \
-  -e APP_ENV=development \
-  --restart unless-stopped \
-  minegocio-backend:dev
-```
-
-### 3. Verificar
-
-```bash
-# Logs del contenedor
-docker logs minegocio-backend-dev
-
-# API responde
-curl -s http://localhost:3000/api/productos | head -c 200
-
-# Nginx dev proxies correctamente
-curl -s http://localhost:8080/api/productos | head -c 200
-```
-
-Si la API responde 401 (por JWT), es señal de que el servidor está vivo. Hacer un login:
-
-```bash
-curl -s -X POST http://localhost:3000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin","password":"1234"}' | head -c 300
-```
-
----
-
-## Fase 2 — Actualizar backend PROD a usuario dedicado
-
-El contenedor `minegocio-backend` actual usa `DB_USER=postgres`. Vamos a actualizarlo a `minegocio_prod`.
-
-### Opción A: recrear el contenedor (recomendada)
-
-```bash
-docker stop minegocio-backend
-docker rm minegocio-backend
-
-docker run -d \
-  --name minegocio-backend \
-  -p 3001:3000 \
-  -e DB_HOST=172.17.0.1 \
-  -e DB_PORT=5432 \
-  -e DB_NAME=cliente_prod \
-  -e DB_USER=minegocio_prod \
-  -e DB_PASSWORD=Icin2026Prod \
-  -e DB_SSLMODE=disable \
-  -e JWT_SECRET=ProdSecretKey2026! \
-  -e JWT_EXPIRATION=86400 \
-  -e JWT_REFRESH_EXPIRATION=604800 \
-  -e APP_ENV=production \
-  --restart unless-stopped \
-  minegocio-backend:latest
-```
-
-### Opción B: sin recrear (para evitar downtime)
-
-```bash
-docker rename minegocio-backend minegocio-backend-old
-# Correr el mismo comando de Opción A
-docker run -d ... (mismos args)
-# Verificar que funciona
-curl http://localhost:3001/api/productos
-# Eliminar el viejo
-docker rm minegocio-backend-old
-```
-
-### Verificación PROD
-
-```bash
-# API responde
-curl -s http://localhost:3001/api/productos | head -c 200
-
-# Nginx prod proxies correctamente
-curl -s http://localhost:8000/api/productos | head -c 200
-
-# Login
-curl -s -X POST http://localhost:3001/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin","password":"1234"}' | head -c 300
-```
-
----
-
-## Fase 3 — Limpieza de contenedores
-
-### Eliminar Docker frontend fantasma (:8081)
-
-```bash
-docker stop frontend
-docker rm frontend
-```
-
-Este contenedor montaba `/home/icin/minegocio-frontend/dist/` en nginx, pero ya tenemos nginx nativo haciendo esto mejor en `:8000` y `:8080`.
-
-### Detener sandbox-db (opcional)
-
-```bash
-docker stop sandbox-db
-docker rm sandbox-db
-```
-
-Conservar la imagen por si la necesitas después para tests.
-
-### Verificar contenedores activos
-
-```bash
-docker ps
-# Deberías ver solo:
-# - minegocio-backend (PROD, :3001)
-# - minegocio-backend-dev (DEV, :3000)
-```
-
----
-
-## Fase 4 — Verificación final del sistema
-
-### Test integral DEV
-
-```bash
-# 1. Login
-TOKEN_DEV=$(curl -s -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin","password":"1234"}' | grep -o '"token":"[^"]*"' | cut -d'"' -f4)
-
-# 2. CRUD productos
-curl -s http://localhost:8080/api/productos -H "Authorization: Bearer $TOKEN_DEV" | python3 -m json.tool 2>/dev/null | head -20
-
-# 3. Inventario
-curl -s http://localhost:8080/api/inventario -H "Authorization: Bearer $TOKEN_DEV" | python3 -m json.tool 2>/dev/null | head -20
-```
-
-### Test integral PROD
-
-```bash
-# Login
-TOKEN_PROD=$(curl -s -X POST http://localhost:8000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin","password":"1234"}' | grep -o '"token":"[^"]*"' | cut -d'"' -f4)
-
-# CRUD productos
-curl -s http://localhost:8000/api/productos -H "Authorization: Bearer $TOKEN_PROD" | python3 -m json.tool 2>/dev/null | head -20
-```
-
-### Verificar JWT_SECRETs distintos
-
-Los tokens de DEV no deben funcionar en PROD y viceversa:
-
-```bash
-# Token DEV contra API PROD → debe dar 401
-curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/productos \
-  -H "Authorization: Bearer $TOKEN_DEV"
-# → debe responder 401
-```
-
----
-
-## Rollback (si algo sale mal)
-
-### Volver a usuario postgres en PROD
-
-```bash
-docker stop minegocio-backend && docker rm minegocio-backend
 docker run -d --name minegocio-backend -p 3001:3000 \
   -e DB_HOST=172.17.0.1 -e DB_PORT=5432 -e DB_NAME=cliente_prod \
-  -e DB_USER=postgres -e DB_PASSWORD=Icin2026 \
-  -e DB_SSLMODE=disable \
-  -e JWT_SECRET=ProdSecretKey2026! -e APP_ENV=production \
-  minegocio-backend:latest
+  -e DB_USER=minegocio_prod -e DB_PASSWORD=Icin2026Prod -e DB_SSLMODE=disable \
+  -e JWT_SECRET=ProdSecretKey2026! -e JWT_EXPIRATION=86400 \
+  -e JWT_REFRESH_EXPIRATION=604800 -e APP_ENV=production \
+  --restart unless-stopped minegocio-backend:latest
 ```
 
-### Eliminar usuarios PostgreSQL
+Archivos: N/A (Docker runtime).
 
-```sql
-REVOKE ALL PRIVILEGES ON DATABASE cliente_dev FROM minegocio_dev;
-DROP USER IF EXISTS minegocio_dev;
-REVOKE ALL PRIVILEGES ON DATABASE cliente_prod FROM minegocio_prod;
-DROP USER IF EXISTS minegocio_prod;
+#### S3-HU05-T04: Limpieza de contenedores fantasma (Victor) — 28 jun → 28 jun `[devops]`
+Eliminar contenedores muertos: `frontend-dev`, `backend-dev`, `db-prod`, `nifty_albattani`. Eliminar Docker frontend fantasma (`frontend`, nginx `:8081`, redundante con nginx nativo). Detener `sandbox-db` (PostgreSQL temporal `:5433`, conservar imagen). Verificar que solo queden los 2 contenedores activos: `minegocio-backend` (PROD) y `minegocio-backend-dev` (DEV).
+
+```bash
+docker stop frontend && docker rm frontend
+docker rm frontend-dev backend-dev db-prod nifty_albattani
+docker stop sandbox-db && docker rm sandbox-db
 ```
+
+Archivos: N/A.
+
+#### S3-HU05-T05: Verificación integral de entornos separados (Victor) — 28 jun → 28 jun `[test]` `[devops]`
+Test completo de ambos entornos de forma independiente:
+
+| Test | Esperado |
+|------|----------|
+| Login DEV (admin/1234) → token | ✅ Token JWT |
+| GET /api/productos DEV con token | ✅ HTTP 200 |
+| GET /api/inventario DEV con token | ✅ HTTP 200 |
+| Via nginx :8080 DEV | ✅ HTTP 200 |
+| Login PROD (Victor/Victor264) → token | ✅ Token JWT |
+| GET /api/productos PROD con token | ✅ HTTP 200 |
+| Via nginx :8000 PROD | ✅ HTTP 200 |
+| Token DEV contra API PROD | ✅ HTTP 401 |
+| Token PROD contra API DEV | ✅ HTTP 401 |
+| DB `cliente_dev` (minegocio_dev) | ✅ 14 productos |
+| DB `cliente_prod` (minegocio_prod) | ✅ 3 productos |
+
+Archivos: N/A (tests de integración vía curl).
 
 ---
 
@@ -289,4 +110,24 @@ DROP USER IF EXISTS minegocio_prod;
 | Backend DEV | Puerto :3000 caído | Docker `minegocio-backend-dev` en :3000 |
 | Backend PROD | :3001 con `postgres` | :3001 con `minegocio_prod` |
 | Docker frontend (:8081) | nginx fantasma | **Eliminado** |
+| Contenedores muertos | frontend-dev, backend-dev, db-prod | **Eliminados** |
 | sandbox-db (:5433) | PostgreSQL temporal | **Detenido** (imagen conservada) |
+| Tokens JWT | Un solo secreto | `MiNegocioDev2026!` vs `ProdSecretKey2026!` |
+
+## Dependencias
+
+- S3-HU05-T01 (usuarios DB) bloquea T02 (Docker DEV) y T03 (actualizar PROD)
+- S3-HU05-T01 reduce alcance de S3-HU01-T13 (Ignacio): ya no crea usuarios, solo los documenta
+- S3-HU05 completa afecta a S3-HU01-T11 (Victor): README debe documentar arquitectura 2 entornos
+- Jenkins (S3-HU01-T03/T12) no requiere cambios — deploya solo a PROD desde `main`
+
+## Procedimiento detallado
+
+Ver [[Tasks/HU05 - Separación Entornos - Victor]] para el procedimiento paso a paso con comandos exactos, verificación y rollback.
+
+## Enlaces relacionados
+
+- [[Tasks/HU05 - Separación Entornos - Victor]] — procedimiento detallado
+- [[Tasks/taiga-updates-S3]] — addendum Taiga con cambios en tareas
+- [[Tasks/reporte-testing-S3]] — reporte de bugs de T01/T02
+- [[Tasks/proc-front]] — plan base frontend S3-HU02
