@@ -376,6 +376,16 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - Toggle `SUPER+CTRL+B` entre modern (per-module) y legacy (global daemon)
 - Archivos en `~/.config/waybar/{legacy,modern}-scripts/` + `.legacy`/`.modern` variants
 
+## [2026-06-27] MiNegocio: no duplicar en localStorage lo que ya está en el JWT
+
+**Problema:** `LoginPage.vue` guardaba `usuario` JSON + `esAdmin` en localStorage tras el login, además del `token`. Esto crea dos fuentes de verdad que pueden desincronizarse: si el backend emite un nuevo JWT con `rol=vendedor` (downgrade de admin), localStorage sigue diciendo `esAdmin=true` hasta que el usuario cierre sesión manualmente. Además, `esAdmin` en localStorage es manipulable desde DevTools.
+
+**Causa raíz:** No considerar que el JWT ya contiene los datos necesarios (`nombre`, `rol`, `user_id`) en su payload (Claims struct del backend Go). Se persistió redundantemente la info del login response.
+
+**Solución:** Agregar `getUserFromToken()` en `authService.js` que decodifica el JWT con `jwtDecode` (ya instalado para `isTokenExpired`) y retorna `{ id, nombre, rol }`. Los componentes usan esta función directamente en sus `computed`. `LoginPage.vue` guarda solo `token` + `refresh_token`.
+
+**Regla:** Si el JWT lleva el claim → leerlo del JWT. No persistir en localStorage lo que ya está firmado y decodificable.
+
 ## [2026-06-26] MiNegocio: imágenes de productos rotas → nginx no proxia /uploads/
 
 **Problema:** las imágenes (`<img :src="p.imagen_url">`) dan 404. El backend guarda `imagen_url` como ruta relativa `/uploads/productos/<archivo>` y las sirve con FileServer en `:3000`. nginx en `192.168.50.25` solo proxia `/api/` al backend, NO `/uploads/`, así que la imagen se pide al host del frontend → 404.
