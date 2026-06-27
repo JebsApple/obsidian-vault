@@ -375,3 +375,11 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 - Módulos reordenados: pequeños (battery) cerca del centro, grandes (mpris) al borde
 - Toggle `SUPER+CTRL+B` entre modern (per-module) y legacy (global daemon)
 - Archivos en `~/.config/waybar/{legacy,modern}-scripts/` + `.legacy`/`.modern` variants
+
+## [2026-06-26] MiNegocio: imágenes de productos rotas → nginx no proxia /uploads/
+
+**Problema:** las imágenes (`<img :src="p.imagen_url">`) dan 404. El backend guarda `imagen_url` como ruta relativa `/uploads/productos/<archivo>` y las sirve con FileServer en `:3000`. nginx en `192.168.50.25` solo proxia `/api/` al backend, NO `/uploads/`, así que la imagen se pide al host del frontend → 404.
+
+**Solución:** añadir en nginx `location /uploads/ { proxy_pass http://localhost:3001; }` (prod) / `:3000` (dev), o prefijar `imagen_url` con `API_BASE` en el frontend. Verificar con `curl -I .../uploads/productos/<archivo>`.
+
+**Bonus:** revisar siempre si el deploy en `:8082` está al día con la rama de gitea — varios "bugs" reportados eran de un build viejo (nombre "Usuario", tabla de inventario antigua) ya corregidos en la rama. Ver [[Errores-Frontend-a-corregir-2026-06-26]].
