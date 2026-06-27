@@ -1,13 +1,39 @@
 ---
 tags: [proyecto/minegocio, sprint-3, handoff, frontend]
-updated: 2026-06-26
+updated: 2026-06-27
 assignee: victor
+estado: listo-para-review
 ---
 
 # proc-front — Plan de Base Frontend S3-HU02
 
 ## Perspectiva
 Victor Herrera. S3-HU02 completado (JWT_SECRET por entorno). Base frontend funcional dejada para implementaciones del equipo.
+
+## ✅ ACTUALIZACIÓN 2026-06-27 — Polish completado
+
+Rama `sandbox/proc-front` lista en Gitea (commit `6e3bdca`). Ver [[Reporte-polish-frontend-2026-06-27]] para detalle completo.
+
+### Resumen de cambios aplicados:
+
+**Bugs corregidos (detectados en deploy :8082):**
+- [x] Favicon: logo Vue CLI → SVG del kiosko MiNegocio (`public/favicon.svg`)
+- [x] Sidebar mobile "gris a la mitad" → sidebar full-width con nav horizontal en ≤768px
+- [x] Imágenes productos 404 → proxy `/uploads/` en `vue.config.js` (prod: pendiente nginx)
+- [x] Login no guardaba nombre/rol → `getUserFromToken()` lee JWT directamente (sin duplicar en localStorage)
+
+**Polish de UI:**
+- [x] **Avatar usuario:** círculo rojo `#d60000` con inicial del nombre (ej. `V` para Victor) — `SideBar.vue`
+- [x] **LoginPage rediseñado:** card con sombra, logo + branding MiNegocio, labels, spinner en botón, error con badge
+- [x] **VentasPage:** inline styles eliminados → clases CSS con hover nativo (`.producto-card:hover` con borde rojo)
+- [x] **InventarioPage:** inline styles eliminados → `.resultado-item`, `.stock-input`, hover CSS
+- [x] **Ganancia estimada:** badge verde cuando hay ganancia, rojo cuando precio compra ≥ venta
+- [x] **AppModal:** reemplaza `alert()`/`confirm()` del browser en toda la app (venta registrada, errores, confirmaciones de eliminado)
+
+**Arquitectura:**
+- [x] Refactor JWT: `getUserFromToken()` en `authService.js` — fuente única de verdad para nombre y rol
+
+**Tests:** 23/23 ✅ | **Build:** limpio ✅
 
 ## Método
 Evolutivo sobre código existente (no reescritura). Respetando arquitectura de capas del backend y componentes Vue.js. Sin tocar tareas de otros integrantes.
