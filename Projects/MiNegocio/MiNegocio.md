@@ -93,10 +93,10 @@ Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 - **Nota:** Cuando Jenkins despliega backend, lo hace como contenedor Docker escuchando en puerto 3001 en 192.168.50.25
 
 ### Usuarios DB
-| Usuario | Password | Rol |
-|---------|----------|------|
-| admin | 1234 | admin |
-| Admin | 1234 | vendedor (email admin@acc.cl) |
+| Usuario | Password | Rol      |
+| ------- | -------- | -------- |
+| admin   | 1234     | admin    |
+| user    | 1234     | vendedor |
 
 ## Bugs reparados (2026-06-19)
 - **Ventas no registraban:** CarritoCompras.vue enviaba `precio_unitario` (backend espera `precio_venta`) y formato incorrecto. Ahora envía `{items: [{producto_id, cantidad, precio_venta}], id_vendedor}`.
