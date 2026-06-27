@@ -1,6 +1,6 @@
 ---
 tags: [proyecto, minegocio, activo]
-updated: 2026-06-19
+updated: 2026-06-27
 ---
 
 # Proyecto: MiNegocio
@@ -22,12 +22,21 @@ Sistema de gestión de negocio (inventario, ventas, productos).
 ## Equipo
 Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 
-## Ramas activas (2026-06-19)
+## Ramas activas (2026-06-27)
 | Repo | Rama | Estado |
 |------|------|--------|
-| Frontend | main | Estable con todas las vistas funcionales. Último commit: `0c7e5f3` |
-| Backend | main | Estable con JWT + Ventas API + CRUD productos. Último commit: `efaf857` |
-| Database | main | Esquema estable. |
+| Frontend | main | Estable. Último commit: `30643e8` |
+| Frontend | `S3-HU02-T01-navegacion-barra-lateral` | ✅ NavBar, SideBar, auth layout, login rediseñado |
+| Frontend | `S3-HU02-T02-tablero-kanban` | ✅ KanbanBoard + drag & drop en InventarioPage |
+| Frontend | `S3-HU02-T03-panel-principal` | ✅ Dashboard KPIs, VentasPage inline→CSS |
+| Frontend | `S3-HU02-T04-pruebas` | ✅ Tests Vitest (5 suites, 23 tests) |
+| Frontend | `S3-HU02-T05-validaciones` | ✅ AppModal global, validaciones formularios |
+| Frontend | `S3-HU01-T05-limpieza` | Código muerto eliminado (Ponytail Audit) |
+| Backend | main | Estable con JWT + Ventas API + CRUD productos |
+| Backend | `S3-HU01-T01` | bcrypt passwords (Gabriel) |
+| Backend | `S3-HU01-T02` | JWT_SECRET por entorno (Gabriel) |
+| Backend | `feat/S3-HU02` | Kanban endpoint |
+| Database | main | Esquema estable |
 
 ## Frontend — Rutas
 | Ruta | Vista | Auth | Descripción |

@@ -71,5 +71,19 @@ Evolutivo sobre código existente (no reescritura). Respetando arquitectura de c
 | S3-HU09: Limpieza código muerto | Ignacio |
 | S3-HU10: KanbanBoard | Ignacio |
 
+## ✅ 2026-06-27 — Separación en ramas S3-HU02 completada
+
+El trabajo del `S3-HU02` local se separó en ramas independientes en Gitea:
+
+| Rama | Contenido | Commits |
+|------|-----------|---------|
+| `S3-HU02-T01-navegacion-barra-lateral` | NavBar, SideBar, LogoSVG, layout auth, login rediseñado, estilos base | 1 |
+| `S3-HU02-T02-tablero-kanban` | KanbanBoard.vue + panel drag & drop en InventarioPage | 1 |
+| `S3-HU02-T03-panel-principal` | AnalisePage KPIs, ganancia badge, VentasPage inline→CSS | 1 |
+| `S3-HU02-T04-pruebas` | Tests Vitest (5 suites, 23 tests) + vitest.config.js | 1 |
+| `S3-HU02-T05-validaciones` | AppModal global, validaciones, reemplazo alert/confirm | 1 |
+
+Todas creadas desde `main` con cambios limpios, sin incluir tareas de otros integrantes. Cada rama es independiente y revisable por separado.
+
 ## Próximos pasos
 Ejecutar implementación cuando se autorice. Ver [[pending]] para estado general.
