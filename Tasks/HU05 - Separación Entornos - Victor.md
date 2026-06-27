@@ -6,7 +6,7 @@ tags: [proyecto/minegocio, sprint-3, hu05]
 
 > **UX:** 0 | **Design:** 0 | **Front:** 0 | **Back:** 2 | **DevOps:** 3 | **Total:** 5
 
-> **Como** administrador del sistema, **quiero** entornos de desarrollo y producción separados con sus propios usuarios de base de datos **para** evitar que cambios en dev afecten a prod y cumplir con el principio de mínimo privilegio exigido en la rúbrica.
+Storyless task — crear usuarios PostgreSQL dedicados por entorno, dockerizar backend DEV en `:3000`, migrar PROD a su propio usuario y limpiar contenedores fantasma.
 
 **Contexto:** Antes de esta HU, ambos entornos compartían el superusuario `postgres` de PostgreSQL y el backend DEV estaba caído. Se crearon usuarios DB dedicados, se dockerizó DEV en `:3000`, se actualizó PROD a su propio usuario, y se limpiaron contenedores fantasma. Jenkins deploya solo a PROD desde `main` — DEV se actualiza manualmente.
 
@@ -123,11 +123,11 @@ Archivos: N/A (tests de integración vía curl).
 
 ## Procedimiento detallado
 
-Ver [[Tasks/HU05 - Separación Entornos - Victor]] para el procedimiento paso a paso con comandos exactos, verificación y rollback.
+Ver [[Projects/MiNegocio/Procedimientos/HU05 - Separación Entornos/Procedimiento - Victor]] para el procedimiento paso a paso con comandos exactos, verificación y rollback.
 
 ## Enlaces relacionados
 
-- [[Tasks/HU05 - Separación Entornos - Victor]] — procedimiento detallado
+- [[Projects/MiNegocio/Procedimientos/HU05 - Separación Entornos/Procedimiento - Victor]] — procedimiento detallado
 - [[Tasks/taiga-updates-S3]] — addendum Taiga con cambios en tareas
 - [[Tasks/reporte-testing-S3]] — reporte de bugs de T01/T02
 - [[Tasks/proc-front]] — plan base frontend S3-HU02
