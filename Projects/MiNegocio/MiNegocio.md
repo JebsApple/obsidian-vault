@@ -1,6 +1,8 @@
 ---
 tags: [proyecto, minegocio, activo]
 updated: 2026-06-27
+vinculos:
+  - "[[Sesion-2026-06-27]]"
 ---
 
 # Proyecto: MiNegocio
@@ -31,6 +33,11 @@ Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 | Frontend | `S3-HU02-T03-panel-principal` | ✅ Dashboard KPIs, VentasPage inline→CSS |
 | Frontend | `S3-HU02-T04-pruebas` | ✅ Tests Vitest (5 suites, 23 tests) |
 | Frontend | `S3-HU02-T05-validaciones` | ✅ AppModal global, validaciones formularios |
+| Frontend | `S3-HU02` (integradora) | ✅ Integra T06+T07+T08 — 3 commits nuevos |
+| Frontend | `S3-HU02-T06-capas-frontend` | ✅ Servicios + CSS jerarquico + cleanup |
+| Frontend | `S3-HU02-T07-kanban-inventario` | ✅ KanbanBoard + InventarioService merge |
+| Frontend | `S3-HU02-T08-ajustes-estilo` | ✅ Animaciones sincronizadas, consistencia visual |
+| Frontend | main (v3.0.0) | Tag semver creado — no mergear sin equipo |
 | Frontend | `S3-HU01-T05-limpieza` | Código muerto eliminado (Ponytail Audit) |
 | Backend | main | Estable con JWT + Ventas API + CRUD productos |
 | Backend | `S3-HU01-T01` | bcrypt passwords (Gabriel) |
