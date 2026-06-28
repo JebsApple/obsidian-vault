@@ -1,0 +1,3 @@
+si y adicional a eso, el "productos registrados pasara de ser un desplegable a un switch, es decir:
+
+debajo del buscador de productos, aparecera el titulo con fondo rojo estilo pestaña "galeria de productos" y para cambiar a la vista en lista de productos registrados la pestaña del costado en fondo gris desactivada es la otra vista, que al marcarla debe hacer una transicion suave cambiando el formato.
