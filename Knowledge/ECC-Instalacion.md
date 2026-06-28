@@ -1,6 +1,6 @@
 ---
 tags: [herramienta, ecc, claude-code, configuracion, ia]
-updated: 2026-06-27
+updated: 2026-06-28
 ---
 
 # ECC — Engineering Code Companion (Instalado)
@@ -10,9 +10,15 @@ ECC es un framework de harness para agentes IA. Provee reglas, skills, agentes y
 - **Repositorio:** https://github.com/affaan-m/ECC.git
 - **Docs:** https://ecc.tools
 - **Instalado:** 2026-06-27
-- **Ubicacion local del repo:** `/home/icin/ECC/`
 - **Target:** `claude` (global, `~/.claude/`)
 - **Perfil:** `full` (todos los modulos)
+
+### Maquinas donde esta instalado
+
+| Maquina | Repo local | Fecha | Notas |
+|---------|-----------|-------|-------|
+| `/home/icin/` (servidor) | `/home/icin/ECC/` | 2026-06-27 | Instalacion original |
+| `/home/apuru/` (esta maquina) | `/home/apuru/ECC/` | 2026-06-28 | Clone `--depth 1` (80M). Componentes en `~/.claude/`: 198 skills, 114 rules, 67 agents, 92 commands, 4 hooks |
 
 ---
 
