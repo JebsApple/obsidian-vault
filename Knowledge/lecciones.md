@@ -408,3 +408,18 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 **Solución B / Regla:** compilar Vue CLI siempre desde una ruta SIN paréntesis ni espacios. En el deploy real (`/home/icin/minegocio-frontend/`) compila bien. Verificado: misma copia en ruta limpia → `Build complete` exit 0. El frontend original (`minegocio-frontend`, sin `(1)`) buildea sin problema con la misma config.
 
 **Bonus:** a `minegocio-frontend (1)` también le faltaban las reglas `chainWebpack` para SVG y la devDep `raw-loader` que sí tiene el original; se alinearon con la config del original (referencia conocida-buena).
+
+### Corrección/aclaración (2026-06-27, misma sesión)
+
+Resultó haber DOS copias del frontend en `~/Documentos/Obsidian Vault/MiNegocio-gitea/`:
+- `minegocio-frontend (1)` = baseline limpio bajado de Gitea (estado SIN tarea 11 de Taiga). Se dejó intacto.
+- `minegocio-frontend` (sin paréntesis) = copia que modificó **opencode** (tarea 11). Hizo `src/views/IconPreview.vue` + SVGs en `src/assets/icons/` cargados con `require('...svg?raw')` (por eso esta copia SÍ necesita `raw-loader` + regla `raw-svg` en `vue.config.js`), pero NO arregló los iconos reales: el `SideBar.vue`/`KanbanBoard.vue` siguen con `<i class="ti ti-*">` y la webfont Tabler no se cargaba.
+
+**Fuente original (confirmada):** la documentación gráfica `~/Descargas/Documentación gráfica (standalone).html` usa **Space Grotesk** (400/500/600/700) + **IBM Plex Mono** — exactamente lo que declara `variables.css`. Pero NINGUNA copia cargaba la webfont (sólo declarada → caía a Arial). "Restaurar la fuente original" = cargar esas webfonts de Google Fonts.
+
+**Fix final aplicado SOLO a la sin-paréntesis (deliverable):**
+1. Iconos: `@tabler/icons-webfont@^3.44.0` + `import '@tabler/icons-webfont/dist/tabler-icons.min.css'` en `main.js`. Renderiza los 9 `ti-*` del SideBar/Kanban.
+2. Fuente: en `public/index.html`, links de Google Fonts (preconnect + `Space Grotesk` + `IBM Plex Mono`).
+3. Build OK (exit 0), fuentes Tabler en `dist/fonts/`, links Google Fonts en `dist/index.html`. La copia `(1)` se revirtió a su estado limpio.
+
+**Regla:** el HTML "standalone" de la doc gráfica embebe las fuentes como blobs por UUID (no son URLs reutilizables); identificar la familia (`font-family`) y traerla de Google Fonts.
