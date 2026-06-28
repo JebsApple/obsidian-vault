@@ -393,3 +393,18 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 **Solución:** añadir en nginx `location /uploads/ { proxy_pass http://localhost:3001; }` (prod) / `:3000` (dev), o prefijar `imagen_url` con `API_BASE` en el frontend. Verificar con `curl -I .../uploads/productos/<archivo>`.
 
 **Bonus:** revisar siempre si el deploy en `:8082` está al día con la rama de gitea — varios "bugs" reportados eran de un build viejo (nombre "Usuario", tabla de inventario antigua) ya corregidos en la rama. Ver [[Errores-Frontend-a-corregir-2026-06-26]].
+
+## [2026-06-27] MiNegocio: iconos Tabler invisibles + build roto por carpeta con "(1)"
+
+**Problema A (iconos):** `SideBar.vue` y `KanbanBoard.vue` usan clases de Tabler Icons (`<i class="ti ti-shopping-cart">`, etc., 9 iconos) pero la webfont nunca se cargaba — ni en `index.html`, ni en `package.json`, ni import. Resultado: iconos invisibles. (Afectaba a ambos frontends por igual.)
+
+**Solución A:** agregar `@tabler/icons-webfont@^3.44.0` a `dependencies` e importar en `main.js`:
+`import '@tabler/icons-webfont/dist/tabler-icons.min.css'`. Webpack empaqueta las fuentes en `dist/fonts/` (offline, sin CDN). Verificado: las 9 clases existen en Tabler v3 y las woff2/ttf quedan en el build.
+
+**Problema B (build roto):** `npm run build` fallaba con `Conflict: Multiple assets emit different content to the same filename index.html`. NO era por el código ni por los iconos — fallaba igual sin el import.
+
+**Causa raíz B:** la carpeta se llamaba `minegocio-frontend (1)` (sufijo que agrega el gestor de archivos al duplicar). Los paréntesis `()` y el espacio son caracteres especiales en glob, y `copy-webpack-plugin` (de vue-cli) usa un glob para EXCLUIR `index.html` al copiar `public/`. El patrón se rompe → copia `public/index.html` a `dist/` y choca con el `index.html` que genera `html-webpack-plugin`.
+
+**Solución B / Regla:** compilar Vue CLI siempre desde una ruta SIN paréntesis ni espacios. En el deploy real (`/home/icin/minegocio-frontend/`) compila bien. Verificado: misma copia en ruta limpia → `Build complete` exit 0. El frontend original (`minegocio-frontend`, sin `(1)`) buildea sin problema con la misma config.
+
+**Bonus:** a `minegocio-frontend (1)` también le faltaban las reglas `chainWebpack` para SVG y la devDep `raw-loader` que sí tiene el original; se alinearon con la config del original (referencia conocida-buena).
