@@ -394,3 +394,63 @@ Refactorizar la arquitectura del backend Go para cumplir con la separacion de ca
 > - Todos los handlers y servicios usan interfaces
 > - JWT claims accesibles via ClaimsFromContext(ctx)
 > - Upload middleware se comunica via context.Context
+
+
+### S3-HU02-T13 -- Fusión de vistas Productos + recorte de imagen
+
+**Comentario de trabajo realizado (28/06/2026):**
+
+> ## Trabajo realizado
+>
+> Se fusionaron las vistas `Productos` y `ProductosRegistrados` en una sola página `/productos`. Se agregó recorte de imagen con cropperjs al subir imágenes de productos. Se actualizó la SideBar con acordeón Dashboard y enlace único a Productos. Se creó Jenkinsfile para deploys seguros. Se prepararon usuarios de producción en seed_prod.sql.
+>
+> **Commits en rama `S3-HU02-T13-fusion-vistas-recorte-imagen` (frontend):**
+> 1. `instalar cropperjs para recorte de imagen` — package.json + package-lock
+> 2. `agregar modal de recorte con cropper en FormularioProducto` — crop modal con aspectRatio 1:1, canvas 800px, output JPEG
+> 3. `fusionar vistas Productos y ProductosRegistrados en una sola pagina` — Productos.vue reescrito, router redirect, GaleriaProductos aspect-ratio, ProductosRegistrados eliminado
+> 4. `acordeon Dashboard con WIP en SideBar y enlace unico a Productos` — Dashboard expandible con Estadísticas/Reportes deshabilitados, Productos como link directo
+> 5. `crear Jenkinsfile con guardia de rama main para deploys seguros` — build + test + deploy condicional por rama
+> 6. `actualizar README y tests con credenciales correctas de DB` — administrador + usuario (1234) para DEV
+>
+> **Commits en rama `S3-HU02-T13-fusion-vistas-recorte-imagen` (database):**
+> 1. `agregar seed_prod.sql con usuarios de produccion` — Victor, Ignacio (admin) y Nicolas, Gabriel (usuario)
+>
+> **Productos.vue (página única fusionada):**
+> - BuscadorProductos en la parte superior
+> - Botón "+ Agregar Producto" → formulario en modal overlay
+> - Tabla "Productos Registrados" colapsable (inicia cerrada)
+> - GaleriaProductos con paginación (12 por página)
+> - Botones de editar/eliminar en tabla y galería
+>
+> **Recorte de imagen (cropperjs):**
+> - Modal overlay al seleccionar imagen
+> - Cropper con aspectRatio 1:1, viewMode 2 (caja no excede canvas)
+> - Canvas de salida 800px máx, JPEG calidad 0.9
+> - GaleriaProductos: imagen con `aspect-ratio: 1/1` + `object-fit: cover`
+>
+> **SideBar actualizada:**
+> - Dashboard ahora es acordeón: Resumen (link activo) + Estadísticas (WIP) + Reportes (WIP)
+> - Productos es enlace único (sin submenú)
+>
+> **Jenkinsfile:**
+> - `main` → tests + build + deploy a `/var/www/prod/frontend/`
+> - Otras ramas → tests + build + deploy a `/var/www/dev/frontend/`
+>
+> **Usuarios de producción (seed_prod.sql):**
+> | Usuario | Email | Contraseña | Rol |
+> |---------|-------|------------|-----|
+> | Victor | VictorAdmin@minegocio.cl | Admin226 | admin |
+> | Ignacio | IgnacioAdmin@minegocio.cl | Admin226 | admin |
+> | Nicolas | NicolasVendedor@minegocio.cl | User224 | usuario |
+> | Gabriel | GabrielLogistica@minegocio.cl | User224 | usuario |
+>
+> **Pruebas realizadas:**
+> - `npx vitest run` — 53/53 tests pasan
+> - `npm run build` — build de producción exitoso
+> - Login con administrador + usuario funciona (ambos por nombre o email)
+> - FormularioProducto: recorte de imagen funcional (crop → preview → upload)
+> - GaleriaProductos: imágenes con aspect-ratio flexible
+> - SideBar: acordeón Dashboard expandible/colapsable, enlace Productos funcional
+> - Router: `/productos-registrados` redirige a `/productos`
+> - Modal overlay de formulario se abre/cierra correctamente
+> - Seed dev.sql aplicado a cliente_dev (usuarios limpios, legacy eliminados)

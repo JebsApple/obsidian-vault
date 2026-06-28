@@ -1,8 +1,9 @@
 ---
 tags: [proyecto, minegocio, activo]
-updated: 2026-06-27
+updated: 2026-06-28
 vinculos:
   - "[[Sesion-2026-06-27]]"
+  - "[[Sesion-2026-06-28]]"
 ---
 
 # Proyecto: MiNegocio
@@ -24,21 +25,27 @@ Sistema de gestión de negocio (inventario, ventas, productos).
 ## Equipo
 Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 
-## Ramas activas (2026-06-27)
+## Ramas activas (2026-06-28)
 | Repo | Rama | Estado |
 |------|------|--------|
 | Frontend | main | Estable. Último commit: `30643e8` |
-| Frontend | `S3-HU02-T01-navegacion-barra-lateral` | ✅ NavBar, SideBar, auth layout, login rediseñado |
-| Frontend | `S3-HU02-T02-tablero-kanban` | ✅ KanbanBoard + drag & drop en InventarioPage |
-| Frontend | `S3-HU02-T03-panel-principal` | ✅ Dashboard KPIs, VentasPage inline→CSS |
-| Frontend | `S3-HU02-T04-pruebas` | ✅ Tests Vitest (5 suites, 23 tests) |
-| Frontend | `S3-HU02-T05-validaciones` | ✅ AppModal global, validaciones formularios |
-| Frontend | `S3-HU02` (integradora) | ✅ Integra T06+T07+T08 — 3 commits nuevos |
-| Frontend | `S3-HU02-T06-capas-frontend` | ✅ Servicios + CSS jerarquico + cleanup |
-| Frontend | `S3-HU02-T07-kanban-inventario` | ✅ KanbanBoard + InventarioService merge |
-| Frontend | `S3-HU02-T08-ajustes-estilo` | ✅ Animaciones sincronizadas, consistencia visual |
-| Frontend | main (v3.0.0) | Tag semver creado — no mergear sin equipo |
-| Frontend | `S3-HU01-T05-limpieza` | Código muerto eliminado (Ponytail Audit) |
+| Frontend | `dev` | ✅ Rama de desarrollo creada desde S3-HU02 para testeo del equipo |
+| Frontend | `S3-HU02` (integradora) | ✅ Pusheada a Gitea — contiene iconos Tabler (T11) + códigos barras/roles (T12) |
+| Frontend | `S3-HU02-T01-navegacion-barra-lateral` | ✅ En Gitea |
+| Frontend | `S3-HU02-T02-tablero-kanban` | ✅ En Gitea |
+| Frontend | `S3-HU02-T03-panel-principal` | ✅ En Gitea |
+| Frontend | `S3-HU02-T04-pruebas` | ✅ En Gitea |
+| Frontend | `S3-HU02-T05-validaciones` | ✅ En Gitea |
+| Frontend | `S3-HU02-T06-capas-frontend` | ✅ En Gitea |
+| Frontend | `S3-HU02-T07-kanban-inventario` | ✅ En Gitea |
+| Frontend | `S3-HU02-T08-ajustes-estilo` | ✅ En Gitea |
+| Frontend | `S3-HU02-T09-nombres-archivos-espanol` | ✅ En Gitea |
+| Frontend | `S3-HU02-T11-iconos` | ✅ En Gitea |
+| Frontend | `S3-HU02-T12-codigo-barras-y-acceso-roles` | ✅ Pusheada a Gitea |
+| Frontend | `S3-HU01-T05-limpieza-frontend` | ✅ En Gitea |
+| Frontend | `S3-HU01-T10-comentarios-espanol` | ✅ En Gitea |
+| Frontend | `S3-HU01-T11-readme-frontend` | ✅ En Gitea |
+| Frontend | main (v3.0.0) | Tag semver — esperar merge de S3-HU02 para v3.1.0 |
 | Backend | main | Estable con JWT + Ventas API + CRUD productos |
 | Backend | `S3-HU01-T01` | bcrypt passwords (Gabriel) |
 | Backend | `S3-HU01-T02` | JWT_SECRET por entorno (Gabriel) |
@@ -57,6 +64,7 @@ Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 | `/inventario` | InventarioPage | Sí | Tabla de stock |
 | `/registro-ventas` | RegistroVentasPage | Sí | Historial de ventas |
 | `/contacto` | ContactoPage | No | Placeholder |
+| `/admin/usuarios` | AdminUsuariosPage | Sí + admin | Placeholder gestión usuarios (solo admin) |
 
 ## Endpoints API disponibles
 | Método | Ruta | Auth | Descripción |
