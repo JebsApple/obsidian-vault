@@ -1,0 +1,94 @@
+/* ============================================================
+   MiNegocio — Embellecimiento del vault
+   Colores por área de vida, encabezados, callouts y tags.
+   Marca: rojo #d60000
+   ============================================================ */
+
+/* ---------- Colores de carpetas top-level (file explorer) ---------- */
+.nav-folder-title[data-path="MiNegocio"] .nav-folder-title-content,
+.nav-folder-title[data-path="Personal"] .nav-folder-title-content,
+.nav-folder-title[data-path="Herramientas-IA"] .nav-folder-title-content,
+.nav-folder-title[data-path="IA-Control"] .nav-folder-title-content,
+.nav-folder-title[data-path="Plantillas"] .nav-folder-title-content,
+.nav-folder-title[data-path="Papelera"] .nav-folder-title-content {
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+
+.nav-folder-title[data-path="MiNegocio"] .nav-folder-title-content      { color: #d60000; }
+.nav-folder-title[data-path="Personal"] .nav-folder-title-content       { color: #2f9e44; }
+.nav-folder-title[data-path="Herramientas-IA"] .nav-folder-title-content{ color: #7048e8; }
+.nav-folder-title[data-path="IA-Control"] .nav-folder-title-content     { color: #1098ad; }
+.nav-folder-title[data-path="Plantillas"] .nav-folder-title-content     { color: #f08c00; }
+.nav-folder-title[data-path="Papelera"] .nav-folder-title-content       { color: var(--text-faint); font-style: italic; }
+
+/* Iconitos antes de cada carpeta top-level */
+.nav-folder-title[data-path="MiNegocio"] .nav-folder-title-content::before       { content: "💼 "; }
+.nav-folder-title[data-path="Personal"] .nav-folder-title-content::before        { content: "🐧 "; }
+.nav-folder-title[data-path="Herramientas-IA"] .nav-folder-title-content::before { content: "🤖 "; }
+.nav-folder-title[data-path="IA-Control"] .nav-folder-title-content::before      { content: "📨 "; }
+.nav-folder-title[data-path="Plantillas"] .nav-folder-title-content::before      { content: "🧩 "; }
+.nav-folder-title[data-path="Papelera"] .nav-folder-title-content::before        { content: "🗑️ "; }
+
+/* Barra de acento a la izquierda de las carpetas top-level */
+.nav-folder-title[data-path="MiNegocio"],
+.nav-folder-title[data-path="Personal"],
+.nav-folder-title[data-path="Herramientas-IA"],
+.nav-folder-title[data-path="IA-Control"],
+.nav-folder-title[data-path="Plantillas"],
+.nav-folder-title[data-path="Papelera"] {
+  border-left: 3px solid currentColor;
+  margin-left: 2px;
+}
+
+/* ---------- Encabezados con carácter ---------- */
+.markdown-preview-view h1,
+.markdown-rendered h1 {
+  color: #d60000;
+  border-bottom: 3px solid #d60000;
+  padding-bottom: 0.2em;
+  letter-spacing: -0.01em;
+}
+.markdown-preview-view h2,
+.markdown-rendered h2 {
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 0.15em;
+}
+.markdown-preview-view h3,
+.markdown-rendered h3 {
+  color: #7048e8;
+}
+
+/* ---------- Tags tipo pastilla ---------- */
+.tag {
+  background: linear-gradient(0deg, rgba(214,0,0,0.10), rgba(214,0,0,0.10));
+  border: 1px solid rgba(214,0,0,0.25);
+  border-radius: 999px;
+  padding: 1px 9px;
+  color: #d60000;
+  font-size: 0.78em;
+}
+
+/* ---------- Callouts un poco más vivos ---------- */
+.callout {
+  border-radius: 10px;
+  border-left-width: 4px;
+}
+
+/* ---------- Checkboxes y citas ---------- */
+.markdown-rendered blockquote {
+  border-left: 4px solid #d60000;
+  background: rgba(214,0,0,0.04);
+  border-radius: 0 8px 8px 0;
+}
+
+/* ---------- Tablas más legibles ---------- */
+.markdown-rendered table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.markdown-rendered thead th {
+  background: rgba(214,0,0,0.08);
+  color: #d60000;
+}
