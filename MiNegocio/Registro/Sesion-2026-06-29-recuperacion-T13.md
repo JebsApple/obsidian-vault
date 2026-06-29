@@ -19,7 +19,7 @@ Cambios hechos en dev el 28-jun "parecían revertidos parcialmente" al recargar 
 1. **Commit del merge** → `0e3bda3` "S3-HU02-T13: fusionar vistas Galeria/Registrados, cropper y FormularioProducto" (asegura las 323 líneas).
 2. **Push a Gitea** → `0e46f0d..0e3bda3` en `S3-HU02` (sync 0/0).
 3. **Rebuild** → `npm run build` (Node 20), nuevo `app.e59bd221.js`.
-4. **Deploy a DEV** → `rsync -av --delete dist/ /var/www/dev/frontend/` (método oficial del Jenkinsfile). La página ya sirve el build nuevo, sin la vista vieja.
+4. **Deploy a DEV (manual)** → `rsync -av --delete dist/ /var/www/dev/frontend/`. Jenkins **solo despliega a PROD**; dev se actualiza a mano en el server. La página ya sirve el build nuevo, sin la vista vieja.
 
 ## Estado final
 - Frontend `S3-HU02`: HEAD `0e3bda3`, en Gitea, working tree limpio.
