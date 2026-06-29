@@ -197,3 +197,16 @@ Es suficiente: mientras Obsidian esté abierto, sincroniza solo.
 - GitHub del vault: https://github.com/JebsApple/obsidian-vault
 - Plugin Obsidian Git: https://github.com/Vinzent03/obsidian-git
 - Plugin Automatic Linker: https://github.com/kdnk/obsidian-automatic-linker
+
+---
+
+## Auto-sync del SERVER (2026-06-29)
+
+El server (`192.168.50.25`) ahora sube/baja solo, sin pedírselo a la IA.
+
+- **Script:** `~/.local/bin/vault-sync.sh` — commit local + `pull --rebase` + push.
+- **Cron:** `*/5 * * * *` (cada 5 min). Ver con `crontab -l`.
+- **Log:** `~/.local/share/vault-sync.log`.
+- **Conflictos:** si `pull --rebase` choca, aborta y lo anota en el log para resolución manual (no rompe nada).
+
+Flujo completo: **Server** (cron 5 min) ⇄ **GitHub** ⇄ **PC** (plugin Obsidian Git). Editar en cualquiera de los dos lados se propaga al otro en ~5-10 min.
