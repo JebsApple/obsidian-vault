@@ -2,11 +2,6 @@
 estado: pendiente
 dir: /home/icin
 ---
-Escribí acá tu tarea para la IA del server (modo PLAN: solo lee/analiza, no cambia nada).
+Revisá el estado de los contenedores Docker del server y decime en pocas líneas si el backend dev (puerto 3000) y el prod (3001) están sanos. Si ves algo raro, mencionálo.
 
-Ejemplos:
-- "Revisá el estado de los contenedores Docker y decime si el backend dev está sano."
-- "Leé los últimos errores del frontend y resumime qué está fallando."
-
-Cuando esté lista, cambiá arriba `estado: pendiente` por `estado: ejecutar` y guardá.
-La respuesta aparece sola en IA-Control/respuestas/ en unos 2-7 min.
+>> Para lanzar: cambiá arriba `estado: pendiente` por `estado: ejecutar`, guardá y hacé Push.
