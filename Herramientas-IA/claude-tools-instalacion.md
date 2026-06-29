@@ -13,11 +13,33 @@ Preparada para el servidor de la universidad (Debian/Ubuntu/cualquier distro con
 
 ## Requisitos previos
 
+> **IMPORTANTE (lección 2026-06-29):** `claude-mem` necesita **Node 20.12+** (NO v18). Con Node 18 falla con
+> `SyntaxError: ... 'node:util' does not provide an export named 'styleText'`. Instalar Node 20 con nvm (sin sudo).
+
 ```bash
 # Verificar que tenés lo necesario
-node --version   # necesita v18+
+node --version   # necesita v20.12+ (claude-mem). v18 NO sirve
 npm --version
 python3 --version  # necesita 3.10+
+unzip -v         # requerido por el instalador de Bun (ver abajo)
+```
+
+### Node 20 con nvm (sin sudo, no pisa el Node del sistema)
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+source ~/.bashrc
+nvm install 20
+nvm alias default 20
+node -v   # v20.x
+```
+
+> Abrir Claude Code SIEMPRE con Node 20 activo (`nvm use 20`), sino los hooks de claude-mem fallan.
+
+### unzip (lo pide el instalador de Bun)
+
+```bash
+sudo apt install -y unzip
 ```
 
 Si no tenés `uv` (gestor de paquetes Python moderno):
@@ -75,10 +97,24 @@ headroom update        # actualizar headroom
 Captura observaciones de las sesiones y las inyecta automáticamente en sesiones futuras. Resuelve el problema de Claude "olvidando" contexto al reconectar.
 
 ```bash
+nvm use 20          # OBLIGATORIO: con Node 18 falla
 npx claude-mem install
 ```
 
-Si falla el npx directo, instalar Node 20+ primero y reintentar.
+> **Dos requisitos que el instalador exige (lección 2026-06-29):**
+> 1. **Node 20.12+** activo (`nvm use 20`), sino aborta con error de `styleText`.
+> 2. **Bun** instalado, sino aborta con `bun-missing-after-install`. Instalar Bun ANTES:
+>    ```bash
+>    sudo apt install -y unzip          # Bun lo necesita
+>    curl -fsSL https://bun.sh/install | bash
+>    source ~/.bashrc
+>    bun --version
+>    ```
+
+**Preguntas del instalador (qué elegir):**
+- **Runtime provider** → **Worker** (local, single-user, estable). NO elegir *Server (beta)* salvo que quieras
+  backend compartido por un equipo con API keys (REST V1, team-ready storage).
+- **Plan** → **Subscription plan** (NO "API key").
 
 Verificar:
 
@@ -265,6 +301,59 @@ headroom doctor
 - Si el server usa **zsh** en vez de bash, editar la línea `SHELL_RC` en el script antes de correrlo
 - Si el server **no tiene Node.js**, instalar antes: `sudo apt install nodejs npm` (Debian/Ubuntu)
 - El bundle de headroom funciona solo si ambas máquinas son **x86_64 Linux**
+
+---
+
+## Lecciones de la instalación real (2026-06-29, server 192.168.50.25)
+
+Resumen de los tropiezos reales al instalar en el server `ubuntuserver6` y cómo se resolvieron.
+
+### 1. Node 18 → no sirve para claude-mem
+Síntoma: `SyntaxError: ... 'node:util' does not provide an export named 'styleText'`.
+Fix: Node 20 vía nvm (sin sudo). Correr Claude siempre con `nvm use 20`.
+
+### 2. claude-mem necesita Bun + unzip
+Síntoma: `Installation Aborted: bun-missing-after-install`, y al instalar Bun: `error: unzip is required`.
+Fix: `sudo apt install -y unzip` → `curl -fsSL https://bun.sh/install | bash`.
+
+### 3. claude-mem: elegir Worker, no Server (beta)
+Worker = local single-user (lo correcto). Server (beta) = backend de equipo con API keys.
+
+### 4. El bundle de headroom (2,85 GB) NO entra en este disco
+El server tiene solo **24 GB** y vive casi lleno. El bundle + extraerlo necesita ~6 GB libres.
+Solución: **olvidarse del bundle**, instalar headroom directo y **liviano** (sin modelos ML):
+```bash
+uv tool install "headroom-ai[proxy,mcp,code]"   # NO [all] en este server
+```
+
+### 5. ⚠️ DISCO LLENO = LAG GENERAL (causa raíz de muchos fallos)
+El disco al 95-96% provocaba **terminal lenta y fallos intermitentes de los MCP** (ej. obsidian-mcp
+con `npx` no podía escribir su caché y se caía). NO es por ser server compartido: el otro usuario
+(`deployequipo6`) usa ~4 KB. El grueso es de `icin`, sobre todo el **build cache de Docker** (llegó a 3,8 GB
+de tanto compilar el backend Go) y `~/.npm/_npx` (~1,7 GB cada vez que se usa `npx n8n-mcp`).
+
+**Limpieza segura (correr de vez en cuando):**
+```bash
+docker builder prune -af            # build cache Docker (el grande)
+docker image prune -f               # imágenes dangling
+npm cache clean --force; rm -rf ~/.npm/_npx
+go clean -cache                     # cache de build Go (regenera)
+sudo apt clean && sudo apt autoremove -y
+sudo journalctl --vacuum-size=50M
+```
+Pasó de 96% (1,1 GB libre) a **72% (6,3 GB libre)** y la terminal volvió a ser veloz.
+
+**NUNCA sin confirmar:** `docker volume prune` (volúmenes pueden tener datos de PostgreSQL),
+ni borrar contenedores corriendo (`minegocio-backend`, `minegocio-backend-dev`).
+
+### 6. n8n-mcp se re-descarga con npx
+`claude mcp add n8n-mcp npx n8n-mcp ...` funciona, pero cada arranque baja ~1,7 GB a `~/.npm/_npx`.
+Si se usa seguido, instalar global (`npm i -g n8n-mcp`) o limpiar `~/.npm/_npx` después.
+
+### 7. obsidian-mcp fallaba por el disco
+Mismo motivo que el punto 5: `npx -y obsidian-mcp` no podía escribir caché con el disco lleno.
+Con espacio libre conecta bien. Para robustez, fijar a la versión global ya instalada (`npm i -g obsidian-mcp`)
+y cambiar el comando en `~/.claude.json` de `npx`/`-y obsidian-mcp` a `obsidian-mcp` directo.
 
 ---
 
