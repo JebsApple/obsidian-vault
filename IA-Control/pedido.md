@@ -1,9 +1,8 @@
 ---
-estado: hecho
+estado: pendiente
 dir: /home/icin
 ---
-compara el estado actual del entorno dev con la rama S3-HU02 de gitea y dame un reporte
+Escribí acá tu tarea para la IA del server (modo PLAN: solo lee/analiza, no cambia nada).
 
->> Para lanzar: cambiá arriba `estado: pendiente` por `estado: ejecutar`, guardá y hacé Push.
-
-<!-- última respuesta: IA-Control/respuestas/respuesta-20260629-030501.md -->
+Para lanzar: cambiá `estado: pendiente` por `estado: ejecutar`, guardá y hacé Push.
+La respuesta aparece en IA-Control/respuestas/ en unos 2-4 min (hacé Pull para verla).
