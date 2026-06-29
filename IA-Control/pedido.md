@@ -1,7 +1,7 @@
 ---
-estado: pendiente
+estado: ejecutar
 dir: /home/icin
 ---
-Revisá el estado de los contenedores Docker del server y decime en pocas líneas si el backend dev (puerto 3000) y el prod (3001) están sanos. Si ves algo raro, mencionálo.
+compara el estado actual del entorno dev con la rama S3-HU02 de gitea y dame un reporte
 
 >> Para lanzar: cambiá arriba `estado: pendiente` por `estado: ejecutar`, guardá y hacé Push.
