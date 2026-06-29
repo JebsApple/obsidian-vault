@@ -357,6 +357,102 @@ y cambiar el comando en `~/.claude.json` de `npx`/`-y obsidian-mcp` a `obsidian-
 
 ---
 
+## Post-instalación: adaptación para opencode (2026-06-29)
+
+### claude-mem → systemd + plugin opencode
+
+```bash
+# Worker como servicio systemd user
+~/.config/systemd/user/claude-mem.service
+  → ExecStart: bun worker-service.cjs --daemon
+  → Puerto: 37777
+
+# Plugin opencode registrado
+~/.config/opencode/plugins/claude-mem.js
+  → hooks: session.start, user.prompt.submit, tool.execute.after
+  → tool: claude_mem_search
+```
+
+### headroom-ai → opencode-dcp (plugin)
+
+headroom-ai no funciona con opencode (es wrapper del CLI `claude`).
+Alternativa: `@tarquinen/opencode-dcp` (context pruning plugin).
+
+```bash
+npm install --prefix ~/.config/opencode @tarquinen/opencode-dcp
+```
+
+### n8n-mcp → Dagu (workflow engine con MCP)
+
+Alternativa más liviana que n8n: single binary Go, zero dependencias, MCP nativo.
+
+```bash
+# Instalación
+curl -fsSL https://github.com/dagucloud/dagu/releases/download/v2.8.3/dagu_2.8.3_linux_amd64.tar.gz ...
+mv dagu ~/.local/bin/
+
+# systemd service
+~/.config/systemd/user/dagu.service
+  → Puerto: 8090
+  → MCP endpoint: http://127.0.0.1:8090/mcp
+```
+
+### MCPs agregados 2026-06-29 (sesión 2)
+
+| MCP | Paquete | Propósito | Estrellas |
+|-----|---------|-----------|-----------|
+| **context7** | `@upstash/context7-mcp` | Docs oficiales de librerías | — |
+| **postgres** | `@modelcontextprotocol/server-postgres` | Consultas SQL a DB minegocio | deprecated |
+| **github** | `ghcr.io/github/github-mcp-server` (Docker) | Issues, PRs, code search, Actions | 31k⭐ |
+| **playwright** | `@playwright/mcp` | Browser automation (click, snapshot, network) | 34k⭐ |
+
+### Plugins opencode agregados 2026-06-29
+
+| Plugin | Función |
+|--------|---------|
+| `@prevalentware/opencode-goal-plugin` | `/goal` — tareas autónomas multi-turno |
+| `opencode-wakatime` | Time tracking metrics |
+| `opencode-vibeguard` | Redacta secrets antes de enviar al LLM |
+| `opencode-notificator` | Notificaciones desktop |
+| `opencode-websearch-cited` | Web search con citas |
+| `@plannotator/opencode` | Plan review interactivo |
+
+### Estado actual opencode
+
+```jsonc
+"plugin": [
+  "ponytail.mjs",                       // voz lazy
+  "claude-mem.js",                      // memoria persistente
+  "@tarquinen/opencode-dcp",            // context pruning
+  "@plannotator/opencode",              // plan review
+  "opencode-wakatime",                  // time tracking
+  "opencode-vibeguard",                 // secret redaction
+  "opencode-notificator",               // desktop notifications
+  "opencode-websearch-cited",           // web search
+  "@prevalentware/opencode-goal-plugin" // goal mode
+],
+"mcp": {
+  "obsidian": {},     // vault
+  "dagu": {},         // workflows
+  "context7": {},     // docs librerías
+  "postgres": {},     // DB minegocio
+  "github": {},       // GitHub API (needs GITHUB_PERSONAL_ACCESS_TOKEN)
+  "playwright": {}    // browser automation
+}
+```
+
+### Lecciones
+- `@ngotrnghia1811/opencode-headroom` tiene dependencias nativas pesadas (prebuild-install) que pueden no compilar o colgar el install.
+- DCP hace lo mismo (context pruning) sin dependencias nativas.
+- Dagu con `auth.mode: none` + `127.0.0.1` es seguro para uso local.
+- claude-mem worker necesita `--daemon` para systemd, sino el proceso se muere al forkear.
+- Playwright MCP necesita Chromium descargado (114MB) + sudo para system deps.
+- GitHub MCP necesita `export GITHUB_PERSONAL_ACCESS_TOKEN=ghp_xxx` en el shell.
+- DCP + claude-mem + magic-context **pueden coexistir** pero se pisan: DCP y magic-context ambos prunean contexto, claude-mem y magic-context ambos guardan memoria. Mejor elegir un stack (DCP+claude-mem probados, o magic-context solo como reemplazo).
+- Los plugins no gastan tokens extra salvo que inyecten contenido en prompts. DCP reduce tokens.
+
+---
+
 ## Archivado / Pendiente
 
 ### LightRAG
