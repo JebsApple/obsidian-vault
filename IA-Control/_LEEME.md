@@ -21,4 +21,4 @@ dir: /home/icin/minegocio-frontend   # carpeta donde corre Claude (opcional)
 - Todo queda logueado en el server: `~/.local/share/vault-ia-worker.log`.
 
 ## Latencia
-El server revisa pedidos cada ~2 min y sincroniza el vault cada ~5 min → la respuesta tarda unos **2-7 min**. Ajustable.
+El server revisa pedidos cada **1 min** y sincroniza el vault cada **2 min**. Con push/pull manual en tu PC, la respuesta tarda unos **2-4 min**. Si esperás los intervalos del plugin, más.
