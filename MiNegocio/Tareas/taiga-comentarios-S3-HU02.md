@@ -98,6 +98,22 @@ tags:
 
 ---
 
+### **S3-HU02-T15: Pestañas estilo archivador + sidebar colapsable**
+- **Mejoras realizadas:**
+  - Rediseño de los switches de vista (Tablero/Stock en Inventario, Galería/Registrados en Productos) a **pestañas tipo archivador**, con curva cóncava invertida en la unión interior entre ambas pestañas (técnica `mask: radial-gradient` en la esquina contigua de la pestaña activa).
+  - Estilos unificados en `src/styles/productos.css` como **fuente única** importada por `Productos.vue` e `Inventario.vue` (clases `vista-switch` / `vista-tab` / `tab-inicio` / `tab-fin` / `vista-tab-badge` / `vista-panel`). Eliminados los estilos `pill-switch`/`switch-btn` duplicados de cada vista.
+  - Accesibilidad: `role="tablist"`/`role="tab"`/`role="tabpanel"`, `aria-selected`, `aria-controls` y `type="button"` en las pestañas (patrón WAI-ARIA Tabs).
+  - SideBar: el colapso manual ahora está disponible **siempre** (antes solo aparecía en pantallas <60% del ancho). La flechita a la derecha del nombre de usuario recoge la barra dejando solo el logo "MiNegocio" + chevron-down para reexpandir, con transición suave.
+  - Micro-animaciones: rotación/scale elástico (`cubic-bezier`) en la flechita de colapso y en los iconos de acción (hover).
+  - Responsividad conservada en breakpoints 768/480 (pestañas a ancho completo, panel sin overflow).
+- **Pruebas:**
+  - Build exitoso (`npm run build` con Node 20). Bundle `app.1b09e67b.js`.
+  - Desplegado a entorno dev (`rsync` a `/var/www/dev/frontend/`). HTTP 200 en `http://192.168.50.25:8080`.
+  - Code review automatizado (vue-reviewer): estructura `Transition`/`v-if`/`v-else` intacta, reactividad de `vistaActiva` correcta. Issue ARIA (HIGH) **resuelto**; quedan 2 MEDIUM menores (paginación fuera del panel —aceptable como control independiente—).
+- **Nota:** trabajo en rama local `S3-HU02-T15-tabs-archivador-sidebar-colapsable`. **No pusheado a Gitea** (pendiente de confirmación de Victor y del número de tarea en Taiga).
+
+---
+
 ## **2. Tareas a Crear en Taiga**
 | **ID Tarea**               | **Nombre**                          | **Tipo**          | **Prioridad** | **Descripción**                                                                                     |
 |----------------------------|-------------------------------------|-------------------|---------------|-----------------------------------------------------------------------------------------------------|
