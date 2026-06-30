@@ -29,25 +29,25 @@ Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 ## Ramas activas (2026-06-30)
 | Repo | Rama | Estado |
 |------|------|--------|
-| Frontend | main | Estable. Último commit: `30643e8` |
-| Frontend | `dev` | ✅ Rama de desarrollo creada desde S3-HU02 para testeo del equipo |
-| Frontend | `S3-HU02` (integradora) | ✅ Pusheada a Gitea — contiene iconos Tabler (T11) + códigos barras/roles (T12) |
-| Frontend | `S3-HU02-T01-navegacion-barra-lateral` | ✅ En Gitea |
-| Frontend | `S3-HU02-T02-tablero-kanban` | ✅ En Gitea |
-| Frontend | `S3-HU02-T03-panel-principal` | ✅ En Gitea |
-| Frontend | `S3-HU02-T04-pruebas` | ✅ En Gitea |
-| Frontend | `S3-HU02-T05-validaciones` | ✅ En Gitea |
-| Frontend | `S3-HU02-T06-capas-frontend` | ✅ En Gitea |
-| Frontend | `S3-HU02-T07-kanban-inventario` | ✅ En Gitea |
-| Frontend | `S3-HU02-T08-ajustes-estilo` | ✅ En Gitea |
-| Frontend | `S3-HU02-T09-nombres-archivos-espanol` | ✅ En Gitea |
-| Frontend | `S3-HU02-T11-iconos` | ✅ En Gitea |
-| Frontend | `S3-HU02-T12-codigo-barras-y-acceso-roles` | ✅ Pusheada a Gitea |
-| Frontend | `S3-HU01-T05-limpieza-frontend` | ✅ En Gitea |
-| Frontend | `S3-HU01-T10-comentarios-espanol` | ✅ En Gitea |
-| Frontend | `S3-HU01-T11-readme-frontend` | ✅ En Gitea |
-| Frontend | `S3-HU02-T14-sidebar-colapsable-pestanas-archivador` | ✅ En Gitea — fusión de T14+T15: sidebar colapsable + pestañas archivador capas + fix POS |
-| Frontend | main (v3.0.0) | Tag semver — esperar merge de S3-HU02 para v3.1.0 |
+| Frontend | main | Estable. Ultimo commit: `30643e8` |
+| Frontend | `dev` | OK Rama de desarrollo creada desde S3-HU02 para testeo del equipo |
+| Frontend | `S3-HU02` (integradora) | OK Al dia -- contiene T13 (fusion vistas + cropper) + T14 (sidebar + pestanas archivador + fix POS) |
+| Frontend | `S3-HU02-T01-navegacion-barra-lateral` | OK En Gitea |
+| Frontend | `S3-HU02-T02-tablero-kanban` | OK En Gitea |
+| Frontend | `S3-HU02-T03-panel-principal` | OK En Gitea |
+| Frontend | `S3-HU02-T04-pruebas` | OK En Gitea |
+| Frontend | `S3-HU02-T05-validaciones` | OK En Gitea |
+| Frontend | `S3-HU02-T06-capas-frontend` | OK En Gitea |
+| Frontend | `S3-HU02-T07-kanban-inventario` | OK En Gitea |
+| Frontend | `S3-HU02-T08-ajustes-estilo` | OK En Gitea |
+| Frontend | `S3-HU02-T09-nombres-archivos-espanol` | OK En Gitea |
+| Frontend | `S3-HU02-T11-iconos` | OK En Gitea |
+| Frontend | `S3-HU02-T12-codigo-barras-y-acceso-roles` | OK Pusheada a Gitea |
+| Frontend | `S3-HU01-T05-limpieza-frontend` | OK En Gitea |
+| Frontend | `S3-HU01-T10-comentarios-espanol` | OK En Gitea |
+| Frontend | `S3-HU01-T11-readme-frontend` | OK En Gitea |
+| Frontend | `S3-HU02-T13-fusion-vistas-recorte-imagen` | OK En Gitea |
+| Frontend | main (v3.0.0) | Tag semver -- esperar merge de S3-HU02 para v3.1.0 |
 | Backend | main | Estable con JWT + Ventas API + CRUD productos |
 | Backend | `S3-HU01-T01` | bcrypt passwords (Gabriel) |
 | Backend | `S3-HU01-T02` | JWT_SECRET por entorno (Gabriel) |
