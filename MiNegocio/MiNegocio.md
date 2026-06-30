@@ -1,9 +1,10 @@
 ---
 tags: [proyecto, minegocio, activo]
-updated: 2026-06-28
+updated: 2026-06-30
 vinculos:
   - "[[Sesion-2026-06-27]]"
   - "[[Sesion-2026-06-28]]"
+  - "[[Sesion-2026-06-30-tabs-archivador-sidebar]]"
 ---
 
 # Proyecto: MiNegocio
@@ -25,7 +26,7 @@ Sistema de gestión de negocio (inventario, ventas, productos).
 ## Equipo
 Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 
-## Ramas activas (2026-06-28)
+## Ramas activas (2026-06-30)
 | Repo | Rama | Estado |
 |------|------|--------|
 | Frontend | main | Estable. Último commit: `30643e8` |
@@ -45,13 +46,15 @@ Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 | Frontend | `S3-HU01-T05-limpieza-frontend` | ✅ En Gitea |
 | Frontend | `S3-HU01-T10-comentarios-espanol` | ✅ En Gitea |
 | Frontend | `S3-HU01-T11-readme-frontend` | ✅ En Gitea |
-| Frontend | `S3-HU02-T14-sidebar-colapsable-tabs-folder-responsive` | ✅ Nueva — sidebar colapsable con keyframes, tabs folder, responsive |
+| Frontend | `S3-HU02-T14-sidebar-colapsable-tabs-folder-responsive` | ✅ En Gitea |
+| Frontend | `S3-HU02-T15-tabs-archivador-sidebar-colapsable` | ⏳ Local — 3 commits nuevos: sidebar mejoras + pestañas archivador capas + migración vistas |
 | Frontend | main (v3.0.0) | Tag semver — esperar merge de S3-HU02 para v3.1.0 |
 | Backend | main | Estable con JWT + Ventas API + CRUD productos |
 | Backend | `S3-HU01-T01` | bcrypt passwords (Gabriel) |
 | Backend | `S3-HU01-T02` | JWT_SECRET por entorno (Gabriel) |
 | Backend | `feat/S3-HU02` | Kanban endpoint |
-| Database | main | Esquema estable |
+| Database | main | Esquema base |
+| Database | `S3-HU02-T13-fusion-vistas-recorte-imagen` | ⏳ Local — 3 commits nuevos: limpieza scripts + esquema completo + seed migraciones |
 
 ## Frontend — Rutas
 | Ruta | Vista | Auth | Descripción |

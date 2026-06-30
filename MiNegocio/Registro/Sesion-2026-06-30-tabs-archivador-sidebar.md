@@ -71,6 +71,28 @@ Victor aclaró que las pestañas deben leerse como **una sola barra**, no dos se
 
 **Testeo iteración 3:** build verde (`app.cbb8dec0.js` / `app.24150eaa.css`), deploy a dev OK, HTTP 200. Pendiente verificación visual de Victor (deslizamiento del rojo, curvita, tuck bajo el panel).
 
+## Commits realizados (2026-06-30)
+
+### Frontend (`S3-HU02-T15-tabs-archivador-sidebar-colapsable`)
+3 commits incrementales sobre `94159e7`:
+
+| Commit | Mensaje |
+|--------|---------|
+| `0608556` | `S3-HU02-T15: mejorar sidebar con transiciones suaves, animacion cortina y mancha radial en icono activo` |
+| `048b28b` | `S3-HU02-T15: redisenar pestanas archivador modelo por capas con rojo deslizante` |
+| `9c3dc18` | `S3-HU02-T15: migrar vistas inventario y productos a clases sel-inicio/sel-fin para pestanas capas` |
+
+### Database (`S3-HU02-T13-fusion-vistas-recorte-imagen`)
+3 commits incrementales sobre `74a2fcd`:
+
+| Commit | Mensaje |
+|--------|---------|
+| `c99613a` | `S3-HU02-T13: limpiar scripts SQL obsoletos de sprint2` |
+| `e113403` | `S3-HU02-T13: refactorizar esquema.sql con tablas usuarios, productos, registro_ventas, indices y vistas` |
+| `feea94f` | `S3-HU02-T13: agregar seed_dev.sql con usuarios de prueba, migraciones y actualizar README` |
+
+**Estado:** Ninguna rama pusheada a Gitea. Pendiente autorización de Victor para push.
+
 ## Convenciones aplicadas
 - Comentarios de código en español.
 - Commit con prefijo `S3-HU02-T15:`, en español, sin emojis.
