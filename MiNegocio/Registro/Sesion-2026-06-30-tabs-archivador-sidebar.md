@@ -60,6 +60,17 @@ Tras ver la primera versión, Victor pidió 5 ajustes (confirmados vía pregunta
 
 **Testeo iteración 2:** build verde (`app.e30a5f61.js` / `app.b702a819.css`), deploy a dev OK, HTTP 200. Verificado en el CSS desplegado: `vt-active`, `flex:1 1 0`, `background-clip:text`, `color-mix`, `cortinaAbrir` presentes. Pendiente verificación visual de Victor (curva del archivador y mancha del icono dependen del render real del navegador).
 
+## Iteración 3 — Pestañas por capas (rehacer 1+2+3)
+Victor aclaró que las pestañas deben leerse como **una sola barra**, no dos separadas. Modelo por capas:
+- **Barra gris continua** (`.vista-switch` con fondo `#ececec` y redondeo superior) = capa de atrás con las dos etiquetas.
+- **Rojo deslizante** (`.vista-switch::before`, 50% de ancho) que **navega** de un lado al otro con `transform: translateX` + `cubic-bezier(0.16,1,0.3,1)`. Es la pestaña activa; su parte inferior se mete por detrás del panel (no se corta hacia abajo).
+- **Curvita cóncava** (`.vista-switch::after`) que viaja junto al rojo y **voltea de lado** durante el deslizamiento (mask radial, oculto por el movimiento). Marca la pestaña activa.
+- **Panel** (`.vista-panel`) con `z-index: 3` por encima del rojo/gris; borde superior-izquierdo recto para conectar con la pestaña.
+- **Texto** al frente (`z-index: 2`): blanco sobre el rojo (`.vista-tab.active`), gris fuera, con `transition: color`. **Badge** invertido sobre rojo (blanco con texto rojo) y normal fuera, con transición.
+- **Markup**: cada vista pasa una clase de posición al contenedor (`:class="vistaActiva === 'galeria' ? 'sel-inicio' : 'sel-fin'"`; en Inventario `tablero`/`stock`).
+
+**Testeo iteración 3:** build verde (`app.cbb8dec0.js` / `app.24150eaa.css`), deploy a dev OK, HTTP 200. Pendiente verificación visual de Victor (deslizamiento del rojo, curvita, tuck bajo el panel).
+
 ## Convenciones aplicadas
 - Comentarios de código en español.
 - Commit con prefijo `S3-HU02-T15:`, en español, sin emojis.
