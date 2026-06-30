@@ -49,6 +49,17 @@ Pedido de Victor:
 - Push a Gitea **solo cuando Victor lo pida**, respetando nomenclatura `S3-HU02-TXX-...`.
 - Comentario de Taiga añadido en [[taiga-comentarios-S3-HU02]] (sección T15).
 
+## Iteración 2 — Ajustes pedidos por Victor (revisión en navegador)
+Tras ver la primera versión, Victor pidió 5 ajustes (confirmados vía preguntas):
+
+1. **Curva del archivador volteada**: el notch cóncavo se mantiene del lado interior pero se espejó horizontalmente la esquina del `mask` (tab-inicio → `at 100% 0`, tab-fin → `at 0 0`).
+2. **Pestañas 50/50**: `.vista-switch { width:100%; gap:0 }` + `.vista-tab { flex:1 1 0; justify-content:center }`. Las dos pestañas ocupan exactamente el ancho del panel.
+3. **Relleno rojo completo en activa**: `.vista-tab.active { background: var(--color-brand); color:#fff }`, badge invertido (blanco con texto rojo), notch relleno en rojo. El rojo "salta" suave entre pestañas (`transition: background .25s`).
+4. **Sidebar fluida sin rebote**: keyframes `cortinaAbrir`/`cortinaCerrar` (altura+opacidad+`translateY`) con `cubic-bezier(0.16,1,0.3,1)` (ease-out-expo); transición de `.sidebar` y `.main-content` alineada al mismo easing en SideBar.vue y App.vue.
+5. **Mancha radial en icono activo (estática)**: `.nav-item--active .nav-icon` y `.nav-group-trigger--activo .nav-icon` usan `radial-gradient` rojo desde el centro + `background-clip:text` + `text-fill-color:transparent`. Como los iconos Tabler son de contorno, el rojo se ve solo a través de las líneas del glyph.
+
+**Testeo iteración 2:** build verde (`app.e30a5f61.js` / `app.b702a819.css`), deploy a dev OK, HTTP 200. Verificado en el CSS desplegado: `vt-active`, `flex:1 1 0`, `background-clip:text`, `color-mix`, `cortinaAbrir` presentes. Pendiente verificación visual de Victor (curva del archivador y mancha del icono dependen del render real del navegador).
+
 ## Convenciones aplicadas
 - Comentarios de código en español.
 - Commit con prefijo `S3-HU02-T15:`, en español, sin emojis.
