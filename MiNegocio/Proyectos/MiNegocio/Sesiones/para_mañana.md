@@ -1,10 +1,10 @@
 # Plan para mañana — S3-HU02-T16
 
-> **EJECUTADO 2026-06-30** — Rama `S3-HU02-T16-stock-scanner-qa` (local, sin push).
-> - ✅ Bug 1 — `CarritoCompras.vue` emite `@venta-completada`; `Ventas.vue` refetchea `buscarProductos()`. Commit `7ee1455`.
-> - ✅ Bug 2 — Input scanner verde con `@keyup.enter`: en `Ventas.vue` busca por código y agrega al carrito (valida stock>0); en `Inventario.vue` filtra la tabla de stock por código/nombre. Commits `7ee1455` (POS) y `0ac1eab` (inventario).
-> - ✅ Bug 3 — `Productos.vue`: `LIMIT 12 → 100`. Commit `b5e33dd`.
-> - ⏳ Bug 4 — QA manual pendiente (requiere navegador en dev :8080, no disponible en este entorno).
+> **EJECUTADO 2026-06-30** — Commits sobre la rama existente `S3-HU02` (local, sin push). Bugs reportados como issues en Gitea.
+> - ✅ Bug 1 (issue #13) — `CarritoCompras.vue` emite `@venta-completada`; `Ventas.vue` refetchea `buscarProductos()`. Commit `7ee1455`.
+> - ✅ Bug 2 (issue #14) — Input scanner verde con `@keyup.enter`: en `Ventas.vue` busca por código y agrega al carrito (valida stock>0); en `Inventario.vue` filtra la tabla de stock por código/nombre. Commits `7ee1455` (POS) y `0ac1eab` (inventario).
+> - ✅ Bug 3 (issue #15) — `Productos.vue`: `LIMIT 12 → 100`. Commit `b5e33dd`.
+> - ⏳ Bug 4 (issue #16) — QA manual pendiente (requiere navegador en dev :8080, no disponible en este entorno).
 > - Verificación: `lint` limpio, `vitest` 53/53 verde, `build` de producción OK.
 > - Nombres reales del repo ≠ plan: `VentasPage→Ventas.vue`, `InventarioPage→Inventario.vue`, `ProductosRegistrados→Productos.vue`.
 > - **Pendiente:** correr Bug 4 (QA) → merge a `dev` → testeo → merge a `main`.
