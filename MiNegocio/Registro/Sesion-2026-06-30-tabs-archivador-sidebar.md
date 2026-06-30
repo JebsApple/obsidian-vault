@@ -91,7 +91,21 @@ Victor aclaró que las pestañas deben leerse como **una sola barra**, no dos se
 | `e113403` | `S3-HU02-T13: refactorizar esquema.sql con tablas usuarios, productos, registro_ventas, indices y vistas` |
 | `feea94f` | `S3-HU02-T13: agregar seed_dev.sql con usuarios de prueba, migraciones y actualizar README` |
 
-**Estado:** Ninguna rama pusheada a Gitea. Pendiente autorización de Victor para push.
+### Backend fix POS (`S3-HU02-T13-fusion-vistas-recorte-imagen`)
+
+| Commit | Mensaje |
+|--------|---------|
+| `b0d5b13` | `S3-HU02-T13: fix POS usar id_vendedor desde JWT en vez del body` |
+
+### Frontend fix POS (`S3-HU02-T15-tabs-archivador-sidebar-colapsable`)
+
+| Commit | Mensaje |
+|--------|---------|
+| `73c44c9` | `S3-HU02-T15: eliminar id_vendedor hardcodeado del body, backend lo toma del JWT` |
+
+**Push a Gitea** (2026-06-30):
+- Frontend `S3-HU02-T15-tabs-archivador-sidebar-colapsable` → ✅ Pusheada
+- Database `S3-HU02-T13-fusion-vistas-recorte-imagen` → ✅ Pusheada (fast-forward)
 
 ## Convenciones aplicadas
 - Comentarios de código en español.
