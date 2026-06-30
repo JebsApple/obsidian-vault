@@ -1,7 +1,7 @@
 ---
 tags: [claude, devtools, instalacion, mcp, ai, servidor]
 fecha: 2026-06-28
-actualizado: 2026-06-29
+actualizado: 2026-06-29 (sesión 3: fixes GitHub MCP, sudo, Playwright, config completa)
 ---
 
 # Instalación de herramientas para Claude Code
@@ -417,38 +417,106 @@ mv dagu ~/.local/bin/
 | `opencode-websearch-cited` | Web search con citas |
 | `@plannotator/opencode` | Plan review interactivo |
 
-### Estado actual opencode
+### Config actual (2026-06-29, post-fix sesión 3)
+
+Archivo: `~/.config/opencode/opencode.jsonc`
 
 ```jsonc
-"plugin": [
-  "ponytail.mjs",                       // voz lazy
-  "claude-mem.js",                      // memoria persistente
-  "@tarquinen/opencode-dcp",            // context pruning
-  "@plannotator/opencode",              // plan review
-  "opencode-wakatime",                  // time tracking
-  "opencode-vibeguard",                 // secret redaction
-  "opencode-notificator",               // desktop notifications
-  "opencode-websearch-cited",           // web search
-  "@prevalentware/opencode-goal-plugin" // goal mode
-],
-"mcp": {
-  "obsidian": {},     // vault
-  "dagu": {},         // workflows
-  "context7": {},     // docs librerías
-  "postgres": {},     // DB minegocio
-  "github": {},       // GitHub API (needs GITHUB_PERSONAL_ACCESS_TOKEN)
-  "playwright": {}    // browser automation
+{
+  "provider": {
+    "naraya": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "NaraRouter",
+      "options": {
+        "baseURL": "https://router.bynara.id/v1",
+        "apiKey": "sk-nry-..."  // va en vault secreta
+      },
+      "models": {
+        "mistral-large":         { "modalities": { "input": ["text"], "output": ["text"] } },
+        "mistral-medium-3-5":    { "modalities": { "input": ["text", "image"], "output": ["text"] } },
+        "mimo-v2.5-free":        { "modalities": { "input": ["text", "image"], "output": ["text"] } },
+        "mimo-v2.5-pro-free":    { "modalities": { "input": ["text"], "output": ["text"] } }
+      }
+    }
+  },
+  "model": "naraya/mistral-large",
+  "mcp": {
+    "obsidian":   { "type": "local", "command": ["npx", "-y", "obsidian-mcp", "/home/apuru/obsidian-vault"] },
+    "dagu":       { "type": "url", "url": "http://127.0.0.1:8090/mcp" },
+    "context7":   { "type": "local", "command": ["npx", "-y", "@upstash/context7-mcp"] },
+    "postgres":   { "type": "local", "command": ["npx", "-y", "@modelcontextprotocol/server-postgres", "postgresql://postgres:admin123@localhost:5432/cliente_dev"] },
+    "github":     { "type": "local", "command": ["/home/apuru/.local/bin/github-mcp-wrapper"] },
+    "playwright": { "type": "local", "command": ["npx", "-y", "@playwright/mcp"] }
+  },
+  "plugin": [
+    "/home/apuru/ponytail/.opencode/plugins/ponytail.mjs",
+    "/home/apuru/.config/opencode/plugins/claude-mem.js",
+    "@tarquinen/opencode-dcp",               // context pruning
+    "@plannotator/opencode",                 // plan review
+    "opencode-wakatime",                     // time tracking
+    "opencode-vibeguard",                    // secret redaction
+    "opencode-notificator",                  // desktop notifications
+    "opencode-websearch-cited",              // web search with citations
+    "@prevalentware/opencode-goal-plugin"    // goal mode
+  ]
 }
 ```
 
-### Lecciones
+### GitHub MCP — wrapper script
+
+El MCP de GitHub usa un wrapper que resuelve el token automáticamente (no depende de env):
+
+`~/.local/bin/github-mcp-wrapper`:
+```bash
+#!/bin/bash
+export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token 2>/dev/null || echo '')"
+exec docker run -i --rm \
+  -e GITHUB_PERSONAL_ACCESS_TOKEN \
+  ghcr.io/github/github-mcp-server
+```
+
+`.zshenv` (se carga siempre, no solo en shells interactivos):
+```bash
+export GITHUB_PERSONAL_ACCESS_TOKEN="$(command gh auth token 2>/dev/null)"
+```
+
+### Sudo: fix NOPASSWD
+
+El `/etc/sudoers` tenía `%wheel ALL=(ALL:ALL) ALL` DESPUÉS del `@includedir`, pisando el drop-in NOPASSWD. Solución:
+
+```bash
+# Comentar la línea %wheel en el sudoers principal (después de @includedir)
+sudo sed -i 's/^%wheel ALL=(ALL:ALL) ALL/#%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+```
+
+Y crear `/etc/sudoers.d/apuru`:
+```
+apuru ALL=(ALL:ALL) NOPASSWD: ALL
+```
+
+> **Fix vía Docker si sudo no anda**: `docker run --rm -v /:/host alpine sed -i 's/^%wheel ALL=(ALL:ALL) ALL/#%wheel ALL=(ALL:ALL) ALL/' /host/etc/sudoers`
+
+### minegocio-db restart policy
+
+```bash
+docker update --restart unless-stopped minegocio-db
+```
+
+### Playwright system deps
+
+```bash
+sudo npx playwright install-deps chromium
+# Cache en ~/.cache/ms-playwright/chromium-1228/
+```
+
+### Lecciones (actualizado)
+- GitHub MCP con `type: "local"` y `docker run -e VAR` **no hereda** variables del `.zshrc` porque opencode no es shell interactivo. Solución: wrapper script que llama `gh auth token` directo + `.zshenv`.
+- Lo mismo aplica a cualquier MCP que use `docker run -e VAR_SIN_VALOR`: necesita que la variable esté en el ambiente del proceso opencode.
 - `@ngotrnghia1811/opencode-headroom` tiene dependencias nativas pesadas (prebuild-install) que pueden no compilar o colgar el install.
 - DCP hace lo mismo (context pruning) sin dependencias nativas.
 - Dagu con `auth.mode: none` + `127.0.0.1` es seguro para uso local.
 - claude-mem worker necesita `--daemon` para systemd, sino el proceso se muere al forkear.
 - Playwright MCP necesita Chromium descargado (114MB) + sudo para system deps.
-- GitHub MCP necesita `export GITHUB_PERSONAL_ACCESS_TOKEN=ghp_xxx` en el shell.
-- DCP + claude-mem + magic-context **pueden coexistir** pero se pisan: DCP y magic-context ambos prunean contexto, claude-mem y magic-context ambos guardan memoria. Mejor elegir un stack (DCP+claude-mem probados, o magic-context solo como reemplazo).
 - Los plugins no gastan tokens extra salvo que inyecten contenido en prompts. DCP reduce tokens.
 
 ---
