@@ -458,38 +458,20 @@ Refactorizar la arquitectura del backend Go para cumplir con la separacion de ca
 > **Actualización DB (30/06):** esquema.sql refactorizado con tablas usuarios, productos, registro_ventas, índices y vistas. Seed dev.sql con usuarios administrador/usuario (1234). Migraciones en `/migrations/`. Scripts viejos de sprint2 eliminados.
 > **Push a Gitea:** Rama `S3-HU02-T13-fusion-vistas-recorte-imagen` actualizada con 4 commits nuevos (limpieza + esquema + seed + fix POS).
 
-### S3-HU02-T14 -- Sidebar colapsable + tabs folder responsive
-
-**Comentario de trabajo realizado (29/06/2026):**
-
-> ## Trabajo realizado
->
-> Rama: `S3-HU02-T14-sidebar-colapsable-tabs-folder-responsive` (creada desde `S3-HU02`, mergeada a S3-HU02).
->
-> **Commits:**
-> 1. `sidebar colapsable con keyframes, tabs folder, responsive, guia estudio` — SideBar flecha expansión/colapso, transición width 0.3s, tabs folder en sidebar (Dashboard, Productos, Ventas, Inventario), responsive 768px/480px
-> 2. `fix template duplicates tras merge conflict` — corrección de duplicados tras merge a S3-HU02
->
-> **Sidebar colapsable:**
-> - Flechita a la derecha del nombre de usuario → recoge toda la barra dejando solo el logo
-> - Flechita hacia abajo para reexpandir
-> - Transición suave width 0.3s
-> - Tabs folder: Dashboard, Productos, Ventas, Inventario como carpetas
-
-### S3-HU02-T15 -- Pestañas archivador + sidebar colapsable siempre disponible + fix POS
+### S3-HU02-T14 -- Sidebar colapsable + pestañas archivador + fix POS
 
 **Comentario de trabajo realizado (30/06/2026):**
 
 > ## Trabajo realizado
 >
-> Rama: `S3-HU02-T15-tabs-archivador-sidebar-colapsable` (creada desde `S3-HU02`). Pusheada a Gitea el 30/06.
+> Rama: `S3-HU02-T14-sidebar-colapsable-pestanas-archivador` (creada desde `S3-HU02`). Fusión de las anteriores T14 (nombre en inglés) y T15 (mismo alcance). Pusheada a Gitea el 30/06.
 >
-> **Commits (7 total):**
-> 1. `S3-HU02-T15: pestañas estilo archivador en Productos/Inventario y sidebar colapsable siempre disponible` — estructura inicial ArchivadorTab + Sidebar colapsable en todo breakpoint
-> 2. `S3-HU02-T15: mejorar sidebar con transiciones suaves, animacion cortina y mancha radial en icono activo` — easing cubic-bezier, keyframes cortinaAbrir/cortinaCerrar, icono activo con radial-gradient rojo + background-clip:text
-> 3. `S3-HU02-T15: redisenar pestanas archivador modelo por capas con rojo deslizante` — barra gris continua + rojo deslizante ::before que navega 50% con translateX + curvita cóncava ::after + panel z-index superior
-> 4. `S3-HU02-T15: migrar vistas inventario y productos a clases sel-inicio/sel-fin para pestanas capas` — clases de posición para el deslizamiento
-> 5. `S3-HU02-T15: eliminar id_vendedor hardcodeado del body, backend lo toma del JWT` — fix POS
+> **Commits (5 commits renombrados de T15 a T14):**
+> 1. `S3-HU02-T14: pestañas estilo archivador en Productos/Inventario y sidebar colapsable siempre disponible` — estructura inicial ArchivadorTab + Sidebar colapsable en todo breakpoint
+> 2. `S3-HU02-T14: mejorar sidebar con transiciones suaves, animacion cortina y mancha radial en icono activo` — easing cubic-bezier, keyframes cortinaAbrir/cortinaCerrar, icono activo con radial-gradient rojo + background-clip:text
+> 3. `S3-HU02-T14: redisenar pestanas archivador modelo por capas con rojo deslizante` — barra gris continua + rojo deslizante ::before que navega 50% con translateX + curvita cóncava ::after + panel z-index superior
+> 4. `S3-HU02-T14: migrar vistas inventario y productos a clases sel-inicio/sel-fin para pestanas capas` — clases de posición para el deslizamiento
+> 5. `S3-HU02-T14: eliminar id_vendedor hardcodeado del body, backend lo toma del JWT` — fix POS
 >
 > **Pestañas archivador (3 iteraciones):**
 > - Iteración 1: estructura ArchivadorTab con curva cóncava via mask radial
@@ -499,7 +481,7 @@ Refactorizar la arquitectura del backend Go para cumplir con la separacion de ca
 > **Sidebar colapsable siempre disponible:**
 > - `puedeColapsar = true` siempre (antes solo <60% ancho)
 > - Animación cortina: altura + opacidad + translateY con ease-out-expo
-> - Transiciones de .sidebar y .main-content alineadas
+> - Transiciones de .sidebar y .main-content alineadas con cubic-bezier(0.16,1,0.3,1)
 >
 > **Fix POS (Punto de Venta):**
 > - Causa raíz: `id_vendedor: 1` hardcodeado en CarritoCompras.vue, usuario real es ID 5
@@ -512,8 +494,6 @@ Refactorizar la arquitectura del backend Go para cumplir con la separacion de ca
 > - `npm run build` — build producción exitoso (app.cbb8dec0.js / app.24150eaa.css)
 > - Deploy a dev: rsync a /var/www/dev/frontend/ → HTTP 200
 > - CSS desplegado contiene: vt-active, flex:1 1 0, background-clip:text, cortinaAbrir
-> - `go build ./...` — exitoso
-> - `go vet ./...` — exitoso
-> - Ventas API: POST /api/ventas con y sin id_vendedor → OK
+> - `go build ./...` + `go vet ./...` — exitoso
+> - Ventas API: POST /api/ventas con y sin id_vendedor → OK, ventas registradas con id_vendedor correcto
 > - Login administrador (ID 5): genera token JWT con user_id=5
-> - Verificación: ventas registradas quedan con id_vendedor=5

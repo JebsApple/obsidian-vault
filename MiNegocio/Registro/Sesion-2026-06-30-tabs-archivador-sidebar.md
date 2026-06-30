@@ -103,8 +103,20 @@ Victor aclaró que las pestañas deben leerse como **una sola barra**, no dos se
 |--------|---------|
 | `73c44c9` | `S3-HU02-T15: eliminar id_vendedor hardcodeado del body, backend lo toma del JWT` |
 
+### Fusión T14+T15
+
+Se fusionaron ambas ramas en una sola con nombre corregido (español):
+
+| Antes | Después |
+|-------|---------|
+| `S3-HU02-T14-sidebar-colapsable-tabs-folder-responsive` (EN) | ❌ Eliminada de Gitea |
+| `S3-HU02-T15-tabs-archivador-sidebar-colapsable` (mixto) | ❌ Eliminada de Gitea |
+| → | `S3-HU02-T14-sidebar-colapsable-pestanas-archivador` ✅ Nueva en Gitea |
+
+Los 5 commits de T15 + fix POS ahora son `S3-HU02-T14:` y están en la nueva rama.
+
 **Push a Gitea** (2026-06-30):
-- Frontend `S3-HU02-T15-tabs-archivador-sidebar-colapsable` → ✅ Pusheada
+- Frontend `S3-HU02-T14-sidebar-colapsable-pestanas-archivador` → ✅ Pusheada
 - Database `S3-HU02-T13-fusion-vistas-recorte-imagen` → ✅ Pusheada (fast-forward)
 
 ## Convenciones aplicadas

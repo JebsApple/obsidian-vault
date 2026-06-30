@@ -46,8 +46,7 @@ Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 | Frontend | `S3-HU01-T05-limpieza-frontend` | ✅ En Gitea |
 | Frontend | `S3-HU01-T10-comentarios-espanol` | ✅ En Gitea |
 | Frontend | `S3-HU01-T11-readme-frontend` | ✅ En Gitea |
-| Frontend | `S3-HU02-T14-sidebar-colapsable-tabs-folder-responsive` | ✅ En Gitea |
-| Frontend | `S3-HU02-T15-tabs-archivador-sidebar-colapsable` | ✅ En Gitea — sidebar mejoras + pestañas archivador capas + fix POS (JWT id_vendedor) |
+| Frontend | `S3-HU02-T14-sidebar-colapsable-pestanas-archivador` | ✅ En Gitea — fusión de T14+T15: sidebar colapsable + pestañas archivador capas + fix POS |
 | Frontend | main (v3.0.0) | Tag semver — esperar merge de S3-HU02 para v3.1.0 |
 | Backend | main | Estable con JWT + Ventas API + CRUD productos |
 | Backend | `S3-HU01-T01` | bcrypt passwords (Gabriel) |
