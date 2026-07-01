@@ -97,12 +97,11 @@ SW-LAB-01# show running-config          ← config actual (en RAM)
 SW-LAB-01# show startup-config          ← config guardada (en NVRAM)
 ```
 
+![[Pasted image 20260701111347.png]]
 
 
 ```
-SW-LAB-01# show processes cpu           ← uso de CPU
+SW-LAB-01# copy running-config startup-config
 ```
 
-```
-SW-LAB-01# show memory                  ← uso de memoria
-```
+![[Pasted image 20260701111652.png]]
