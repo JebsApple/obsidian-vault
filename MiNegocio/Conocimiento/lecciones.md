@@ -423,3 +423,5 @@ Resultó haber DOS copias del frontend en `~/Documentos/Obsidian Vault/MiNegocio
 3. Build OK (exit 0), fuentes Tabler en `dist/fonts/`, links Google Fonts en `dist/index.html`. La copia `(1)` se revirtió a su estado limpio.
 
 **Regla:** el HTML "standalone" de la doc gráfica embebe las fuentes como blobs por UUID (no son URLs reutilizables); identificar la familia (`font-family`) y traerla de Google Fonts.
+
+- [2026-07-01] gnome-system-monitor instalado (pacman). Módulo custom/taskmanager en Waybar modules-right con format vacío y on-click-right. Debug: Waybar lo gestiona systemd con Restart=always, no killall + lanzar manual — spawns duplicados. Siempre usar `systemctl --user restart waybar.service`.
