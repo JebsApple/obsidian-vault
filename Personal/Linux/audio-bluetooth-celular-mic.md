@@ -196,6 +196,7 @@ status-audio
 - [x] Crear script `status-audio` en `~/.local/bin/`
 - [x] Instalar `scrcpy` (`sudo pacman -S scrcpy`)
 - [x] Probar mic celular USB + Discord/Steam (Opción B — **funciona**)
+- [x] Auto-conexión al conectar USB (udev + systemd user service)
 - [ ] Agregar keybind en Hyprland para `toggle-buds-mode`
 - [ ] (Opcional) Probar `toggle-buds-mode` + Discord (Opción A)
 
@@ -227,6 +228,24 @@ WO Mic resuelve todo esto automáticamente.
 
 ---
 
+## Auto-conexión (plug & play)
+
+Al conectar el celular por USB con depuración activada, se activa solo:
+
+```
+udev (99-android-mic.rules)
+  → /usr/local/bin/phone-mic-autoconnect (puente root→user)
+    → systemctl --user start mic-celular-auto.service
+      → ~/.local/bin/mic-celular start (scrcpy + null sink)
+```
+
+Al desconectar, se detiene solo (udev remove → systemctl stop → mic-celular stop).
+
+**Archivos del sistema:**
+- `/etc/udev/rules.d/99-android-mic.rules` — detecta Xiaomi (2717) y Google (18d1)
+- `/usr/local/bin/phone-mic-autoconnect` — puente udev → systemd --user
+- `~/.config/systemd/user/mic-celular-auto.service` — servicio user
+
 ## Comandos de referencia rápida
 
 ```bash
@@ -236,10 +255,14 @@ status-audio
 # Toggle A2DP ↔ HFP
 toggle-buds-mode
 
-# Mic del celular
+# Mic del celular (manual)
 mic-celular              # conectar (pide IP la primera vez)
-mic-celular 192.168.1.X  # conectar con IP específica
 mic-celular stop         # desconectar
+
+# Mic del celular (auto — se conecta solo al conectar USB)
+systemctl --user start mic-celular-auto.service   # forzar conexión
+systemctl --user stop mic-celular-auto.service    # desconectar
+systemctl --user status mic-celular-auto.service  # ver estado
 
 # Ver el nombre exacto del card de los Buds
 pactl list cards short
