@@ -45,3 +45,31 @@ Listar todas las interfaces disponibles:
 
 Configurar descripción y estado de interfaces
 
+```
+SW-LAB-01# configure terminal
+SW-LAB-01(config)# interface FastEthernet 0/1
+SW-LAB-01(config-if)# description Puerto de acceso - PC Admin
+SW-LAB-01(config-if)# no shutdown
+SW-LAB-01(config-if)# exit
+
+SW-LAB-01(config)# interface FastEthernet 0/2
+SW-LAB-01(config-if)# description Puerto de acceso - Impresora
+SW-LAB-01(config-if)# shutdown
+SW-LAB-01(config-if)# exit
+
+SW-LAB-01(config)# interface FastEthernet 0/3
+SW-LAB-01(config-if)# description Puerto de reserva
+SW-LAB-01(config-if)# shutdown
+SW-LAB-01(config-if)# exit
+
+SW-LAB-01(config)# interface FastEthernet 0/4
+SW-LAB-01(config-if)# description Enlace a switch secundario
+SW-LAB-01(config-if)# no shutdown
+SW-LAB-01(config-if)# end
+```
+
+Determinar estado de las interfaces
+```
+
+SW-LAB-01# show interfaces status
+```
