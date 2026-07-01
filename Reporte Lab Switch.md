@@ -4,11 +4,15 @@
 
 Ingreso a modo Privilegiado
 
-Comando: Switch>enable
+```
+enable
+```
 
 Verificación de los detalles del equipo.
 
-Comando: Switch#show version
+```
+show version
+```
 
 ![[Pasted image 20260701103742.png]]
 
@@ -18,19 +22,41 @@ Comando: Switch#show version
 
 Verificación de la configuración actual.
 
-Comando: show running-config
+
+```
+show running-config
+```
+
 
 ![[Pasted image 20260701104020.png]]
 
 Cambio de nombre del equipo:
 
+
+```
+configure terminal
+```
+
+```
+hostname SW-LAB-01
+```
+
 ![[Pasted image 20260701104246.png]]
 
 Desactivar busqueda DNS.
 
+```
+no ip domain-lookup
+```
+
+
 ![[Pasted image 20260701105029.png]]
 
 MOTD banner
+
+```
+SW-LAB-01(config)# banner motd #Laboratorio Intermedio - Switch Cisco 2960#
+```
 
 ![[Pasted image 20260701104617.png]]
 
@@ -105,3 +131,10 @@ SW-LAB-01# copy running-config startup-config
 ```
 
 ![[Pasted image 20260701111652.png]]
+
+Comprobacion de configuracion de inicio guardada
+
+![[Pasted image 20260701111824.png]]
+
+![[Pasted image 20260701111844.png]]
+![[Pasted image 20260701111902.png]]
