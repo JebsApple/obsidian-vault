@@ -191,14 +191,29 @@ status-audio
 ## Plan de implementación
 
 - [x] Entender el modelo mental (A2DP vs HFP)
-- [ ] Crear script `toggle-buds-mode` en `~/.local/bin/`
-- [ ] Crear script `mic-celular` en `~/.local/bin/`
-- [ ] Crear script `status-audio` en `~/.local/bin/`
-- [ ] Instalar WO Mic: `yay -S womic`
-- [ ] Instalar WO Mic en el celular (Google Play)
-- [ ] Probar `toggle-buds-mode` + Discord (Opción A)
-- [ ] Probar `mic-celular` + Discord (Opción B)
+- [x] Crear script `toggle-buds-mode` en `~/.local/bin/`
+- [x] Crear script `mic-celular` en `~/.local/bin/`
+- [x] Crear script `status-audio` en `~/.local/bin/`
+- [x] Instalar `scrcpy` (`sudo pacman -S scrcpy`)
+- [x] Probar mic celular USB + Discord/Steam (Opción B — **funciona**)
 - [ ] Agregar keybind en Hyprland para `toggle-buds-mode`
+- [ ] (Opcional) Probar `toggle-buds-mode` + Discord (Opción A)
+
+## Implementación final — cómo funciona
+
+```
+Celular (mic) ──USB──► scrcpy ──► celular_mic_sink (null, sin salida física)
+                                          │
+                                   monitor del sink
+                                          │
+                                          ▼
+                               output.celular_mic  ◄── Discord, Steam, cualquier app
+                               (fuente por defecto)
+```
+
+El null sink actúa como sumidero invisible: scrcpy envía el audio del mic
+del celular ahí, y el monitor del sink lo expone como micrófono virtual.
+No hay retroalimentación (echo) porque el null sink no emite sonido físico.
 
 ---
 
