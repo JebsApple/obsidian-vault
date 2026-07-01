@@ -149,6 +149,7 @@ show startup-config
 
 ![[Pasted image 20260701111347.png]]
 
+**Guardar la configuración**
 
 ```
 copy running-config startup-config
@@ -156,9 +157,13 @@ copy running-config startup-config
 
 ![[Pasted image 20260701111652.png]]
 
-Comprobacion de configuracion de inicio guardada
+**Cierre de sesión:**
+```
+exit
+```
+
+**Comprobación de configuración de inicio guardada**
 
 ![[Pasted image 20260701111824.png]]
-
 ![[Pasted image 20260701111844.png]]
 ![[Pasted image 20260701111902.png]]
