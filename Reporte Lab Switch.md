@@ -28,6 +28,12 @@ Cambio de nombre del equipo:
 
 Desactivar busqueda DNS.
 
+![[Pasted image 20260701105029.png]]
 
+MOTD banner
 
 ![[Pasted image 20260701104617.png]]
+
+Verificación:
+
+![[Pasted image 20260701105208.png]]
