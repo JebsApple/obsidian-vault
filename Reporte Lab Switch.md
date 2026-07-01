@@ -70,6 +70,39 @@ SW-LAB-01(config-if)# end
 
 Determinar estado de las interfaces
 ```
-
 SW-LAB-01# show interfaces status
+```
+![[Pasted image 20260701110816.png]]
+
+Obtener información del sistema
+
+```
+SW-LAB-01# show interfaces              ← estadísticas de todas las interfaces
+```
+
+![[Pasted image 20260701111004.png]]
+
+![[Pasted image 20260701111012.png]]
+
+![[Pasted image 20260701111037.png]]
+
+![[Pasted image 20260701111048.png]]
+
+SW-LAB-01# show running-config          ← config actual (en RAM)
+
+
+![[Pasted image 20260701111126.png]]
+
+```
+SW-LAB-01# show startup-config          ← config guardada (en NVRAM)
+```
+
+
+
+```
+SW-LAB-01# show processes cpu           ← uso de CPU
+```
+
+```
+SW-LAB-01# show memory                  ← uso de memoria
 ```
