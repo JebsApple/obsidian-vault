@@ -1,22 +1,22 @@
 ---
-tags: [universidad, redes, cisco, laboratorio]
+tags: [universidad, redes, cisco, laboratorio, packet-tracer]
 ---
 
-# Laboratorio Intermedio — Switch Cisco 2960 por Consola
+# Laboratorio Intermedio — Switch Cisco 2960 en Packet Tracer
 
-> Administración básica y configuración inicial de un switch Cisco 2960 mediante acceso por consola.
+> Administración básica y configuración inicial de un switch Cisco 2960 mediante acceso por consola en **Cisco Packet Tracer**.
 
 ---
 
 ## Escenario
 
-El departamento de soporte ha recibido un switch Cisco 2960 recién instalado. No hay administración remota habilitada aún, así que todo se hace por **consola**.
+El departamento de soporte ha recibido un switch Cisco 2960 recién instalado. No hay administración remota habilitada aún, así que todo se hace por **consola**. Vas a simularlo en Packet Tracer.
 
 ---
 
 ## Índice
 
-1. [Conexión física](#parte-1--conexión-física-y-acceso-al-dispositivo)
+1. [Montar el escenario](#parte-1--montar-el-escenario-en-packet-tracer)
 2. [Exploración inicial](#parte-2--exploración-inicial-del-dispositivo)
 3. [Configuración básica](#parte-3--configuración-básica-del-equipo)
 4. [Administración de interfaces](#parte-4--administración-de-interfaces)
@@ -25,69 +25,41 @@ El departamento de soporte ha recibido un switch Cisco 2960 recién instalado. N
 
 ---
 
-## Equipo necesario
+## Parte 1 — Montar el escenario en Packet Tracer
 
-### Hardware
+### Actividad 1 — Colocar los dispositivos
 
-| Elemento | Especificación |
-|----------|---------------|
-| Switch | **Cisco 2960** (modelo típico: WS-C2960-24TT-L) |
-| PC de administración | Cualquier computador con puerto USB o DB9 |
-| Cable de consola | **Cable serial RJ-45 a DB9** (el cable celeste oscuro que viene con el switch) |
-| Adaptador | Si el PC no tiene puerto DB9 → **adaptador USB a Serial (DB9)** |
-| Alimentación | Enchufar el switch a la corriente |
+1. Abre **Cisco Packet Tracer**.
+2. En la barra inferior, ve a **End Devices** y arrastra un **PC** al área de trabajo.
+3. Ve a **Switches** y arrastra un **Switch 2960** (el modelo 24 puertos, se ve así: 24 FastEthernet + 2 Gigabit).
+4. Colócalos separados para que se vea claro.
 
-### Software
+### Actividad 2 — Conectar por consola
 
-| Programa | Alternativas |
-|----------|-------------|
-| Terminal serial | PuTTY, SecureCRT, TeraTerm, screen (Linux/Mac) |
+1. En la barra de herramientas, selecciona el ícono del **cable** (Connections).
+2. Elige el cable de consola: **Cable** → **Console** (el ícono es un cable celeste con punta RJ-45).
+3. Haz clic en el **PC** → se abre una ventana de selección de puerto. Elige **RS-232**.
+4. Luego haz clic en el **Switch 2960** → elige **Console**.
+5. Aparece un cable celeste conectando ambos dispositivos. ✅
 
----
+### Actividad 3 — Acceder al CLI del switch
 
-## Parte 1 — Conexión física y acceso al dispositivo
-
-### Actividad 1 — Conectar el cable de consola
-
-1. Toma el **cable de consola** (RJ-45 celeste oscuro a DB9).
-2. Conecta el extremo **RJ-45** (parece plug de red) al puerto **Console** del switch Cisco 2960.
-   - El puerto **Console** está en el **panel frontal** del switch, suele estar marcado con un ícono de computador/pantalla.
-   - En un 2960-24TT, está a la izquierda, junto al puerto MGMT (si existe).
-3. Conecta el extremo **DB9** directamente al puerto serie del PC.
-   - Si tu PC **no tiene** puerto DB9: usa el adaptador **USB a Serial**, conecta el DB9 al adaptador y el adaptador al USB.
-
-### Actividad 2 — Configurar el terminal serial
-
-Abre tu programa de terminal con estos parámetros exactos:
-
-| Parámetro | Valor |
-|-----------|-------|
-| Puerto | COM1/COM3 (Win) o `/dev/ttyUSB0` (Linux) o `/dev/cu.usbserial-*` (Mac) |
-| Baud rate | **9600** |
-| Data bits | **8** |
-| Parity | **None** |
-| Stop bits | **1** |
-| Flow control | **None** |
-
-> **PuTTY:** Connection type → Serial, Serial line → `COM1`, Speed → `9600`, Open.
-> **Linux:** `screen /dev/ttyUSB0 9600`
-> **Mac:** `screen /dev/cu.usbserial-XXXX 9600`
-
-### Actividad 3 — Acceder al switch
-
-1. Enchufa el switch a la corriente (enciéndelo si tiene interruptor).
-2. Espera 30-60 segundos a que arranque (verás texto del POST y boot).
-3. Presiona **Enter** hasta ver:
+1. Haz clic en el **Switch 2960** → se abre una ventana.
+2. Ve a la pestaña **CLI** (Command Line Interface).
+3. Espera a que termine el boot (verás texto pasando).
+4. Presiona **Enter** hasta ver:
 
 ```
 Switch>
 ```
 
-¡Estás dentro del CLI de Cisco IOS!
+¡Estás en el CLI de Cisco IOS!
+
+> 💡 Si no ves el prompt rápido, presiona Enter un par de veces.
 
 ### Actividad 4 — Registrar evidencia
 
-Screenshot o copia textual del prompt `Switch>`. Esa es tu evidencia de conexión exitosa.
+Toma un **screenshot** de la ventana de Packet Tracer mostrando el prompt `Switch>` en la pestaña CLI. Esa es tu evidencia de conexión exitosa.
 
 ---
 
@@ -95,7 +67,7 @@ Screenshot o copia textual del prompt `Switch>`. Esa es tu evidencia de conexió
 
 ### Actividad 5 — Modo operativo inicial
 
-`Switch>` → **modo usuario** (User EXEC). Identificado por el `>`.
+`Switch>` → **modo usuario** (User EXEC). Se identifica por el `>`.
 Solo permite comandos de consulta básica.
 
 ### Actividad 6 — Ingresar a modo privilegiado
@@ -105,8 +77,10 @@ Switch> enable
 Switch#
 ```
 
-`Switch#` → **modo privilegiado** (Privileged EXEC). Identificado por `#`.
-Aquí puedes ver toda la config y ejecutar cambios.
+`Switch#` → **modo privilegiado** (Privileged EXEC). Se identifica por el `#`.
+Desde acá puedes ver todo y aplicar cambios.
+
+> El laboratorio se hace **sin contraseñas**. Solo escribes `enable` y entras.
 
 ### Actividad 7 — Identificar modelo y versión IOS
 
@@ -114,11 +88,14 @@ Aquí puedes ver toda la config y ejecutar cambios.
 Switch# show version
 ```
 
-Buscar:
-- **Modelo:** `cisco WS-C2960-24TT-L` (o similar)
-- **IOS:** `Cisco IOS Software, Version 15.0(2)`
-- **Interfaces:** `24 FastEthernet + 2 Gigabit Ethernet`
-- **Uptime:** `Switch uptime is ...`
+Busca en la salida:
+
+| Dato | Qué buscar |
+|------|-----------|
+| **Modelo** | `WS-C2960-24TT-L` |
+| **IOS** | `Cisco IOS Software, Version ...` |
+| **Interfaces** | `24 FastEthernet` + `2 GigabitEthernet` |
+| **Uptime** | `Switch uptime is ...` |
 
 ### Actividad 8 — Nombre, estado, uptime y config activa
 
@@ -128,15 +105,15 @@ Switch# show running-config
 
 | Dato | Valor esperado |
 |------|---------------|
-| Hostname | `Switch` (valor por defecto) |
+| Hostname actual | `Switch` (default de fábrica) |
+| Config activa | Vacía / solo lo mínimo |
 | Uptime | En `show version` |
-| Config activa | `show running-config` (casi vacía en switch nuevo) |
 
 ---
 
 ## Parte 3 — Configuración básica del equipo
 
-### Actividad 9 — Cambiar el nombre
+### Actividad 9 — Cambiar el nombre del switch
 
 ```
 Switch# configure terminal
@@ -144,7 +121,7 @@ Switch(config)# hostname SW-LAB-01
 SW-LAB-01(config)#
 ```
 
-El prompt cambia inmediatamente. Usa el nombre que indique el docente.
+El prompt cambia apenas le das Enter. Usa el nombre que diga tu profe.
 
 ### Actividad 10 — Desactivar búsqueda DNS
 
@@ -152,45 +129,55 @@ El prompt cambia inmediatamente. Usa el nombre que indique el docente.
 SW-LAB-01(config)# no ip domain-lookup
 ```
 
-Esto evita la pausa de ~30s si tipeas mal un comando (el switch intenta resolverlo como dominio).
+Si no pones esto, al escribir mal un comando el switch se queda ~30s intentando resolverlo como nombre de dominio.
 
-### Actividad 11 — Mensaje del día (MOTD)
+### Actividad 11 — Mensaje del día (MOTD Banner)
 
 ```
 SW-LAB-01(config)# banner motd #Laboratorio Intermedio - Switch Cisco 2960#
 ```
 
-El `#` es el delimitador. Todo lo que esté entre los dos `#` será el mensaje de bienvenida.
+El `#` actúa como delimitador. Todo lo que va entre los dos `#` será el banner de bienvenida.
 
-### Actividad 12 — Verificar configuración
+### Actividad 12 — Verificar configuración aplicada
 
 ```
+SW-LAB-01(config)# end
 SW-LAB-01# show running-config
 ```
 
-Confirma que aparecen: `hostname`, `no ip domain-lookup`, `banner motd`.
+Confirma que aparecen:
+
+1. `hostname SW-LAB-01`
+2. `no ip domain-lookup`
+3. `banner motd ^C...^C`
 
 ---
 
 ## Parte 4 — Administración de interfaces
 
-### Actividad 13 — Listar todas las interfaces
+### Actividad 13 — Listar todas las interfaces disponibles
 
 ```
 SW-LAB-01# show ip interface brief
 ```
 
-Salida típica:
+Salida típica en Packet Tracer:
+
 ```
 Interface              IP-Address      OK? Method Status  Protocol
 FastEthernet0/1        unassigned      YES unset  down    down
-...
-FastEthernet0/24       unassigned      YES unset  down    down
+FastEthernet0/2        unassigned      YES unset  down    down
+... (hasta Fa0/24)
 GigabitEthernet0/1     unassigned      YES unset  down    down
 GigabitEthernet0/2     unassigned      YES unset  down    down
 ```
 
+Tienes **24 puertos FastEthernet** (Fa0/1 - Fa0/24) y **2 GigabitEthernet** (Gi0/1 - Gi0/2).
+
 ### Actividad 14 — Configurar descripción y estado de interfaces
+
+Vas a configurar un grupo de interfaces. Elige 4 (o las que diga el profe):
 
 ```
 SW-LAB-01# configure terminal
@@ -202,69 +189,98 @@ SW-LAB-01(config-if)# exit
 SW-LAB-01(config)# interface FastEthernet 0/2
 SW-LAB-01(config-if)# description Puerto de acceso - Impresora
 SW-LAB-01(config-if)# shutdown
+SW-LAB-01(config-if)# exit
+
+SW-LAB-01(config)# interface FastEthernet 0/3
+SW-LAB-01(config-if)# description Puerto de reserva
+SW-LAB-01(config-if)# shutdown
+SW-LAB-01(config-if)# exit
+
+SW-LAB-01(config)# interface FastEthernet 0/4
+SW-LAB-01(config-if)# description Enlace a switch secundario
+SW-LAB-01(config-if)# no shutdown
 SW-LAB-01(config-if)# end
 ```
 
 | Comando | Efecto |
 |---------|--------|
-| `description ...` | Texto descriptivo en la interfaz |
-| `no shutdown` | Activa la interfaz |
-| `shutdown` | Desactiva la interfaz |
-| `end` | Vuelve directo a modo privilegiado |
+| `description ...` | Pone una etiqueta a la interfaz |
+| `no shutdown` | Activa la interfaz (la enciende) |
+| `shutdown` | Desactiva la interfaz (la apaga) |
+| `end` | Vuelve directo al prompt `#` desde cualquier submodo |
 
-### Actividad 15 — Estado de interfaces
+### Actividad 15 — Determinar estado de las interfaces
 
 ```
 SW-LAB-01# show interfaces status
 ```
 
-| Estado (Status) | Significado |
-|-----------------|-------------|
-| `connected` | Activa y con cable conectado |
-| `disabled` | Administrativamente abajo (`shutdown`) |
-| `notconnected` | Sin cable, físicamente desconectada |
+Columna **Status**:
+
+| Estado | Significado |
+|--------|-------------|
+| `connected` | Activa ✅ |
+| `disabled` | Le pusiste `shutdown` 🔴 |
+| `notconnected` | Sin cable conectado ⚪ |
+
+Registra cuántas interfaces están en cada estado.
 
 ---
 
 ## Parte 5 — Monitoreo del switch
 
-### Actividad 16 — Obtener información
+### Actividad 16 — Obtener información del sistema
 
 ```
-SW-LAB-01# show interfaces
+SW-LAB-01# show interfaces              ← estadísticas de todas las interfaces
+SW-LAB-01# show running-config          ← config actual (en RAM)
+SW-LAB-01# show startup-config          ← config guardada (en NVRAM)
+SW-LAB-01# show processes cpu           ← uso de CPU
+SW-LAB-01# show memory                  ← uso de memoria
+```
+
+> Si nunca has guardado, `show startup-config` dirá que no está presente. Es normal.
+
+### Actividad 17 — Comparar configuraciones
+
+Ejecuta:
+
+```
 SW-LAB-01# show running-config
 SW-LAB-01# show startup-config
-SW-LAB-01# show processes cpu
-SW-LAB-01# show memory
 ```
 
-> `startup-config` dirá `startup-config is not present` si nunca se ha guardado.
+- **running-config**: cambios que has hecho esta sesión (en RAM).
+- **startup-config**: lo que sobrevive a un reinicio (en NVRAM).
 
-### Actividad 17 — Comparar configs
-
-- `show running-config` = configuración activa ahora (con tus cambios)
-- `show startup-config` = configuración guardada en NVRAM
-
-Si no has guardado → startup-config está vacío. **Al reiniciar perderías todo**.
+Si nunca guardaste → la startup está vacía. **Si reinicias el switch, pierdes todo.**
 
 ---
 
 ## Parte 6 — Respaldo y cierre
 
-### Actividad 18 — Guardar configuración
+### Actividad 18 — Guardar la configuración
 
 ```
 SW-LAB-01# copy running-config startup-config
 ```
 
-O:
+O el atajo:
+
 ```
 SW-LAB-01# write memory
 ```
 
-Respuesta esperada: `Building configuration... [OK]`
+Respuesta esperada:
 
-### Actividad 19 — Salir de la sesión
+```
+Building configuration...
+[OK]
+```
+
+Ahora sí la configuración persiste al reinicio.
+
+### Actividad 19 — Cerrar sesión
 
 ```
 SW-LAB-01# exit
@@ -273,9 +289,16 @@ SW-LAB-01> exit
 
 ### Actividad 20 — Verificar persistencia
 
-Vuelve a conectar por consola. Deberías ver:
-1. El banner MOTD
-2. `enable` → `show startup-config` → todo está ahí: hostname, banner, descripciones.
+1. Cierra la ventana del switch en Packet Tracer.
+2. Vuelve a hacer clic en el switch → pestaña **CLI**.
+3. Presiona Enter hasta que aparezca el prompt.
+4. Escribe `enable`, luego:
+
+```
+Switch# show startup-config
+```
+
+Confirma que ves: `hostname SW-LAB-01`, `no ip domain-lookup`, `banner motd ...` y las `description` en las interfaces.
 
 ---
 
@@ -297,6 +320,7 @@ Vuelve a conectar por consola. Deberías ver:
 | `show startup-config` | Privilegiado | Config guardada en NVRAM |
 | `show ip int brief` | Cualquiera | Resumen rápido de interfaces |
 | `show interfaces status` | Cualquiera | Estado de cada interfaz |
+| `show interfaces` | Privilegiado | Estadísticas detalladas |
 | `copy run start` | Privilegiado | Guarda la config |
 | `write memory` | Privilegiado | Atajo para guardar |
 | `exit` | Cualquiera | Sale del modo actual |
@@ -314,4 +338,16 @@ Switch(config-if)#  ← Interface Configuration (cambios en interfaz)
 ```
 
 - `exit` → sube un nivel
-- `end` → vuelve directo a `#`
+- `end` → vuelve directo a `#` desde cualquier submodo
+
+---
+
+## Diferencias con el hardware real
+
+| Aspecto | Packet Tracer | Switch real |
+|---------|--------------|-------------|
+| Conexión | Cable Console arrastrando | Cable RJ-45 a DB9 físico |
+| Terminal | Pestaña CLI integrada | PuTTY/screen por separado |
+| Aceleración | Boot instantáneo | 30-60 segundos |
+| Reset | Botón "Power Cycle" en ventana | Desconectar cable de poder |
+| Costo | Gratis | Depende del laboratorio |
