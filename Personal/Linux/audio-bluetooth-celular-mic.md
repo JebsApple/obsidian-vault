@@ -1,244 +1,231 @@
 ---
 tags: [linux, audio, bluetooth, pipewire, celular, microfono, discord]
 fecha: 2026-07-01
-estado: planificado
+estado: en-progreso
 ---
 
 # Audio en Linux: Buds 8 Lite + Celular como micrófono
 
-## Contexto
+## Por qué la interfaz parece rota (y no lo está)
 
-**Sistema:** PipeWire 1.6.7 + WirePlumber 0.5.15 (stack moderno, bien soportado)
-**Dispositivos:**
-- REDMI Buds 8 Lite → MAC `54:84:50:E5:B0:9C`
-- Redmi Note 13 5G → MAC `B4:05:A1:1F:FF:1D`
-- Mic integrado → `alsa_input.pci-0000_00_1f.3.analog-stereo`
+La confusión de pavucontrol/qpwgraph viene de cómo funciona Bluetooth:
+
+```
+Modo A2DP  →  sistema ve:  [Buds SALIDA]              (sin micrófono)
+Modo HFP   →  sistema ve:  [Buds SALIDA] + [Buds MIC]  (aparece el mic)
+```
+
+Cuando cambias de modo en la pestaña "Configuración", los dispositivos en otras
+pestañas cambian porque el hardware Bluetooth literalmente expone diferentes
+canales según el perfil activo. No es un bug, es el protocolo.
+
+**La restricción fundamental de Bluetooth:**
+
+| Perfil | Audio salida | Micrófono | Cuándo usarlo |
+|--------|-------------|-----------|---------------|
+| A2DP   | Alta calidad (AAC) | ❌ No disponible | Música, juegos |
+| HFP    | Calidad llamada (16kHz) | ✅ Sí | Discord, llamadas |
+
+No existe A2DP + mic Bluetooth al mismo tiempo en el mismo dispositivo.
+La solución para tener ambos es usar el celular como micrófono por red.
 
 ---
 
-## Problema 1: REDMI Buds 8 Lite — A2DP vs HFP
+## Sistema actual
 
-### Diagnóstico
-Los Buds tienen dos modos incompatibles entre sí:
-
-| Perfil | Calidad audio salida | Micrófono | Uso ideal |
-|--------|---------------------|-----------|-----------|
-| **A2DP** (actual) | Alta (AAC/SBC-XQ) | ❌ No | Música, videojuegos |
-| **HFP mSBC** | Baja (16kHz) | ✅ Sí | Discord, llamadas |
-| **HFP CVSD** | Muy baja (8kHz) | ✅ Sí | Llamadas básicas |
-
-**Limitación de Bluetooth:** A2DP y HFP no pueden coexistir en el mismo dispositivo. Hay que elegir uno u otro.
-
-### Solución A — Scripts de toggle A2DP ↔ HFP
-
-Cambiar perfil desde terminal:
-```bash
-# → Modo Discord (HFP con mic, audio baja calidad)
-pactl set-card-profile bluez_card.54_84_50_E5_B0_9C headset-head-unit
-
-# → Modo música/juegos (A2DP sin mic, audio alta calidad)
-pactl set-card-profile bluez_card.54_84_50_E5_B0_9C a2dp-sink
-```
-
-Cuando los Buds están en modo HFP, aparecen como:
-- **Sink** (salida): `bluez_output.54_84_50_E5_B0_9C.1`
-- **Source** (micrófono): `bluez_input.54:84:50:E5:B0:9C`
-
-Script de toggle en `~/.local/bin/toggle-buds-mode`:
-```bash
-#!/bin/bash
-CARD="bluez_card.54_84_50_E5_B0_9C"
-CURRENT=$(pactl list cards 2>/dev/null | grep -A2 "$CARD" | grep "Active Profile" | awk '{print $3}')
-
-if [[ "$CURRENT" == a2dp* ]]; then
-    pactl set-card-profile "$CARD" headset-head-unit
-    notify-send "Buds 8 Lite" "Modo Discord (HFP) — micrófono activado"
-else
-    pactl set-card-profile "$CARD" a2dp-sink
-    notify-send "Buds 8 Lite" "Modo música (A2DP) — alta calidad"
-fi
-```
+- **PipeWire 1.6.7** + WirePlumber 0.5.15
+- **REDMI Buds 8 Lite** → MAC `54:84:50:E5:B0:9C` (conectados en A2DP)
+- **Redmi Note 13 5G** → MAC `B4:05:A1:1F:FF:1D`
+- **Mic integrado** → `alsa_input.pci-0000_00_1f.3.analog-stereo`
 
 ---
 
-## Problema 2: Celular como micrófono
+## Soluciones
 
-### Por qué Iriun no funcionó bien
-Iriun es principalmente para **cámara web**, con soporte de audio limitado en Linux. No integra nativamente con PipeWire.
+### Opción A — HFP (más simple, sin celular)
 
-### Opción 1 — scrcpy 4.0 (RECOMENDADA para empezar)
+Un comando alterna entre modo música y modo Discord:
 
-**Ventajas:** Ya está en repos de CachyOS, `adb` ya instalado, sin apps extra en el celular (solo depuración USB/WiFi).
-
-**Instalación:**
 ```bash
+toggle-buds-mode
+```
+
+- **Pros:** Sin apps extra, funciona sin celular
+- **Contras:** El audio de los Buds baja a calidad de llamada mientras Discord está activo
+
+### Opción B — WO Mic (recomendada para mejor calidad)
+
+Buds en A2DP para audio de alta calidad + celular como micrófono por WiFi.
+
+**Instalación (una sola vez):**
+```bash
+# Cliente Linux
+yay -S womic
+
+# App en el celular: buscar "WO Mic" en Google Play (gratis, de Yuanshao.com)
+```
+
+**Uso diario:**
+```bash
+mic-celular           # inicia (necesita IP del celular en la red)
+mic-celular stop      # detiene
+```
+
+WO Mic crea un dispositivo virtual automáticamente — no hay que configurar
+ninguna interfaz. Discord lo ve como cualquier otro micrófono.
+
+**Para saber la IP del celular:** Ajustes → WiFi → (tocar la red actual) → ver IP
+
+### Opción C — scrcpy (ya en repos, sin app extra)
+
+```bash
+# Requiere USB debugging activado en el celular
 sudo pacman -S scrcpy
 ```
 
-**Uso básico (USB):**
-```bash
-# Habilitar USB debugging en el celular (Ajustes → Opciones de desarrollador)
-adb devices         # verificar que detecta el celular
-scrcpy --audio-source=mic --no-video
-```
-
-**Uso por WiFi (sin cable):**
-```bash
-# Con celular conectado por USB la primera vez:
-adb tcpip 5555
-adb connect 192.168.X.X:5555   # IP del celular en la red local
-# Desconectar USB y ejecutar:
-scrcpy --audio-source=mic --no-video
-```
-
-**Integrar como fuente de micrófono en PipeWire:**
-scrcpy redirige el audio del mic del celular al sink por defecto. Para usarlo como fuente en Discord/apps:
-```bash
-# Crear loopback virtual (el audio del celular → virtual mic)
-pw-loopback --capture-props='media.class=Audio/Sink' \
-            --playback-props='media.class=Audio/Source' &
-```
-→ En Discord, seleccionar "scrcpy audio" como micrófono de entrada.
-
-**Script completo `~/.local/bin/celular-mic`:**
-```bash
-#!/bin/bash
-# Celular como microfono via scrcpy + loopback PipeWire
-case "${1:-start}" in
-    start)
-        echo "Iniciando mic del celular..."
-        scrcpy --audio-source=mic --no-video --audio-codec=opus &
-        notify-send "Celular como mic" "Conectado. Seleccionar en Discord."
-        ;;
-    stop)
-        pkill -f "scrcpy.*audio-source=mic"
-        notify-send "Celular como mic" "Desconectado"
-        ;;
-    wifi)
-        IP="${2:-}"
-        if [ -z "$IP" ]; then
-            echo "Uso: celular-mic wifi <IP_CELULAR>"
-            exit 1
-        fi
-        adb connect "$IP:5555"
-        scrcpy --audio-source=mic --no-video --audio-codec=opus &
-        notify-send "Celular como mic" "Conectado por WiFi ($IP)"
-        ;;
-esac
-```
-
-### Opción 2 — WO Mic (dedicada, más estable)
-
-**Ventajas:** Herramienta específica para mic por red, muy estable, baja latencia, funciona por USB/WiFi/BT.
-
-**Instalación:**
-```bash
-# App en celular: "WO Mic" en Google Play (gratis)
-yay -S womic    # cliente Linux (AUR)
-```
-
-**Configuración:**
-1. Abrir WO Mic en el celular → conectar por WiFi
-2. En Linux:
-   ```bash
-   womic -t wifi -h 192.168.X.X    # IP del celular
-   ```
-3. WO Mic crea `/dev/womic` que PipeWire detecta automáticamente como fuente.
-
-**Diferencia vs scrcpy:** WO Mic tiene menor latencia y es más estable para uso continuo en Discord. scrcpy es más conveniente (ya disponible).
-
-### Opción 3 — DroidCam (cámara + mic)
-
-Si también necesitas cámara web del celular:
-```bash
-yay -S droidcam
-# App: DroidCam en Play Store
-```
-Crea `/dev/video` (cámara) y fuente de audio PipeWire (mic).
+⚠️ **NO usar con pw-loopback** — eso hace que te oigas a ti mismo.
+El enfoque correcto con scrcpy usa un null sink (ver sección Scripts).
 
 ---
 
-## Configuración recomendada por escenario
+## Scripts instalados en `~/.local/bin/`
 
-### Discord + videojuegos (con Buds 8 Lite)
-
-**Escenario A — Simple:** HFP en los Buds (mic integrado en auriculares)
-```bash
-toggle-buds-mode   # activa HFP
-# Discord detecta automáticamente mic de los Buds
-```
-⚠️ Audio del juego en los Buds bajará calidad a 16kHz.
-
-**Escenario B — Mejor calidad:** A2DP en Buds + celular como mic
-```bash
-# Los Buds quedan en A2DP (audio de alta calidad)
-celular-mic start      # mic del celular por scrcpy o WO Mic
-# En Discord: Output → Buds 8 Lite, Input → celular mic
-```
-
-### Gestión de audio por aplicación
-
-PipeWire permite enrutar apps individualmente sin afectar el sistema global:
+### `toggle-buds-mode` — alterna A2DP ↔ HFP
 
 ```bash
-# Ver sinks/sources disponibles
-pactl list sinks short
-pactl list sources short
+#!/bin/bash
+CARD="bluez_card.54_84_50_E5_B0_9C"
+CURRENT=$(pactl list cards 2>/dev/null \
+    | grep -A50 "$CARD" \
+    | grep "Active Profile:" \
+    | awk '{print $3}')
 
-# Mover Discord específicamente a un sink
-pactl move-sink-input <DISCORD_INPUT_ID> <SINK_ID>
+if [[ "$CURRENT" == a2dp* ]]; then
+    pactl set-card-profile "$CARD" headset-head-unit
+    echo "→ Modo HFP: micrófono disponible (audio calidad llamada)"
+    notify-send -i audio-headset "Buds 8 Lite" "Modo Discord — mic activado\nAudio: calidad llamada"
+else
+    pactl set-card-profile "$CARD" a2dp-sink
+    echo "→ Modo A2DP: audio de alta calidad (sin micrófono)"
+    notify-send -i audio-headphones "Buds 8 Lite" "Modo música — A2DP\nAudio: alta calidad"
+fi
 ```
 
-**GUI más cómoda:** instalar `qpwgraph` o `pavucontrol`:
+### `mic-celular` — celular como micrófono vía WO Mic
+
 ```bash
-sudo pacman -S pavucontrol    # interfaz para PulseAudio/PipeWire
-sudo pacman -S qpwgraph       # graph visual de PipeWire (más potente)
+#!/bin/bash
+# Requiere: yay -S womic  +  app "WO Mic" en el celular
+CONFIG="$HOME/.config/mic-celular.ip"
+
+case "${1:-}" in
+    stop)
+        pkill -f womic && notify-send "Mic celular" "Desconectado"
+        exit 0 ;;
+    "")
+        if [ -f "$CONFIG" ]; then
+            IP=$(cat "$CONFIG")
+        else
+            read -rp "IP del celular (ej: 192.168.1.X): " IP
+            echo "$IP" > "$CONFIG"
+        fi ;;
+    *)
+        IP="$1"
+        echo "$IP" > "$CONFIG" ;;
+esac
+
+notify-send "Mic celular" "Conectando a $IP..."
+womic -t wifi -h "$IP"
 ```
-`pavucontrol` tiene pestaña "Playback" donde puedes mover cada app a cualquier sink con un clic.
+
+### `status-audio` — ver estado actual sin abrir interfaces
+
+```bash
+#!/bin/bash
+echo "=== SALIDA ==="
+pactl list sinks short | awk '{printf "  %s\n  Estado: %s\n\n", $2, $5}'
+
+echo "=== ENTRADA (micrófonos) ==="
+pactl list sources short | grep -v monitor | awk '{printf "  %s\n  Estado: %s\n\n", $2, $5}'
+
+echo "=== BUDS - perfil activo ==="
+pactl list cards 2>/dev/null \
+    | grep -A50 "54_84_50_E5_B0_9C" \
+    | grep "Active Profile:" \
+    | sed 's/.*Active Profile: /  /'
+```
+
+---
+
+## Flujo de trabajo diario
+
+### Música / videojuegos
+```
+(no hacer nada — Buds en A2DP por defecto)
+```
+
+### Discord con mic de los Buds
+```bash
+toggle-buds-mode        # cambia a HFP
+# abrir Discord, seleccionar "REDMI Buds 8 Lite" como mic
+# al terminar:
+toggle-buds-mode        # vuelve a A2DP
+```
+
+### Discord con mic del celular (mejor calidad de voz)
+```bash
+mic-celular             # conecta WO Mic (primera vez pide IP)
+# Discord detecta "WO Mic" como micrófono automáticamente
+# audio de los Buds sigue en A2DP (alta calidad)
+# al terminar:
+mic-celular stop
+```
+
+### Ver qué está pasando con el audio
+```bash
+status-audio
+```
 
 ---
 
 ## Plan de implementación
 
-- [ ] Instalar `scrcpy` → `sudo pacman -S scrcpy`
-- [ ] Probar mic del celular por USB: `scrcpy --audio-source=mic --no-video`
+- [x] Entender el modelo mental (A2DP vs HFP)
 - [ ] Crear script `toggle-buds-mode` en `~/.local/bin/`
-- [ ] Crear script `celular-mic` en `~/.local/bin/`
-- [ ] Instalar `pavucontrol` para gestión visual de audio
+- [ ] Crear script `mic-celular` en `~/.local/bin/`
+- [ ] Crear script `status-audio` en `~/.local/bin/`
+- [ ] Instalar WO Mic: `yay -S womic`
+- [ ] Instalar WO Mic en el celular (Google Play)
+- [ ] Probar `toggle-buds-mode` + Discord (Opción A)
+- [ ] Probar `mic-celular` + Discord (Opción B)
 - [ ] Agregar keybind en Hyprland para `toggle-buds-mode`
-- [ ] Probar escenario B (A2DP + celular mic) en Discord
-- [ ] Si scrcpy no satisface → probar WO Mic (AUR)
 
 ---
 
-## Referencia rápida de comandos
+## Por qué NO usar pw-loopback con scrcpy
+
+`pw-loopback` conecta una salida a una entrada — cuando scrcpy reproduce el
+audio del celular en los parlantes/Buds, el loopback lo recaptura y crea un
+ciclo. Por eso te oías a ti mismo. El enfoque correcto sería un null sink
+(sumidero virtual sin salida física), pero eso requiere más pasos manuales.
+WO Mic resuelve todo esto automáticamente.
+
+---
+
+## Comandos de referencia rápida
 
 ```bash
-# Estado actual de audio
-pactl list sinks short && pactl list sources short
-
-# Bluetooth: ver perfil activo de los Buds
-pactl list cards 2>/dev/null | grep -A5 "54_84_50"
+# Estado de audio sin abrir GUI
+status-audio
 
 # Toggle A2DP ↔ HFP
 toggle-buds-mode
 
-# Celular como mic (USB)
-celular-mic start
+# Mic del celular
+mic-celular              # conectar (pide IP la primera vez)
+mic-celular 192.168.1.X  # conectar con IP específica
+mic-celular stop         # desconectar
 
-# Celular como mic (WiFi, dar IP del celular)
-celular-mic wifi 192.168.1.X
-
-# GUI de audio
-pavucontrol
-qpwgraph
+# Ver el nombre exacto del card de los Buds
+pactl list cards short
 ```
-
----
-
-## Notas y limitaciones conocidas
-
-- Bluetooth **no puede** tener A2DP y HFP activos simultáneamente en el mismo dispositivo
-- scrcpy `--audio-source=mic` requiere Android 11+ en el celular (Redmi Note 13 5G lo cumple)
-- WO Mic WiFi puede tener latencia de ~50-100ms (aceptable para voz, no para música)
-- El mic integrado del equipo (`alsa_input.pci-0000_00_1f.3`) siempre está disponible como fallback
