@@ -37,3 +37,11 @@ MOTD banner
 Verificación:
 
 ![[Pasted image 20260701105208.png]]
+![[Pasted image 20260701105833.png]]
+
+Listar todas las interfaces disponibles:
+
+![[Pasted image 20260701110120.png]]
+
+Configurar descripción y estado de interfaces
+
