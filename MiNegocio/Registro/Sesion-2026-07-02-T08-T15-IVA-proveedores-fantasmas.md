@@ -171,3 +171,46 @@ cd /home/icin/minegocio-database
 git add esquema.sql
 git commit -m "S3-HU02: proveedores, precio_sin_iva, id_proveedor, tabla ubicaciones y vista con filtro activo"
 ```
+
+---
+
+## Ronda 3 (2026-07-02, tarde) — T1..T4: colapso 80px, tests DnD, renombrar ubicaciones
+
+Victor ya había commiteado el trabajo de las rondas 1-2 (más ajustes propios). Esta ronda se ejecutó **con commits directos** (instrucción explícita), uno por tarea.
+
+### Tareas ejecutadas
+
+**T1 — Sidebar colapso real (80px)** — commit `27f3381` (frontend)
+- `.sidebar--collapsed`: 200px → 80px
+- `.sidebar-tag` y `.sidebar-logo` pasan a `flex-direction: column` colapsados (icono arriba, texto abajo)
+- El texto se abrevia: "Negocio" se envolvió en `<span class="logo-resto">` y se oculta colapsado; queda el "Mi" rojo bajo el icono
+- Main-content se expande solo (ya tenía `flex: 1` + transición de width)
+- Tests: colapsada muestra SVG + texto abreviado, nav oculto (display: none), expandida muestra nav
+
+**T2 — Tests DnD Kanban** — commit `08adbd8` (frontend)
+- 9 tests nuevos: dragenter marca columna activa + clase `drop-zone--over`, dragleave fuera del rect limpia, `handleDragEnd` resetea, `allowDrop` fija `dropEffect: move`, `handleDragStart` serializa en `application/json` + fallback `text/plain` (y no serializa si `editable: false`), drop desde template emite `product-moved` (wiring `@drop`), drop sin datos se ignora
+- Incluye limpieza de firmas: `allowDrop(event)` y `onDragLeave(event)` ya no reciben `nombre` sin uso
+
+**T3 — Backend PATCH /api/ubicaciones/{id}** — commit `1f89f52` (backend, rama `S3-HU02-T15-iva-proveedores`)
+- `repository.RenameUbicacion(id, nombreActual, nombreNuevo)`: transacción que renombra la fila de `ubicaciones` **y propaga a `productos.ubicacion`** (guarda texto, no id — sin la propagación los productos quedarían apuntando al nombre viejo)
+- Handler `PatchUbicacion`: valida 1-40 chars (400), 404 si no existe, 400 si es "Sin clasificar" (protegida), 200 no-op si el nombre no cambió, 409 si el rename falla (UNIQUE duplicado)
+- Refactor: `InventarioHandler` ahora recibe la interface `InventarioServiceI` (mismo patrón que `ProductoServiceI`) para poder mockear en tests
+- Ruta `PATCH /api/ubicaciones/{id:[0-9]+}` con AuthMiddleware
+- 8 tests de handler: exitoso, vacío→400, largo→400, inexistente→404, duplicado→409, fallback→400, mismo nombre no llama rename, JSON inválido→400
+- `go build` / `go vet` / `go test ./...` verdes
+
+**T4 — Frontend renombrar columna** — commit `ec09541` (frontend)
+- `inventarioService.renameUbicacion(id, nombre)` → PATCH `/api/ubicaciones/{id}`
+- KanbanBoard: botón lápiz en el header (aparece en hover, solo columnas eliminables — con id y no fallback) → input inline con el nombre actual seleccionado → Enter confirma y emite `renombrar-ubicacion {col, nombre}`, Esc/blur cancela; sin cambios o vacío no emite
+- Inventario.vue: `renombrarUbicacion` llama al service y recarga todo (el backend propaga el nombre a los productos)
+- Tests: lápiz visible solo en columnas con id (no en "Sin clasificar" ni columnas default), input con valor actual, Enter emite, Esc no emite, service PATCH con URL/body correctos
+
+**Extra** — commit `610fb1d`: chore lint, imports sin uso preexistentes en `authGuard.test.js` (dejaba `npm run lint` en rojo).
+
+### Verificación
+- Frontend: 74/74 tests vitest verdes (antes 54), lint limpio, build `app.0b706e8b.js` desplegado a `/var/www/dev/frontend` y verificado en :8080 (bundle contiene el código nuevo)
+- Backend: build/vet/tests verdes; **NO desplegado** — el contenedor `minegocio-backend-dev` sigue con la imagen vieja (404 en /api/ubicaciones); redesplegar sin aplicar los ALTER de esquema.sql rompería /api/productos, así que se mantiene el fallback del frontend (kanban read-only con columnas default)
+
+### Pendiente para ver renombrar/CRUD de ubicaciones vivo en dev
+1. Aplicar ALTERs de `esquema.sql` a la BD dev (ubicaciones, productos.ubicacion, precio_sin_iva, id_proveedor, proveedores)
+2. Rebuild de la imagen del backend con la rama `S3-HU02-T15-iva-proveedores`

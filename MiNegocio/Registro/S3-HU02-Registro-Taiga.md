@@ -547,3 +547,12 @@ Refactorizar la arquitectura del backend Go para cumplir con la separacion de ca
 - [x] npm run build ✅ (app.5a3b863e.js)
 - [x] Deploy dev :8080 verificado
 - [x] Auditoría: APROBADO con observaciones — ver Auditoria-2026-07-02-S3-HU02-T08-T15
+
+## 2026-07-02 (tarde) — Ronda 3
+
+- **T1**: Sidebar colapso real a 80px — icono arriba, "Mi" abreviado abajo, main-content se expande. Commit `27f3381` + 3 tests.
+- **T2**: 9 tests de drag & drop del kanban (wiring template, fallback text/plain, reset de estado) + limpieza de firmas. Commit `08adbd8`.
+- **T3**: Backend `PATCH /api/ubicaciones/{id}` para renombrar con propagación transaccional a productos, interface de servicio para testear el handler, 8 tests. Commit `1f89f52` (rama backend T15).
+- **T4**: Renombrar columnas del kanban inline (lápiz → input → Enter/Esc), service `renameUbicacion`, 6 tests. Commit `ec09541`.
+- Frontend: 74/74 tests, lint limpio, desplegado a dev :8080 (`app.0b706e8b.js`).
+- Backend sigue sin redesplegar en dev (requiere ALTERs de BD primero).
