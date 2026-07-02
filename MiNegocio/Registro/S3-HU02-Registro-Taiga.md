@@ -532,3 +532,18 @@ Refactorizar la arquitectura del backend Go para cumplir con la separacion de ca
 - [x] go build + go vet ✅
 - [x] Frontend: Inventario ahora se construye desde productos registrados (misma fuente que Registrados) — unificado incluso con backend viejo
 - [x] Backend: inventario consulta productos directo (CASE estado en SQL, sin vista)
+
+### 2026-07-02 (ronda 2): S3-HU02 - Kanban ubicaciones + refinamientos animación + logo landing
+
+**Estado:** ✅ Listo para commit (sin push) — auditado
+**Archivos:** KanbanBoard.vue, Inventario.vue, inventarioService.js, SideBar.vue, NavBar.vue, componentes.css, base.css, productos.css, inventario_handler.go, inventario_repository.go, inventario_service.go, models.go, routes.go, esquema.sql
+**Cambios:**
+- Kanban: columnas por ubicación física (Bodega/Vitrina/Sin clasificar default) con CRUD manual (+riel agregar, basura por columna). Drag&drop asigna ubicación, ya no toca stock.
+- Fix cierre sidebar: transición de padding en logo (el nav ya no salta un frame).
+- Animaciones consistentes: hover lift + press scale en btn-primary/secondary/icon/pag; modales con fade+pop.
+- Logo landing (NavBar): "Mi" en rojo, unificado con sidebar.
+**Pruebas:**
+- [x] go build + go vet + go test ./... ✅
+- [x] npm run build ✅ (app.5a3b863e.js)
+- [x] Deploy dev :8080 verificado
+- [x] Auditoría: APROBADO con observaciones — ver Auditoria-2026-07-02-S3-HU02-T08-T15

@@ -23,3 +23,9 @@ Registra aquí decisiones importantes de arquitectura y por qué se tomaron.
 - **Contexto:** Productos fantasma: Inventario/Stock mostraba productos que no existían en Registrados.
 - **Decisión:** `inventario_repository` consulta `productos` con el CASE de estado en SQL; el frontend de Inventario construye su lista desde `getProductos()` (misma fuente que Registrados). La vista queda solo por compatibilidad, recreada con `WHERE activo = true`.
 - **Razón:** La definición de una vista vive en la DB y puede quedar desalineada del código (no se versiona junto al backend). Una sola fuente de verdad elimina la clase entera de bugs de desincronización entre pantallas.
+
+## Kanban de inventario por ubicaciones físicas (no por stock)
+- **Fecha:** 2026-07-02
+- **Contexto:** Las columnas del tablero (Sin clasificar / Stock normal / Stock bajo / Agotado) se derivaban del stock, y mover una tarjeta REESCRIBÍA el stock con valores mágicos (0/3/10/1) — semánticamente incorrecto y destructivo.
+- **Decisión:** Columnas = ubicaciones físicas administrables (tabla `ubicaciones`, seed Bodega/Vitrina/Sin clasificar) + columna `productos.ubicacion`. Drag&drop asigna ubicación vía PATCH; el stock solo se edita en la vista Stock. 'Sin clasificar' es fallback protegido (no eliminable; recibe productos de ubicaciones borradas, en transacción). Tablero editable solo si el backend expone `/api/ubicaciones` (contra backend viejo el PATCH {ubicacion} se decodificaría como stock=0).
+- **Razón:** El estado de stock ya se comunica con badges/colores en las tarjetas; la dimensión que el kanban aporta es DÓNDE está el producto. Elimina la pérdida de datos por drag accidental.

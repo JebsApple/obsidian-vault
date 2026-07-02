@@ -47,9 +47,9 @@ Victor Herrera (VHerrera), Gabriel, Ignacio, Nicolás
 | Frontend | `S3-HU01-T10-comentarios-espanol` | OK En Gitea |
 | Frontend | `S3-HU01-T11-readme-frontend` | OK En Gitea |
 | Frontend | `S3-HU02-T13-fusion-vistas-recorte-imagen` | OK En Gitea |
-| Frontend | `S3-HU02` (working tree) | PENDIENTE commit: T08 animaciones + T15 IVA/proveedor + fix fantasmas (2026-07-02, sin push) |
-| Backend | `S3-HU02-T15-iva-proveedores` (local) | PENDIENTE commit: precio_sin_iva + id_proveedor + fix fantasmas COALESCE (2026-07-02, sin push) |
-| Database | `S3-HU02-T15-iva-proveedores` (local) | PENDIENTE commit: tabla proveedores + columnas IVA/proveedor (2026-07-02, sin push; ALTER sin aplicar a dev) |
+| Frontend | `S3-HU02` (working tree) | PENDIENTE commit: T08 animaciones + T15 IVA/proveedor + fix fantasmas + kanban ubicaciones + logo landing (2026-07-02, sin push, auditado) |
+| Backend | `S3-HU02-T15-iva-proveedores` (local) | PENDIENTE commit: precio_sin_iva + id_proveedor + fix fantasmas COALESCE + endpoints ubicaciones (2026-07-02, sin push) |
+| Database | `S3-HU02-T15-iva-proveedores` (local) | PENDIENTE commit: proveedores + IVA/proveedor + tabla ubicaciones (2026-07-02, sin push; ALTER sin aplicar a dev) |
 | Frontend | main (v3.0.0) | Tag semver -- esperar merge de S3-HU02 para v3.1.0 |
 | Backend | main | Estable con JWT + Ventas API + CRUD productos |
 | Backend | `S3-HU01-T01` | bcrypt passwords (Gabriel) |
