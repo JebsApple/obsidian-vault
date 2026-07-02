@@ -223,12 +223,18 @@ REGLAS: NO fetch directo en views. NO colores hardcodeados. Commits separados. N
 
 ## Checklist final
 
-- [ ] `go build ./...` pasa
-- [ ] `go vet ./...` pasa
-- [ ] `npm run build` pasa
-- [ ] IVA calculado correctamente (1190 -> IVA 190, sin IVA 1000)
-- [ ] Sidebar animacion spring fluida
-- [ ] Ripple visible en sidebar y botones
-- [ ] Select proveedor visible (vacio, sin errores)
-- [ ] Tabla Productos muestra P. Sin IVA
-- [ ] Obsidian vault actualizado
+> **EJECUTADO 2026-07-02** — ver [[Sesion-2026-07-02-T08-T15-IVA-proveedores-fantasmas]].
+> Alcance ampliado por Victor: fix de productos fantasma inventario/stock (causa raíz: Scan sin COALESCE descartaba filas en silencio + dependencia de inventario_view).
+
+- [x] `go build ./...` pasa
+- [x] `go vet ./...` pasa
+- [x] `npm run build` pasa
+- [x] IVA calculado correctamente (1190 -> IVA 190, sin IVA 1000)
+- [x] Sidebar animacion spring fluida
+- [x] Ripple visible en sidebar y botones
+- [x] Select proveedor visible (vacio, sin errores)
+- [x] Tabla Productos muestra P. Sin IVA
+- [x] Obsidian vault actualizado
+- [x] (extra) Inventario unificado con productos registrados — fantasmas eliminados
+- [x] (extra) Deploy frontend a dev :8080 verificado
+- [ ] Pendiente: aplicar ALTER a DB dev + rebuild contenedor backend + commits/push (Victor)

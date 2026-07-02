@@ -497,3 +497,38 @@ Refactorizar la arquitectura del backend Go para cumplir con la separacion de ca
 > - `go build ./...` + `go vet ./...` — exitoso
 > - Ventas API: POST /api/ventas con y sin id_vendedor → OK, ventas registradas con id_vendedor correcto
 > - Login administrador (ID 5): genera token JWT con user_id=5
+
+### 2026-07-02: S3-HU02-T08 - Animaciones sidebar + ripple
+
+**Estado:** ✅ Listo para commit (sin push)
+**Archivos:** SideBar.vue, base.css, variables.css
+**Pruebas:**
+- [x] npm run build ✅
+- [x] Sidebar colapsa con spring fluido (cubic-bezier 0.34,1.56,0.64,1 — sin cortes, sin max-height)
+- [x] Stagger visible al abrir (delays 0.04s incrementales en nav-items)
+- [x] Ripple rojo desde el centro en nav-items, btn-primary y btn-icon (CSS puro, :active)
+- [x] Ripple no bloquea eventos click (pointer-events: none)
+- [x] Mancha radial del icono activo ahora animada (background-size 0→100%)
+- [x] Deploy a dev :8080 verificado (bundle contiene ripple-effect, manchaExpandir, navItemIn)
+
+### 2026-07-02: S3-HU02-T15 - IVA 19% + campo proveedor
+
+**Estado:** ✅ Listo para commit (sin push) — pendiente aplicar ALTER a DB dev y rebuild contenedor backend
+**Archivos:** esquema.sql, models.go, producto_repository.go, producto_handler.go, FormularioProducto.vue, Productos.vue, productos.css
+**Pruebas:**
+- [x] go build ./... + go vet ./... ✅
+- [x] npm run build ✅
+- [x] IVA 19% calculado correctamente (1190 → neto 1000, IVA 190)
+- [x] Desglose IVA en tiempo real en formulario (aparece con precio_venta > 0)
+- [x] Select proveedor visible (vacío, "Sin proveedor", sin errores)
+- [x] Tabla Registrados muestra columna P. Sin IVA (— si no hay dato)
+
+### 2026-07-02: S3-HU02-BugFix - Productos fantasma inventario/stock
+
+**Estado:** ✅ Listo para commit (sin push)
+**Causa raíz:** GetAllActive/BuscarProductos escaneaban columnas anulables sin COALESCE y descartaban filas con error en silencio (`if err == nil`): productos con NULL en imagen_url/descripcion/categoria/marca/codigo_barras desaparecían de Registrados pero seguían en Inventario. Además inventario dependía de inventario_view (definición en DB puede quedar vieja).
+**Archivos:** producto_repository.go, inventario_repository.go, Inventario.vue, esquema.sql
+**Pruebas:**
+- [x] go build + go vet ✅
+- [x] Frontend: Inventario ahora se construye desde productos registrados (misma fuente que Registrados) — unificado incluso con backend viejo
+- [x] Backend: inventario consulta productos directo (CASE estado en SQL, sin vista)
