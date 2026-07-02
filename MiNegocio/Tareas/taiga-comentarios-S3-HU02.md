@@ -50,12 +50,143 @@ tags:
 
 ### **S3-HU02-T04: Testing Frontend (Vitest)**
 - **Mejoras realizadas:**
-  - Configuración de **Vitest** con 5 suites de tests para componentes críticos.
-  - Tests para `authGuard`, `SideBar`, `LoginPage`, `AnalisePage` y `AdminUsuariosPage`.
-- **Pruebas:**
-  - `npx vitest run` (23/23 tests pasan).
-  - Sin dependencias externas (solo `vitest` + `@vue/test-utils`).
-  - **Nota:** Tests dependen de componentes de `T01` (fallarán en `main` hasta mergear `T01`).
+  - Configuración de **Vitest** + `@vue/test-utils` + `happy-dom` (entorno DOM simulado).
+  - 10 suites, 54 tests que cubren servicios, componentes y páginas.
+  - Tests mockean `fetch` (servicios) o JWT (componentes), sin依赖encia de backend real.
+  - `npm test` alias de `npx vitest run`.
+- **Pruebas — paso a paso para recrear cada test manualmente:**
+
+  **1. `authService.test.js` (8 tests) — Servicio de autenticación**
+  ```
+  [AUTH-01] login guarda token y refresh_token en localStorage
+    → mock fetch retorna { token, refresh_token }
+    → login({ user, pass }) debe setear ambos en localStorage
+  
+  [AUTH-02] login lanza "Credenciales inválidas" si 401
+    → mock fetch retorna ok: false
+    → login("x", "y") debe reject con el mensaje
+  
+  [AUTH-03] logout elimina token y refresh_token de localStorage
+    → setear ambos manualmente
+    → logout() debe limpiarlos (getItem → null)
+  
+  [AUTH-04] getToken retorna el token almacenado
+    → setear 'mi-token'
+    → getToken() === 'mi-token'
+  
+  [AUTH-05] getUserFromToken retorna null sin token
+    → localStorage vacío
+    → getUserFromToken() === null
+  
+  [AUTH-06] getUserFromToken retorna null si expiró
+    → JWT falso con exp pasado
+    → getUserFromToken() === null
+  
+  [AUTH-07] getUserFromToken decodifica claims válidos
+    → JWT falso con exp futuro + user_id + nombre + rol
+    → getUserFromToken() = { id, nombre, rol }
+  
+  [AUTH-08] getUserFromToken usa "vendedor" por defecto
+    → JWT falso sin claim rol
+    → .rol === 'vendedor'
+  ```
+
+  **2. `productosService.test.js` (8 tests) — CRUD productos**
+  ```
+  [PROD-01] getProductos retorna lista desde GET /api/productos
+  [PROD-02] getProductosById retorna { id: 5 } desde GET /api/productos/5
+  [PROD-03] createProducto hace POST con body correcto
+  [PROD-04] updateProducto hace PUT a /api/productos/{id}
+  [PROD-05] deleteProducto hace DELETE y retorna ok
+  [PROD-06] getProductosById lanza 404 si no existe
+  [PROD-07] searchProducts incluye ?q=consulta en URL
+  [PROD-08] uploadImage envía FormData (sin Content-Type manual)
+  ```
+
+  **3. `ventasService.test.js` (4 tests) — Ventas**
+  ```
+  [VENTA-01] createVenta hace POST con items array
+  [VENTA-02] getVentas retorna historial desde GET /api/ventas
+  [VENTA-03] createVenta falla si la API responde error
+  [VENTA-04] getVentas retorna [] si no hay datos
+  ```
+
+  **4. `inventarioService.test.js` (5 tests) — Inventario**
+  ```
+  [INV-01] getAll retorna [{ id, stock }] desde GET /api/inventario
+  [INV-02] updateStock hace PATCH a /api/inventario/{id} con body { stock }
+  [INV-03] updateStock lanza error si la API falla
+  [INV-04] buscarProductos normaliza { productos: [...] } a array plano
+  [INV-05] buscarProductos acepta array directo también
+  ```
+
+  **5. `KanbanBoard.test.js` (6 tests) — Componente Kanban**
+  ```
+  [KANBAN-01] renderiza 3 columnas (Bodega, Vitrina, Sin clasificar)
+  [KANBAN-02] getProductosPorUbicacion('Bodega') solo items con ubicacion='Bodega'
+  [KANBAN-03] toggleExpand alterna columna expandida (null → nombre → null)
+  [KANBAN-04] handleDrop a distinta columna emite 'product-moved' con productId + nuevaUbicacion
+  [KANBAN-05] handleDrop a misma columna NO emite evento
+  [KANBAN-06] producto con ubicacion desconocida cae en 'Sin clasificar'
+  ```
+
+  **6. `SideBar.test.js` (5 tests) — Navegación lateral**
+  ```
+  [SIDEBAR-01] renderiza sin errores con router mock
+  [SIDEBAR-02] NO muestra enlace Usuarios si rol=vendedor
+  [SIDEBAR-03] SÍ muestra enlace Usuarios si rol=admin
+  [SIDEBAR-04] muestra placeholder Sesiones deshabilitado (.nav-item--disabled)
+  [SIDEBAR-05] muestra nombre de usuario desde JWT
+  ```
+
+  **7. `Login.test.js` (3 tests) — Página de login**
+  ```
+  [LOGIN-01] renderiza input usuario y contraseña
+  [LOGIN-02] botón submit deshabilitado si campos vacíos
+  [LOGIN-03] botón se habilita al escribir en ambos campos
+  ```
+
+  **8. `Analisis.test.js` (4 tests) — Dashboard**
+  ```
+  [ANALISIS-01] renderiza tarjetas KPI
+  [ANALISIS-02] muestra Total Productos
+  [ANALISIS-03] muestra Ventas del Día
+  [ANALISIS-04] muestra alerta Stock Bajo
+  ```
+
+  **9. `authGuard.test.js` (7 tests) — Guard de rutas**
+  ```
+  [GUARD-01] redirige a /login si no hay token
+  [GUARD-02] permite acceso si hay token válido
+  [GUARD-03] redirige si token expiró
+  [GUARD-04] redirige a / si no es admin
+  [GUARD-05] permite acceso admin
+  [GUARD-06] redirige a /login desde ruta admin sin token
+  [GUARD-07] mantiene ruta destino después de login
+  ```
+
+  **10. `AdminUsuariosPage.test.js` (4 tests) — Gestión usuarios**
+  ```
+  [ADMIN-01] renderiza tabla vacía
+  [ADMIN-02] muestra mensaje de bienvenida
+  [ADMIN-03] botón crear usuario existe
+  [ADMIN-04] modal de creación se abre al hacer click
+  ```
+
+  **Comando para verificar todo:**
+  ```bash
+  npx vitest run
+  # Expected: 54 passed, 0 failed
+  ```
+
+  **Para cobertura (útil para SonarQube):**
+  ```bash
+  npm install -D @vitest/coverage-v8
+  npx vitest run --coverage
+  # Reporte en coverage/lcov.info
+  ```
+
+- **Nota:** Tests dependen de componentes de otras tareas (ej. SideBar.test.js depende de T01).
 
 ---
 
