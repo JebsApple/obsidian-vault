@@ -5,9 +5,100 @@ tags:
   - sprint3
   - frontend
   - backend
+updated: 2026-07-02
 ---
 
-# Tareas Faltantes para S3-HU02 — Sprint 3
+# Estado S3-HU02 — Completados vs Faltantes
+
+## Commits en Gitea
+
+### Frontend (`S3-HU02`)
+
+#### ✅ Completados (pusheados)
+
+| # | Commit | Descripción |
+|---|--------|-------------|
+| 1 | `S3-HU02-T08: animacion close sidebar reverse stagger` | SideBar close animación con reverse stagger |
+| 2 | `S3-HU02-T02: migrar kanban a columnas por ubicacion fisica` | KanbanBoard cambia de columnas stock → ubicaciones |
+| 3 | `S3-HU02-T02: adaptar tests kanban a columnas por ubicacion` | Tests KanbanBoard actualizados a ubicaciones |
+| 4 | `S3-HU02-T15: IVA 19% + campo proveedor en formulario producto` | FormularioProducto con precio_sin_iva + id_proveedor |
+| 5 | `S3-HU02: fixes inventario ventas y estilos` | Inventario/Ventas fixes (fantasmas, scanner, stock) |
+
+#### ⏳ Faltantes (sin commitear — docs esta sesión)
+
+| # | Archivos | Descripción |
+|---|----------|-------------|
+| 6 | `README.md`, `sonar-project.properties` | Documentación tests paso a paso + setup SonarQube |
+| 7 | Posible: merge `S3-HU02` → `dev` (pendiente coordinación equipo) | Integración a rama dev |
+
+### Backend (`S3-HU02-T15-iva-proveedores`)
+
+#### ✅ Completados (pusheados)
+
+| # | Commit | Descripción |
+|---|--------|-------------|
+| 1 | `S3-HU02-T15: IVA 19% + campo id_proveedor en models/handler/routes` | precio_sin_iva + id_proveedor en todas las capas |
+| 2 | `S3-HU02: endpoints ubicaciones CRUD + fix COALESCE + fix fantasmas + PATCH int/string` | Ubicaciones GET/POST/DELETE, COALESCE, PATCH stock/ubicacion |
+
+#### ⏳ Faltantes (sin commitear — docs esta sesión)
+
+| # | Archivos | Descripción |
+|---|----------|-------------|
+| 3 | `README.md`, `sonar-project.properties` | Documentación tests + setup SonarQube |
+| 4 | Posible: merge a `dev` (pendiente) | Integración a rama dev |
+
+### Database (`S3-HU02-T15-iva-proveedores`)
+
+#### ✅ Completados (pusheados)
+
+| # | Commit | Descripción |
+|---|--------|-------------|
+| 1 | `S3-HU02-T15: tabla proveedores + tabla ubicaciones + columnas IVA + seed data` | proveedores, ubicaciones, precio_sin_iva, id_proveedor, seed |
+
+#### ⏳ Faltantes
+
+Ninguno (working tree clean). Pendiente ALTER TABLE a `cliente_dev` en producción.
+
+---
+
+## Tareas Taiga — Estado
+
+### ✅ Tareas creadas en Taiga y completadas en Gitea
+
+| ID Taiga | Nombre | Rama Gitea | Estado |
+|----------|--------|-----------|--------|
+| S3-HU02-T01 | Navegación (NavBar + SideBar) | `S3-HU02-T01-navegacion-barra-lateral` | ✅ En Gitea |
+| S3-HU02-T02 | Tablero Kanban Inventario | `S3-HU02-T02-tablero-kanban` | ✅ En Gitea |
+| S3-HU02-T03 | Dashboard Principal | `S3-HU02-T03-panel-principal` | ✅ En Gitea |
+| S3-HU02-T04 | Testing Frontend (Vitest) | `S3-HU02-T04-pruebas` | ✅ En Gitea |
+| S3-HU02-T05 | Validaciones + AppModal | `S3-HU02-T05-validaciones` | ✅ En Gitea |
+| S3-HU02-T06 | Separación Capas Frontend | `S3-HU02-T06-capas-frontend` | ✅ En Gitea |
+| S3-HU02-T07 | Kanban Inventario (backend) | `S3-HU02-T07-kanban-inventario` | ✅ En Gitea |
+| S3-HU02-T08 | Animaciones + Consistencia Visual | `S3-HU02-T08-ajustes-estilo` | ✅ En Gitea (incluye close stagger) |
+| S3-HU02-T09 | Nomenclatura Español | `S3-HU02-T09-nombres-archivos-espanol` | ✅ En Gitea |
+| S3-HU02-T11 | Iconos para Assets | `S3-HU02-T11-iconos` | ✅ En Gitea |
+| S3-HU02-T12 | Código Barras + Acceso Roles | `S3-HU02-T12-codigo-barras-y-acceso-roles` | ✅ En Gitea |
+| S3-HU02-T13 | Fusión Vistas + Recorte Imagen | `S3-HU02-T13-fusion-vistas-recorte-imagen` | ✅ En Gitea |
+| S3-HU02-T14 | Sidebar Colapsable + Pest. Archivador | `S3-HU02-T14-sidebar-colapsable-tabs-folder-responsive` | ✅ En Gitea |
+| S3-HU02-T15 | IVA 19% + Campo Proveedor | `S3-HU02-T15-iva-proveedores` (front/back/db) | ✅ En Gitea (3 commits) |
+
+### ⏳ Tareas Taiga faltantes por crear/actualizar
+
+| ID Propuesto | Nombre | Prioridad | Estado |
+|--------------|--------|-----------|--------|
+| S3-HU02-T10 | Limpieza CSS Duplicado | 🟢 Media | ❌ No creada en Taiga — pendiente |
+| S3-HU02-T16 | SonarQube + Documentación Tests | 🟡 Alta | ❌ No creada en Taiga — README actualizado, falta tarea |
+| S3-HU02-T17 | Merge S3-HU02 → dev | 🔴 Crítica | ❌ No creada en Taiga — pendiente coordinación equipo |
+| S3-HU05 (nueva HU) | CRUD Proveedores (Gabriel) | 🟡 Alta | ❌ No creada en Taiga — pendiente crear HU y tareas |
+
+### 📝 Actualizaciones pendientes en Taiga
+
+1. **T04 (Testing):** Subir comentario detallado con los 54 tests enumerados (disponible en `taiga-comentarios-S3-HU02.md`)
+2. **T08 (Animaciones):** Actualizar comentario con close stagger
+3. **T15 (IVA/Proveedores):** Crear tarea en Taiga si no existe (commit ya pusheado)
+4. **T16 (SonarQube):** Crear tarea nueva con instrucciones de setup
+
+---
 
 ## **Tareas a Crear en Taiga**
 Basado en ramas existentes en Gitea (`S3-HU02-*`) y registros del vault.
