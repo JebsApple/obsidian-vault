@@ -4,94 +4,134 @@
 
 ---
 
-## Lo que se pide
+## Alcance total
 
-### 1. Kanban con columnas editables y sin "Sin clasificar"
-- Tableros (contenedores de productos) editables y eliminables por el usuario
-- Al crecer la cantidad de tableros, NO se achican — en vez de eso, se crea una nueva fila abajo sin afectar el tamaño de los tableros
-- Los productos se visualizan bien adentro de cada tablero
-- El usuario puede agregar y eliminar productos de cada tablero
-- NO debe haber columna fija "Sin clasificar"
-- Botón de expandir tablero: pastilla que gira 45 grados (como estaba antes)
-- Botones editar/eliminar en cada tablero
-- Animaciones suaves y márgenes correctos
+### 1. KanbanBoard — Columnas dinámicas editables
 
-### 2. Filtros
-- Una barra de búsqueda simple
-- Botón de filtro con icono de embudo (`ti ti-adjustments-horizontal` o similar)
-- Cuando el filtro está activo: icono rojo
-- Cuando no hay filtro: icono gris
-- Incluye los filtros que ya están implementados en la página (precio min/max, stock, orden)
+**Qué:** Reemplazar los 4 status fijos por ubicaciones dinámicas que el usuario administra.
+
+**Comportamiento:**
+- Por defecto aparecen 3 columnas: Bodega, Vitrina, Sin clasificar
+- Todas las columnas son iguales: cualquiera se puede eliminar (incluyendo "Sin clasificar")
+- El usuario puede crear, renombrar y eliminar columnas
+- Botón "+ Agregar ubicación" al final (columna fantasma)
+- Cuando hay más de 4 columnas, el grid envuelve a una nueva fila abajo (no se achican)
+- Animación suave al expandir/contraer/agregar
+
+**En cada columna:**
+- Header: nombre de columna + contador + botón expandir + botón editar (lápiz) + botón eliminar (tacho)
+- Botón expandir: pastilla minimalista que gira 45° (como estaba en la rama T11-iconos)
+- Botón renombrar: lápiz que convierte el nombre en input inline
+- Botón eliminar: solo visible si la columna no tiene productos
+
+**En cada card (producto):**
+- Imagen con lazy loading y draggable=false
+- Nombre, código de barras (con icono), categoría
+- Precio + badge de stock (verde/ámbar/rojo según cantidad)
+- Al expandir la columna: muestra detalles extra (ID, código, stock numérico)
+- Drag & drop entre columnas (actualiza ubicación vía API)
+- Botón "+" en el header de cada columna abre modal para agregar producto existente
+
+**Protecciones:**
+- JSON.parse protegido (try/catch para drops externos)
+- Drag nativo de imágenes deshabilitado
+- Drop externo ignorado silenciosamente
+
+**Origen en commits:**
+- `368f1b7` (migrar a ubicaciones) + `0d97bc2` (rediseño cards) + `f1fe555` (modal agregar) + `ec09541` (renombrar columnas) + `6df1114` (drop externo) + `d4e319b` (expand pill 45°)
+
+### 2. Buscador con filtro embudo
+
+**Qué:** Barra de búsqueda unificada con botón de filtro desplegable.
+
+**Comportamiento:**
+- Input de búsqueda con icono de lupa
+- Botón de filtro al lado con icono de embudo (`ti-adjustments-horizontal`)
+- Al hacer clic en el embudo: se despliegan los filtros (precio min, precio max, stock, orden)
+- Filtro activo → embudo rojo
+- Sin filtros activos → embudo gris
+- Incluye en todas las páginas con listas (Inventario, Productos, Ventas, etc.)
+- Reutiliza los filtros ya implementados en `BuscadorProductos.vue`
+
+**Origen:** Desarrollo nuevo (no existe en commits anteriores). Se rediseña el componente `BuscadorProductos.vue` existente.
+
+### 3. Sidebar con iconos fuera al colapsar
+
+**Qué:** Al cerrar la sidebar, los iconos de navegación quedan visibles fuera de la sidebar, en el margen izquierdo de la página.
+
+**Comportamiento:**
+- Sidebar colapsada (80px): solo logo del kiosko + flecha toggle
+- Aparece una columna angosta al lado con los iconos de navegación (sin texto)
+- Todos los iconos son clickeables y navegan a su página
+- Al expandir la sidebar, los iconos vuelven a su lugar dentro de la barra con el texto visible
+- Animación de transición suave
+
+**Origen:** Desarrollo nuevo. No existe así en ningún commit. Toma como referencia el sidebar de `c07a450`, `41e032d`, `27f3381`, `92a3ec5` pero modificado.
+
+### 4. CI/Build + lint (cherry-pick directo)
+
+- `4b4397a`: Jenkinsfile build prod
+- `2339f6a`: Jenkinsfile confirmación manual
+- `91cb48b`: npm script deploy-dev
+- `610fb1d`: lint imports sin uso
+
+### 5. IVA 19% + campo proveedor (cherry-pick con verificación)
+
+- `d80c998`: FormularioProducto + Productos
 
 ---
 
-## Dónde está cada cosa en la historia
-
-| Funcionalidad | Existe en commits | Aplicable limpio? |
-|---|---|---|
-| Columnas dinámicas (ubicaciones) sin "Sin clasificar" fijo | `368f1b7` (migrar a ubicaciones) + `0d97bc2` (rediseño cards) | ❌ Base usa 4 status fijos |
-| Agregar productos a un tablero vía modal | `f1fe555` | ❌ Depende de migración kanban |
-| Botón expandir columna (pastilla 45°) | `d4e319b` (en T11-iconos) | ❌ Rama divergida |
-| Renombrar columna inline (lápiz) | `ec09541` | ❌ Depende de migración kanban |
-| Editar/Eliminar columna | `92a3ec5`, `ec09541` | ❌ Depende de migración kanban |
-| Cards con imagen, precio, badge de stock | `0d97bc2` | ❌ Depende de migración kanban |
-| Overflow: nuevas filas sin apachurrar | `dec1528` (responsive) + refactor grid | ❌ Depende de migración kanban |
-| Drop externo no rompe tablero (JSON.parse safe) | `6df1114` | ❌ Depende de migración kanban |
-| Barra de búsqueda con filtro embudo | No existe en commits | — |
-
-**Conclusión:** Para tener todo esto funcionando, lo más limpio es migrar el KanbanBoard al sistema de ubicaciones dinámicas (como ya estaba en la rama), que incluye TODAS esas funcionalidades. No se puede cherry-pick pieza por pieza porque los commits encadenan unos con otros y la base cambió.
-
----
-
-## Propuesta: Migración completa del Kanban
-
-Basado en cómo quedó en la rama S3-HU02 (después de los merges de T02), se puede replicar el comportamiento completo:
-
-### Lo que ganas con la migración:
-- ✅ Columnas dinámicas: el usuario crea, renombra y elimina tableros a voluntad
-- ✅ Sin "Sin clasificar" fijo — todas las columnas son iguales y eliminables
-- ✅ Botón "Agregar ubicación" (columna fantasma al final)
-- ✅ Cards con imagen, nombre, código, categoría, precio y badge de stock
-- ✅ Expandir columna con pastilla que gira 45°
-- ✅ Editar (lápiz) y eliminar (tacho) en cada columna
-- ✅ Responsive: las columnas se apilan bien en pantallas chicas
-- ✅ Sin riesgo de drop externo (JSON.parse protegido, drag nativo deshabilitado)
-
-### Lo que se pierde respecto a la base actual:
-- Los 4 status fijos (sin_clasificar, stock_normal, stock_bajo, agotado) se reemplazan por ubicaciones
-- El backend debe soportar PATCH de ubicación (inventarioService ya lo tiene parcialmente)
-
-### Barra de búsqueda con filtro embudo
-Actualmente `BuscadorProductos` muestra todos los filtros visibles siempre. Se puede rediseñar:
-- Un input de búsqueda con un botón de embudo al lado
-- Al clickear el embudo, se despliegan los filtros (precio min/max, stock, orden)
-- Si hay algún filtro activo, el embudo se pinta rojo; si no, gris
-- **Esto es desarrollo nuevo** (no está en ningún commit)
-
----
-
-## Orden de implementación propuesto
+## Dependencias entre fases
 
 ```
-Paso 1: Migrar KanbanBoard a ubicaciones dinámicas
-        (tomando como参考 los commits 368f1b7 + 0d97bc2 + f1fe555 + ec09541)
-        
-Paso 2: Agregar hotfixes (drop externo, responsive)
-        
-Paso 3: Rediseñar BuscadorProductos con filtro embudo
-        (desarrollo nuevo)
-
-Paso 4: Probar, construir y deployar
+KanbanBoard (Fase 1) ── es requisito para ── ninguna otra
+                           │
+BuscadorEmbudo (Fase 2) ── es independiente, solo rediseña componente existente
+                           │
+Sidebar (Fase 3) ── es independiente del kanban, pero toca App.vue + layout
+                           │
+CI/Build + lint (Fase 4) ── independiente, cherry-pick directo
+                           │
+IVA (Fase 5) ── independiente, cherry-pick con verificación
 ```
+
+**Se pueden implementar en paralelo:** Fase 2, 4 y 5 son independientes.
+**Secuencial:** Fase 1 y 3 son grandes cambios que tocan layout — coordinar MainLayout / App.vue.
 
 ---
 
-## Preguntas para resolver antes de empezar
+## Archivos a modificar por fase
 
-1. **La barra de búsqueda con filtro**: ¿la quieres solo en la página de Inventario (donde está el kanban) o en todas las páginas que tengan listas?
+### Fase 1 — KanbanBoard (alto impacto)
+- `src/components/KanbanBoard.vue` — Reescribir: ubicaciones dinámicas, cards, expand, drag
+- `src/components/ModalAgregarProducto.vue` — Nuevo componente
+- `src/views/Inventario.vue` — Adaptar a nuevas props/eventos del kanban
+- `src/services/inventarioService.js` — Agregar PATCH ubicación, GET ubicaciones
+- `src/views/Productos.vue` — Adaptar si es necesario (puede que el modal necesite lista)
 
-2. **"Sin clasificar"**: ¿lo eliminamos por completo (y si un producto no tiene ubicación se oculta hasta que el usuario lo asigne)? ¿O lo dejamos como columna pero el usuario puede eliminarla si quiere?
+### Fase 2 — Buscador con filtro (impacto medio)
+- `src/components/BuscadorProductos.vue` — Rediseñar con embudo colapsable
+- `src/views/Inventario.vue` — Ajustar integración
+- Otras vistas que usen el buscador
 
-3. **Sidebar**: ¿seguimos con el plan de los iconos de navegación visibles afuera cuando la barra está cerrada, o lo dejamos para después y nos enfocamos en kanban + filtros ahora?
+### Fase 3 — Sidebar (alto impacto)
+- `src/components/SideBar.vue` — Reestructurar: nav items separados, lógica colapso
+- `src/App.vue` — Ajustar layout para el nav-icon strip fuera del sidebar
+- Posible: nuevo componente `NavIcons.vue` para los iconos exteriores
 
-4. **Eliminar productos de un tablero**: ¿"eliminar" significa borrar el producto del sistema (DELETE permanente) o solo sacarlo de esa columna/ubicación?
+### Fase 4 — CI/Build (bajo impacto)
+- `Jenkinsfile` — Añadir pasos
+- `package.json` — Añadir script
+- `src/__tests__/authGuard.test.js` — 1 línea
+
+### Fase 5 — IVA (bajo impacto)
+- `src/components/FormularioProducto.vue` — Campo proveedor + IVA
+- `src/views/Productos.vue` — Columna "P. Sin IVA"
+
+---
+
+## Preguntas
+
+1. **Las páginas que tienen el buscador**: actualmente solo Inventario tiene `BuscadorProductos`. ¿En qué páginas específicas lo quieres? ¿Ventas (POS), Productos, Productos Registrados? ¿Todas deben tener los mismos filtros (precio, stock, orden)?
+
+2. **Sidebar**: Cuando la sidebar está expandida, los iconos de navegación están dentro con texto. Cuando se colapsa, los iconos aparecen fuera (a la izquierda de la página). Pregunta de diseño: esos iconos fuera, ¿deben aparecer con un fondo/panel visible siempre, o se ven flotando sobre el contenido de la página?
