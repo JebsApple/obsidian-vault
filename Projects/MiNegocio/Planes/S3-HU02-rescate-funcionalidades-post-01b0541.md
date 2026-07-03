@@ -2,114 +2,96 @@
 
 **Base:** `01b0541` (S3-HU02-BugFix-escaneo-pos-autocarrito-y-reenfoque-scanner)
 
-## Resumen de dependencias
+---
 
-| # | Commit | Funcionalidad | Cherry-pick limpio? | Dependencias no incluidas |
-|---|--------|---------------|-------------------|--------------------------|
-| 1 | `6df1114` | HOTFIX: drop externo no rompe kanban | ❌ | Nuevo Kanban (ubicaciones) |
-| 2 | `dec1528` | HOTFIX: kanban responsive móvil | ❌ | Nuevo Kanban (columnas, agregando) |
-| 3 | `1602bea` | HOTFIX: sidebar no se reabre en scroll móvil | ❌ | Sidebar colapsable moderno |
-| 4 | `4b4397a` | Jenkinsfile build prod | ✅ | — |
-| 5 | `2339f6a` | Jenkinsfile confirmación manual | ✅ | — |
-| 6 | `91cb48b` | npm script deploy-dev | ✅ | — |
-| 7 | `d80c998` | IVA 19% + campo proveedor | ⚠️ Parcial | Parece aplicable. FormularioProducto y Productos existen en base. |
-| 8 | `51a42df` | Fixes inventario, ventas, estilos | ❌ | Inventario.vue usa `:ubicaciones` del nuevo kanban |
-| 9 | `610fb1d` | Lint imports authGuard.test | ✅ | — |
-| 10 | `5074838` | Reverse stagger close sidebar | ❌ | Sidebar colapsable moderno |
-| 11 | `ec09541` | Renombrar columnas kanban inline | ❌ | Nuevo Kanban (getProductosPorUbicacion, esEliminable) |
-| 12 | `a846c5a` | Flag WIP build | ❌ | Sidebar moderno (estadoInterno, ripple, mostrarWip) |
+## Lo que se pide
 
-## Análisis detallado
+### 1. Kanban con columnas editables y sin "Sin clasificar"
+- Tableros (contenedores de productos) editables y eliminables por el usuario
+- Al crecer la cantidad de tableros, NO se achican — en vez de eso, se crea una nueva fila abajo sin afectar el tamaño de los tableros
+- Los productos se visualizan bien adentro de cada tablero
+- El usuario puede agregar y eliminar productos de cada tablero
+- NO debe haber columna fija "Sin clasificar"
+- Botón de expandir tablero: pastilla que gira 45 grados (como estaba antes)
+- Botones editar/eliminar en cada tablero
+- Animaciones suaves y márgenes correctos
 
-### Grupo A: Cherry-pick directo ✅
-- `4b4397a`, `2339f6a` — Solo Jenkinsfile. Sin efecto en funcionalidad.
-- `91cb48b` — Solo package.json (script deploy-dev).
-- `610fb1d` — 1 línea en authGuard.test.js.
+### 2. Filtros
+- Una barra de búsqueda simple
+- Botón de filtro con icono de embudo (`ti ti-adjustments-horizontal` o similar)
+- Cuando el filtro está activo: icono rojo
+- Cuando no hay filtro: icono gris
+- Incluye los filtros que ya están implementados en la página (precio min/max, stock, orden)
 
-*Se pueden aplicar ya, cero riesgo.*
+---
 
-### Grupo B: Aplicable con verificación ⚠️
-- **`d80c998`** (IVA + proveedor): Cambia FormularioProducto.vue (agrega campo proveedor e IVA) y Productos.vue (columna P. Sin IVA). Archivos existen en base con misma estructura. *Verificar que líneas calcen antes de cherry-pick.*
+## Dónde está cada cosa en la historia
 
-### Grupo C: Bloqueados por nuevo Kanban ❌
-- **`ec09541`** (renombrar columnas): El kanban base usa 4 status fijos (sin_clasificar, stock_normal, stock_bajo, agotado). `ec09541` espera columnas dinámicas por ubicación con `getProductosPorUbicacion`, `esEliminable`, etc.
-- **`6df1114`** (drop externo): Usa `ubicacionDe()` que no existe en kanban base.
-- **`dec1528`** (responsive): Usa `columnas.length` en vez de `statuses.length`.
-- **`51a42df`** (fixes): Inventario.vue pasa `:ubicaciones` prop que no existe en KanbanBoard base.
+| Funcionalidad | Existe en commits | Aplicable limpio? |
+|---|---|---|
+| Columnas dinámicas (ubicaciones) sin "Sin clasificar" fijo | `368f1b7` (migrar a ubicaciones) + `0d97bc2` (rediseño cards) | ❌ Base usa 4 status fijos |
+| Agregar productos a un tablero vía modal | `f1fe555` | ❌ Depende de migración kanban |
+| Botón expandir columna (pastilla 45°) | `d4e319b` (en T11-iconos) | ❌ Rama divergida |
+| Renombrar columna inline (lápiz) | `ec09541` | ❌ Depende de migración kanban |
+| Editar/Eliminar columna | `92a3ec5`, `ec09541` | ❌ Depende de migración kanban |
+| Cards con imagen, precio, badge de stock | `0d97bc2` | ❌ Depende de migración kanban |
+| Overflow: nuevas filas sin apachurrar | `dec1528` (responsive) + refactor grid | ❌ Depende de migración kanban |
+| Drop externo no rompe tablero (JSON.parse safe) | `6df1114` | ❌ Depende de migración kanban |
+| Barra de búsqueda con filtro embudo | No existe en commits | — |
 
-### Grupo D: Bloqueados por Sidebar colapsable moderno ❌
-- **`1602bea`** (scroll móvil): Base no tiene `estadoInterno`, `actualizarBreakpoint()`, `eraAncha`.
-- **`5074838`** (reverse stagger): Base usa template antiguo (sidebar-logo, toggle-btn colapsado/puedeColapsar).
-- **`a846c5a`** (WIP flag): Referencia `estadoInterno` y `ripple` class del sidebar moderno.
+**Conclusión:** Para tener todo esto funcionando, lo más limpio es migrar el KanbanBoard al sistema de ubicaciones dinámicas (como ya estaba en la rama), que incluye TODAS esas funcionalidades. No se puede cherry-pick pieza por pieza porque los commits encadenan unos con otros y la base cambió.
 
-## Solución propuesta
+---
 
-### Paso 1: Hotfixes manuales (implementar a mano sobre base 01b0541)
+## Propuesta: Migración completa del Kanban
 
-Dado que los hotfixes no se pueden cherry-pick, conviene implementarlos manualmente:
+Basado en cómo quedó en la rama S3-HU02 (después de los merges de T02), se puede replicar el comportamiento completo:
 
-#### 1a. Drop externo (equivalente a `6df1114`)
-En KanbanBoard.vue base (cuatro status fijos):
-- Envolver `JSON.parse(raw)` en try/catch en `handleDrop()`
-- Agregar `draggable="false"` a `<img>` en cards
-- Agregar validación `if (!producto || typeof producto !== 'object' || producto.id == null)`
+### Lo que ganas con la migración:
+- ✅ Columnas dinámicas: el usuario crea, renombra y elimina tableros a voluntad
+- ✅ Sin "Sin clasificar" fijo — todas las columnas son iguales y eliminables
+- ✅ Botón "Agregar ubicación" (columna fantasma al final)
+- ✅ Cards con imagen, nombre, código, categoría, precio y badge de stock
+- ✅ Expandir columna con pastilla que gira 45°
+- ✅ Editar (lápiz) y eliminar (tacho) en cada columna
+- ✅ Responsive: las columnas se apilan bien en pantallas chicas
+- ✅ Sin riesgo de drop externo (JSON.parse protegido, drag nativo deshabilitado)
 
-#### 1b. Responsive móvil (equivalente a `dec1528`)
-En KanbanBoard.vue base:
-- No aplica igual porque el kanban base tiene 4 columnas fijas, no dinámicas. El responsive base podría necesitar ajuste menor pero ya tiene media queries nativos.
+### Lo que se pierde respecto a la base actual:
+- Los 4 status fijos (sin_clasificar, stock_normal, stock_bajo, agotado) se reemplazan por ubicaciones
+- El backend debe soportar PATCH de ubicación (inventarioService ya lo tiene parcialmente)
 
-#### 1c. Sidebar scroll móvil (equivalente a `1602bea`)
-El sidebar base no tiene auto-expand con resize, por lo que este bug no existe en la base. **No necesario.**
+### Barra de búsqueda con filtro embudo
+Actualmente `BuscadorProductos` muestra todos los filtros visibles siempre. Se puede rediseñar:
+- Un input de búsqueda con un botón de embudo al lado
+- Al clickear el embudo, se despliegan los filtros (precio min/max, stock, orden)
+- Si hay algún filtro activo, el embudo se pinta rojo; si no, gris
+- **Esto es desarrollo nuevo** (no está en ningún commit)
 
-### Paso 2: CI/Build
-Cherry-pick directo:
-```
-git cherry-pick 4b4397a 2339f6a 91cb48b
-```
+---
 
-### Paso 3: Lint
-```
-git cherry-pick 610fb1d
-```
-
-### Paso 4: IVA + proveedor
-Verificar y cherry-pick:
-```
-git cherry-pick d80c998
-```
-
-### Paso 5: Renombrar columnas kanban ⚠️
-**No aplicable directamente.** El kanban base usa 4 status fijos. Para tener renombrar columnas, primero habría que migrar el kanban a ubicaciones dinámicas (commit `368f1b7`) y el rediseño completo (`0d97bc2`). Eso es una reestructura mayor. Alternativa: implementar rename inline solo para los 4 status fijos (no recomendado porque el backend ya espera ubicaciones).
-
-### Paso 6: Sidebar con iconos fuera al colapsar (personalizado) 🎯
-El usuario pide: *"al cerrarse la barra quedan unicamente los iconos de las paginas, fuera de la sidebar, aparecen en el costado izquierdo de la pagina, y el icono de la pagina(kiosko) permanece en la sidebar cerrada + el icono de la flechita para abrirla de nuevo"*
-
-Esto implica un cambio de layout mayor:
-- Sidebar base a 80px solo con logo+toggle
-- Los nav icons se mueven FUERA del sidebar (a la izquierda de la página)
-- Aparecen como columna icon-only flotante al lado del sidebar colapsado
-- La flechita toggle + logo kiosko permanecen en el sidebar colapsado
-
-**Esto no existe en ningún commit.** Es una función nueva que requiere:
-1. Mostrar la navegación siempre visible (iconos)
-2. Sidebar colapsado a 80px solo con kiosko + toggle
-3. Los iconos de navegación aparecen en el margen izquierdo de la página
-
-## Recomendación
-
-1. Aplicar CI/Build + lint + IVA (cherry-picks seguros)
-2. Implementar hotfix drop externo manualmente (son ~10 líneas)
-3. Para la sidebar + iconos fuera al colapsar: necesita desarrollo nuevo
-4. Para renombrar kanban y WIP flag: postergar hasta decidir si migrar kanban o no
-5. Pregunta pendiente: los fixes de `51a42df` (estilos CSS y Ventas.vue) — ¿se quieren rescatar manualmente? Los CSS son solo estilos, Ventas.vue tiene fixes de UI.
-
-## Orden de implementación sugerido
+## Orden de implementación propuesto
 
 ```
-1. git cherry-pick 4b4397a 2339f6a 91cb48b 610fb1d  (CI + lint)
-2. git cherry-pick d80c998                          (IVA, verificar)
-3. Implementar hotfix drop externo manual           (~10 min)
-4. Implementar sidebar-nav-icons-outside            (desarrollo nuevo)
-5. Fixes CSS de 51a42df (base.css, variables.css)   (manual, archivos de estilo)
-6. Postergar: renombrar kanban, WIP flag, fixes inventario/ventas
+Paso 1: Migrar KanbanBoard a ubicaciones dinámicas
+        (tomando como参考 los commits 368f1b7 + 0d97bc2 + f1fe555 + ec09541)
+        
+Paso 2: Agregar hotfixes (drop externo, responsive)
+        
+Paso 3: Rediseñar BuscadorProductos con filtro embudo
+        (desarrollo nuevo)
+
+Paso 4: Probar, construir y deployar
 ```
+
+---
+
+## Preguntas para resolver antes de empezar
+
+1. **La barra de búsqueda con filtro**: ¿la quieres solo en la página de Inventario (donde está el kanban) o en todas las páginas que tengan listas?
+
+2. **"Sin clasificar"**: ¿lo eliminamos por completo (y si un producto no tiene ubicación se oculta hasta que el usuario lo asigne)? ¿O lo dejamos como columna pero el usuario puede eliminarla si quiere?
+
+3. **Sidebar**: ¿seguimos con el plan de los iconos de navegación visibles afuera cuando la barra está cerrada, o lo dejamos para después y nos enfocamos en kanban + filtros ahora?
+
+4. **Eliminar productos de un tablero**: ¿"eliminar" significa borrar el producto del sistema (DELETE permanente) o solo sacarlo de esa columna/ubicación?
