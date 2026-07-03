@@ -130,8 +130,7 @@ IVA (Fase 5) ── independiente, cherry-pick con verificación
 
 ---
 
-## Preguntas
+## Decisiones tomadas
 
-1. **Las páginas que tienen el buscador**: actualmente solo Inventario tiene `BuscadorProductos`. ¿En qué páginas específicas lo quieres? ¿Ventas (POS), Productos, Productos Registrados? ¿Todas deben tener los mismos filtros (precio, stock, orden)?
-
-2. **Sidebar**: Cuando la sidebar está expandida, los iconos de navegación están dentro con texto. Cuando se colapsa, los iconos aparecen fuera (a la izquierda de la página). Pregunta de diseño: esos iconos fuera, ¿deben aparecer con un fondo/panel visible siempre, o se ven flotando sobre el contenido de la página?
+- **Buscador en todas las páginas**: Sí, incluyendo Ventas (POS), Productos, Productos Registrados, con los mismos filtros (precio min/max, stock, orden).
+- **Iconos fuera de la sidebar**: Van sobre un fondo/panel visible, una barrita angosta separada del contenido de la página, justo en el margen izquierdo entre la sidebar colapsada y el contenido.
