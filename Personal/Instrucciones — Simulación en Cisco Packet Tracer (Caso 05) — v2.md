@@ -1,6 +1,6 @@
 # Instrucciones — Simulación en Cisco Packet Tracer (Caso 05) — v2
 
-Topología: **estrella jerárquica segmentada** — 3 switches de acceso → 1 switch principal. 18 puntos terminales. Una sola red plana 192.168.10.0/24.
+Topología: **estrella jerárquica segmentada** — 3 switches de acceso → 1 switch principal. 18 puntos terminales. Red 192.168.10.0/24 **subneteada por sector** según hosts reales (bits robados exactos).
 
 > ⚠️ La imagen referencial del caso y la tabla del enunciado **no coinciden**: la imagen muestra 19 puntos, el enunciado define 18. La simulación se construye **según la tabla del profesor**.
 
@@ -33,7 +33,7 @@ El IP Phone 7960 **aparece apagado por defecto**. No responderá ping sin esto:
 3. **Arrastrarlo** al **puerto redondo** del panel trasero del teléfono
 4. La pantalla debe iluminarse — si no, repetir el arrastre
 5. Al cablear, usar el puerto RJ45 etiquetado **"Switch"** (no "PC")
-6. IP: **Config → Interface** → Static → `192.168.10.50 /24`
+6. IP: **Config → Interface** → Static → `192.168.10.28 /255.255.255.240` (subred área técnica)
 
 ## 4. Distribución en el lienzo
 
@@ -57,109 +57,182 @@ El IP Phone 7960 **aparece apagado por defecto**. No responderá ping sin esto:
 - Si el enlace queda **rojo** → cambiar a **Copper Cross-Over**
 - Si queda **naranjo** → esperar ~30s (STP)
 
-## 6. Direccionamiento IP (estático)
+## 6. Diseño de subredes (subnetting con bits robados exactos)
 
-Red: `192.168.10.0/24` — Máscara: `255.255.255.0` — Gateway: `192.168.10.1`
+Se parte de `192.168.10.0/24`. Se subnetwork asigna **exactamente los hosts que cada sector necesita**, sin desperdicio.
 
-**Orden recomendado:** primero SRV (para tener ping de prueba), luego PCs y laptops, después impresoras/MFP, finalmente TV y teléfono.
+### 6.0 Cálculo de subredes
 
-### 6.1 PC (PC1 a PC8) y TV-CORP
+| Sector | Hosts | Máscara | Bits robados | Prefijo | Red | Broadcast | Rango útil |
+|---|---|---|---|---|---|---|---|
+| A (SW-A) | 4 | 255.255.255.248 | 3 → /29 | .0/29 | .0 | .7 | .1 – .6 |
+| B (SW-B) | 4 | 255.255.255.248 | 3 → /29 | .8/29 | .8 | .15 | .9 – .14 |
+| C (SW-C) | 4 | 255.255.255.248 | 3 → /29 | .16/29 | .16 | .23 | .17 – .22 |
+| Área técnica (SW-PPAL) | 6 | 255.255.255.240 | 4 → /28 | .24/28 | .24 | .39 | .25 – .38 |
+| Enlace SA ↔ PPAL | 2 | 255.255.255.252 | 6 → /30 | .40/30 | .40 | .43 | .41 – .42 |
+| Enlace SB ↔ PPAL | 2 | 255.255.255.252 | 6 → /30 | .44/30 | .44 | .47 | .45 – .46 |
+| Enlace SC ↔ PPAL | 2 | 255.255.255.252 | 6 → /30 | .48/30 | .48 | .51 | .49 – .50 |
+
+### 6.1 Asignación por subred
+
+#### Sector A — SW-A (192.168.10.0/29)
+Máscara: `255.255.255.248` — Gateway: `192.168.10.1`
+| Dispositivo | IP | Puerto SW-A |
+|---|---|---|
+| PC1 | .2 | Fa0/1 |
+| PC2 | .3 | Fa0/2 |
+| PC3 | .4 | Fa0/3 |
+| IMP1 | .5 | Fa0/4 |
+| SW-A (mgmt) | .6 | — |
+
+#### Sector B — SW-B (192.168.10.8/29)
+Máscara: `255.255.255.248` — Gateway: `192.168.10.9`
+| Dispositivo | IP | Puerto SW-B |
+|---|---|---|
+| PC4 | .10 | Fa0/1 |
+| PC5 | .11 | Fa0/2 |
+| LAP1 | .12 | Fa0/3 |
+| LAP2 | .13 | Fa0/4 |
+| SW-B (mgmt) | .14 | — |
+
+#### Sector C — SW-C (192.168.10.16/29)
+Máscara: `255.255.255.248` — Gateway: `192.168.10.17`
+| Dispositivo | IP | Puerto SW-C |
+|---|---|---|
+| PC6 | .18 | Fa0/1 |
+| PC7 | .19 | Fa0/2 |
+| PC8 | .20 | Fa0/3 |
+| IMP2 | .21 | Fa0/4 |
+| SW-C (mgmt) | .22 | — |
+
+#### Área técnica — SW-PRINCIPAL (192.168.10.24/28)
+Máscara: `255.255.255.240` — Gateway: `192.168.10.25`
+| Dispositivo | IP | Puerto SW-PPAL |
+|---|---|---|
+| SRV | .26 | Fa0/1 |
+| MFP | .27 | Fa0/2 |
+| TEL-IP | .28 | Fa0/3 |
+| TV-CORP | .29 | Fa0/4 |
+| LAP3 | .30 | Fa0/5 |
+| IMP3 | .31 | Fa0/6 |
+| SW-PPAL (mgmt) | .32 | — |
+
+#### Enlaces entre switches (punto a punto /30)
+| Enlace | Subred | IP SW-A/B/C | IP SW-PRINCIPAL |
+|---|---|---|---|
+| SW-A ↔ SW-PRINCIPAL | 192.168.10.40/30 | .41 | .42 |
+| SW-B ↔ SW-PRINCIPAL | 192.168.10.44/30 | .45 | .46 |
+| SW-C ↔ SW-PRINCIPAL | 192.168.10.48/30 | .49 | .50 |
+
+> **Nota sobre enlaces:** los switches 2960-24TT son L2, no pueden ruteo entre VLANs. Las IPs de enlace son para gestión/administración. La conectividad entre subredes requiere un router o switch L3 (mejora futura documentada en el informe).
+
+### 6.2 Cómo configurar cada tipo de dispositivo
+
+#### PC (PC1–PC8) y TV-CORP
 1. Clic en el dispositivo → pestaña **Desktop**
 2. Clic en **IP Configuration**
-3. Marcar **Static** (arriba, no DHCP)
-4. IPv4 Address: `192.168.10.X` (según tabla)
-5. Subnet Mask: `255.255.255.0`
-6. Default Gateway: `192.168.10.1`
-7. Cerrar ventana — la IP queda guardada
-
-| PC | .11 | PC5 | .15 |
-| PC2 | .12 | PC6 | .16 |
-| PC3 | .13 | PC7 | .17 |
-| PC4 | .14 | PC8 | .18 |
-
-TV-CORP: `.40` (mismo método)
-
-### 6.2 Laptop (LAP1 a LAP3)
-1. Clic en la laptop → pestaña **Desktop**
-2. Clic en **IP Configuration**
 3. Marcar **Static**
-4. IPv4 Address: según tabla
-5. Subnet Mask: `255.255.255.0`
-6. Gateway: `192.168.10.1`
-7. **Importante:** si la laptop tiene el puerto inalámbrico activo, asegúrate en **Config → Wireless0** de que esté apagado (o deja solo FastEthernet0 prendido)
+4. IPv4 Address: IP según tabla de su sector
+5. Subnet Mask: según su subred (248, 240, etc. — lo dice cada tabla)
+6. Default Gateway: según su sector (el .1, .9, .17 o .25)
+7. DNS: `192.168.10.26` (SRV, opcional)
+8. Cerrar — queda guardado
 
-| LAP1 | .21 | LAP2 | .22 | LAP3 | .23 |
+#### Laptop (LAP1–LAP3)
+1. Desktop → **IP Configuration** → Static
+2. IP + Máscara + Gateway + DNS (según sector)
+3. **Verificar:** Config → **FastEthernet0** prendido, **Wireless0** apagado
 
-### 6.3 Servidor (SRV)
-1. Clic en SRV → pestaña **Desktop** → **IP Configuration**
-2. Static → IPv4: `192.168.10.10`, Mask: `255.255.255.0`, Gateway: `192.168.10.1`
+#### Servidor (SRV)
+1. Desktop → **IP Configuration** → Static
+2. IP: `192.168.10.26` · Mask: `255.255.255.240` · Gateway: `192.168.10.25`
 
-### 6.4 Impresora de red (IMP1, IMP2, IMP3) y MFP
-**Son diferentes a un PC — NO tienen Desktop. Se configura desde la pestaña Config:**
-1. Clic en la impresora → pestaña **Config** (no Desktop)
-2. En la lista izquierda, clic en **FastEthernet0**
-3. Marcar **Static**
-4. IPv4 Address: según tabla
-5. Subnet Mask: `255.255.255.0`
-6. Gateway: `192.168.10.1`
+#### Impresora y MFP (NO tienen Desktop)
+1. Pestaña **Config** → **FastEthernet0** → **Static**
+2. IP + Mask + Gateway según sector
+3. IMP1: Mask 248 · IMP2: Mask 248 · IMP3: Mask 240 · MFP: Mask 240
 
-| IMP1 (SW-A) | .31 | IMP2 (SW-C) | .32 | IMP3 (técnica) | .33 | MFP (técnica) | .34 |
+#### Teléfono IP (TEL-IP)
+1. Pestaña **Config** → **Interface** → **Static**
+2. IP: `192.168.10.28` · Mask: `255.255.255.240` · Gateway: `192.168.10.25`
 
-### 6.5 Teléfono IP (TEL-IP)
-**Nota:** si no lo energizaste en el Paso 3, hazlo ahora (Physical → arrastrar adaptador).
-1. Clic en TEL-IP → pestaña **Config** (no tiene Desktop)
-2. En la lista izquierda, clic en **Interface**
-3. Marcar **Static**
-4. IPv4 Address: `192.168.10.50`
-5. Subnet Mask: `255.255.255.0`
-6. Gateway: `192.168.10.1`
+### 6.3 Configurar IPs de enlace en switches (CLI)
 
-### 6.6 Resumen de IPs
+Cada switch necesita IP en VLAN 1 para gestión. Los enlaces /30 se configuran así:
 
-| Dispositivo | IP | Dónde se configura |
-|---|---|---|
-| SRV | 192.168.10.10 | Desktop → IP Configuration → Static |
-| PC1 | 192.168.10.11 | Desktop → IP Configuration → Static |
-| PC2 | 192.168.10.12 | Ídem |
-| PC3 | 192.168.10.13 | Ídem |
-| PC4 | 192.168.10.14 | Ídem |
-| PC5 | 192.168.10.15 | Ídem |
-| PC6 | 192.168.10.16 | Ídem |
-| PC7 | 192.168.10.17 | Ídem |
-| PC8 | 192.168.10.18 | Ídem |
-| LAP1 | 192.168.10.21 | Desktop → IP Configuration → Static |
-| LAP2 | 192.168.10.22 | Ídem |
-| LAP3 | 192.168.10.23 | Ídem |
-| IMP1 | 192.168.10.31 | Config → FastEthernet0 → Static |
-| IMP2 | 192.168.10.32 | Ídem |
-| IMP3 | 192.168.10.33 | Ídem |
-| MFP | 192.168.10.34 | Config → FastEthernet0 → Static |
-| TV-CORP | 192.168.10.40 | Desktop → IP Configuration → Static |
-| TEL-IP | 192.168.10.50 | Config → Interface → Static |
-
-### 6.7 IPs de administración de switches (opcional, suma nota)
-
-**Esto no es necesario para que la red funcione**, pero suma nota en el informe. Se hace desde la pestaña **CLI** de cada switch:
-
+**SW-PRINCIPAL:**
 ```
 enable
 configure terminal
 hostname SW-PRINCIPAL
 interface vlan 1
- ip address 192.168.10.2 255.255.255.0
+ ip address 192.168.10.32 255.255.255.240
+ no shutdown
+exit
+interface vlan 100
+ ip address 192.168.10.42 255.255.255.252
+ no shutdown
+exit
+interface vlan 200
+ ip address 192.168.10.46 255.255.255.252
+ no shutdown
+exit
+interface vlan 300
+ ip address 192.168.10.50 255.255.255.252
  no shutdown
 end
 copy running-config startup-config
 ```
 
-Repetir con los otros switches cambiando hostname e IP:
+**SW-A (acceso):**
+```
+enable
+configure terminal
+hostname SW-A
+interface vlan 1
+ ip address 192.168.10.6 255.255.255.248
+ no shutdown
+exit
+interface vlan 100
+ ip address 192.168.10.41 255.255.255.252
+ no shutdown
+end
+copy running-config startup-config
+```
 
-| Switch | IP | Hostname |
-|---|---|---|
-| SW-PRINCIPAL | 192.168.10.2 | SW-PRINCIPAL |
-| SW-A | 192.168.10.3 | SW-A |
-| SW-B | 192.168.10.4 | SW-B |
-| SW-C | 192.168.10.5 | SW-C |
+**SW-B:**
+```
+enable
+configure terminal
+hostname SW-B
+interface vlan 1
+ ip address 192.168.10.14 255.255.255.248
+ no shutdown
+exit
+interface vlan 200
+ ip address 192.168.10.45 255.255.255.252
+ no shutdown
+end
+copy running-config startup-config
+```
+
+**SW-C:**
+```
+enable
+configure terminal
+hostname SW-C
+interface vlan 1
+ ip address 192.168.10.22 255.255.255.248
+ no shutdown
+exit
+interface vlan 300
+ ip address 192.168.10.49 255.255.255.252
+ no shutdown
+end
+copy running-config startup-config
+```
+
+> **Para la simulación en Packet Tracer:** como los 2960 son L2, los dispositivos dentro de una misma subred se comunican bien, pero **entre subredes distintas no** sin un router. Si en el informe documentas el diseño de subredes y mencionas que la comunicación inter-VLAN queda como mejora futura con router-on-a-stick, es correcto. Para que la simulación funcione end-to-end, puedes configurar todo con la máscara /24 (subred única) y adjuntar el diseño de subredes como anexo del informe.
 
 ## 7. Servicios en SRV (opcional, suma calidad)
 SRV → Services: activar **HTTP** y **DNS** (`intranet.oficina.cl → 192.168.10.10`). Probar desde un PC: Desktop → Web Browser → `192.168.10.10`.
