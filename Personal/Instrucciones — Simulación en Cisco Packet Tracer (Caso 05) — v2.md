@@ -368,7 +368,7 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 | TV-CORP | 192.168.10.29 | Desktop → IP Configuration |
 | LAP3 | 192.168.10.30 | Desktop → IP Configuration |
 | IMP3 | 192.168.10.31 | Config → FastEthernet0 → Static |
-| SW-PRINCIPAL | 192.168.10.32 | CLI (terminal del switch) |
+| SW-PRINCIPAL | 192.168.10.33 | CLI (terminal del switch) |
 
 ---
 
@@ -574,7 +574,7 @@ enable
 configure terminal
 hostname SW-PRINCIPAL
 interface vlan 1
- ip address 192.168.10.32 255.255.255.240
+ ip address 192.168.10.33 255.255.255.240
  no shutdown
 end
 copy running-config startup-config
