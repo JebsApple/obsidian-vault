@@ -330,13 +330,13 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 
 #### Sector A (SW-A) — Máscara: 255.255.255.248 — Gateway: 192.168.10.1
 
-| Dispositivo | IP | ¿Cómo se configura? |
-|---|---|---|
-| PC1 | 192.168.10.2 | Desktop → IP Configuration |
-| PC2 | 192.168.10.3 | Desktop → IP Configuration |
-| PC3 | 192.168.10.4 | Desktop → IP Configuration |
-| IMP1 | 192.168.10.5 | Config → FastEthernet0 → Static |
-| SW-A | 192.168.10.6 | CLI (terminal del switch) |
+| Dispositivo | IP           | ¿Cómo se configura?             |
+| ----------- | ------------ | ------------------------------- |
+| PC1         | 192.168.10.2 | Desktop → IP Configuration      |
+| PC2         | 192.168.10.3 | Desktop → IP Configuration      |
+| PC3         | 192.168.10.4 | Desktop → IP Configuration      |
+| IMP1        | 192.168.10.5 | Config → FastEthernet0 → Static |
+| SW-A        | 192.168.10.6 | CLI (terminal del switch)       |
 
 #### Sector B (SW-B) — Máscara: 255.255.255.248 — Gateway: 192.168.10.9
 
