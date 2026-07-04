@@ -61,15 +61,15 @@ El IP Phone 7960 **aparece apagado por defecto**. No responderá ping sin esto:
 
 Red: `192.168.10.0/24` — Máscara: `255.255.255.0` — Gateway: `192.168.10.1`
 
-| Dispositivo | IP | Cómo se configura |
-|---|---|---|
-| SRV | .10 | Desktop → IP Configuration → Static |
-| PC1–PC8 | .11 – .18 | Ídem |
-| LAP1–LAP3 | .21 – .23 | Ídem |
-| IMP1–IMP3 | .31 – .33 | Config → FastEthernet0 |
-| MFP | .34 | Config → FastEthernet0 |
-| TV-CORP | .40 | Desktop → IP Configuration → Static |
-| TEL-IP | .50 | Config → Interface → Static |
+| Dispositivo | IP        | Cómo se configura                   |
+| ----------- | --------- | ----------------------------------- |
+| SRV         | .10       | Desktop → IP Configuration → Static |
+| PC1–PC8     | .11 – .18 | Ídem                                |
+| LAP1–LAP3   | .21 – .23 | Ídem                                |
+| IMP1–IMP3   | .31 – .33 | Config → FastEthernet0              |
+| MFP         | .34       | Config → FastEthernet0              |
+| TV-CORP     | .40       | Desktop → IP Configuration → Static |
+| TEL-IP      | .50       | Config → Interface → Static         |
 
 ### IPs de administración de switches (opcional, suma nota)
 En cada switch, pestaña CLI:
