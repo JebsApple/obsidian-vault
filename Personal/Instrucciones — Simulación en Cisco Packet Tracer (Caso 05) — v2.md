@@ -312,15 +312,15 @@ Estas conexiones usan los puertos **Gigabit** de los switches (van más rápido 
 
 La red general es `192.168.10.0/24`. Se divide en subredes más pequeñas para separar los sectores:
 
-| Sector | Subred | Máscara | Puerta de enlace (Gateway) |
-|---|---|---|---|
-| A (SW-A) | 192.168.10.0/29 | 255.255.255.248 | 192.168.10.1 |
-| B (SW-B) | 192.168.10.8/29 | 255.255.255.248 | 192.168.10.9 |
-| C (SW-C) | 192.168.10.16/29 | 255.255.255.248 | 192.168.10.17 |
-| Área técnica | 192.168.10.24/28 | 255.255.255.240 | 192.168.10.25 |
-| Enlace SA→PPAL | 192.168.10.40/30 | 255.255.255.252 | — |
-| Enlace SB→PPAL | 192.168.10.44/30 | 255.255.255.252 | — |
-| Enlace SC→PPAL | 192.168.10.48/30 | 255.255.255.252 | — |
+| Sector         | Subred           | Máscara         | Puerta de enlace (Gateway) |
+| -------------- | ---------------- | --------------- | -------------------------- |
+| A (SW-A)       | 192.168.10.0/29  | 255.255.255.248 | 192.168.10.1               |
+| B (SW-B)       | 192.168.10.8/29  | 255.255.255.248 | 192.168.10.9               |
+| C (SW-C)       | 192.168.10.16/29 | 255.255.255.248 | 192.168.10.17              |
+| Área técnica   | 192.168.10.24/28 | 255.255.255.240 | 192.168.10.25              |
+| Enlace SA→PPAL | 192.168.10.40/30 | 255.255.255.252 | —                          |
+| Enlace SB→PPAL | 192.168.10.44/30 | 255.255.255.252 | —                          |
+| Enlace SC→PPAL | 192.168.10.48/30 | 255.255.255.252 | —                          |
 
 **No te asustes con los números.** Cada equipo recibe una IP fija de su subred, según la tabla de más abajo. Solo debes copiar los valores.
 
