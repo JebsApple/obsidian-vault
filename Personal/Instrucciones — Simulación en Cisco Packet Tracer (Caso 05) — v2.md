@@ -1,236 +1,537 @@
-# Instrucciones — Simulación en Cisco Packet Tracer (Caso 05) — v2
+# Instrucciones — Simulación en Cisco Packet Tracer (Caso 05)
 
-Topología: **estrella jerárquica segmentada** — 3 switches de acceso → 1 switch principal. 18 puntos terminales. Red 192.168.10.0/24 **subneteada por sector** según hosts reales (bits robados exactos).
-
-> ⚠️ La imagen referencial del caso y la tabla del enunciado **no coinciden**: la imagen muestra 19 puntos, el enunciado define 18. La simulación se construye **según la tabla del profesor**.
+> Topología: **estrella jerárquica segmentada** — 3 switches de acceso conectados a 1 switch principal. Total: 18 equipos finales (puntos terminales). Red `192.168.10.0/24` dividida en subredes por sector.
 
 ---
 
-## 1. Crear proyecto
-- **File → New**, guardar como `Caso05_Herrera_Soncco.pkt`
-- **Options → Preferences →** marcar *Always Show Port Labels*
+## 0. Antes de empezar
 
-## 2. Agregar dispositivos
+Vas a construir esta red:
 
-| Categoría PT | Modelo | Cant. | Nombres |
-|---|---|---|---|
-| Network Devices → Switches | 2960-24TT | 1 | SW-PRINCIPAL |
-| Network Devices → Switches | 2960-24TT | 3 | SW-A, SW-B, SW-C |
-| End Devices | PC-PT | 8 | PC1 a PC8 |
-| End Devices | Laptop-PT | 3 | LAP1, LAP2, LAP3 |
-| End Devices | Printer-PT | 3 | IMP1, IMP2, IMP3 |
-| End Devices | Printer-PT | 1 | MFP |
-| End Devices | Server-PT | 1 | SRV |
-| End Devices | IP Phone 7960 | 1 | TEL-IP |
-| End Devices | PC-PT | 1 | TV-CORP |
+```
+ PC1 ─┐                  ┌─ SRV
+ PC2 ─┤                  ├─ MFP
+ PC3 ─┤   ┌──────────┐   ├─ TEL-IP
+ IMP1 ─┴───┤  SW-A    ├───┤─ TV-CORP
+           └────┬─────┘   ├─ LAP3
+                │         └─ IMP3
+ PC4 ─┐        │         ┌───────┐
+ PC5 ─┤   ┌────┴─────┐   │       │
+ LAP1 ─┴───┤  SW-B    ├───┤  SW-  │
+ LAP2 ─┘   └────┬─────┘   │ PRIN- │
+                │         │ CIPAL │
+ PC6 ─┐        │         │       │
+ PC7 ─┤   ┌────┴─────┐   └───────┘
+ PC8 ─┤   │          │
+ IMP2 ─┴───┤  SW-C    │
+           └──────────┘
+```
 
-Total: **18 puntos terminales**
+- **SW-A, SW-B, SW-C** son switches de acceso (concentran equipos de su sector)
+- **SW-PRINCIPAL** es el switch central (recibe a todos los sectores + área técnica)
 
-## 3. Rol de cada dispositivo en la red corporativa
+---
 
-| Dispositivo | Rol en la empresa | Función en la simulación |
+## 1. Crear el proyecto
+
+1. Abre **Cisco Packet Tracer**
+2. Arriba a la izquierda → menú **File** → clic **New**
+3. Menú **File** → **Save As...**
+4. En la ventana que aparece, escribe: `Caso05_Herrera_Soncco.pkt`
+5. Clic en **Save**
+
+---
+
+## 2. Configurar Packet Tracer para que muestre los puertos
+
+1. Arriba → menú **Options** → clic **Preferences**
+2. En la ventana que se abre, pestaña **Interface**
+3. Busca la opción **Always Show Port Labels** y márcala (clic en el cuadrito)
+4. Clic en el botón **OK** (abajo a la derecha)
+
+Ahora cuando pases el mouse por un dispositivo o lo conectes, verás el nombre del puerto (Fa0/1, Gig0/1, etc.)
+
+---
+
+## 3. Agregar los switches (primero los switches)
+
+A la izquierda de la pantalla hay una barra con íconos. El tercer ícono (de arriba hacia abajo) tiene forma de router o switch → se llama **Network Devices**.
+
+### SW-PRINCIPAL (1 unidad)
+
+1. Clic en el ícono **Network Devices** (tercero desde arriba)
+2. Aparece una fila con subcategorías. Clic en **Switches**
+3. Se despliega una lista de modelos. Busca **2960-24TT** (puedes escribir 2960 en el buscador)
+4. Arrástralo al lienzo (zona blanca grande del centro)
+5. Verás un switch con 24 puertos FastEthernet (abajo) y 2 puertos Gigabit (arriba)
+6. Aparece con el nombre `Switch0` por defecto
+
+### SW-A, SW-B, SW-C (3 unidades iguales)
+
+1. Repite el paso 3-4 arriba: arrastra otro **2960-24TT** al lienzo
+2. Repite **3 veces más** para tener 3 switches secundarios
+
+En total debes tener **4 switches** en el lienzo.
+
+### Renombrar los switches (ponerles nombres)
+
+Para cambiar el nombre de cada switch:
+
+1. Clic en el primer switch (el que está seleccionado, se marca con borde punteado)
+2. Arriba a la derecha hay un cuadro de texto que dice `Switch0`. Clic dentro y escribe: `SW-PRINCIPAL`
+3. Clic en cualquier parte del lienzo para confirmar
+4. Clic en el segundo switch → escribe `SW-A`
+5. Clic en el tercero → `SW-B`
+6. Clic en el cuarto → `SW-C`
+
+---
+
+## 4. Agregar los equipos finales (18 en total)
+
+A la izquierda, el último ícono (forma de computador) se llama **End Devices**. Clic ahí.
+
+Dentro de End Devices hay una fila con subcategorías. La primera es **End Devices** (por defecto).
+
+### PC1 a PC8 (8 estaciones de trabajo)
+
+1. En la lista de dispositivos finales, busca **PC-PT** (tiene forma de computador de escritorio)
+2. Arrástralo al lienzo
+3. Repite hasta tener 8 PC-PT
+4. Renómbralos: clic en cada uno → arriba a la derecha escribe `PC1`, `PC2`, ..., `PC8`
+
+### LAP1 a LAP3 (3 laptops)
+
+1. Busca **Laptop-PT** (tiene forma de notebook abierto)
+2. Arrástralo 3 veces
+3. Renómbralos: `LAP1`, `LAP2`, `LAP3`
+
+### IMP1, IMP2, IMP3 (3 impresoras de red)
+
+1. Busca **Printer-PT** (tiene forma de impresora)
+2. Arrástralo 3 veces
+3. Renómbralos: `IMP1`, `IMP2`, `IMP3`
+
+### MFP (1 multifuncional)
+
+1. Busca **Printer-PT** nuevamente
+2. Arrástralo 1 vez
+3. Renómbralo: `MFP`
+
+### SRV (1 servidor)
+
+1. Busca **Server-PT** (tiene forma de torre de servidor)
+2. Arrástralo 1 vez
+3. Renómbralo: `SRV`
+
+### TEL-IP (1 teléfono IP)
+
+1. Busca **IP Phone 7960** (tiene forma de teléfono)
+2. Arrástralo 1 vez
+3. Renómbralo: `TEL-IP`
+
+### TV-CORP (1 TV corporativa — se simula con PC-PT)
+
+1. Busca **PC-PT** nuevamente
+2. Arrástralo 1 vez
+3. Renómbralo: `TV-CORP`
+
+### Verificación final
+
+Debes tener en el lienzo:
+- **4 switches** (SW-PRINCIPAL, SW-A, SW-B, SW-C)
+- **8 PC-PT** (PC1 a PC8)
+- **3 Laptop-PT** (LAP1 a LAP3)
+- **3 Printer-PT** (IMP1, IMP2, IMP3)
+- **1 Printer-PT** (MFP) → sí, son 4 Printer-PT en total
+- **1 Server-PT** (SRV)
+- **1 IP Phone 7960** (TEL-IP)
+- **1 PC-PT** (TV-CORP)
+
+Total: **22 dispositivos** (4 switches + 18 terminales)
+
+---
+
+## 5. Posicionar los dispositivos en el lienzo
+
+Arrastra cada dispositivo para ordenarlos visualmente. Esta distribución ayuda a entender la topología:
+
+| ¿Dónde? | Dispositivos |
+|---|---|
+| **Arriba a la izquierda** | SW-A, PC1, PC2, PC3, IMP1 |
+| **Centro izquierda** | SW-B, PC4, PC5, LAP1, LAP2 |
+| **Abajo a la izquierda** | SW-C, PC6, PC7, PC8, IMP2 |
+| **Derecha** | SW-PRINCIPAL, SRV, MFP, TEL-IP, TV-CORP, LAP3, IMP3 |
+
+Deja espacio entre los dispositivos para poder hacer las conexiones después (unos 5-10 cm en pantalla).
+
+---
+
+## 6. Encender el teléfono IP (paso IMPORTANTE que muchos olvidan)
+
+El teléfono IP Phone 7960 en Packet Tracer **aparece apagado por defecto**. Hay que encenderlo manualmente:
+
+1. **Clic en TEL-IP** → se abre una ventana con 3 pestañas arriba: **Physical**, **Config**, **Desktop**
+2. Clic en la pestaña **Physical** (primera)
+3. Verás la imagen del teléfono. A la derecha del teléfono hay una imagen de un **cubo negro con un cable** (es el adaptador de corriente)
+4. **Arrastra ese cubo negro** al **puerto redondo** que está en la parte trasera del teléfono (en la imagen)
+5. Al soltarlo, el teléfono debería encenderse (la pantalla se ilumina)
+6. Si no se enciende, repite: vuelve a arrastrar el cubo al puerto redondo. A veces hay que hacerlo 2-3 veces
+7. **Importante al cablear después**: el teléfono tiene 2 puertos RJ45. El de arriba dice **"Switch"**, el de abajo dice **"PC"**. Siempre usa **"Switch"**
+
+---
+
+## 7. Distribución de puertos y roles por dispositivo
+
+### ¿Qué hace cada dispositivo en esta empresa?
+
+| Dispositivo | Rol real | ¿Para qué se usa en la simulación? |
 |---|---|---|
-| PC1–PC8 | Estaciones de trabajo de escritorio (usuarios por sector) | Generan tráfico, prueban conectividad, acceden a servidor |
-| LAP1–LAP3 | Equipos portátiles corporativos (usuarios móviles internos) | Misma función que PC pero en formato laptop |
-| IMP1–IMP3 | Impresoras de red (una por sector de acceso) | Servicio de impresión compartido por sector |
-| MFP | Equipo multifuncional central (impresora + scanner + copiadora) | Servicio de impresión central en área técnica |
-| TEL-IP | Teléfono IP corporativo (VoIP) | Servicio de telefonía sobre la red IP |
-| SRV | Servidor de intranet corporativa | Provee HTTP (página interna) y DNS (resolución `intranet.oficina.cl`) |
-| TV-CORP | Monitor informativo / TV corporativa (visualización en red) | Equipo de despliegue visual conectado a la red (se simula con PC-PT) |
-| SW-A/B/C | Switches de acceso secundarios | Concentran los puntos de cada sector y se uplinkean al switch principal |
-| SW-PRINCIPAL | Switch principal de concentración (en rack) | Concentra todos los sectores y equipos del área técnica |
+| **PC1 a PC8** | Escritorio de usuario (Office, navegación) | Generar pings de prueba, acceder al servidor web |
+| **LAP1 a LAP3** | Notebook corporativo (movilidad interna) | Lo mismo que un PC pero en laptop |
+| **IMP1, IMP2, IMP3** | Impresora de red de sector (compartida) | Servicio de impresión local por sector |
+| **MFP** | Impresora multifuncional central (imprime, escanea, copia) | Equipo grande en área técnica |
+| **TEL-IP** | Teléfono IP corporativo (VoIP) | Llamadas sobre la red IP |
+| **SRV** | Servidor de intranet | Página web interna + DNS de la empresa |
+| **TV-CORP** | TV/monitor informativo en red | Muestra información corporativa |
+| **SW-A, SW-B, SW-C** | Switch de acceso (en cada sector) | Conecta los equipos de su sector |
+| **SW-PRINCIPAL** | Switch central (en el rack) | Conecta todos los sectores y el área técnica |
 
-## 4. Encender TEL-IP (error #1 del caso)
-El IP Phone 7960 **aparece apagado por defecto**. No responderá ping sin esto:
-1. Clic en TEL-IP → pestaña **Physical**
-2. Abajo a la derecha hay un **cubo negro con cable** (adaptador de corriente)
-3. **Arrastrarlo** al **puerto redondo** del panel trasero del teléfono
-4. La pantalla debe iluminarse — si no, repetir el arrastre
-5. Al cablear, usar el puerto RJ45 etiquetado **"Switch"** (no "PC")
-6. IP: **Config → Interface** → Static → `192.168.10.28 /255.255.255.240`
+---
 
-## 5. Distribución en el lienzo
+## 8. Cableado — conectar todo con cables
 
-| Sector | Switch | Dispositivos |
-|---|---|---|
-| A (superior) | SW-A | PC1, PC2, PC3, IMP1 |
-| B (central) | SW-B | PC4, PC5, LAP1, LAP2 |
-| C (inferior) | SW-C | PC6, PC7, PC8, IMP2 |
-| Área técnica (derecha) | SW-PRINCIPAL | SRV, MFP, TEL-IP, TV-CORP, LAP3, IMP3 |
+### 8.1 Elegir el tipo de cable correcto
 
-## 6. Cableado
+En Packet Tracer, abajo a la izquierda hay una sección llamada **Connections** (ícono de rayo o cable). Clic ahí.
 
-### 6.1 Dispositivos finales → switch
-- Cable: **Copper Straight-Through**
-- Puertos: **FastEthernet0/1–0/4** en SW-A/B/C, **Fa0/1–0/6** en SW-PRINCIPAL
+Verás varios tipos de cable. El que usarás casi siempre es:
 
-### 6.2 Enlaces entre switches (troncales)
-- SW-A **Gig0/1** → SW-PRINCIPAL **Gig0/1**
-- SW-B **Gig0/1** → SW-PRINCIPAL **Gig0/2**
-- SW-C **Gig0/1** → SW-PRINCIPAL **Fa0/24**
-- Si el enlace queda **rojo** → cambiar a **Copper Cross-Over**
-- Si queda **naranjo** → esperar ~30s (STP)
+- **Copper Straight-Through** → cable recto. Puerto gris con 8 pines. Es el **más común**
+- **Copper Cross-Over** → cable cruzado. Puerto con dos colores. Solo si el recto no funciona (enlace rojo)
 
-## 7. Diseño de subredes (subnetting con bits robados exactos)
+### 8.2 Cómo conectar dos dispositivos (método general)
 
-Se parte de `192.168.10.0/24` y se subnetworka asignando **exactamente los hosts que cada sector necesita**, sin desperdicio.
+1. Clic en el cable **Copper Straight-Through** (en Connections)
+2. Clic en el **primer dispositivo** (ej: PC1)
+3. Al hacer clic, se abre una lista de puertos. Clic en el puerto correcto (ej: **FastEthernet0** o **Fa0**)
+4. Aparece un cable siguiendo el mouse. Lleva el mouse al **segundo dispositivo** y clic
+5. Se abre la lista de puertos del segundo dispositivo. Clic en el puerto correcto
+6. Aparece el cable conectado entre ambos
 
-### 7.0 Cálculo de subredes
+### 8.3 Conectar cada equipo a su switch
 
-| Sector | Hosts | Máscara | Bits robados | Red | Broadcast | Rango útil |
-|---|---|---|---|---|---|---|
-| A (SW-A) | 4 | 255.255.255.248 | 3 bits → /29 | .0/29 | .7 | .1 – .6 |
-| B (SW-B) | 4 | 255.255.255.248 | 3 bits → /29 | .8/29 | .15 | .9 – .14 |
-| C (SW-C) | 4 | 255.255.255.248 | 3 bits → /29 | .16/29 | .23 | .17 – .22 |
-| Área técnica | 6 | 255.255.255.240 | 4 bits → /28 | .24/28 | .39 | .25 – .38 |
-| Enlace SA-PPAL | 2 | 255.255.255.252 | 6 bits → /30 | .40/30 | .43 | .41 – .42 |
-| Enlace SB-PPAL | 2 | 255.255.255.252 | 6 bits → /30 | .44/30 | .47 | .45 – .46 |
-| Enlace SC-PPAL | 2 | 255.255.255.252 | 6 bits → /30 | .48/30 | .51 | .49 – .50 |
+Cada sector tiene sus propios equipos. Usa cable **Copper Straight-Through** para todo.
 
-### 7.1 Asignación por subred
+#### Sector A (SW-A)
 
-#### Sector A — SW-A (192.168.10.0/29)
-Máscara: `255.255.255.248` — Gateway: `192.168.10.1`
+Conecta en este orden:
 
-| Dispositivo | Rol | IP | Puerto SW-A | Método |
-|---|---|---|---|---|
-| PC1 | Estación trabajo | .2 | Fa0/1 | Desktop → IP Config |
-| PC2 | Estación trabajo | .3 | Fa0/2 | Desktop → IP Config |
-| PC3 | Estación trabajo | .4 | Fa0/3 | Desktop → IP Config |
-| IMP1 | Impresora red | .5 | Fa0/4 | Config → FastEthernet0 → Static |
-| SW-A (mgmt) | Switch acceso | .6 | — | CLI o Config → VLAN1 |
-
-#### Sector B — SW-B (192.168.10.8/29)
-Máscara: `255.255.255.248` — Gateway: `192.168.10.9`
-
-| Dispositivo | Rol | IP | Puerto SW-B | Método |
-|---|---|---|---|---|
-| PC4 | Estación trabajo | .10 | Fa0/1 | Desktop → IP Config |
-| PC5 | Estación trabajo | .11 | Fa0/2 | Desktop → IP Config |
-| LAP1 | Portátil | .12 | Fa0/3 | Desktop → IP Config |
-| LAP2 | Portátil | .13 | Fa0/4 | Desktop → IP Config |
-| SW-B (mgmt) | Switch acceso | .14 | — | CLI o Config → VLAN1 |
-
-#### Sector C — SW-C (192.168.10.16/29)
-Máscara: `255.255.255.248` — Gateway: `192.168.10.17`
-
-| Dispositivo | Rol | IP | Puerto SW-C | Método |
-|---|---|---|---|---|
-| PC6 | Estación trabajo | .18 | Fa0/1 | Desktop → IP Config |
-| PC7 | Estación trabajo | .19 | Fa0/2 | Desktop → IP Config |
-| PC8 | Estación trabajo | .20 | Fa0/3 | Desktop → IP Config |
-| IMP2 | Impresora red | .21 | Fa0/4 | Config → FastEthernet0 → Static |
-| SW-C (mgmt) | Switch acceso | .22 | — | CLI o Config → VLAN1 |
-
-#### Área técnica — SW-PRINCIPAL (192.168.10.24/28)
-Máscara: `255.255.255.240` — Gateway: `192.168.10.25`
-
-| Dispositivo | Rol | IP | Puerto SW-PPAL | Método |
-|---|---|---|---|---|
-| SRV | Servidor intranet | .26 | Fa0/1 | Desktop → IP Config |
-| MFP | Multifuncional | .27 | Fa0/2 | Config → FastEthernet0 → Static |
-| TEL-IP | Teléfono IP | .28 | Fa0/3 | Config → Interface → Static |
-| TV-CORP | TV corporativa | .29 | Fa0/4 | Desktop → IP Config |
-| LAP3 | Portátil | .30 | Fa0/5 | Desktop → IP Config |
-| IMP3 | Impresora red | .31 | Fa0/6 | Config → FastEthernet0 → Static |
-| SW-PPAL (mgmt) | Switch principal | .32 | — | CLI o Config → VLAN1 |
-
-#### Enlaces entre switches (punto a punto /30)
-
-| Enlace | Subred | IP SW acceso | IP SW-PRINCIPAL |
+| Desde | Puerto | Hacia | Puerto |
 |---|---|---|---|
-| SW-A ↔ SW-PRINCIPAL | 192.168.10.40/30 | .41 | .42 |
-| SW-B ↔ SW-PRINCIPAL | 192.168.10.44/30 | .45 | .46 |
-| SW-C ↔ SW-PRINCIPAL | 192.168.10.48/30 | .49 | .50 |
+| PC1 | FastEthernet0 | SW-A | FastEthernet0/1 |
+| PC2 | FastEthernet0 | SW-A | FastEthernet0/2 |
+| PC3 | FastEthernet0 | SW-A | FastEthernet0/3 |
+| IMP1 | FastEthernet0 | SW-A | FastEthernet0/4 |
 
-> **Nota sobre enlaces:** los switches 2960-24TT son L2, no soportan ruteo entre VLANs. Las IPs de enlace son para gestión. La conectividad entre subredes requiere un router o switch L3 (mejora futura).
+**Paso a paso para PC1 → SW-A:**
+1. Clic en **Copper Straight-Through**
+2. Clic en **PC1**
+3. En la lista, clic en **FastEthernet0**
+4. Aparece cable siguiendo el mouse. Llévalo hasta **SW-A** y clic
+5. En la lista del switch, clic en **FastEthernet0/1**
+6. Ya está conectado. Verás un punto **verde** o **naranjo** en los extremos
+7. Repite para PC2→Fa0/2, PC3→Fa0/3, IMP1→Fa0/4
 
-### 7.2 Cómo configurar cada tipo de dispositivo — paso a paso
+#### Sector B (SW-B)
 
-#### PC (PC1 a PC8) y TV-CORP — solo GUI
-**Método: Desktop → IP Configuration**
+| Desde | Puerto | Hacia | Puerto |
+|---|---|---|---|
+| PC4 | FastEthernet0 | SW-B | FastEthernet0/1 |
+| PC5 | FastEthernet0 | SW-B | FastEthernet0/2 |
+| LAP1 | FastEthernet0 | SW-B | FastEthernet0/3 |
+| LAP2 | FastEthernet0 | SW-B | FastEthernet0/4 |
 
-1. Clic en el dispositivo → pestaña **Desktop**
-2. Clic en **IP Configuration**
-3. Marcar **Static**
-4. IPv4 Address: IP según tabla de su sector
-5. Subnet Mask: según su subred (`248` para /29, `240` para /28)
-6. Default Gateway: según su sector (`.1`, `.9`, `.17` o `.25`)
-7. DNS: `192.168.10.26` (SRV, opcional)
-8. Cerrar — queda guardado
+Conecta uno por uno igual que arriba.
 
-#### Laptop (LAP1 a LAP3) — solo GUI
-**Método: Desktop → IP Configuration**
+#### Sector C (SW-C)
 
-1. Desktop → **IP Configuration** → Static
-2. IP + Máscara + Gateway + DNS (según sector)
-3. Verificar: Config → **FastEthernet0** prendido (verde), **Wireless0** apagado
-4. Si Wireless0 está encendido, hacer clic en el botón **Off** (puerto circular) en Physical
+| Desde | Puerto | Hacia | Puerto |
+|---|---|---|---|
+| PC6 | FastEthernet0 | SW-C | FastEthernet0/1 |
+| PC7 | FastEthernet0 | SW-C | FastEthernet0/2 |
+| PC8 | FastEthernet0 | SW-C | FastEthernet0/3 |
+| IMP2 | FastEthernet0 | SW-C | FastEthernet0/4 |
 
-#### Servidor (SRV) — solo GUI
-**Método: Desktop → IP Configuration**
+#### Área técnica (SW-PRINCIPAL)
 
-1. Desktop → **IP Configuration** → Static
-2. IP: `192.168.10.26` · Mask: `255.255.255.240` · Gateway: `192.168.10.25`
-3. DNS: `192.168.10.26` (se apunta a sí mismo)
+| Desde | Puerto | Hacia | Puerto |
+|---|---|---|---|
+| SRV | FastEthernet0 | SW-PRINCIPAL | FastEthernet0/1 |
+| MFP | FastEthernet0 | SW-PRINCIPAL | FastEthernet0/2 |
+| TEL-IP | **Switch** (no "PC") | SW-PRINCIPAL | FastEthernet0/3 |
+| TV-CORP | FastEthernet0 | SW-PRINCIPAL | FastEthernet0/4 |
+| LAP3 | FastEthernet0 | SW-PRINCIPAL | FastEthernet0/5 |
+| IMP3 | FastEthernet0 | SW-PRINCIPAL | FastEthernet0/6 |
 
-#### Impresora y MFP — solo GUI (NO tienen Desktop)
-**Método: Config → FastEthernet0 → Static**
+⚠️ **Para TEL-IP**: cuando hagas clic en TEL-IP para conectarlo, verás 2 puertos:
+- **FastEthernet0** → NO usar
+- **FastEthernet0/1 (Switch)** → **este es el correcto**
 
-1. Clic en IMPx/MFP → pestaña **Config**
-2. En la columna izquierda, clic en **FastEthernet0**
-3. Marcar **Static** (arriba)
-4. IP + Mask + Gateway según sector
-5. IMP1 (A): Mask `248` · IMP2 (C): Mask `248` · IMP3: Mask `240` · MFP: Mask `240`
+### 8.4 Conectar los switches entre sí (enlaces troncales)
 
-#### Teléfono IP (TEL-IP) — solo GUI
-**Método: Config → Interface → Static**
+Estas conexiones usan los puertos **Gigabit** de los switches (van más rápido y es más realista).
 
-1. Clic en TEL-IP → pestaña **Config**
-2. En columna izquierda, clic en **Interface**
-3. Marcar **Static**
-4. IP: `192.168.10.28` · Mask: `255.255.255.240` · Gateway: `192.168.10.25`
+| Desde | Puerto | Hacia | Puerto |
+|---|---|---|---|
+| SW-A | **GigabitEthernet0/1** | SW-PRINCIPAL | **GigabitEthernet0/1** |
+| SW-B | **GigabitEthernet0/1** | SW-PRINCIPAL | **GigabitEthernet0/2** |
+| SW-C | **GigabitEthernet0/1** | SW-PRINCIPAL | **FastEthernet0/24** |
 
-#### Switch (SW-A, SW-B, SW-C, SW-PRINCIPAL) — dos métodos
+**Paso a paso para SW-A → SW-PRINCIPAL:**
+1. Clic en **Copper Straight-Through**
+2. Clic en **SW-A**
+3. En la lista, elige **GigabitEthernet0/1** (está arriba separado de los FastEthernet)
+4. Cable al mouse. Clic en **SW-PRINCIPAL**
+5. Elige **GigabitEthernet0/1**
 
-**Opción A — GUI (Config → VLAN 1):**
-1. Clic en switch → pestaña **Config**
-2. Columna izquierda → **VLAN 1** (dentro de INTERFACE)
-3. Marcar **Static**
-4. Ingresar IP + Mask según tabla
-5. Clic en **FastEthernet0/1–24** uno por uno → **Port Status: On** (no son POE pero deben estar activos)
+**⚠️ Si al conectar el cable aparece ROJO:**
+1. Borra el cable (clic derecho sobre él → **Delete**)
+2. Usa cable **Copper Cross-Over** en vez de Straight-Through
+3. Conecta los mismos puertos de nuevo
 
-**Opción B — CLI (terminal):**
-1. Clic en switch → pestaña **CLI**
-2. Escribir comandos Cisco IOS directamente
+**⚠️ Si al conectar aparece NARANJO:**
+1. No es error. Espera unos 30 segundos
+2. El switch está haciendo STP (Spanning Tree Protocol) para evitar bucles
+3. Debería ponerse verde automáticamente
 
-### 7.3 Configuración CLI completa de switches
+---
 
-**SW-PRINCIPAL:**
+## 9. Asignar direcciones IP (configurar la red)
+
+### 9.1 Las subredes
+
+La red general es `192.168.10.0/24`. Se divide en subredes más pequeñas para separar los sectores:
+
+| Sector | Subred | Máscara | Puerta de enlace (Gateway) |
+|---|---|---|---|
+| A (SW-A) | 192.168.10.0/29 | 255.255.255.248 | 192.168.10.1 |
+| B (SW-B) | 192.168.10.8/29 | 255.255.255.248 | 192.168.10.9 |
+| C (SW-C) | 192.168.10.16/29 | 255.255.255.248 | 192.168.10.17 |
+| Área técnica | 192.168.10.24/28 | 255.255.255.240 | 192.168.10.25 |
+| Enlace SA→PPAL | 192.168.10.40/30 | 255.255.255.252 | — |
+| Enlace SB→PPAL | 192.168.10.44/30 | 255.255.255.252 | — |
+| Enlace SC→PPAL | 192.168.10.48/30 | 255.255.255.252 | — |
+
+**No te asustes con los números.** Cada equipo recibe una IP fija de su subred, según la tabla de más abajo. Solo debes copiar los valores.
+
+### 9.2 Tabla completa de IPs por dispositivo
+
+Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gestión administrativa (no la necesitas para que la red funcione entre los equipos).
+
+#### Sector A (SW-A) — Máscara: 255.255.255.248 — Gateway: 192.168.10.1
+
+| Dispositivo | IP | ¿Cómo se configura? |
+|---|---|---|
+| PC1 | 192.168.10.2 | Desktop → IP Configuration |
+| PC2 | 192.168.10.3 | Desktop → IP Configuration |
+| PC3 | 192.168.10.4 | Desktop → IP Configuration |
+| IMP1 | 192.168.10.5 | Config → FastEthernet0 → Static |
+| SW-A | 192.168.10.6 | CLI (terminal del switch) |
+
+#### Sector B (SW-B) — Máscara: 255.255.255.248 — Gateway: 192.168.10.9
+
+| Dispositivo | IP | ¿Cómo se configura? |
+|---|---|---|
+| PC4 | 192.168.10.10 | Desktop → IP Configuration |
+| PC5 | 192.168.10.11 | Desktop → IP Configuration |
+| LAP1 | 192.168.10.12 | Desktop → IP Configuration |
+| LAP2 | 192.168.10.13 | Desktop → IP Configuration |
+| SW-B | 192.168.10.14 | CLI (terminal del switch) |
+
+#### Sector C (SW-C) — Máscara: 255.255.255.248 — Gateway: 192.168.10.17
+
+| Dispositivo | IP | ¿Cómo se configura? |
+|---|---|---|
+| PC6 | 192.168.10.18 | Desktop → IP Configuration |
+| PC7 | 192.168.10.19 | Desktop → IP Configuration |
+| PC8 | 192.168.10.20 | Desktop → IP Configuration |
+| IMP2 | 192.168.10.21 | Config → FastEthernet0 → Static |
+| SW-C | 192.168.10.22 | CLI (terminal del switch) |
+
+#### Área técnica (SW-PRINCIPAL) — Máscara: 255.255.255.240 — Gateway: 192.168.10.25
+
+| Dispositivo | IP | ¿Cómo se configura? |
+|---|---|---|
+| SRV | 192.168.10.26 | Desktop → IP Configuration |
+| MFP | 192.168.10.27 | Config → FastEthernet0 → Static |
+| TEL-IP | 192.168.10.28 | Config → Interface → Static |
+| TV-CORP | 192.168.10.29 | Desktop → IP Configuration |
+| LAP3 | 192.168.10.30 | Desktop → IP Configuration |
+| IMP3 | 192.168.10.31 | Config → FastEthernet0 → Static |
+| SW-PRINCIPAL | 192.168.10.32 | CLI (terminal del switch) |
+
+---
+
+## 10. Cómo configurar cada tipo de dispositivo (paso a paso)
+
+### 10.1 Configurar un PC (PC1 a PC8, TV-CORP)
+
+**¿Dónde?** En el mismo dispositivo PC, desde la ventana que se abre al hacer clic.
+
+**Pasos:**
+
+1. **Clic en el PC que quieres configurar** (ej: PC1)
+2. Se abre una ventana con 3 pestañas arriba: **Physical**, **Config**, **Desktop**
+3. Clic en la pestaña **Desktop**
+4. Aparece una pantalla con íconos (como un escritorio de computador)
+5. Busca el ícono que dice **IP Configuration** y clic en él
+6. Se abre una ventana nueva. Arriba dice **IP Configuration**
+7. Verás "DHCP" seleccionado por defecto (significa que asigna IP automática). **Debes cambiarlo**
+8. Clic en el círculo **Static** (abajo de DHCP)
+9. Ahora los campos se vuelven editables (blancos):
+
+| Campo | Escribir |
+|---|---|
+| **IPv4 Address** | IP según tabla de arriba |
+| **Subnet Mask** | 255.255.255.248 (en sector A/B/C) o 255.255.255.240 (área técnica) |
+| **Default Gateway** | IP del gateway de su sector (.1, .9, .17 o .25) |
+| **DNS Server** | 192.168.10.26 (es la IP del SRV, opcional) |
+
+10. **Ejemplo PC1** (Sector A): escribe `192.168.10.2`, Tab, `255.255.255.248`, Tab, `192.168.10.1`, Tab, `192.168.10.26`
+11. Cuando termines, cierra la ventana (clic en la X arriba a la derecha)
+12. La IP queda guardada automáticamente
+
+**Repite para cada PC y TV-CORP.** Son 9 dispositivos en total.
+
+### 10.2 Configurar una Laptop (LAP1 a LAP3)
+
+**Pasos:**
+
+1. **Clic en la laptop** → se abre la ventana
+2. Clic en pestaña **Desktop**
+3. Clic en **IP Configuration**
+4. Marcar **Static**
+5. Escribir IP, Máscara, Gateway y DNS según su sector (igual que PC)
+6. **Pero hay un problema**: las laptops en Packet Tracer a veces tienen el WiFi encendido y el cable de red apagado
+7. Para verificarlo, cierra IP Configuration y en Desktop busca **Terminal** o vuelve a Config
+8. En realidad: cierra la ventana de IP Config. Clic en pestaña **Config** (no Desktop)
+9. En la columna izquierda, busca **FastEthernet0** y clic
+10. Al lado derecho debe decir **Port Status: On** (encendido). Si está en Off, clic en el botón **On**
+11. Luego clic en **Wireless0** en la columna izquierda
+12. Al lado derecho debe decir **Port Status: Off** (apagado). Si está en On, clic en **Off**
+13. Si está en Off, ok. Si no puedes apagarlo desde Config, ve a **Physical** y haz clic en el botón físico de la laptop (verde) hasta que apague la luz del WiFi
+
+**Resumen para laptops: FastEthernet0 = On, Wireless0 = Off**
+
+### 10.3 Configurar el Servidor (SRV)
+
+1. Clic en **SRV**
+2. Pestaña **Desktop**
+3. Clic en **IP Configuration**
+4. Marcar **Static**
+5. Escribir:
+   - IPv4 Address: `192.168.10.26`
+   - Subnet Mask: `255.255.255.240`
+   - Default Gateway: `192.168.10.25`
+   - DNS Server: `192.168.10.26` (es él mismo)
+6. Cerrar
+
+### 10.4 Configurar una Impresora o MFP (IMP1, IMP2, IMP3, MFP)
+
+**Las impresoras NO tienen escritorio (Desktop). Solo tienen Config.**
+
+**Pasos:**
+
+1. Clic en la impresora (ej: IMP1)
+2. Pestaña **Config** (la del medio)
+3. En la columna izquierda (INTERFACE), busca **FastEthernet0** y clic
+4. A la derecha aparece **IP Configuration**. Arriba dice **DHCP** por defecto
+5. Clic en **Static** (el círculo)
+6. Aparecen los campos. Escribir:
+   - **IP Address**: IP según tabla
+   - **Subnet Mask**: 255.255.255.248 (IMP1, IMP2) o 255.255.255.240 (IMP3, MFP)
+   - **Default Gateway**: IP del gateway de su sector
+7. Cerrar
+
+**Ejemplo IMP1 (Sector A):** IP = `192.168.10.5`, Mask = `255.255.255.248`, Gateway = `192.168.10.1`
+
+### 10.5 Configurar el Teléfono IP (TEL-IP)
+
+**Pasos:**
+
+1. Clic en **TEL-IP**
+2. Pestaña **Config**
+3. En columna izquierda, busca **Interface** y clic
+4. A la derecha aparece **IP Configuration**. Clic en **Static**
+5. Escribir:
+   - **IP Address**: `192.168.10.28`
+   - **Subnet Mask**: `255.255.255.240`
+   - **Default Gateway**: `192.168.10.25`
+6. Cerrar
+
+### 10.6 Configurar los switches (SW-A, SW-B, SW-C, SW-PRINCIPAL)
+
+Los switches tienen **dos formas** de configurarse. Te explico las dos.
+
+#### Opción 10.6A — Por CLI (recomendada, más rápida)
+
+1. Clic en el switch (ej: SW-A)
+2. Pestaña **CLI** (la tercera, al lado de Config)
+3. Verás una pantalla negra con texto. Presiona **Enter** varias veces hasta que aparezca `Switch>`
+4. El `>` significa que estás en modo usuario (solo puedes ver, no configurar)
+5. Escribe exactamente estos comandos (presiona Enter después de cada línea):
+
 ```
 enable
+```
+
+Aparece `Switch#` (el # significa modo privilegiado, puedes configurar).
+
+```
 configure terminal
-hostname SW-PRINCIPAL
+```
+
+Aparece `Switch(config)#` (modo configuración global).
+
+```
+hostname SW-A
+```
+
+Verás que el prompt cambia a `SW-A(config)#`. El switch ahora se llama SW-A.
+
+```
 interface vlan 1
- ip address 192.168.10.32 255.255.255.240
- no shutdown
-exit
-interface vlan 100
- ip address 192.168.10.42 255.255.255.252
- no shutdown
-exit
-interface vlan 200
- ip address 192.168.10.46 255.255.255.252
- no shutdown
-exit
-interface vlan 300
- ip address 192.168.10.50 255.255.255.252
- no shutdown
+```
+
+Aparece `SW-A(config-if)#`. Estás configurando la interfaz virtual VLAN 1 (la IP de gestión).
+
+```
+ip address 192.168.10.6 255.255.255.248
+```
+
+Le asignas la IP al switch.
+
+```
+no shutdown
+```
+
+Esto "enciende" la interfaz (importante).
+
+```
 end
+```
+
+Vuelve a `SW-A#` (modo privilegiado).
+
+```
 copy running-config startup-config
 ```
 
-**SW-A (acceso):**
+Pregunta `Destination filename [startup-config]?`. Presiona **Enter** directo.
+
+Ya está. La configuración quedó guardada.
+
+**Comandos completos para SW-A:**
 ```
 enable
 configure terminal
@@ -238,15 +539,12 @@ hostname SW-A
 interface vlan 1
  ip address 192.168.10.6 255.255.255.248
  no shutdown
-exit
-interface vlan 100
- ip address 192.168.10.41 255.255.255.252
- no shutdown
 end
 copy running-config startup-config
 ```
+(Enter en la pregunta)
 
-**SW-B:**
+**Comandos completos para SW-B:**
 ```
 enable
 configure terminal
@@ -254,15 +552,11 @@ hostname SW-B
 interface vlan 1
  ip address 192.168.10.14 255.255.255.248
  no shutdown
-exit
-interface vlan 200
- ip address 192.168.10.45 255.255.255.252
- no shutdown
 end
 copy running-config startup-config
 ```
 
-**SW-C:**
+**Comandos completos para SW-C:**
 ```
 enable
 configure terminal
@@ -270,93 +564,183 @@ hostname SW-C
 interface vlan 1
  ip address 192.168.10.22 255.255.255.248
  no shutdown
-exit
-interface vlan 300
- ip address 192.168.10.49 255.255.255.252
+end
+copy running-config startup-config
+```
+
+**Comandos completos para SW-PRINCIPAL:**
+```
+enable
+configure terminal
+hostname SW-PRINCIPAL
+interface vlan 1
+ ip address 192.168.10.32 255.255.255.240
  no shutdown
 end
 copy running-config startup-config
 ```
 
-> **Para la simulación en Packet Tracer:** como los 2960 son L2, los dispositivos dentro de una misma subred se comunican bien, pero **entre subredes distintas no** sin un router. Para que la simulación funcione end-to-end, configura todo con máscara /24 (subred única) y adjunta el diseño de subredes como anexo del informe.
+#### Opción 10.6B — Por GUI (sin comandos)
 
-### 7.4 Método alternativo — configurar switches desde un PC por CLI
-
-En Packet Tracer puedes también acceder vía **telnet** desde cualquier PC si tienes IP de gestión:
-1. En PC → Desktop → **Terminal** (o **Command Prompt**)
-2. `telnet 192.168.10.6` (SW-A), `telnet 192.168.10.14` (SW-B), etc.
-3. Credenciales: si no hay, entra directo
-4. Mismos comandos que en la CLI directa del switch
-
-## 8. Servicios en SRV (opcional, suma calidad)
-1. Clic en SRV → pestaña **Services**
-2. **HTTP**: clic **On**
-3. **DNS**: clic **On**
-4. Agregar registro **A**: `intranet.oficina.cl` → `192.168.10.26`
-5. **DNS**: agregar también `intranet` → `192.168.10.26`
-6. Probar: desde PC → Desktop → **Web Browser** → `intranet.oficina.cl`
-
-## 9. Pruebas de conectividad (evidencias obligatorias)
-
-Desde Desktop → Command Prompt:
-
-| Prueba | Comando | Esperado |
-|---|---|---|
-| PC sector A al servidor | PC1: `ping 192.168.10.26` | 4 respuestas |
-| Entre sectores (B a C) | PC4: `ping 192.168.10.18` (PC6) | 4 respuestas |
-| A impresora (C a A) | PC8: `ping 192.168.10.5` (IMP1) | 4 respuestas |
-| Área técnica | LAP3: `ping 192.168.10.29` (TV) | 4 respuestas |
-| Teléfono IP | SRV: `ping 192.168.10.28` | 4 respuestas |
-
-> Si usas subredes separadas, los pings entre subredes fallarán (L2 switches no rutean). Usa /24 en todos para la simulación práctica y subnetting en el informe.
-
-> El primer ping puede perder 1 paquete por ARP — repetir el comando.
-
-Extra: modo **Simulation** → enviar PDU simple de PC1 a SRV y capturar el recorrido (PC1 → SW-A → SW-PRINCIPAL → SRV).
-
-## 10. Rotulación y evidencias
-1. Herramienta **Place Note (N)**: rotular sectores, "Enlace 28 m Cat6" en cada troncal, y nota general declarando el criterio de conteo
-2. Capturas para el informe: topología completa, IP Config de 2–3 equipos, cada ping exitoso, recorrido Simulation
-3. Guardar `.pkt` final
-
-## Errores frecuentes
-- **Enlace rojo** entre switches → usar **Cross-Over**
-- **Ping falla entre sectores** → los L2 switches no rutean. Solución: /24 plana en PT y subnetting en el informe
-- **Máscara incorrecta** → cada subred tiene su propia máscara (/29 = 248, /28 = 240, /30 = 252). No poner 255.255.255.0 en todas
-- **Gateway equivocado** → cada subred tiene su propio gateway (.1, .9, .17, .25)
-- **TEL-IP no responde** → falta adaptador de corriente en **Physical**
-- **Puertos naranjos** → esperar ~30s (STP)
-- **Laptop no responde ping** → verificar que FastEthernet0 esté encendido y Wireless0 esté apagado
+1. Clic en el switch
+2. Pestaña **Config**
+3. En la columna izquierda, busca desplegar **INTERFACE** (clic en el + o en VLAN1)
+4. Clic en **VLAN1**
+5. A la derecha: en **IP Configuration**, clic en **Static**
+6. Escribir IP y Subnet Mask según tabla
+7. Cerrar
 
 ---
 
-## Registro de cambios
+## 11. Servicios del servidor (opcional pero suma puntos)
 
-### v2.3 (04-07-2026)
-- Agregada sección "Rol de cada dispositivo en la red corporativa"
-- Agregada columna "Método" en tablas de asignación IP por sector
-- Expandida sección de configuración con método específico (GUI vs CLI) para cada tipo de dispositivo
-- Agregada subsección "Método alternativo — configurar switches desde un PC por CLI (telnet)"
-- Agregada nota sobre apagar Wireless0 en laptops
-- Agregados roles claros: estación trabajo, portátil, impresora red, multifuncional, VoIP, servidor, TV corporativa
+Puedes hacer que SRV funcione como servidor web y DNS. Así los PCs pueden "navegar" a una página de la empresa.
 
-### v2.2 (04-07-2026)
-- Subnetting completo con bits robados exactos según hosts reales por sector
-- Cálculo de subredes: Sector A/B/C a /29, Área técnica a /28, Enlaces a /30
-- Tabla de subredes con red, broadcast, rango útil
-- Secciones reorganizadas por subred con máscara, gateway y puertos físicos
-- IPs de enlaces entre switches (/30) documentadas
-- Nota técnica sobre limitación L2 de switches 2960 y recomendación /24 para PT práctico
-- Tabla de configuración CLI completa para IPs de gestión y enlaces en switches
-- Pruebas de conectividad actualizadas con nuevas IPs
+**Paso a paso para activar HTTP (servidor web):**
 
-### v2.1 (04-07-2026)
-- Reestructuración completa como instrucciones "a prueba de tontos" con pasos numerados
-- Tabla de IPs con columna "Cómo se configura"
-- Procedimiento TEL-IP expandido y destacado como advertencia temprana
-- Sección de errores frecuentes al final
+1. Clic en **SRV** → pestaña **Services**
+2. En la columna izquierda, clic en **HTTP**
+3. A la derecha verás un botón **On** / **Off**. Clic en **On**
+4. Ya está. El servidor ahora tiene una página web por defecto
 
-### v2 (04-07-2026)
-- Documentada discrepancia imagen versus enunciado (19 vs 18 puntos)
-- Se adoptó formalmente la tabla del profesor
-- Archivo renombrado a `Caso05_Herrera_Soncco.pkt`
+**Paso a paso para activar DNS:**
+
+1. En Services (columna izquierda), clic en **DNS**
+2. A la derecha, clic en **On**
+3. En **Name** escribe: `intranet.oficina.cl`
+4. En **Address** escribe: `192.168.10.26` (es la IP del propio SRV)
+5. Clic en **Add**
+6. También puedes agregar solo `intranet` → `192.168.10.26` (para que funcione sin escribir .oficina.cl)
+
+**Probar desde un PC:**
+
+1. Clic en PC1 → pestaña **Desktop**
+2. Clic en **Web Browser** (ícono de globo terráqueo)
+3. En la barra de URL escribe: `http://intranet.oficina.cl`
+4. Presiona Enter o clic en **Go**
+5. Debe aparecer una página web
+
+---
+
+## 12. Probar que la red funciona
+
+Vas a hacer **ping** desde un PC a otro. Ping es un comando que envía 4 paquetes y espera respuesta. Si recibes respuesta, la conexión funciona.
+
+**Cómo hacer ping (desde cualquier PC):**
+
+1. Clic en el PC desde el que quieres probar
+2. Pestaña **Desktop**
+3. Clic en **Command Prompt** (ícono de pantalla negra con `>_`)
+4. Se abre una ventana negra (como la terminal de Windows)
+5. Escribe: `ping 192.168.10.X` (donde X es la IP del destino) y presiona Enter
+
+**Pruebas obligatorias:**
+
+| Prueba | ¿Qué escribir? | Resultado esperado |
+|---|---|---|
+| **PC1 → servidor** | En PC1: `ping 192.168.10.26` | 4 respuestas "Reply from..." |
+| **PC4 → PC6** (sector B a C) | En PC4: `ping 192.168.10.18` | 4 respuestas |
+| **PC8 → IMP1** (sector C a A) | En PC8: `ping 192.168.10.5` | 4 respuestas |
+| **LAP3 → TV-CORP** | En LAP3: `ping 192.168.10.29` | 4 respuestas |
+| **SRV → TEL-IP** | En SRV: `ping 192.168.10.28` | 4 respuestas |
+
+**Cómo interpretar el resultado:**
+
+✅ **Respuesta correcta** (funciona):
+```
+Reply from 192.168.10.26: bytes=32 time=1ms TTL=128
+Reply from 192.168.10.26: bytes=32 time=1ms TTL=128
+Reply from 192.168.10.26: bytes=32 time=1ms TTL=128
+Reply from 192.168.10.26: bytes=32 time=1ms TTL=128
+```
+
+❌ **Respuesta incorrecta** (no funciona):
+```
+Request timed out.
+Request timed out.
+Request timed out.
+Request timed out.
+```
+
+**⚠️ Cosas que debes saber sobre el ping:**
+- El **primer ping** a veces falla aunque la red esté bien. Es normal: el equipo está preguntando "¿quién tiene esa IP?" (ARP). Siempre **repite el ping** una segunda vez
+- Si estás usando subredes separadas (con máscaras /29, /28, etc.), los pings **entre sectores diferentes fallarán** porque los switches 2960 son L2 y no pueden pasar tráfico entre subredes. Para la simulación práctica puedes poner máscara /24 en todos los equipos y usar el subnetting real solo en el informe del trabajo
+
+---
+
+## 13. Capturas para el informe
+
+Tienes que entregar un informe con evidencias. Captura estas pantallas:
+
+### Topología completa
+1. Presiona **Ctrl+D** o menú **View** → **Zoom to Fit** para ver todo en una pantalla
+2. Presiona **Alt+PrintScreen** (o la tecla que haga captura en tu sistema)
+3. Pégalo en tu informe
+
+### Configuración IP de 2-3 equipos
+1. Clic en PC1 → Desktop → IP Configuration (ya configurado)
+2. Captura (Alt+PrintScreen)
+3. Haz lo mismo con PC5 y con IMP1 (Config → FastEthernet0)
+
+### Pings exitosos
+1. Desde PC1 haz ping a SRV: `ping 192.168.10.26`
+2. Cuando veas las 4 respuestas, captura
+3. Repite con otras pruebas de la tabla
+
+### Recorrido Simulation (extra)
+1. Clic en modo **Simulation** (abajo a la derecha, junto a "Realtime")
+2. Clic en **Edit Filters** → marcar solo **ICMP**
+3. Clic en **Add Simple PDU** (sobre del sobre)
+4. Clic en PC1, luego clic en SRV
+5. Clic en **Auto Capture / Play** (botón de play)
+6. Se anima el paquete viajando: PC1 → SW-A → SW-PRINCIPAL → SRV
+7. Captura esta animación
+
+---
+
+## 14. Rotular todo (con etiquetas)
+
+En Packet Tracer hay una herramienta de notas. Sirve para escribir texto en el lienzo.
+
+1. Clic en la herramienta **Place Note** (abajo a la izquierda, ícono de nota adhesiva o presiona **N** en el teclado)
+2. Clic en el lienzo donde quieras poner la nota
+3. Aparece un cuadro de texto. Escribe, por ejemplo: **"Sector A - 4 equipos"**
+4. Clic fuera para fijarla
+5. Puedes moverla arrastrándola
+
+**Etiquetas recomendadas:**
+- Al lado de cada switch: nombre del sector
+- Sobre cada cable de enlace entre switches: "Enlace 28 m Cat6"
+- Arriba de todo: nota grande que diga: **"18 puntos terminales. Topología estrella jerárquica segmentada. Cable UTP Cat6."**
+
+---
+
+## Errores frecuentes (revisa esto si algo no funciona)
+
+| Problema | Causa | Solución |
+|---|---|---|
+| Cable **rojo** entre switches | Cable recto cuando necesita cruzado | Borrar cable y usar **Copper Cross-Over** |
+| Cable **naranjo** | STP haciendo loop detection | Esperar 30 segundos, se pone verde solo |
+| Ping entre sectores falla | Switches L2 no rutean entre subredes | Usar máscara /24 en todos para la simulación, subnetting en el informe |
+| TEL-IP no responde ping | Falta encenderlo (viene apagado) | Sección 6: arrastrar adaptador de corriente en Physical |
+| Laptop no funciona | WiFi encendido, Ethernet apagado | FastEthernet0 = On, Wireless0 = Off |
+| Máscara incorrecta | Poner 255.255.255.0 en todo | Cada sector tiene su propia máscara: /29 = 248, /28 = 240 |
+| Gateway equivocado | Poner el mismo gateway en todos | Cada sector tiene su gateway: .1, .9, .17, .25 |
+| Primer ping falla | ARP (el equipo pregunta quién tiene la IP) | Repetir el ping una segunda vez |
+
+---
+
+## Resumen rápido (cheat sheet)
+
+| Acción | Pasos |
+|---|---|
+| **Configurar PC/Laptop/SRV** | Clic en equipo → Desktop → IP Configuration → Static |
+| **Configurar impresora/MFP** | Clic en equipo → Config → FastEthernet0 → Static |
+| **Configurar TEL-IP** | Clic en TEL-IP → Config → Interface → Static |
+| **Configurar switch (GUI)** | Clic en switch → Config → VLAN1 → Static |
+| **Configurar switch (CLI)** | Clic en switch → CLI → `enable` → `configure terminal` → ... |
+| **Hacer ping** | Clic en PC → Desktop → Command Prompt → `ping IP` |
+| **Activar HTTP en SRV** | Clic en SRV → Services → HTTP → On |
+| **Activar DNS en SRV** | Clic en SRV → Services → DNS → On → Add |
+| **Encender TEL-IP** | Clic en TEL-IP → Physical → arrastrar adaptador al puerto |
+| **Rotular** | Presionar **N** → clic en lienzo → escribir texto |
