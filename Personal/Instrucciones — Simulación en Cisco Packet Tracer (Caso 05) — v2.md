@@ -340,23 +340,23 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 
 #### Sector B (SW-B) — Máscara: 255.255.255.248 — Gateway: 192.168.10.9
 
-| Dispositivo | IP | ¿Cómo se configura? |
-|---|---|---|
-| PC4 | 192.168.10.10 | Desktop → IP Configuration |
-| PC5 | 192.168.10.11 | Desktop → IP Configuration |
-| LAP1 | 192.168.10.12 | Desktop → IP Configuration |
-| LAP2 | 192.168.10.13 | Desktop → IP Configuration |
-| SW-B | 192.168.10.14 | CLI (terminal del switch) |
+| Dispositivo | IP            | ¿Cómo se configura?        |
+| ----------- | ------------- | -------------------------- |
+| PC4         | 192.168.10.10 | Desktop → IP Configuration |
+| PC5         | 192.168.10.11 | Desktop → IP Configuration |
+| LAP1        | 192.168.10.12 | Desktop → IP Configuration |
+| LAP2        | 192.168.10.13 | Desktop → IP Configuration |
+| SW-B        | 192.168.10.14 | CLI (terminal del switch)  |
 
 #### Sector C (SW-C) — Máscara: 255.255.255.248 — Gateway: 192.168.10.17
 
-| Dispositivo | IP | ¿Cómo se configura? |
-|---|---|---|
-| PC6 | 192.168.10.18 | Desktop → IP Configuration |
-| PC7 | 192.168.10.19 | Desktop → IP Configuration |
-| PC8 | 192.168.10.20 | Desktop → IP Configuration |
-| IMP2 | 192.168.10.21 | Config → FastEthernet0 → Static |
-| SW-C | 192.168.10.22 | CLI (terminal del switch) |
+| Dispositivo | IP            | ¿Cómo se configura?             |
+| ----------- | ------------- | ------------------------------- |
+| PC6         | 192.168.10.18 | Desktop → IP Configuration      |
+| PC7         | 192.168.10.19 | Desktop → IP Configuration      |
+| PC8         | 192.168.10.20 | Desktop → IP Configuration      |
+| IMP2        | 192.168.10.21 | Config → FastEthernet0 → Static |
+| SW-C        | 192.168.10.22 | CLI (terminal del switch)       |
 
 #### Área técnica (SW-PRINCIPAL) — Máscara: 255.255.255.240 — Gateway: 192.168.10.25
 
