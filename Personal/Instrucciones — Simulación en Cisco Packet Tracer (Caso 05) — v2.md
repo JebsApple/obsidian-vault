@@ -789,36 +789,26 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 
 **Ejemplo IMP1 (Sector A):** IP = `192.168.10.5`, Mask = `255.255.255.248`, Gateway = `192.168.10.1`
 
-### 10.5 Configurar el Teléfono IP (TEL-IP)
+### 11.5 Configurar el Teléfono IP (TEL-IP)
 
-**El IP Phone 7960 en Packet Tracer NO permite IP estática. Solo recibe IP por DHCP.** Hay que configurar un servidor DHCP en SRV para que le asigne la IP automáticamente.
+**El IP Phone 7960 en Packet Tracer NO permite IP estática. Solo recibe IP por DHCP.** El DHCP se configuró en SRV (sección 7.8) y el **Call Manager Express (CME)** está en R-PRINCIPAL.
 
-**Pasos (en SRV):**
-
-1. Clic en **SRV** → pestaña **Services**
-2. En la columna izquierda, clic en **DHCP**
-3. A la derecha, clic en el botón **On** (para activar el servicio)
-4. Completa los campos:
-   - **Pool Name**: `telefonia`
-   - **Default Gateway**: `192.168.10.25`
-   - **Start IP Address**: `192.168.10.28`
-   - **Subnet Mask**: `255.255.255.240`
-   - **Maximum Users**: `1`
-5. Clic en **Add**
-6. El pool aparece en la lista de abajo
-
-**Verificar que el teléfono recibió la IP:**
+**Verificar que el teléfono funcionó:**
 
 1. Pasa el mouse por encima de **TEL-IP** (sin hacer clic)
-2. Aparece un recuadro que muestra la IP asignada
-3. Si aparece `192.168.10.28`, funcionó
-4. Si no aparece IP, espera unos segundos o verifica que el teléfono esté encendido (ver sección 6)
+2. Aparece un recuadro. Debe mostrar:
+   - **IP**: `192.168.10.28` (recibida por DHCP)
+   - **Server**: `192.168.10.25` (el router con CME)
+   - **Gatewy**: `192.168.10.25` (el router, gateway del área técnica)
+3. Si ves **Registered**, el CME registró el teléfono correctamente
+4. Si ves **"Server not set"**: revisa que en SRV → Services → DHCP el pool tenga **TFTP Server = 192.168.10.25** (es la IP del router)
+5. Si no aparece IP: espera 30 segundos o verifica que el teléfono esté encendido (sección 6)
 
-### 10.6 Configurar los switches (SW-A, SW-B, SW-C, SW-PRINCIPAL)
+### 11.6 Configurar los switches (SW-A, SW-B, SW-C, SW-PRINCIPAL)
 
 Los switches tienen **dos formas** de configurarse. Te explico las dos.
 
-#### Opción 10.6A — Por CLI (recomendada, más rápida)
+#### Opción 11.6A — Por CLI (recomendada, más rápida)
 
 1. Clic en el switch (ej: SW-A)
 2. Pestaña **CLI** (la tercera, al lado de Config)
@@ -925,7 +915,7 @@ end
 copy running-config startup-config
 ```
 
-#### Opción 10.6B — Por GUI (sin comandos)
+#### Opción 11.6B — Por GUI (sin comandos)
 
 1. Clic en el switch
 2. Pestaña **Config**
@@ -1009,7 +999,7 @@ Request timed out.
 
 **⚠️ Cosas que debes saber sobre el ping:**
 - El **primer ping** a veces falla aunque la red esté bien. Es normal: el equipo está preguntando "¿quién tiene esa IP?" (ARP). Siempre **repite el ping** una segunda vez
-- Si estás usando subredes separadas (con máscaras /29, /28, etc.), los pings **entre sectores diferentes fallarán** porque los switches 2960 son L2 y no pueden pasar tráfico entre subredes. Para la simulación práctica puedes poner máscara /24 en todos los equipos y usar el subnetting real solo en el informe del trabajo
+- **Con R-PRINCIPAL**, los pings **entre sectores ahora funcionan**. El router enruta el tráfico entre VLANs. El paquete viaja: PC1 → SW-A → SW-PRINCIPAL → R-PRINCIPAL → SW-PRINCIPAL → (destino)
 
 ---
 
@@ -1066,7 +1056,7 @@ En Packet Tracer hay una herramienta de notas. Sirve para escribir texto en el l
 |---|---|---|
 | Cable **rojo** entre switches | Cable recto cuando necesita cruzado | Borrar cable y usar **Copper Cross-Over** |
 | Cable **naranjo** | STP haciendo loop detection | Esperar 30 segundos, se pone verde solo |
-| Ping entre sectores falla | Switches L2 no rutean entre subredes | Usar máscara /24 en todos para la simulación, subnetting en el informe |
+| Ping entre sectores falla | Router no configurado o trunk mal puesto | Verificar VLANs en switches y subinterfaces en R-PRINCIPAL |
 | TEL-IP no responde ping | Falta encenderlo (viene apagado) | Sección 6: arrastrar adaptador de corriente en Physical |
 | Laptop no funciona | WiFi encendido, Ethernet apagado | FastEthernet0 = On, Wireless0 = Off |
 | Máscara incorrecta | Poner 255.255.255.0 en todo | Cada sector tiene su propia máscara: /29 = 248, /28 = 240 |
@@ -1081,9 +1071,10 @@ En Packet Tracer hay una herramienta de notas. Sirve para escribir texto en el l
 |---|---|
 | **Configurar PC/Laptop/SRV** | Clic en equipo → Desktop → IP Configuration → Static |
 | **Configurar impresora/MFP** | Clic en equipo → Config → FastEthernet0 → Static |
-| **Configurar TEL-IP** | No tiene IP estática. Configurar DHCP en SRV (Services → DHCP → On → Pool `telefonia`) |
-| **Configurar switch (GUI)** | Clic en switch → Config → VLAN1 → Static |
-| **Configurar switch (CLI)** | Clic en switch → CLI → `enable` → `configure terminal` → ... |
+| **Configurar TEL-IP** | No tiene IP estática. DHCP en SRV + CME en R-PRINCIPAL. Ver secciones 7.7 y 11.5 |
+| **Configurar VLANs en switch** | Clic en switch → CLI → `enable` → `configure terminal` → `vlan 10` / `vlan 20` / etc. |
+| **Configurar switch (gestión)** | Clic en switch → Config → VLAN1 → Static (o CLI: `interface vlan 1`) |
+| **Configurar router** | Clic en router → CLI → subinterfaces + CME. Ver sección 7.6 y 7.7 |
 | **Hacer ping** | Clic en PC → Desktop → Command Prompt → `ping IP` |
 | **Activar HTTP en SRV** | Clic en SRV → Services → HTTP → On |
 | **Activar DNS en SRV** | Clic en SRV → Services → DNS → On → Add |
