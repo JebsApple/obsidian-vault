@@ -30,15 +30,15 @@ Lo que falta, en orden:
 
 **Plan de direccionamiento (red plana):** máscara `255.255.255.0` en TODO, gateway `192.168.10.1` en TODO (será la IP del router), DNS `192.168.10.10` (el SRV).
 
-| Dispositivo | IP | ¿Dónde se configura? |
-|---|---|---|
-| SRV | 192.168.10.10 | Desktop → IP Configuration |
-| PC-1 … PC-8 | 192.168.10.11 … 192.168.10.18 | Desktop → IP Configuration |
-| LAP-1 … LAP-3 | 192.168.10.21 … 192.168.10.23 | Desktop → IP Configuration |
-| IMP-1 … IMP-3 | 192.168.10.31 … 192.168.10.33 | Config → FastEthernet0 → Static |
-| MFP | 192.168.10.34 | Config → FastEthernet0 → Static |
-| TV-CORP | 192.168.10.40 | Desktop → IP Configuration |
-| TEL-IP | 192.168.10.50 — **NO se configura a mano** | La entrega el router por DHCP (sección C) |
+| Dispositivo   | IP                                         | ¿Dónde se configura?                      |
+| ------------- | ------------------------------------------ | ----------------------------------------- |
+| SRV           | 192.168.10.10                              | Desktop → IP Configuration                |
+| PC-1 … PC-8   | 192.168.10.11 … 192.168.10.18              | Desktop → IP Configuration                |
+| LAP-1 … LAP-3 | 192.168.10.21 … 192.168.10.23              | Desktop → IP Configuration                |
+| IMP-1 … IMP-3 | 192.168.10.31 … 192.168.10.33              | Config → FastEthernet0 → Static           |
+| MFP           | 192.168.10.34                              | Config → FastEthernet0 → Static           |
+| TV-CORP       | 192.168.10.40                              | Desktop → IP Configuration                |
+| TEL-IP        | 192.168.10.50 — **NO se configura a mano** | La entrega el router por DHCP (sección C) |
 
 ### A.1 PC, Laptop, Servidor y TV-CORP (13 equipos)
 
