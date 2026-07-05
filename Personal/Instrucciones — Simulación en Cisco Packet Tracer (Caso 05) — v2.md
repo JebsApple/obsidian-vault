@@ -196,10 +196,10 @@ El **IP Phone 7960 (TEL-IP)** requiere encendido manual:
 
 | Desde | Puerto | Hacia | Puerto |
 |---|---|---|---|
-| R-PRINCIPAL | GigabitEthernet0/0 | SW-PRINCIPAL | FastEthernet0/7 |
+| R-PRINCIPAL | FastEthernet0/0 | SW-PRINCIPAL | FastEthernet0/7 |
 
 1. Clic en **Copper Straight-Through**
-2. Clic en **R-PRINCIPAL** → elige **GigabitEthernet0/0**
+2. Clic en **R-PRINCIPAL** → elige **FastEthernet0/0**
 3. Clic en **SW-PRINCIPAL** → elige **FastEthernet0/7**
 
 Si sale rojo, borra y usa **Copper Cross-Over**.
@@ -414,34 +414,34 @@ configure terminal
 hostname R-PRINCIPAL
 
 ! --- Subinterfaz VLAN 10 (Sector A) ---
-interface gigabitEthernet 0/0.10
+interface fastEthernet 0/0.10
  encapsulation dot1Q 10
  ip address 192.168.10.1 255.255.255.248
  ip helper-address 192.168.10.26
 exit
 
 ! --- Subinterfaz VLAN 20 (Sector B) ---
-interface gigabitEthernet 0/0.20
+interface fastEthernet 0/0.20
  encapsulation dot1Q 20
  ip address 192.168.10.9 255.255.255.248
  ip helper-address 192.168.10.26
 exit
 
 ! --- Subinterfaz VLAN 30 (Sector C) ---
-interface gigabitEthernet 0/0.30
+interface fastEthernet 0/0.30
  encapsulation dot1Q 30
  ip address 192.168.10.17 255.255.255.248
  ip helper-address 192.168.10.26
 exit
 
 ! --- Subinterfaz VLAN 40 (Área Técnica) ---
-interface gigabitEthernet 0/0.40
+interface fastEthernet 0/0.40
  encapsulation dot1Q 40
  ip address 192.168.10.25 255.255.255.240
 exit
 
 ! --- Activar interfaz física ---
-interface gigabitEthernet 0/0
+interface fastEthernet 0/0
  no shutdown
 exit
 ```
@@ -1057,7 +1057,9 @@ En Packet Tracer hay una herramienta de notas. Sirve para escribir texto en el l
 | Cable **rojo** entre switches | Cable recto cuando necesita cruzado | Borrar cable y usar **Copper Cross-Over** |
 | Cable **naranjo** | STP haciendo loop detection | Esperar 30 segundos, se pone verde solo |
 | Ping entre sectores falla | Router no configurado o trunk mal puesto | Verificar VLANs en switches y subinterfaces en R-PRINCIPAL |
-| TEL-IP no responde ping | Falta encenderlo (viene apagado) | Sección 6: arrastrar adaptador de corriente en Physical |
+| TEL-IP no registra ("Server not set") | DHCP sin TFTP Server | En SRV → DHCP agregar TFTP Server = 192.168.10.25 |
+| TEL-IP no obtiene IP | Teléfono apagado o DHCP mal configurado | Encender en Physical (sección 6). Verificar DHCP en SRV |
+| Router no enruta | Subinterfaces mal configuradas | Verificar `encapsulation dot1Q` y VLAN IDs |
 | Laptop no funciona | WiFi encendido, Ethernet apagado | FastEthernet0 = On, Wireless0 = Off |
 | Máscara incorrecta | Poner 255.255.255.0 en todo | Cada sector tiene su propia máscara: /29 = 248, /28 = 240 |
 | Gateway equivocado | Poner el mismo gateway en todos | Cada sector tiene su gateway: .1, .9, .17, .25 |
