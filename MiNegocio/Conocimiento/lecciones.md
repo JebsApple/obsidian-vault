@@ -15,6 +15,12 @@ Registra aquí errores y soluciones para no repetirlos.
 Todas las ramas se nombran en **español**. Nada de inglés (no `readmes`, `testing`, `dashboard`). Nomenclatura estricta: `SPRINT-HUXX-TXX-descripcion-breve` o `SLT-descripcion`. Confirmar con el usuario antes de renombrar ramas que no creaste tú mismo.
 
 ## Historial
+- [2026-07-05] Caso05 Packet Tracer: 
+  - **Ping desde CLI del MCP da timeout** — la herramienta `pt_run_cli` expira antes de recibir el primer reply. El ping sí funciona desde el UI de PT. Solución: probar pings desde el UI directo, no desde el MCP.
+  - **ARP vacío tras configurar todo** — normal hasta que alguien intente comunicarse. Hacer ping desde una PC y luego `show arp` en el router.
+  - **DHCP exclude extra bloquea todas las IPs** — si se excluye `.40` además del rango `.33-.39` y `.41-.46`, no queda ninguna IP libre excepto `.40`. Verificar excludes siempre que no aparezcan bindings.
+  - **Comandos de verificación** guardados en `Personal/comandos-verificacion-caso05.md`
+
 - [2026-06-17] Mihon+Suwayomi sync: celular probablemente estaba en datos móviles (5G) al fallar pruebas de red local — siempre desactivar datos al testear IPs locales
 - [2026-06-17] Para diagnosticar conectividad local: `python3 -m http.server 8888` en PC, abrir `http://IP:8888` desde celular con WiFi y sin datos móviles
 - [2026-06-17] Suwayomi en CachyOS corre como servicio nativo (no Docker), escucha en `*:4567`, usuario `suwayomi`
