@@ -123,9 +123,9 @@ Dentro de End Devices hay una fila con subcategorías. La primera es **End Devic
 2. Arrástralo 1 vez
 3. Renómbralo: `SRV`
 
-### TEL-IP (1 teléfono IP)
+### TEL-IP (1 teléfono IP — se simula con PC-PT)
 
-1. Busca **IP Phone 7960** (tiene forma de teléfono)
+1. Busca **PC-PT** nuevamente
 2. Arrástralo 1 vez
 3. Renómbralo: `TEL-IP`
 
@@ -144,7 +144,7 @@ Debes tener en el lienzo:
 - **3 Printer-PT** (IMP1, IMP2, IMP3)
 - **1 Printer-PT** (MFP) → sí, son 4 Printer-PT en total
 - **1 Server-PT** (SRV)
-- **1 IP Phone 7960** (TEL-IP)
+- **1 PC-PT** (TEL-IP — reemplazo del teléfono IP)
 - **1 PC-PT** (TV-CORP)
 
 Total: **22 dispositivos** (4 switches + 18 terminales)
@@ -166,17 +166,11 @@ Deja espacio entre los dispositivos para poder hacer las conexiones después (un
 
 ---
 
-## 6. Encender el teléfono IP (paso IMPORTANTE que muchos olvidan)
+## 6. Encender todos los dispositivos
 
-El teléfono IP Phone 7960 en Packet Tracer **aparece apagado por defecto**. Hay que encenderlo manualmente:
+Todos los PC-PT, laptops, servidores e impresoras en Packet Tracer **vienen encendidos por defecto**. No necesitas hacer nada adicional.
 
-1. **Clic en TEL-IP** → se abre una ventana con 3 pestañas arriba: **Physical**, **Config**, **Desktop**
-2. Clic en la pestaña **Physical** (primera)
-3. Verás la imagen del teléfono. A la derecha del teléfono hay una imagen de un **cubo negro con un cable** (es el adaptador de corriente)
-4. **Arrastra ese cubo negro** al **puerto redondo** que está en la parte trasera del teléfono (en la imagen)
-5. Al soltarlo, el teléfono debería encenderse (la pantalla se ilumina)
-6. Si no se enciende, repite: vuelve a arrastrar el cubo al puerto redondo. A veces hay que hacerlo 2-3 veces
-7. **Importante al cablear después**: el teléfono tiene 2 puertos RJ45. El de arriba dice **"Switch"**, el de abajo dice **"PC"**. Siempre usa **"Switch"**
+**Excepción histórica:** En versiones anteriores de esta guía se usaba un **IP Phone 7960** que requería encendido manual. Ese dispositivo **no funciona en esta topología** porque necesita un router Cisco 2811 con Call Manager Express (CME). Fue reemplazado por un **PC-PT** que sí funciona correctamente con IP estática.
 
 ---
 
@@ -457,17 +451,28 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 
 ### 10.5 Configurar el Teléfono IP (TEL-IP)
 
-**Pasos:**
+**El IP Phone 7960 en Packet Tracer NO permite IP estática. Solo recibe IP por DHCP.** Hay que configurar un servidor DHCP en SRV para que le asigne la IP automáticamente.
 
-1. Clic en **TEL-IP**
-2. Pestaña **Desktop**
-3. Aparece una pantalla con íconos. Busca **IP Configuration** y clic
-4. Marcar **Static**
-5. Escribir:
-    - **IPv4 Address**: `192.168.10.28`
-    - **Subnet Mask**: `255.255.255.240`
-    - **Default Gateway**: `192.168.10.25`
-6. Cerrar
+**Pasos (en SRV):**
+
+1. Clic en **SRV** → pestaña **Services**
+2. En la columna izquierda, clic en **DHCP**
+3. A la derecha, clic en el botón **On** (para activar el servicio)
+4. Completa los campos:
+   - **Pool Name**: `telefonia`
+   - **Default Gateway**: `192.168.10.25`
+   - **Start IP Address**: `192.168.10.28`
+   - **Subnet Mask**: `255.255.255.240`
+   - **Maximum Users**: `1`
+5. Clic en **Add**
+6. El pool aparece en la lista de abajo
+
+**Verificar que el teléfono recibió la IP:**
+
+1. Pasa el mouse por encima de **TEL-IP** (sin hacer clic)
+2. Aparece un recuadro que muestra la IP asignada
+3. Si aparece `192.168.10.28`, funcionó
+4. Si no aparece IP, espera unos segundos o verifica que el teléfono esté encendido (ver sección 6)
 
 ### 10.6 Configurar los switches (SW-A, SW-B, SW-C, SW-PRINCIPAL)
 
@@ -736,7 +741,7 @@ En Packet Tracer hay una herramienta de notas. Sirve para escribir texto en el l
 |---|---|
 | **Configurar PC/Laptop/SRV** | Clic en equipo → Desktop → IP Configuration → Static |
 | **Configurar impresora/MFP** | Clic en equipo → Config → FastEthernet0 → Static |
-| **Configurar TEL-IP** | Clic en TEL-IP → Desktop → IP Configuration → Static |
+| **Configurar TEL-IP** | No tiene IP estática. Configurar DHCP en SRV (Services → DHCP → On → Pool `telefonia`) |
 | **Configurar switch (GUI)** | Clic en switch → Config → VLAN1 → Static |
 | **Configurar switch (CLI)** | Clic en switch → CLI → `enable` → `configure terminal` → ... |
 | **Hacer ping** | Clic en PC → Desktop → Command Prompt → `ping IP` |
