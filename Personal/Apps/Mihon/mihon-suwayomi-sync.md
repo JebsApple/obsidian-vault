@@ -8,48 +8,46 @@ Objetivo: que Mihon (Android) y Suwayomi (PC) estén sincronizados automáticame
 
 ## Solución elegida
 
-Usar **Suwayomi como servidor central**. Mihon actúa como cliente via la extensión Suwayomi (Keiyoushi).
+Usar **Suwayomi como servidor central**. Mihon actúa como cliente via la extensión Suwayomi (Keiyoushi).  
+Red privada via **Tailscale** para conectar PC y celu sin importar la red física.
 
 ## Estado actual
 
-- [x] Suwayomi corriendo en PC (instalado nativamente, no Docker)
+- [x] Tailscale instalado y autenticado en PC (`100.95.15.125`)
+- [x] Tailscale instalado en celu (Redmi Note 13 5G, `100.103.142.37`)
+- [x] Suwayomi v2.3.2232 corriendo (actualizado manualmente, JAR reemplazado)
   - PID activo, escucha en `*:4567`
   - Responde OK en localhost
+  - Service disabled (no prende al inicio, se controla con `suwayomi` script)
 - [x] FlareSolverr corriendo en Docker (puerto 8191)
 - [x] Extensión Suwayomi instalada en Mihon
-- [x] URL configurada: `http://192.168.0.105:4567` (IP cambió de .106 → .105)
-- [ ] Conexión PC ↔ celular funcional — **pendiente probar con WiFi únicamente**
+- [x] Script `~/.local/bin/suwayomi` para control manual (`suwayomi open/stop/status`)
+- [x] Desktop entry actualizado (Suwayomi en Super+D → prende server + abre UI)
+- [ ] URL en extensión Mihon: **`http://100.95.15.125:4567`** (Tailscale IP, no la local)
+- [ ] Conexión PC ↔ celular funcional — **usar Tailscale IP**
 - [ ] Migración de biblioteca Mihon → fuente Suwayomi
+- [ ] Probar sync de leídos (SyncYomi incluido en v2.3.2232)
 
-## Problema de red
+## Comandos útiles
 
-El celular no puede alcanzar la IP del PC en la red local.
+```bash
+suwayomi open     # prende Suwayomi (si apagado) y abre UI en Brave
+suwayomi stop     # apaga el server
+suwayomi status   # ver si está corriendo
+```
 
-**Diagnóstico:**
-- Sin firewall en PC (nft/iptables vacíos)
-- AP Isolation desactivado en router
-- PC en WiFi 2.4GHz (canal 7, 2442 MHz) — adaptador soporta 5GHz también
-- Router tiene una sola SSID (sin separación de bandas visible)
-- Celular en datos 5G móviles cuando falló — probablemente la causa real
+## SyncYomi (NUEVO en v2.3.2232)
 
-**Hipótesis principal:** el celular estaba en datos móviles (5G), no en WiFi, al hacer las pruebas. Pendiente verificar con WiFi activo y datos móviles desactivados.
-
-## Próximos pasos
-
-1. Probar conexión desde celular con **datos móviles desactivados** y WiFi activo
-2. Si falla → instalar Tailscale en PC y celular para bypass de red
-   ```bash
-   sudo pacman -S tailscale
-   sudo systemctl enable --now tailscaled
-   sudo tailscale up
-   ```
-3. Si funciona → migrar biblioteca en Mihon manga por manga (mantener presionado → Migrar → fuente Suwayomi)
+Esta versión agrega soporte **SyncYomi**, que permite sincronizar mangas con forks de Mihon.  
+Revisar settings de la extensión Suwayomi en Mihon para opciones de sync.
 
 ## Referencia rápida
 
 | Qué | Valor |
 |-----|-------|
-| IP local PC | 192.168.0.105 |
+| Tailscale IP PC | `100.95.15.125` |
+| Tailscale IP celu | `100.103.142.37` |
 | Puerto Suwayomi | 4567 |
-| URL para Mihon | `http://192.168.0.105:4567` |
+| URL para Mihon | `http://100.95.15.125:4567` |
 | Extensión | Suwayomi (repo Keiyoushi) |
+| Script control | `suwayomi {open\|stop\|status}` |
