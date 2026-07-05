@@ -1,0 +1,9 @@
+.git
+.gitignore
+.obsidian/workspace.json
+.obsidian/workspace
+.obsidian/caches
+.obsidian/plugins/obsidian-git/data.json
+*.tmp
+.DS_Store
+Thumbs.db
