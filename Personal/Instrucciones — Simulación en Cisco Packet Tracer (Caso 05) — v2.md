@@ -170,11 +170,351 @@ Deja espacio entre los dispositivos para poder hacer las conexiones después (un
 
 Todos los PC-PT, laptops, servidores e impresoras en Packet Tracer **vienen encendidos por defecto**. No necesitas hacer nada adicional.
 
-**Excepción histórica:** En versiones anteriores de esta guía se usaba un **IP Phone 7960** que requería encendido manual. Ese dispositivo **no funciona en esta topología** porque necesita un router Cisco 2811 con Call Manager Express (CME). Fue reemplazado por un **PC-PT** que sí funciona correctamente con IP estática.
+El **IP Phone 7960 (TEL-IP)** requiere encendido manual:
+1. Clic en TEL-IP
+2. Pestaña **Physical**
+3. Arrastra el adaptador de corriente desde la imagen del cargador hasta el puerto del teléfono (verás que se ilumina la pantalla)
 
 ---
 
-## 7. Distribución de puertos y roles por dispositivo
+## 7. Agregar Router 2811 (para ruteo entre subredes y teléfono IP)
+
+**¿Por qué necesitamos un router?**
+- Las subredes de los sectores están separadas: sin un router, PC del Sector A no puede hablar con PC del Sector B
+- El IP Phone 7960 necesita **Call Manager Express (CME)** para registrar líneas — solo un router 2811 lo tiene
+
+### 7.1 Agregar el router al proyecto
+
+1. Clic en **Network Devices** (tercer ícono desde arriba, lado izquierdo)
+2. Clic en **Routers**
+3. Busca **2811** (escríbelo en el buscador)
+4. Arrástralo al lienzo, al lado de SW-PRINCIPAL
+5. Clic en el router → arriba a la derecha escribe: `R-PRINCIPAL`
+6. Clic fuera para confirmar
+
+### 7.2 Conectar el router al SW-PRINCIPAL
+
+| Desde | Puerto | Hacia | Puerto |
+|---|---|---|---|
+| R-PRINCIPAL | GigabitEthernet0/0 | SW-PRINCIPAL | FastEthernet0/7 |
+
+1. Clic en **Copper Straight-Through**
+2. Clic en **R-PRINCIPAL** → elige **GigabitEthernet0/0**
+3. Clic en **SW-PRINCIPAL** → elige **FastEthernet0/7**
+
+Si sale rojo, borra y usa **Copper Cross-Over**.
+
+### 7.3 Crear VLANs en SW-PRINCIPAL (por CLI)
+
+Cada sector irá en su propia VLAN. El router usará **subinterfaces** para enrutar entre ellas.
+
+Abre **SW-PRINCIPAL** → pestaña **CLI**. Ejecuta:
+
+```
+enable
+configure terminal
+
+vlan 10
+ name SECTOR-A
+exit
+
+vlan 20
+ name SECTOR-B
+exit
+
+vlan 30
+ name SECTOR-C
+exit
+
+vlan 40
+ name AREA-TECNICA
+exit
+```
+
+### 7.4 Configurar puertos de SW-PRINCIPAL
+
+SW-PRINCIPAL tiene que:
+- Los puertos de los switches de acceso (G0/1, G0/2, F0/24) → **trunk** (llevan todas las VLANs)
+- El puerto del router (F0/7) → **trunk**
+- Los puertos del área técnica (F0/1 a F0/6) → **access VLAN 40**
+
+```
+! --- Puertos hacia SW-A, SW-B, SW-C (trunk) ---
+interface gigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+exit
+
+interface gigabitEthernet 0/2
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+exit
+
+interface fastEthernet 0/24
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+exit
+
+! --- Puerto hacia el router (trunk) ---
+interface fastEthernet 0/7
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+exit
+
+! --- Puertos área técnica (VLAN 40) ---
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 40
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 40
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 40
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 40
+exit
+
+interface fastEthernet 0/5
+ switchport mode access
+ switchport access vlan 40
+exit
+
+interface fastEthernet 0/6
+ switchport mode access
+ switchport access vlan 40
+exit
+
+end
+copy running-config startup-config
+```
+
+### 7.5 Configurar SW-A, SW-B, SW-C (cada uno en su VLAN)
+
+**SW-A** → todo en VLAN 10 (Sector A):
+
+```
+enable
+configure terminal
+
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface gigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+exit
+
+end
+copy running-config startup-config
+```
+
+**SW-B** → todo en VLAN 20 (Sector B):
+
+```
+enable
+configure terminal
+
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface gigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+exit
+
+end
+copy running-config startup-config
+```
+
+**SW-C** → todo en VLAN 30 (Sector C):
+
+```
+enable
+configure terminal
+
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface gigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+exit
+
+end
+copy running-config startup-config
+```
+
+### 7.6 Configurar R-PRINCIPAL (router) — CLI completa
+
+Abre **R-PRINCIPAL** → pestaña **CLI**. Ejecuta todo esto:
+
+```
+enable
+configure terminal
+
+hostname R-PRINCIPAL
+
+! --- Subinterfaz VLAN 10 (Sector A) ---
+interface gigabitEthernet 0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.248
+ ip helper-address 192.168.10.26
+exit
+
+! --- Subinterfaz VLAN 20 (Sector B) ---
+interface gigabitEthernet 0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.10.9 255.255.255.248
+ ip helper-address 192.168.10.26
+exit
+
+! --- Subinterfaz VLAN 30 (Sector C) ---
+interface gigabitEthernet 0/0.30
+ encapsulation dot1Q 30
+ ip address 192.168.10.17 255.255.255.248
+ ip helper-address 192.168.10.26
+exit
+
+! --- Subinterfaz VLAN 40 (Área Técnica) ---
+interface gigabitEthernet 0/0.40
+ encapsulation dot1Q 40
+ ip address 192.168.10.25 255.255.255.240
+exit
+
+! --- Activar interfaz física ---
+interface gigabitEthernet 0/0
+ no shutdown
+exit
+```
+
+### 7.7 Configurar CME (Call Manager Express) para el teléfono IP
+
+En el mismo R-PRINCIPAL, después de lo anterior:
+
+```
+! --- CME ---
+telephony-service
+ max-dn 3
+ max-ephones 3
+ ip source-address 192.168.10.25 port 2000
+ auto assign 1 to 3
+exit
+
+! --- Línea telefónica 1 ---
+ephone-dn 1
+ number 101
+ name Recepcion
+exit
+
+! --- Línea telefónica 2 ---
+ephone-dn 2
+ number 102
+ name Ventas
+exit
+
+! --- Asignar teléfono ---
+ephone 1
+ mac-address 0000.0000.0001
+ type 7960
+ button 1:1
+exit
+
+end
+copy running-config startup-config
+```
+
+> **Nota sobre la MAC:** En Packet Tracer, cuando abres TEL-IP → pestaña Physical, hay una etiqueta que dice **MAC Address**. Usa esa MAC real en `mac-address` (reemplaza `0000.0000.0001`).
+
+### 7.8 Ajustar DHCP en SRV
+
+El DHCP de SRV debe apuntar al router como gateway. Y el pool debe llamarse `areatecnica` con rango para los pocos dispositivos de VLAN 40 que usan DHCP (solo TEL-IP si está en DHCP).
+
+1. Clic en **SRV** → **Services** → **DHCP**
+2. Borra el pool `telefonia` si existe (clic en **Remove** al lado)
+3. Crea:
+
+| Campo | Valor |
+|---|---|
+| Pool Name | `areatecnica` |
+| Default Gateway | `192.168.10.25` |
+| Start IP Address | `192.168.10.28` |
+| Subnet Mask | `255.255.255.240` |
+| Maximum Users | `10` |
+| TFTP Server | `192.168.10.25` |
+
+4. Clic en **Add**
+
+El **TFTP Server** = IP del router es importante: el teléfono busca los archivos de configuración XML por TFTP en el CME.
+
+### 7.9 Verificar el teléfono
+
+1. Espera 30-60 segundos después de configurar todo
+2. Pasa el cursor sobre TEL-IP
+3. Si ves **Registered** (registrado), el CME funcionó
+4. Si ves una IP y **"Server not set"**, revisa que el TFTP Server en DHCP apunte a `192.168.10.25`
+
+---
+
+## 8. Distribución de puertos y roles por dispositivo
 
 ### ¿Qué hace cada dispositivo en esta empresa?
 
@@ -192,7 +532,7 @@ Todos los PC-PT, laptops, servidores e impresoras en Packet Tracer **vienen ence
 
 ---
 
-## 8. Cableado — conectar todo con cables
+## 9. Cableado — conectar todo con cables
 
 ### 8.1 Elegir el tipo de cable correcto
 
@@ -300,9 +640,9 @@ Estas conexiones usan los puertos **Gigabit** de los switches (van más rápido 
 
 ---
 
-## 9. Asignar direcciones IP (configurar la red)
+## 10. Asignar direcciones IP (configurar la red)
 
-### 9.1 Las subredes
+### 10.1 Las subredes
 
 La red general es `192.168.10.0/24`. Se divide en subredes más pequeñas para separar los sectores:
 
@@ -318,7 +658,7 @@ La red general es `192.168.10.0/24`. Se divide en subredes más pequeñas para s
 
 **No te asustes con los números.** Cada equipo recibe una IP fija de su subred, según la tabla de más abajo. Solo debes copiar los valores.
 
-### 9.2 Tabla completa de IPs por dispositivo
+### 10.2 Tabla completa de IPs por dispositivo
 
 Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gestión administrativa (no la necesitas para que la red funcione entre los equipos).
 
@@ -366,9 +706,9 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 
 ---
 
-## 10. Cómo configurar cada tipo de dispositivo (paso a paso)
+## 11. Cómo configurar cada tipo de dispositivo (paso a paso)
 
-### 10.1 Configurar un PC (PC1 a PC8, TV-CORP)
+### 11.1 Configurar un PC (PC1 a PC8, TV-CORP)
 
 **¿Dónde?** En el mismo dispositivo PC, desde la ventana que se abre al hacer clic.
 
@@ -397,7 +737,7 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 
 **Repite para cada PC y TV-CORP.** Son 9 dispositivos en total.
 
-### 10.2 Configurar una Laptop (LAP1 a LAP3)
+### 11.2 Configurar una Laptop (LAP1 a LAP3)
 
 **Pasos:**
 
@@ -417,7 +757,7 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 
 **Resumen para laptops: FastEthernet0 = On, Wireless0 = Off**
 
-### 10.3 Configurar el Servidor (SRV)
+### 11.3 Configurar el Servidor (SRV)
 
 1. Clic en **SRV**
 2. Pestaña **Desktop**
@@ -430,7 +770,7 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
    - DNS Server: `192.168.10.26` (es él mismo)
 6. Cerrar
 
-### 10.4 Configurar una Impresora o MFP (IMP1, IMP2, IMP3, MFP)
+### 11.4 Configurar una Impresora o MFP (IMP1, IMP2, IMP3, MFP)
 
 **Las impresoras NO tienen escritorio (Desktop). Solo tienen Config.**
 
@@ -597,7 +937,7 @@ copy running-config startup-config
 
 ---
 
-## 11. Servicios del servidor (opcional pero suma puntos)
+## 12. Servicios del servidor (opcional pero suma puntos)
 
 Puedes hacer que SRV funcione como servidor web y DNS. Así los PCs pueden "navegar" a una página de la empresa.
 
@@ -627,7 +967,7 @@ Puedes hacer que SRV funcione como servidor web y DNS. Así los PCs pueden "nave
 
 ---
 
-## 12. Probar que la red funciona
+## 13. Probar que la red funciona
 
 Vas a hacer **ping** desde un PC a otro. Ping es un comando que envía 4 paquetes y espera respuesta. Si recibes respuesta, la conexión funciona.
 
@@ -673,7 +1013,7 @@ Request timed out.
 
 ---
 
-## 13. Capturas para el informe
+## 14. Capturas para el informe
 
 Tienes que entregar un informe con evidencias. Captura estas pantallas:
 
@@ -703,7 +1043,7 @@ Tienes que entregar un informe con evidencias. Captura estas pantallas:
 
 ---
 
-## 14. Rotular todo (con etiquetas)
+## 15. Rotular todo (con etiquetas)
 
 En Packet Tracer hay una herramienta de notas. Sirve para escribir texto en el lienzo.
 
