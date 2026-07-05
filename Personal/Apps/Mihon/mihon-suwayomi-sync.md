@@ -17,8 +17,8 @@ Usar **Suwayomi como servidor central**. Mihon actúa como cliente via la extens
   - Responde OK en localhost
 - [x] FlareSolverr corriendo en Docker (puerto 8191)
 - [x] Extensión Suwayomi instalada en Mihon
-- [x] URL configurada: `http://192.168.0.106:4567`
-- [ ] Conexión PC ↔ celular funcional — **bloqueada por problema de red**
+- [x] URL configurada: `http://192.168.0.105:4567` (IP cambió de .106 → .105)
+- [ ] Conexión PC ↔ celular funcional — **pendiente probar con WiFi únicamente**
 - [ ] Migración de biblioteca Mihon → fuente Suwayomi
 
 ## Problema de red
@@ -49,7 +49,7 @@ El celular no puede alcanzar la IP del PC en la red local.
 
 | Qué | Valor |
 |-----|-------|
-| IP local PC | 192.168.0.106 |
+| IP local PC | 192.168.0.105 |
 | Puerto Suwayomi | 4567 |
-| URL para Mihon | `http://192.168.0.106:4567` |
+| URL para Mihon | `http://192.168.0.105:4567` |
 | Extensión | Suwayomi (repo Keiyoushi) |
