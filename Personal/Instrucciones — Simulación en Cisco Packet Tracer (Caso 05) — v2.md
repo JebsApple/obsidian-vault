@@ -460,13 +460,13 @@ Cada dispositivo tiene asignada una IP fija. La IP del switch es solo para gesti
 **Pasos:**
 
 1. Clic en **TEL-IP**
-2. Pestaña **Config**
-3. En columna izquierda, busca **Interface** y clic
-4. A la derecha aparece **IP Configuration**. Clic en **Static**
+2. Pestaña **Desktop**
+3. Aparece una pantalla con íconos. Busca **IP Configuration** y clic
+4. Marcar **Static**
 5. Escribir:
-   - **IP Address**: `192.168.10.28`
-   - **Subnet Mask**: `255.255.255.240`
-   - **Default Gateway**: `192.168.10.25`
+    - **IPv4 Address**: `192.168.10.28`
+    - **Subnet Mask**: `255.255.255.240`
+    - **Default Gateway**: `192.168.10.25`
 6. Cerrar
 
 ### 10.6 Configurar los switches (SW-A, SW-B, SW-C, SW-PRINCIPAL)
@@ -736,7 +736,7 @@ En Packet Tracer hay una herramienta de notas. Sirve para escribir texto en el l
 |---|---|
 | **Configurar PC/Laptop/SRV** | Clic en equipo → Desktop → IP Configuration → Static |
 | **Configurar impresora/MFP** | Clic en equipo → Config → FastEthernet0 → Static |
-| **Configurar TEL-IP** | Clic en TEL-IP → Config → Interface → Static |
+| **Configurar TEL-IP** | Clic en TEL-IP → Desktop → IP Configuration → Static |
 | **Configurar switch (GUI)** | Clic en switch → Config → VLAN1 → Static |
 | **Configurar switch (CLI)** | Clic en switch → CLI → `enable` → `configure terminal` → ... |
 | **Hacer ping** | Clic en PC → Desktop → Command Prompt → `ping IP` |
