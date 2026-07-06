@@ -187,9 +187,9 @@ VAN = 0 → 0 = -680.858 + 260.000/(1+TIR)¹ + 260.000/(1+TIR)² + 260.000/(1+TI
 
 **Buscar** la fila de Lexo en Tabla VI y reemplazar:
 
-| (original) | Lexo / Kersting (Pudahuel) | Canaleta PVC 40×16 y accesorios | Web | 03-07-2026 | lexo.cl — verificar stock |
-|------------|---------------------------|--------------------------------|-----|------------|--------------------------|
-| (reemplazo) | Sodimac + Comdiel | Canaleta PVC 40×16 (Sodimac) + accesorios 40×16 (Comdiel) | Web | 03-07-2026 | Links en Anexo A — precios con IVA, stock disponible |
+| (original)  | Lexo / Kersting (Pudahuel) | Canaleta PVC 40×16 y accesorios                           | Web | 03-07-2026 | lexo.cl — verificar stock                            |
+| ----------- | -------------------------- | --------------------------------------------------------- | --- | ---------- | ---------------------------------------------------- |
+| (reemplazo) | Sodimac + Comdiel          | Canaleta PVC 40×16 (Sodimac) + accesorios 40×16 (Comdiel) | Web | 03-07-2026 | Links en Anexo A — precios con IVA, stock disponible |
 
 ---
 
