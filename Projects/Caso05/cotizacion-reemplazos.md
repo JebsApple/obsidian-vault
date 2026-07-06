@@ -304,25 +304,25 @@ Numeración: **Fig. 3 a Fig. 18** (Figs. 1 y 2 ya existen en el informe).
 
 Van en este orden:
 
-| Fig. | Producto                                              | Proveedor  | URL                                                                              |
-| ---- | ----------------------------------------------------- | ---------- | -------------------------------------------------------------------------------- |
-| 3    | Cable UTP Cat6 305 m — Ulink                          | Prafer     | https://prafer.cl/tienda/cable-de-red-utp-cat6-100-cobre-interior-305-mts-ulink/ |
-| 4    | Bobina cable UTP Cat6 100 m                           | Prafer     | https://prafer.cl/tienda/bobina-de-cable-de-red-cat-6-100-metros-gris/           |
-| 5    | Jack RJ45 hembra Cat6 keystone                        | Prafer     | https://prafer.cl/tienda/modulo-rj45-hembra-keystone-jack-cat-6-trimerx-blanco/  |
-| 6    | Faceplate 1 posición                                  | Prafer     | https://prafer.cl/tienda/faceplate-blanco-1-posicion-ulink-ul-ntw50120/          |
-| 7    | Conector RJ45 macho Cat6 pack 100u                    | Prafer     | https://prafer.cl/tienda/conector-rj45-cat6-utp-ulink-ul-ntw20500/               |
-| 8    | Patch cord Cat6 1 m (azul)                            | Prafer     | https://prafer.cl/tienda/patch-cord-cat6-1-mts-azul-ulink/                       |
-| 9    | Patch cord Cat6 2 m                                   | Prafer     | https://prafer.cl/tienda/patch-cord-ulink-cat6-2-metros/                         |
-| ~~10~~ | ~~Patch Panel Cat6 24p LS Cable~~                    | ~~Transworld~~ | ~~https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/~~ |
-| **10** | **Patch Panel Furukawa Multilan Cat6 24p**           | **Artilec** | **https://artilec.cl/producto/patch-panel-furukawa-multilan-cat6-24-puertos/**  |
-| 11   | DRL Moldura PVC 40×16 mm 2 m                          | Sodimac    | https://www.sodimac.cl/sodimac-cl/articulo/147232860/                            |
-| 12   | Ángulo Plano 40×16 mm                                 | Comdiel    | https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm                        |
-| 13   | Ángulo Interior 40×16 mm                              | Comdiel    | https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm                     |
-| 14   | Ángulo Exterior 40×16 mm                              | Comdiel    | https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm                     |
-| 15   | Derivación T Plana 40×16 mm                           | Comdiel    | https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm                  |
-| 16   | Unión 40×16 mm                                        | Comdiel    | https://www.comdiel.cl/union-para-canaleta-40x16mm                               |
-| 17   | Tapa Final 40×16 mm                                   | Comdiel    | https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm                          |
-| 18   | Patch Panel Cat6 24p genérico (alternativa económica) | Metacom    | https://www.metacom.cl/patch-panel-cat-6-24-puertos                              |
+| Fig.   | Producto                                              | Proveedor      | URL                                                                               |
+| ------ | ----------------------------------------------------- | -------------- | --------------------------------------------------------------------------------- |
+| 3      | Cable UTP Cat6 305 m — Ulink                          | Prafer         | https://prafer.cl/tienda/cable-de-red-utp-cat6-100-cobre-interior-305-mts-ulink/  |
+| 4      | Bobina cable UTP Cat6 100 m                           | Prafer         | https://prafer.cl/tienda/bobina-de-cable-de-red-cat-6-100-metros-gris/            |
+| 5      | Jack RJ45 hembra Cat6 keystone                        | Prafer         | https://prafer.cl/tienda/modulo-rj45-hembra-keystone-jack-cat-6-trimerx-blanco/   |
+| 6      | Faceplate 1 posición                                  | Prafer         | https://prafer.cl/tienda/faceplate-blanco-1-posicion-ulink-ul-ntw50120/           |
+| 7      | Conector RJ45 macho Cat6 pack 100u                    | Prafer         | https://prafer.cl/tienda/conector-rj45-cat6-utp-ulink-ul-ntw20500/                |
+| 8      | Patch cord Cat6 1 m (azul)                            | Prafer         | https://prafer.cl/tienda/patch-cord-cat6-1-mts-azul-ulink/                        |
+| 9      | Patch cord Cat6 2 m                                   | Prafer         | https://prafer.cl/tienda/patch-cord-ulink-cat6-2-metros/                          |
+| ~~10~~ | ~~Patch Panel Cat6 24p LS Cable~~                     | ~~Transworld~~ | ~~https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/~~ |
+| **10** | **Patch Panel Furukawa Multilan Cat6 24p**            | **Artilec**    | **https://artilec.cl/producto/patch-panel-furukawa-multilan-cat6-24-puertos/**    |
+| 11     | DRL Moldura PVC 40×16 mm 2 m                          | Sodimac        | https://www.sodimac.cl/sodimac-cl/articulo/147232860/                             |
+| 12     | Ángulo Plano 40×16 mm                                 | Comdiel        | https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm                         |
+| 13     | Ángulo Interior 40×16 mm                              | Comdiel        | https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm                      |
+| 14     | Ángulo Exterior 40×16 mm                              | Comdiel        | https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm                      |
+| 15     | Derivación T Plana 40×16 mm                           | Comdiel        | https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm                   |
+| 16     | Unión 40×16 mm                                        | Comdiel        | https://www.comdiel.cl/union-para-canaleta-40x16mm                                |
+| 17     | Tapa Final 40×16 mm                                   | Comdiel        | https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm                           |
+| 18     | Patch Panel Cat6 24p genérico (alternativa económica) | Metacom        | https://www.metacom.cl/patch-panel-cat-6-24-puertos                               |
 
 ### Texto exacto a copiar en el documento
 
