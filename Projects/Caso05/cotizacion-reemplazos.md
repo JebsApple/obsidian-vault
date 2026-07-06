@@ -272,22 +272,22 @@ Fuente: Comdiel.
 
 ## Resumen de cambios (checklist)
 
-- [ ] 1. Tabla IV: canaleta $1.900 → Sodimac $1.490
-- [ ] 2. Tabla IV: ángulo plano $510 → Comdiel $580
-- [ ] 3. Tabla IV: curva interior $460 → ángulo interior $580
-- [ ] 4. Tabla IV: curva exterior $460 → ángulo exterior $580
-- [ ] 5. Tabla IV: conexión T $500 → derivación T $580
-- [ ] 6. Tabla IV: copla unión $450 → unión $549
-- [ ] 7. Tabla IV: tapa terminal $450 → tapa final $549
-- [ ] 8. Tabla IV: TOTAL $511.544 → $500.858
-- [ ] 9. Párrafo post-Tabla IV: $28.419 → $27.825 por punto
-- [ ] 10. Tabla V: opción premium $511.544 → $500.858
-- [ ] 11. Sec. 6: $511.544 → $500.858; $28.419 → $27.825
-- [ ] 12. Sec. 7: I₀ $691.544 → $680.858
-- [ ] 13. Sec. 7: VAN +$132.621 → +$143.307
-- [ ] 14. Sec. 7: TIR 18,58% → ~19,7%
-- [ ] 15. Conclusiones: $511.544 → $500.858; $28.419 → $27.825
-- [ ] 16. Tabla VI: Lexo → Sodimac + Comdiel
+- [x] 1. Tabla IV: canaleta $1.900 → Sodimac $1.490
+- [x] 2. Tabla IV: ángulo plano $510 → Comdiel $580
+- [x] 3. Tabla IV: curva interior $460 → ángulo interior $580
+- [x] 4. Tabla IV: curva exterior $460 → ángulo exterior $580
+- [x] 5. Tabla IV: conexión T $500 → derivación T $580
+- [x] 6. Tabla IV: copla unión $450 → unión $549
+- [x] 7. Tabla IV: tapa terminal $450 → tapa final $549
+- [x] 8. Tabla IV: TOTAL $511.544 → $500.858
+- [x] 9. Párrafo post-Tabla IV: $28.419 → $27.825 por punto
+- [x] 10. Tabla V: opción premium $511.544 → $500.858
+- [x] 11. Sec. 6: $511.544 → $500.858; $28.419 → $27.825
+- [x] 12. Sec. 7: I₀ $691.544 → $680.858
+- [x] 13. Sec. 7: VAN +$132.621 → +$143.307
+- [x] 14. Sec. 7: TIR 18,58% → ~19,7%
+- [x] 15. Conclusiones: $511.544 → $500.858; $28.419 → $27.825
+- [x] 16. Tabla VI: Lexo → Sodimac + Comdiel
 - [ ] 17. Anexo A: agregar URLs Comdiel
 - [ ] 18. Anexo A: actualizar nota de alternativa Lexo
 - [ ] 19. Insertar Fig. 3-9 (capturas Sodimac + Comdiel)
