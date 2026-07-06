@@ -227,46 +227,160 @@ Corregido: "Lexo indicaba la canaleta 40×16 como 'agotada' en el sitio web al m
 
 ---
 
-## 10. Formato IEEE para capturas nuevas
+## 10. Insertar capturas de pantalla al final del punto 5
 
-Insertar espacios en Anexo A (continúa desde Fig. 2):
+### Ubicación exacta
+
+Buscar el texto: _"Las URL de respaldo para las capturas de pantalla de anexos se listan en la sección de Anexos de este informe."_ (última línea de la sección 5.2, antes de "6. Análisis técnico-económico").
+
+Insertar AHI las capturas, numeradas como **Fig. 3, Fig. 4... Fig. N** (continúa desde Fig. 2 de Packet Tracer).
+
+### Orden recomendado (agrupado por proveedor, 7 figuras)
+
+**Fig. 3 — Prafer.cl (productos de cableado)**
+
+Agrupar en UNA captura: los productos de Prafer se pueden mostrar juntos si se toma un screenshot del sitio con varios productos visibles, o individualmente. Si se agrupan:
 
 ```
-Fig. 3. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm en Sodimac.cl.
+Fig. 3. Captura de pantalla — Cotización de cable UTP Cat6, conectores, faceplates y patch cords en Prafer.cl.
+Fuente: Prafer.
+```
+
+URLs que cubre:
+- https://prafer.cl/tienda/cable-de-red-utp-cat6-100-cobre-interior-305-mts-ulink/
+- https://prafer.cl/tienda/bobina-de-cable-de-red-cat-6-100-metros-gris/
+- https://prafer.cl/tienda/modulo-rj45-hembra-keystone-jack-cat-6-trimerx-blanco/
+- https://prafer.cl/tienda/faceplate-blanco-1-posicion-ulink-ul-ntw50120/
+- https://prafer.cl/tienda/conector-rj45-cat6-utp-ulink-ul-ntw20500/
+- https://prafer.cl/tienda/patch-cord-cat6-1-mts-azul-ulink/
+- https://prafer.cl/tienda/patch-cord-ulink-cat6-2-metros/
+
+**Fig. 4 — Transworld.cl (patch panel)**
+
+```
+Fig. 4. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos LS Cable en Transworld.cl.
+Fuente: Transworld.
+```
+
+URL: https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/
+
+**Fig. 5 — Sodimac.cl (canaleta)**
+
+```
+Fig. 5. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm 2 m en Sodimac.cl. Precio: $1.490.
 Fuente: Sodimac.
+```
 
-Fig. 4. Captura de pantalla — Cotización Ángulo Plano 40×16 mm en Comdiel.cl.
-Fuente: Comdiel.
+URL: https://www.sodimac.cl/sodimac-cl/articulo/147232860/
 
-Fig. 5. Captura de pantalla — Cotización Ángulo Interior 40×16 mm en Comdiel.cl.
-Fuente: Comdiel.
+**Fig. 6 — Comdiel.cl (ángulos)**
 
-Fig. 6. Captura de pantalla — Cotización Ángulo Exterior 40×16 mm en Comdiel.cl.
-Fuente: Comdiel.
+Agrupar en UNA captura: Ángulo Plano + Interior + Exterior (tres productos de la misma serie)
 
-Fig. 7. Captura de pantalla — Cotización Derivación T Plana 40×16 mm en Comdiel.cl.
-Fuente: Comdiel.
-
-Fig. 8. Captura de pantalla — Cotización Unión 40×16 mm en Comdiel.cl.
-Fuente: Comdiel.
-
-Fig. 9. Captura de pantalla — Cotización Tapa Final 40×16 mm en Comdiel.cl.
+```
+Fig. 6. Captura de pantalla — Cotización ángulos plano, interior y exterior para canaleta 40×16 mm en Comdiel.cl. Precios: $580 c/u.
 Fuente: Comdiel.
 ```
 
----
+URLs:
+- https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm
+- https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm
+- https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm
 
-## URLs para capturas (producto → precio visible)
+**Fig. 7 — Comdiel.cl (derivación T)**
 
-| Producto | URL | Precio |
-|----------|-----|--------|
-| DRL Moldura PVC 40×16 mm | https://www.sodimac.cl/sodimac-cl/articulo/147232860/ | $1.490 |
-| Ángulo Plano — Comdiel | https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm | $580 |
-| Ángulo Interior — Comdiel | https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm | $580 |
-| Ángulo Exterior — Comdiel | https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm | $580 |
-| Derivación T — Comdiel | https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm | $580 |
-| Unión — Comdiel | https://www.comdiel.cl/union-para-canaleta-40x16mm | $549 |
-| Tapa Final — Comdiel | https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm | $549 |
+```
+Fig. 7. Captura de pantalla — Cotización Derivación T Plana 40×16 mm en Comdiel.cl. Precio: $580.
+Fuente: Comdiel.
+```
+
+URL: https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm
+
+**Fig. 8 — Comdiel.cl (unión)**
+
+```
+Fig. 8. Captura de pantalla — Cotización Unión 40×16 mm en Comdiel.cl. Precio: $549.
+Fuente: Comdiel.
+```
+
+URL: https://www.comdiel.cl/union-para-canaleta-40x16mm
+
+**Fig. 9 — Comdiel.cl (tapa final)**
+
+```
+Fig. 9. Captura de pantalla — Cotización Tapa Final 40×16 mm en Comdiel.cl. Precio: $549.
+Fuente: Comdiel.
+```
+
+URL: https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm
+
+### Secuencia completa (cómo se ve en el documento)
+
+```
+Tabla VI. Trazabilidad... [última tabla de la sección 5]
+Las URL de respaldo para las capturas de pantalla se listan a continuación:
+
+Fig. 3. Captura de pantalla — Cotización de cable UTP Cat6, conectores, faceplates y patch cords en Prafer.cl.
+Fuente: Prafer.
+[IMAGEN]
+
+Fig. 4. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos LS Cable en Transworld.cl.
+Fuente: Transworld.
+[IMAGEN]
+
+Fig. 5. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm 2 m en Sodimac.cl. Precio: $1.490.
+Fuente: Sodimac.
+[IMAGEN]
+
+Fig. 6. Captura de pantalla — Cotización ángulos plano, interior y exterior para canaleta 40×16 mm en Comdiel.cl. Precios: $580 c/u.
+Fuente: Comdiel.
+[IMAGEN]
+
+Fig. 7. Captura de pantalla — Cotización Derivación T Plana 40×16 mm en Comdiel.cl. Precio: $580.
+Fuente: Comdiel.
+[IMAGEN]
+
+Fig. 8. Captura de pantalla — Cotización Unión 40×16 mm en Comdiel.cl. Precio: $549.
+Fuente: Comdiel.
+[IMAGEN]
+
+Fig. 9. Captura de pantalla — Cotización Tapa Final 40×16 mm en Comdiel.cl. Precio: $549.
+Fuente: Comdiel.
+[IMAGEN]
+
+6. Análisis técnico-económico
+```
+
+### Instrucciones para la persona que toma las capturas
+
+1. Abrir cada URL en un navegador (Chrome/Edge/Firefox)
+2. Verificar que el producto, precio y nombre del proveedor sean visibles en la pantalla
+3. Tomar captura de la sección relevante (no la página completa, solo el producto con precio)
+4. Insertar la imagen en el documento en el espacio indicado
+5. Ajustar tamaño: la imagen debe ocupar ~media página, centrada
+6. El título Fig. N va ARRIBA de la imagen (formato IEEE)
+
+### Alternativa: capturas individuales (si se prefiere más detalle)
+
+Si se quiere una captura por producto (más figuras), reemplazar Fig. 3 (Prafer agrupado) por Fig. 3 a Fig. 9, y correr la numeración:
+
+| Fig. | Contenido | Proveedor |
+|------|-----------|-----------|
+| Fig. 3 | Cable UTP Cat6 305 m | Prafer |
+| Fig. 4 | Cable UTP Cat6 100 m | Prafer |
+| Fig. 5 | Jack RJ45 keystone | Prafer |
+| Fig. 6 | Faceplate 1 posición | Prafer |
+| Fig. 7 | Conector RJ45 pack 100u | Prafer |
+| Fig. 8 | Patch cord Cat6 1 m | Prafer |
+| Fig. 9 | Patch cord Cat6 2 m | Prafer |
+| Fig. 10 | Patch Panel 24p | Transworld |
+| Fig. 11 | DRL Moldura PVC 40×16 | Sodimac |
+| Fig. 12 | Ángulo Plano | Comdiel |
+| Fig. 13 | Ángulo Interior | Comdiel |
+| Fig. 14 | Ángulo Exterior | Comdiel |
+| Fig. 15 | Derivación T | Comdiel |
+| Fig. 16 | Unión | Comdiel |
+| Fig. 17 | Tapa Final | Comdiel |
 
 ---
 
@@ -288,6 +402,8 @@ Fuente: Comdiel.
 - [x] 14. Sec. 7: TIR 18,58% → ~19,7%
 - [x] 15. Conclusiones: $511.544 → $500.858; $28.419 → $27.825
 - [x] 16. Tabla VI: Lexo → Sodimac + Comdiel
-- [ ] 17. Anexo A: agregar URLs Comdiel
-- [ ] 18. Anexo A: actualizar nota de alternativa Lexo
-- [ ] 19. Insertar Fig. 3-9 (capturas Sodimac + Comdiel)
+- [x] 17. Tabla VI: agregar filas Comdiel en trazabilidad
+- [x] 18. Anexo A: agregar URLs Comdiel
+- [x] 19. Anexo A: actualizar nota de alternativa Lexo
+- [ ] 20. Insertar Fig. 3-9 al final de sección 5 (entre Tabla VI y sección 6)
+- [ ] 21. Tomar capturas de cada URL y pegarlas en los espacios indicados
