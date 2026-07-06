@@ -100,7 +100,7 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 | Etiquetas de identificación | 1 paquete | $5.000 | $5.000 |
 | **TOTAL MATERIALES** | | | **$511.544** |
 
-**Después (corregido — Sodimac + Comdiel):**
+**Después (corregido — Sodimac + Comdiel + Artilec):**
 
 | Material                                 | Cant.     | V. unitario | V. total     |
 | ---------------------------------------- | --------- | ----------- | ------------ |
@@ -111,7 +111,7 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 | Conector RJ45 macho Cat6 (pack 100 u)    | 1         | $6.500      | $6.500       |
 | Patch cord Cat6 1 m (lado rack)          | 18        | $800        | $14.400      |
 | Patch cord Cat6 2 m (lado usuario)       | 18        | $1.000      | $18.000      |
-| Patch panel Cat6 24 puertos (LS Cable)   | 1         | $122.770    | $122.770     |
+| **Patch panel Cat6 24 puertos (Furukawa Multilan Cat6)** | 1 | **$72.995** | **$72.995** |
 | DRL Moldura PVC 40×16 mm × 2 m — Sodimac | 35        | $1.490      | $52.150      |
 | Ángulo Plano 40×16 mm — Comdiel          | 8         | $580        | $4.640       |
 | Ángulo Interior 40×16 mm — Comdiel       | 6         | $580        | $3.480       |
@@ -121,7 +121,7 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 | Tapa Final 40×16 mm — Comdiel            | 6         | $549        | $3.294       |
 | Fijaciones (tornillos, tarugos, amarras) | 1 lote    | $10.000     | $10.000      |
 | Etiquetas de identificación              | 1 paquete | $5.000      | $5.000       |
-| **TOTAL MATERIALES**                     |           |             | **$500.858** |
+| **TOTAL MATERIALES**                     |           |             | **$451.083** |
 
 ---
 
@@ -136,50 +136,101 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 | Conexión/Derivación T × 4 | $2.000 | $2.320 | +$320 |
 | Copla/Unión × 10 | $4.500 | $5.490 | +$990 |
 | Tapa Terminal/Final × 6 | $2.700 | $3.294 | +$594 |
-| **Total canalización** | **$84.380** | **$73.694** | **-$10.686** |
+| **Subtotal canalización** | **$84.380** | **$73.694** | **-$10.686** |
+| Patch panel LS Cable → Furukawa | $122.770 | **$72.995** | **-$49.775** |
 | Cableado (sin cambios) | $427.164 | $427.164 | $0 |
-| **TOTAL MATERIALES** | **$511.544** | **$500.858** | **-$10.686** |
+| **TOTAL MATERIALES** | **$511.544** | **$451.083** | **-$60.461** |
 
 ---
 
-## 5. Actualizar texto donde aparece $511.544
+## 5. Actualizar texto donde aparecen valores antiguos
 
 Buscar en el documento estas referencias y actualizar:
 
-| Ubicación                | Texto original                           | Texto corregido                                  |
-| ------------------------ | ---------------------------------------- | ------------------------------------------------ |
-| Tabla IV — TOTAL         | $511.544                                 | **$500.858**                                     |
-| Párrafo bajo Tabla IV    | $511.544 ÷ 18 puntos = $28.419 por punto | **$500.858** ÷ 18 puntos = **$27.825** por punto |
-| Tabla V — Opción premium | $511.544                                 | **$500.858**                                     |
-| Sec. 6 — 1er párrafo     | $511.544 ... $28.419 por punto           | **$500.858** ... **$27.825** por punto           |
-| Sec. 7 — I₀              | $511.544 + $180.000 = $691.544           | **$500.858** + $180.000 = **$680.858**           |
-| Sec. 7 — VAN             | +$132.621                                | **+$143.307**                                    |
-| Sec. 7 — TIR             | 18,58%                                   | **~19,7%**                                       |
-| Conclusiones             | $511.544 ... $28.419 por punto           | **$500.858** ... **$27.825** por punto           |
+### 5A. Patch panel (nuevo reemplazo)
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| Tabla IV — fila patch panel | LS Cable / $122.770 | **Furukawa Multilan Cat6 / $72.995** |
+| Tabla IV — total | $500.858 | **$451.083** |
+
+### 5B. Costo por punto
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| Párrafo bajo Tabla IV | $500.858 ÷ 18 = $27.825/punto | **$451.083 ÷ 18 = $25.060/punto** |
+| Sec. 6 — 1er párrafo | $27.825/punto | **$25.060/punto** |
+| Conclusiones | $27.825/punto | **$25.060/punto** |
+
+### 5C. Inversión inicial (I₀)
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| Sec. 7 — I₀ | $500.858 + $180.000 = $680.858 | **$451.083 + $180.000 = $631.083** |
+| Tabla VII — Año 0 | -$680.858 | **-$631.083** |
+| Conclusiones — I₀ | $680.858 | **$631.083** |
+
+### 5D. VAN y TIR
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| Sec. 7 — VAN | +$143.307 | **+$193.082** |
+| Sec. 7 — TIR | ~19,7% | **~23,5%** |
+| Verificación — VAN | $143.307 | **$193.082** |
+| Verificación — TIR | 19,7% | **23,5%** |
+| Conclusiones — VAN | $143.307 | **$193.082** |
+| Conclusiones — TIR | 19,7% | **23,5%** |
+
+### 5E. Tabla V — Comparación
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| Fila patch panel | LS Cable — $122.770 (Transworld) | **Furukawa Multilan Cat6 — $72.995 (Artilec)** |
+| Total opción premium | $500.858 | **$451.083** |
+
+### 5F. Tabla VI — Trazabilidad
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| Fila patch panel | Transworld / 03-07-2026 | **Artilec / 06-07-2026** |
+
+### 5G. Fuentes (párrafos)
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| P70 (fuentes) | Transworld | **Artilec** |
+| P74 (fuentes) | Transworld | **Artilec** |
+
+### 5H. Anexo A
+
+| Ubicación | Antes | Después |
+|-----------|-------|---------|
+| Hipervínculo URL | Transworld | **Artilec** |
+| Texto display | Transworld | **Artilec** |
 
 ---
 
 ## 6. VAN y TIR recalculados
 
 ### Nuevo VAN
-- I₀ nuevo: $500.858 + $180.000 = **$680.858**
+- I₀ nuevo: $451.083 + $180.000 = **$631.083**
 - Beneficios anuales (sin cambios): $260.000
 - Tasa descuento: 10%
 - Horizonte: 4 años
 
 | Año | Flujo | Factor desc. (10%) | Valor presente |
 |-----|-------|-------------------|----------------|
-| 0 | -$680.858 | 1,0000 | -$680.858 |
+| 0 | -$631.083 | 1,0000 | -$631.083 |
 | 1 | $260.000 | 0,9091 | $236.364 |
 | 2 | $260.000 | 0,8264 | $214.876 |
 | 3 | $260.000 | 0,7513 | $195.342 |
 | 4 | $260.000 | 0,6830 | $177.584 |
-| | | **VAN** | **+$143.307** |
+| | | **VAN** | **+$193.082** |
 
 ### Nueva TIR
-VAN = 0 → 0 = -680.858 + 260.000/(1+TIR)¹ + 260.000/(1+TIR)² + 260.000/(1+TIR)³ + 260.000/(1+TIR)⁴
+VAN = 0 → 0 = -631.083 + 260.000/(1+TIR)¹ + 260.000/(1+TIR)² + 260.000/(1+TIR)³ + 260.000/(1+TIR)⁴
 
-**TIR ≈ 19,7%** (vs 18,58% original)
+**TIR ≈ 23,5%** (vs 19,7% anterior, vs 18,58% original)
 
 ---
 
@@ -190,6 +241,12 @@ VAN = 0 → 0 = -680.858 + 260.000/(1+TIR)¹ + 260.000/(1+TIR)² + 260.000/(1+TI
 | (original)  | Lexo / Kersting (Pudahuel) | Canaleta PVC 40×16 y accesorios                           | Web | 03-07-2026 | lexo.cl — verificar stock                            |
 | ----------- | -------------------------- | --------------------------------------------------------- | --- | ---------- | ---------------------------------------------------- |
 | (reemplazo) | Sodimac + Comdiel          | Canaleta PVC 40×16 (Sodimac) + accesorios 40×16 (Comdiel) | Web | 03-07-2026 | Links en Anexo A — precios con IVA, stock disponible |
+
+Y la fila de Transworld → Artilec:
+
+| (original) | Transworld (Stgo.) | Patch panel Cat6 24p LS Cable | Web | 03-07-2026 | transworld.cl |
+| ---------- | ------------------ | ------------------------------ | --- | ---------- | ------------- |
+| (reemplazo) | **Artilec** (Stgo.) | **Patch panel Furukawa Multilan Cat6 24p** | Web | **06-07-2026** | **artilec.cl** |
 
 ---
 
@@ -207,6 +264,12 @@ El Anexo A actual ya incluye el link de Sodimac y menciona Lexo como "agotada". 
 • https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm
 ```
 
+Y **reemplazar** la URL de Transworld por Artilec:
+
+| Antes | Después |
+|-------|---------|
+| `https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/` | `https://artilec.cl/producto/patch-panel-furukawa-multilan-cat6-24-puertos/` |
+
 **Actualizar nota final** del Anexo A:
 ```
 Original: "Lexo indicaba la canaleta 40×16 como 'agotada'... como alternativa, se sugiere verificar disponibilidad en Sodimac, Dartel o Ecanor."
@@ -222,7 +285,7 @@ Corregido: "Lexo indicaba la canaleta 40×16 como 'agotada' en el sitio web al m
 
 | Ítem | Antes | Después |
 |------|-------|---------|
-| Opción premium — Total proyecto | $511.544 | **$500.858** |
+| Opción premium — Total proyecto | $500.858 | **$451.083** |
 | Opción económica — Total proyecto | ~$318.989 | Sin cambios (~$318.989, no usa canalización premium) |
 
 ---
@@ -250,7 +313,8 @@ Van en este orden:
 | 7    | Conector RJ45 macho Cat6 pack 100u                    | Prafer     | https://prafer.cl/tienda/conector-rj45-cat6-utp-ulink-ul-ntw20500/               |
 | 8    | Patch cord Cat6 1 m (azul)                            | Prafer     | https://prafer.cl/tienda/patch-cord-cat6-1-mts-azul-ulink/                       |
 | 9    | Patch cord Cat6 2 m                                   | Prafer     | https://prafer.cl/tienda/patch-cord-ulink-cat6-2-metros/                         |
-| 10   | Patch Panel Cat6 24 puertos LS Cable                  | Transworld | https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/    |
+| ~~10~~ | ~~Patch Panel Cat6 24p LS Cable~~                    | ~~Transworld~~ | ~~https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/~~ |
+| **10** | **Patch Panel Furukawa Multilan Cat6 24p**           | **Artilec** | **https://artilec.cl/producto/patch-panel-furukawa-multilan-cat6-24-puertos/**  |
 | 11   | DRL Moldura PVC 40×16 mm 2 m                          | Sodimac    | https://www.sodimac.cl/sodimac-cl/articulo/147232860/                            |
 | 12   | Ángulo Plano 40×16 mm                                 | Comdiel    | https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm                        |
 | 13   | Ángulo Interior 40×16 mm                              | Comdiel    | https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm                     |
@@ -295,8 +359,8 @@ Fig. 9. Captura de pantalla — Cotización Patch cord Cat6 2 m en Prafer.cl. Pr
 Fuente: Prafer.
 [IMAGEN]
 
-Fig. 10. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos (LS Cable) en Transworld.cl. Precio: $122.770.
-Fuente: Transworld.
+Fig. 10. Captura de pantalla — Cotización Patch Panel Furukawa Multilan Cat6 24p en Artilec.cl. Precio: $72.995.
+Fuente: Artilec.
 [IMAGEN]
 
 Fig. 11. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm × 2 m en Sodimac.cl. Precio: $1.490.
@@ -344,26 +408,60 @@ Cómo pegar cada imagen:
 
 ---
 
-## Resumen de cambios (checklist)
+## 11. Fig 10 caption — Actualizar
 
-- [x] 1. Tabla IV: canaleta $1.900 → Sodimac $1.490
-- [x] 2. Tabla IV: ángulo plano $510 → Comdiel $580
-- [x] 3. Tabla IV: curva interior $460 → ángulo interior $580
-- [x] 4. Tabla IV: curva exterior $460 → ángulo exterior $580
-- [x] 5. Tabla IV: conexión T $500 → derivación T $580
-- [x] 6. Tabla IV: copla unión $450 → unión $549
-- [x] 7. Tabla IV: tapa terminal $450 → tapa final $549
-- [x] 8. Tabla IV: TOTAL $511.544 → $500.858
-- [x] 9. Párrafo post-Tabla IV: $28.419 → $27.825 por punto
-- [x] 10. Tabla V: opción premium $511.544 → $500.858
-- [x] 11. Sec. 6: $511.544 → $500.858; $28.419 → $27.825
-- [x] 12. Sec. 7: I₀ $691.544 → $680.858
-- [x] 13. Sec. 7: VAN +$132.621 → +$143.307
-- [x] 14. Sec. 7: TIR 18,58% → ~19,7%
-- [x] 15. Conclusiones: $511.544 → $500.858; $28.419 → $27.825
-- [x] 16. Tabla VI: Lexo → Sodimac + Comdiel
-- [x] 17. Tabla VI: agregar filas Comdiel en trazabilidad
-- [x] 18. Anexo A: agregar URLs Comdiel
-- [x] 19. Anexo A: actualizar nota de alternativa Lexo
-- [ ] 20. Insertar Fig. 3-9 al final de sección 5 (entre Tabla VI y sección 6)
-- [ ] 21. Tomar capturas de cada URL y pegarlas en los espacios indicados
+- [ ] El texto "Fig. 10. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos (LS Cable) en Transworld.cl" debe decir ahora "Patch Panel Furukawa Multilan Cat6 24p en Artilec.cl"
+
+---
+
+## Resumen de cambios (checklist completo)
+
+### Primera ronda — Canalización (Lexo → Sodimac + Comdiel)
+- [ ] 1. Tabla IV: canaleta $1.900 → Sodimac $1.490
+- [ ] 2. Tabla IV: ángulo plano $510 → Comdiel $580
+- [ ] 3. Tabla IV: curva interior $460 → ángulo interior $580
+- [ ] 4. Tabla IV: curva exterior $460 → ángulo exterior $580
+- [ ] 5. Tabla IV: conexión T $500 → derivación T $580
+- [ ] 6. Tabla IV: copla unión $450 → unión $549
+- [ ] 7. Tabla IV: tapa terminal $450 → tapa final $549
+- [ ] 8. Tabla V: opción premium total actualizado
+- [ ] 9. Sec. 6: montos actualizados
+- [ ] 10. Sec. 7: I₀, VAN, TIR actualizados
+- [ ] 11. Conclusiones: montos actualizados
+- [ ] 12. Tabla VI: Lexo → Sodimac + Comdiel
+- [ ] 13. Anexo A: URLs Comdiel agregadas
+- [ ] 14. Anexo A: nota de alternativa Lexo actualizada
+
+### Segunda ronda — Patch panel (Transworld/LS Cable → Artilec/Furukawa)
+- [ ] 15. Tabla IV: LS Cable $122.770 → **Furukawa $72.995**
+- [ ] 16. Tabla IV: TOTAL $500.858 → **$451.083**
+- [ ] 17. Párrafo post-Tabla IV: $27.825/punto → **$25.060/punto**
+- [ ] 18. Tabla V: patch panel LS Cable/Transworld → **Furukawa/Artilec**
+- [ ] 19. Tabla V: total opción premium $500.858 → **$451.083**
+- [ ] 20. Tabla VI: Transworld → **Artilec**, fecha a 06-07-2026
+- [ ] 21. Tabla VII (Table 15): Año 0 -$680.858 → **-$631.083**
+- [ ] 22. Sec. 6: $500.858 → **$451.083**, $27.825 → **$25.060**
+- [ ] 23. Sec. 7: I₀ $680.858 → **$631.083**
+- [ ] 24. Sec. 7: VAN +$143.307 → **+$193.082**
+- [ ] 25. Sec. 7: TIR ~19,7% → **~23,5%**
+- [ ] 26. Verificación: $143.307 → $193.082, 19,7% → 23,5%
+- [ ] 27. Párrafo fuentes P70: Transworld → **Artilec**
+- [ ] 28. Párrafo fuentes P74: Transworld → **Artilec**
+- [ ] 29. Fig 10 caption: LS Cable/Transworld → **Furukawa/Artilec**
+- [ ] 30. Conclusiones: todos los valores actualizados
+- [ ] 31. Anexo A: URL Transworld → **Artilec** (display + target)
+- [ ] 32. Insertar Fig. 3-18 al final de sección 5
+- [ ] 33. Tomar capturas de cada URL y pegarlas en los espacios indicados
+
+### Valores finales (verificación rápida)
+
+| Concepto | Valor correcto |
+|----------|----------------|
+| Total proyecto | **$451.083** |
+| Costo por punto | **$25.060** |
+| Inversión inicial (I₀) | **$631.083** |
+| VAN (10%, 4 años) | **+$193.082** |
+| TIR | **~23,5%** |
+| Proveedor patch panel | **Artilec** |
+| Marca patch panel | **Furukawa Multilan Cat6** |
+| Precio patch panel | **$72.995** |
