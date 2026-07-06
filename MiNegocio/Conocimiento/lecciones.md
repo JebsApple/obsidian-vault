@@ -11,6 +11,8 @@ Registra aquí errores y soluciones para no repetirlos.
 - **Solución:** Cómo se resolvió
 - **Causa raíz:** Por qué ocurrió
 
+- [2026-07-05] Caso05 Packet Tracer — PDF del profesor NO exige VLANs/subnetting. El foco es cableado estructurado, cotizaciones, VAN/TIR. VLANs solo como "mejora futura" en pregunta 10. Router opcional "si el diseño lo requiere". La simulación PT debe reflejar la red plana `/24` que describe el informe actual. Instrucciones desde cero guardadas en `Personal/Instrucciones-PT-Caso05-desde-cero.md`.
+
 ## Regla fija — Ramas en español
 Todas las ramas se nombran en **español**. Nada de inglés (no `readmes`, `testing`, `dashboard`). Nomenclatura estricta: `SPRINT-HUXX-TXX-descripcion-breve` o `SLT-descripcion`. Confirmar con el usuario antes de renombrar ramas que no creaste tú mismo.
 
