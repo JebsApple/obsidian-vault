@@ -33,10 +33,10 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 
 **Ángulo plano (8 unidades):**
 
-| Material | Cant. | V. unitario | V. total |
-|----------|-------|-------------|----------|
-| (original) Ángulo plano canaleta 40×16 — Lexo | 8 | $510 | $4.080 |
-| (reemplazo) Ángulo Plano 40×16 mm — Comdiel (cód. 00572A) | 8 | $580 | $4.640 |
+| Material                                                  | Cant. | V. unitario | V. total |
+| --------------------------------------------------------- | ----- | ----------- | -------- |
+| (original) Ángulo plano canaleta 40×16 — Lexo             | 8     | $510        | $4.080   |
+| (reemplazo) Ángulo Plano 40×16 mm — Comdiel (cód. 00572A) | 8     | $580        | $4.640   |
 
 **Curva interior (6 unidades):**
 
