@@ -68,10 +68,10 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 
 **Tapa terminal (6 unidades):**
 
-| Material | Cant. | V. unitario | V. total |
-|----------|-------|-------------|----------|
-| (original) Tapa terminal canaleta 40×16 — Lexo | 6 | $450 | $2.700 |
-| (reemplazo) Tapa Final 40×16 mm — Comdiel (cód. 00572F) | 6 | $549 | $3.294 |
+| Material                                                | Cant. | V. unitario | V. total |
+| ------------------------------------------------------- | ----- | ----------- | -------- |
+| (original) Tapa terminal canaleta 40×16 — Lexo          | 6     | $450        | $2.700   |
+| (reemplazo) Tapa Final 40×16 mm — Comdiel (cód. 00572F) | 6     | $549        | $3.294   |
 
 ---
 
@@ -102,26 +102,26 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 
 **Después (corregido — Sodimac + Comdiel):**
 
-| Material | Cant. | V. unitario | V. total |
-|----------|-------|-------------|----------|
-| Bobina cable UTP Cat6 305 m (Ulink) | 1 | $155.000 | $155.000 |
-| Bobina cable UTP Cat6 100 m | 1 | $20.794 | $20.794 |
-| Jack RJ45 hembra Cat6 (keystone) | 18 | $3.650 | $65.700 |
-| Faceplate 1 posición | 18 | $500 | $9.000 |
-| Conector RJ45 macho Cat6 (pack 100 u) | 1 | $6.500 | $6.500 |
-| Patch cord Cat6 1 m (lado rack) | 18 | $800 | $14.400 |
-| Patch cord Cat6 2 m (lado usuario) | 18 | $1.000 | $18.000 |
-| Patch panel Cat6 24 puertos (LS Cable) | 1 | $122.770 | $122.770 |
-| DRL Moldura PVC 40×16 mm × 2 m — Sodimac | 35 | $1.490 | $52.150 |
-| Ángulo Plano 40×16 mm — Comdiel | 8 | $580 | $4.640 |
-| Ángulo Interior 40×16 mm — Comdiel | 6 | $580 | $3.480 |
-| Ángulo Exterior 40×16 mm — Comdiel | 4 | $580 | $2.320 |
-| Derivación T Plana 40×16 mm — Comdiel | 4 | $580 | $2.320 |
-| Unión 40×16 mm — Comdiel | 10 | $549 | $5.490 |
-| Tapa Final 40×16 mm — Comdiel | 6 | $549 | $3.294 |
-| Fijaciones (tornillos, tarugos, amarras) | 1 lote | $10.000 | $10.000 |
-| Etiquetas de identificación | 1 paquete | $5.000 | $5.000 |
-| **TOTAL MATERIALES** | | | **$500.858** |
+| Material                                 | Cant.     | V. unitario | V. total     |
+| ---------------------------------------- | --------- | ----------- | ------------ |
+| Bobina cable UTP Cat6 305 m (Ulink)      | 1         | $155.000    | $155.000     |
+| Bobina cable UTP Cat6 100 m              | 1         | $20.794     | $20.794      |
+| Jack RJ45 hembra Cat6 (keystone)         | 18        | $3.650      | $65.700      |
+| Faceplate 1 posición                     | 18        | $500        | $9.000       |
+| Conector RJ45 macho Cat6 (pack 100 u)    | 1         | $6.500      | $6.500       |
+| Patch cord Cat6 1 m (lado rack)          | 18        | $800        | $14.400      |
+| Patch cord Cat6 2 m (lado usuario)       | 18        | $1.000      | $18.000      |
+| Patch panel Cat6 24 puertos (LS Cable)   | 1         | $122.770    | $122.770     |
+| DRL Moldura PVC 40×16 mm × 2 m — Sodimac | 35        | $1.490      | $52.150      |
+| Ángulo Plano 40×16 mm — Comdiel          | 8         | $580        | $4.640       |
+| Ángulo Interior 40×16 mm — Comdiel       | 6         | $580        | $3.480       |
+| Ángulo Exterior 40×16 mm — Comdiel       | 4         | $580        | $2.320       |
+| Derivación T Plana 40×16 mm — Comdiel    | 4         | $580        | $2.320       |
+| Unión 40×16 mm — Comdiel                 | 10        | $549        | $5.490       |
+| Tapa Final 40×16 mm — Comdiel            | 6         | $549        | $3.294       |
+| Fijaciones (tornillos, tarugos, amarras) | 1 lote    | $10.000     | $10.000      |
+| Etiquetas de identificación              | 1 paquete | $5.000      | $5.000       |
+| **TOTAL MATERIALES**                     |           |             | **$500.858** |
 
 ---
 
@@ -146,16 +146,16 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 
 Buscar en el documento estas referencias y actualizar:
 
-| Ubicación | Texto original | Texto corregido |
-|-----------|---------------|-----------------|
-| Tabla IV — TOTAL | $511.544 | **$500.858** |
-| Párrafo bajo Tabla IV | $511.544 ÷ 18 puntos = $28.419 por punto | **$500.858** ÷ 18 puntos = **$27.825** por punto |
-| Tabla V — Opción premium | $511.544 | **$500.858** |
-| Sec. 6 — 1er párrafo | $511.544 ... $28.419 por punto | **$500.858** ... **$27.825** por punto |
-| Sec. 7 — I₀ | $511.544 + $180.000 = $691.544 | **$500.858** + $180.000 = **$680.858** |
-| Sec. 7 — VAN | +$132.621 | **+$143.307** |
-| Sec. 7 — TIR | 18,58% | **~19,7%** |
-| Conclusiones | $511.544 ... $28.419 por punto | **$500.858** ... **$27.825** por punto |
+| Ubicación                | Texto original                           | Texto corregido                                  |
+| ------------------------ | ---------------------------------------- | ------------------------------------------------ |
+| Tabla IV — TOTAL         | $511.544                                 | **$500.858**                                     |
+| Párrafo bajo Tabla IV    | $511.544 ÷ 18 puntos = $28.419 por punto | **$500.858** ÷ 18 puntos = **$27.825** por punto |
+| Tabla V — Opción premium | $511.544                                 | **$500.858**                                     |
+| Sec. 6 — 1er párrafo     | $511.544 ... $28.419 por punto           | **$500.858** ... **$27.825** por punto           |
+| Sec. 7 — I₀              | $511.544 + $180.000 = $691.544           | **$500.858** + $180.000 = **$680.858**           |
+| Sec. 7 — VAN             | +$132.621                                | **+$143.307**                                    |
+| Sec. 7 — TIR             | 18,58%                                   | **~19,7%**                                       |
+| Conclusiones             | $511.544 ... $28.419 por punto           | **$500.858** ... **$27.825** por punto           |
 
 ---
 
