@@ -231,156 +231,116 @@ Corregido: "Lexo indicaba la canaleta 40×16 como 'agotada' en el sitio web al m
 
 ### Ubicación exacta
 
-Buscar el texto: _"Las URL de respaldo para las capturas de pantalla de anexos se listan en la sección de Anexos de este informe."_ (última línea de la sección 5.2, antes de "6. Análisis técnico-económico").
+Buscar en el documento: el texto _"Las URL de respaldo para las capturas de pantalla de anexos se listan en la sección de Anexos de este informe."_
 
-Insertar AHI las capturas, numeradas como **Fig. 3, Fig. 4... Fig. N** (continúa desde Fig. 2 de Packet Tracer).
+**Ese es el último párrafo de la sección 5.2.** Insertar AQUÍ las capturas (entre ese párrafo y el título "6. Análisis técnico-económico").
 
-### Orden recomendado (agrupado por proveedor, 7 figuras)
+### Orden de capturas (individuales)
 
-**Fig. 3 — Prafer.cl (productos de cableado)**
+Numeración: **Fig. 3 a Fig. 18** (Figs. 1 y 2 ya existen en el informe).
 
-Agrupar en UNA captura: los productos de Prafer se pueden mostrar juntos si se toma un screenshot del sitio con varios productos visibles, o individualmente. Si se agrupan:
+Van en este orden:
 
-```
-Fig. 3. Captura de pantalla — Cotización de cable UTP Cat6, conectores, faceplates y patch cords en Prafer.cl.
-Fuente: Prafer.
-```
+| Fig. | Producto | Proveedor | URL |
+|------|----------|-----------|-----|
+| 3 | Cable UTP Cat6 305 m — Ulink | Prafer | https://prafer.cl/tienda/cable-de-red-utp-cat6-100-cobre-interior-305-mts-ulink/ |
+| 4 | Bobina cable UTP Cat6 100 m | Prafer | https://prafer.cl/tienda/bobina-de-cable-de-red-cat-6-100-metros-gris/ |
+| 5 | Jack RJ45 hembra Cat6 keystone | Prafer | https://prafer.cl/tienda/modulo-rj45-hembra-keystone-jack-cat-6-trimerx-blanco/ |
+| 6 | Faceplate 1 posición | Prafer | https://prafer.cl/tienda/faceplate-blanco-1-posicion-ulink-ul-ntw50120/ |
+| 7 | Conector RJ45 macho Cat6 pack 100u | Prafer | https://prafer.cl/tienda/conector-rj45-cat6-utp-ulink-ul-ntw20500/ |
+| 8 | Patch cord Cat6 1 m (azul) | Prafer | https://prafer.cl/tienda/patch-cord-cat6-1-mts-azul-ulink/ |
+| 9 | Patch cord Cat6 2 m | Prafer | https://prafer.cl/tienda/patch-cord-ulink-cat6-2-metros/ |
+| 10 | Patch Panel Cat6 24 puertos LS Cable | Transworld | https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/ |
+| 11 | DRL Moldura PVC 40×16 mm 2 m | Sodimac | https://www.sodimac.cl/sodimac-cl/articulo/147232860/ |
+| 12 | Ángulo Plano 40×16 mm | Comdiel | https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm |
+| 13 | Ángulo Interior 40×16 mm | Comdiel | https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm |
+| 14 | Ángulo Exterior 40×16 mm | Comdiel | https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm |
+| 15 | Derivación T Plana 40×16 mm | Comdiel | https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm |
+| 16 | Unión 40×16 mm | Comdiel | https://www.comdiel.cl/union-para-canaleta-40x16mm |
+| 17 | Tapa Final 40×16 mm | Comdiel | https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm |
+| 18 | Patch Panel Cat6 24p genérico (alternativa económica) | Metacom | https://www.metacom.cl/patch-panel-cat-6-24-puertos |
 
-URLs que cubre:
-- https://prafer.cl/tienda/cable-de-red-utp-cat6-100-cobre-interior-305-mts-ulink/
-- https://prafer.cl/tienda/bobina-de-cable-de-red-cat-6-100-metros-gris/
-- https://prafer.cl/tienda/modulo-rj45-hembra-keystone-jack-cat-6-trimerx-blanco/
-- https://prafer.cl/tienda/faceplate-blanco-1-posicion-ulink-ul-ntw50120/
-- https://prafer.cl/tienda/conector-rj45-cat6-utp-ulink-ul-ntw20500/
-- https://prafer.cl/tienda/patch-cord-cat6-1-mts-azul-ulink/
-- https://prafer.cl/tienda/patch-cord-ulink-cat6-2-metros/
+### Texto exacto a copiar en el documento
 
-**Fig. 4 — Transworld.cl (patch panel)**
+(texto, imagen, texto, imagen... uno tras otro)
 
-```
-Fig. 4. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos LS Cable en Transworld.cl.
-Fuente: Transworld.
-```
-
-URL: https://www.transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/
-
-**Fig. 5 — Sodimac.cl (canaleta)**
-
-```
-Fig. 5. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm 2 m en Sodimac.cl. Precio: $1.490.
-Fuente: Sodimac.
-```
-
-URL: https://www.sodimac.cl/sodimac-cl/articulo/147232860/
-
-**Fig. 6 — Comdiel.cl (ángulos)**
-
-Agrupar en UNA captura: Ángulo Plano + Interior + Exterior (tres productos de la misma serie)
+Copiar todo esto después del párrafo _"Las URL de respaldo..."_ y antes de _"6. Análisis técnico-económico"_:
 
 ```
-Fig. 6. Captura de pantalla — Cotización ángulos plano, interior y exterior para canaleta 40×16 mm en Comdiel.cl. Precios: $580 c/u.
-Fuente: Comdiel.
-```
-
-URLs:
-- https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm
-- https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm
-- https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm
-
-**Fig. 7 — Comdiel.cl (derivación T)**
-
-```
-Fig. 7. Captura de pantalla — Cotización Derivación T Plana 40×16 mm en Comdiel.cl. Precio: $580.
-Fuente: Comdiel.
-```
-
-URL: https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm
-
-**Fig. 8 — Comdiel.cl (unión)**
-
-```
-Fig. 8. Captura de pantalla — Cotización Unión 40×16 mm en Comdiel.cl. Precio: $549.
-Fuente: Comdiel.
-```
-
-URL: https://www.comdiel.cl/union-para-canaleta-40x16mm
-
-**Fig. 9 — Comdiel.cl (tapa final)**
-
-```
-Fig. 9. Captura de pantalla — Cotización Tapa Final 40×16 mm en Comdiel.cl. Precio: $549.
-Fuente: Comdiel.
-```
-
-URL: https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm
-
-### Secuencia completa (cómo se ve en el documento)
-
-```
-Tabla VI. Trazabilidad... [última tabla de la sección 5]
-Las URL de respaldo para las capturas de pantalla se listan a continuación:
-
-Fig. 3. Captura de pantalla — Cotización de cable UTP Cat6, conectores, faceplates y patch cords en Prafer.cl.
+Fig. 3. Captura de pantalla — Cotización cable UTP Cat6 305 m (Ulink) en Prafer.cl. Precio: $155.000.
 Fuente: Prafer.
 [IMAGEN]
 
-Fig. 4. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos LS Cable en Transworld.cl.
+Fig. 4. Captura de pantalla — Cotización bobina cable UTP Cat6 100 m en Prafer.cl. Precio: $20.794.
+Fuente: Prafer.
+[IMAGEN]
+
+Fig. 5. Captura de pantalla — Cotización Jack RJ45 hembra Cat6 keystone en Prafer.cl. Precio: $3.650.
+Fuente: Prafer.
+[IMAGEN]
+
+Fig. 6. Captura de pantalla — Cotización Faceplate 1 posición en Prafer.cl. Precio: $500.
+Fuente: Prafer.
+[IMAGEN]
+
+Fig. 7. Captura de pantalla — Cotización Conector RJ45 macho Cat6 pack 100u en Prafer.cl. Precio: $6.500.
+Fuente: Prafer.
+[IMAGEN]
+
+Fig. 8. Captura de pantalla — Cotización Patch cord Cat6 1 m en Prafer.cl. Precio: $800.
+Fuente: Prafer.
+[IMAGEN]
+
+Fig. 9. Captura de pantalla — Cotización Patch cord Cat6 2 m en Prafer.cl. Precio: $1.000.
+Fuente: Prafer.
+[IMAGEN]
+
+Fig. 10. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos (LS Cable) en Transworld.cl. Precio: $122.770.
 Fuente: Transworld.
 [IMAGEN]
 
-Fig. 5. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm 2 m en Sodimac.cl. Precio: $1.490.
+Fig. 11. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm × 2 m en Sodimac.cl. Precio: $1.490.
 Fuente: Sodimac.
 [IMAGEN]
 
-Fig. 6. Captura de pantalla — Cotización ángulos plano, interior y exterior para canaleta 40×16 mm en Comdiel.cl. Precios: $580 c/u.
+Fig. 12. Captura de pantalla — Cotización Ángulo Plano 40×16 mm en Comdiel.cl. Precio: $580.
 Fuente: Comdiel.
 [IMAGEN]
 
-Fig. 7. Captura de pantalla — Cotización Derivación T Plana 40×16 mm en Comdiel.cl. Precio: $580.
+Fig. 13. Captura de pantalla — Cotización Ángulo Interior 40×16 mm en Comdiel.cl. Precio: $580.
 Fuente: Comdiel.
 [IMAGEN]
 
-Fig. 8. Captura de pantalla — Cotización Unión 40×16 mm en Comdiel.cl. Precio: $549.
+Fig. 14. Captura de pantalla — Cotización Ángulo Exterior 40×16 mm en Comdiel.cl. Precio: $580.
 Fuente: Comdiel.
 [IMAGEN]
 
-Fig. 9. Captura de pantalla — Cotización Tapa Final 40×16 mm en Comdiel.cl. Precio: $549.
+Fig. 15. Captura de pantalla — Cotización Derivación T Plana 40×16 mm en Comdiel.cl. Precio: $580.
 Fuente: Comdiel.
+[IMAGEN]
+
+Fig. 16. Captura de pantalla — Cotización Unión 40×16 mm en Comdiel.cl. Precio: $549.
+Fuente: Comdiel.
+[IMAGEN]
+
+Fig. 17. Captura de pantalla — Cotización Tapa Final 40×16 mm en Comdiel.cl. Precio: $549.
+Fuente: Comdiel.
+[IMAGEN]
+
+Fig. 18. Captura de pantalla — Cotización Patch Panel Cat6 24 puertos genérico en Metacom.cl (alternativa económica).
+Fuente: Metacom.
 [IMAGEN]
 
 6. Análisis técnico-económico
 ```
 
-### Instrucciones para la persona que toma las capturas
-
-1. Abrir cada URL en un navegador (Chrome/Edge/Firefox)
-2. Verificar que el producto, precio y nombre del proveedor sean visibles en la pantalla
-3. Tomar captura de la sección relevante (no la página completa, solo el producto con precio)
-4. Insertar la imagen en el documento en el espacio indicado
-5. Ajustar tamaño: la imagen debe ocupar ~media página, centrada
-6. El título Fig. N va ARRIBA de la imagen (formato IEEE)
-
-### Alternativa: capturas individuales (si se prefiere más detalle)
-
-Si se quiere una captura por producto (más figuras), reemplazar Fig. 3 (Prafer agrupado) por Fig. 3 a Fig. 9, y correr la numeración:
-
-| Fig. | Contenido | Proveedor |
-|------|-----------|-----------|
-| Fig. 3 | Cable UTP Cat6 305 m | Prafer |
-| Fig. 4 | Cable UTP Cat6 100 m | Prafer |
-| Fig. 5 | Jack RJ45 keystone | Prafer |
-| Fig. 6 | Faceplate 1 posición | Prafer |
-| Fig. 7 | Conector RJ45 pack 100u | Prafer |
-| Fig. 8 | Patch cord Cat6 1 m | Prafer |
-| Fig. 9 | Patch cord Cat6 2 m | Prafer |
-| Fig. 10 | Patch Panel 24p | Transworld |
-| Fig. 11 | DRL Moldura PVC 40×16 | Sodimac |
-| Fig. 12 | Ángulo Plano | Comdiel |
-| Fig. 13 | Ángulo Interior | Comdiel |
-| Fig. 14 | Ángulo Exterior | Comdiel |
-| Fig. 15 | Derivación T | Comdiel |
-| Fig. 16 | Unión | Comdiel |
-| Fig. 17 | Tapa Final | Comdiel |
+Cómo pegar cada imagen:
+1. Abrir URL → screenshot (recortar solo producto + precio + proveedor)
+2. En Word: Insertar → Imagen → seleccionar archivo
+3. Ajustar ancho a ~14 cm, centrada
+4. El título "Fig. N..." va ARRIBA de la imagen, en cursiva o normal
+5. "Fuente:" en la línea siguiente
+6. Dejar un renglón de espacio entre figuras
 
 ---
 
