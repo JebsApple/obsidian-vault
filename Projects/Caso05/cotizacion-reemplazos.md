@@ -40,10 +40,10 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 
 **Curva interior (6 unidades):**
 
-| Material | Cant. | V. unitario | V. total |
-|----------|-------|-------------|----------|
-| (original) Curva interior canaleta 40×16 — Lexo | 6 | $460 | $2.760 |
-| (reemplazo) Ángulo Interior 40×16 mm — Comdiel (cód. 00572C) | 6 | $580 | $3.480 |
+| Material                                                     | Cant. | V. unitario | V. total |
+| ------------------------------------------------------------ | ----- | ----------- | -------- |
+| (original) Curva interior canaleta 40×16 — Lexo              | 6     | $460        | $2.760   |
+| (reemplazo) Ángulo Interior 40×16 mm — Comdiel (cód. 00572C) | 6     | $580        | $3.480   |
 
 **Curva exterior (4 unidades):**
 
@@ -54,17 +54,17 @@ Ahorro: $66.500 → $52.150 = **-$14.350**
 
 **Conexión T (4 unidades):**
 
-| Material | Cant. | V. unitario | V. total |
-|----------|-------|-------------|----------|
-| (original) Conexión T canaleta 40×16 — Lexo | 4 | $500 | $2.000 |
-| (reemplazo) Derivación T Plana 40×16 mm — Comdiel (cód. 00572D) | 4 | $580 | $2.320 |
+| Material                                                        | Cant. | V. unitario | V. total |
+| --------------------------------------------------------------- | ----- | ----------- | -------- |
+| (original) Conexión T canaleta 40×16 — Lexo                     | 4     | $500        | $2.000   |
+| (reemplazo) Derivación T Plana 40×16 mm — Comdiel (cód. 00572D) | 4     | $580        | $2.320   |
 
 **Copla unión (10 unidades):**
 
-| Material | Cant. | V. unitario | V. total |
-|----------|-------|-------------|----------|
-| (original) Copla unión canaleta 40×16 — Lexo | 10 | $450 | $4.500 |
-| (reemplazo) Unión 40×16 mm — Comdiel (cód. 00572E) | 10 | $549 | $5.490 |
+| Material                                           | Cant. | V. unitario | V. total |
+| -------------------------------------------------- | ----- | ----------- | -------- |
+| (original) Copla unión canaleta 40×16 — Lexo       | 10    | $450        | $4.500   |
+| (reemplazo) Unión 40×16 mm — Comdiel (cód. 00572E) | 10    | $549        | $5.490   |
 
 **Tapa terminal (6 unidades):**
 
