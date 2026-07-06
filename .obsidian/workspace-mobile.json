@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MiNegocio/Rúbrica Evaluación.md",
+                "file": "Personal/Instrucciones-PT-Caso05-desde-cero.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Rúbrica Evaluación"
+              "title": "Instrucciones-PT-Caso05-desde-cero"
             }
           }
         ]
@@ -170,5 +170,7 @@
     }
   },
   "active": "875104e2943002c0",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "MiNegocio/Rúbrica Evaluación.md"
+  ]
 }
