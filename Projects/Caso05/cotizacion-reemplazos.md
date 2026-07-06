@@ -1,7 +1,7 @@
 ---
 tags: [proyecto, caso05, redes, cotizacion, ieee]
 ---
-}}}}}
+
 # Caso05 — Reemplazo de cotizaciones y formato IEEE
 
 ## Problema
