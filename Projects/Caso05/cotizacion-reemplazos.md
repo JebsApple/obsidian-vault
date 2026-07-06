@@ -4,167 +4,290 @@ tags: [proyecto, caso05, redes, cotizacion, ieee]
 
 # Caso05 — Instrucciones para corregir cotizaciones del informe
 
-## Archivo base a editar
-`~/Descargas/estudio /Caso05_Herrera_Soncco_Informe.docx` (2.9 MB, versión completa)
-
-## Paso 0 — Entender qué cambia
-
-| Producto | ANTES (Lexo) | DESPUÉS | Diferencia x unidad |
-|----------|-------------|---------|-------------------|
-| Canaleta PVC 40×16mm 2m | $1.900 (agotado) | $1.490 Sodimac | -$410 |
-| Ángulo Plano 40×16mm | $510 (agotado) | $580 Comdiel | +$70 |
-| Ángulo Exterior 40×16mm | $460 (agotado) | $580 Comdiel | +$120 |
-| Ángulo Interior 40×16mm | $460 (agotado) | $580 Comdiel | +$120 |
-| Conexión/Derivación T | $500 (agotado) | $580 Comdiel | +$80 |
-| Copla/Unión | $450 (agotado) | $549 Comdiel | +$99 |
-| Tapa Terminal/Final | $450 (agotado) | $549 Comdiel | +$99 |
-
-## Paso 1 — Reemplazar canaleta Lexo por Sodimac/Imperial
-
-Buscar en la tabla de cotización la fila de "Canaleta PVC 40×16mm Lexo" y copiar exactamente:
-
-| Producto | Cantidad | Precio Unitario | Total |
-|----------|----------|----------------|-------|
-| DRL Moldura PVC 40×16mm 2m (Imperial) — Sodimac | 35 | $1.490 | $52.150 |
-
-Cálculo: 35 × $1.490 = $52.150
-
-URL captura: `sodimac.cl/sodimac-cl/articulo/147232860/`
-
-## Paso 2 — Reemplazar accesorios Lexo por Comdiel
-
-Si el informe tiene una línea genérica "Accesorios canaleta ~$17.880", **borrarla** y reemplazar con este desglose (usar cantidades del informe original si están especificadas; si no, estimar basado en 35 tiras de 2m):
-
-DESGLOSE COMPLETO:
-
-| Producto | Cant. | P.Unit. | Total | Código |
-|----------|-------|---------|-------|--------|
-| Ángulo Plano 40×16mm — Comdiel | 4 | $580 | $2.320 | 00572A |
-| Ángulo Exterior 40×16mm — Comdiel | 4 | $580 | $2.320 | 00572B |
-| Ángulo Interior 40×16mm — Comdiel | 4 | $580 | $2.320 | 00572C |
-| Derivación T Plana 40×16mm — Comdiel | 6 | $580 | $3.480 | 00572D |
-| Unión 40×16mm — Comdiel | 10 | $549 | $5.490 | 00572E |
-| Tapa Final 40×16mm — Comdiel | 4 | $549 | $2.196 | 00572F |
-| **TOTAL ACCESORIOS** | **32** | | **$18.126** | |
-
-Si el informe usa otras cantidades, respetar las originales pero aplicar los nuevos precios.
-
-## Paso 3 — Tabla de cotización COMPLETA (para reemplazar toda la tabla)
-
-Tabla definitiva con precios unitarios y totales calculados, en formato IEEE:
+Basado exclusivamente en: `~/Descargas/estudio /Caso05_Herrera_Soncco_Informe.docx`
 
 ---
-**Tabla [N]. Presupuesto de materiales para cableado estructurado. Fuente: Elaboración propia.**
 
-| Ítem | Producto | Cantidad | Precio Unitario | Total |
-|------|----------|----------|----------------|-------|
-| 1 | Bobina UTP Cat6 305m — Ulink | 1 | $155.000 | $155.000 |
-| 2 | Bobina UTP Cat6 100m — Ulink | 1 | $20.794 | $20.794 |
-| 3 | Jack RJ45 hembra Cat6 keystone | 18 | $3.500 | $63.000 |
-| 4 | Faceplate 1 posición | 18 | $500 | $9.000 |
-| 5 | Conector RJ45 macho Cat6 (pack 100u) | 1 | $6.500 | $6.500 |
-| 6 | Patch cord Cat6 1m | 18 | $800 | $14.400 |
-| 7 | Patch cord Cat6 2m | 18 | $1.000 | $18.000 |
-| 8 | Patch Panel Cat6 24 puertos — LS Cable | 1 | $122.770 | $122.770 |
-| 9 | DRL Moldura PVC 40×16mm 2m — Imperial/Sodimac | 35 | $1.490 | $52.150 |
-| 10 | Ángulo Plano 40×16mm — Comdiel | 4 | $580 | $2.320 |
-| 11 | Ángulo Exterior 40×16mm — Comdiel | 4 | $580 | $2.320 |
-| 12 | Ángulo Interior 40×16mm — Comdiel | 4 | $580 | $2.320 |
-| 13 | Derivación T Plana 40×16mm — Comdiel | 6 | $580 | $3.480 |
-| 14 | Unión 40×16mm — Comdiel | 10 | $549 | $5.490 |
-| 15 | Tapa Final 40×16mm — Comdiel | 4 | $549 | $2.196 |
-| 16 | Fijaciones (tornillos, tarugos, clips) | 1 | $10.000 | $10.000 |
-| 17 | Etiquetas identificadoras | 1 | $5.000 | $5.000 |
-| | **TOTAL MATERIALES** | | | **$494.740** |
+## 1. Reemplazar canaleta Lexo ($1.900) → Sodimac DRL ($1.490)
 
-Cálculos de verificación:
-- Bobinas: 155.000 + 20.794 = $175.794
-- Jacks + faceplates: 63.000 + 9.000 = $72.000
-- Conectores + patch cords: 6.500 + 14.400 + 18.000 = $38.900
-- Patch panel: $122.770
-- **Subtotal cableado:** 175.794 + 72.000 + 38.900 + 122.770 + 10.000 + 5.000 = $424.464
-- Canaleta Sodimac: 35 × 1.490 = $52.150
-- Accesorios Comdiel: 2.320 + 2.320 + 2.320 + 3.480 + 5.490 + 2.196 = $18.126
-- **Subtotal canalización:** 52.150 + 18.126 = $70.276
-- **TOTAL:** 424.464 + 70.276 = **$494.740**
+**Buscar en Tabla IV** la fila:
 
-Diferencia vs. presupuesto original ($511.544): **-$16.804**
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| (original) Canaleta PVC 40×16 mm × 2 m (35 tiras = 70 m) | 35 | $1.900 | $66.500 |
 
-## Paso 4 — Agregar columna Precio Unitario (si no existe)
+**Reemplazar por:**
 
-Si la tabla actual solo tiene `Producto | Cantidad | Total`, insertar columna `Precio Unitario` entre Cantidad y Total.
+| Material                                                            | Cant. | V. unitario | V. total |
+| ------------------------------------------------------------------- | ----- | ----------- | -------- |
+| DRL Moldura PVC 40×16 mm × 2 m (35 tiras = 70 m) — Imperial/Sodimac | 35    | $1.490      | $52.150  |
 
-Usar los precios unitarios de la tabla del Paso 3.
+Cálculo: 35 × $1.490 = $52.150
+Ahorro: $66.500 → $52.150 = **-$14.350**
 
-## Paso 5 — Insertar espacios para capturas (Formato IEEE)
+---
 
-Agregar DESPUÉS de cada ítem cotizado, en Anexo A. Cada captura con:
+## 2. Reemplazar accesorios Lexo → Comdiel
+
+**Buscar en Tabla IV** estas 6 filas y reemplazar cada una:
+
+**Ángulo plano (8 unidades):**
+
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| (original) Ángulo plano canaleta 40×16 — Lexo | 8 | $510 | $4.080 |
+| (reemplazo) Ángulo Plano 40×16 mm — Comdiel (cód. 00572A) | 8 | $580 | $4.640 |
+
+**Curva interior (6 unidades):**
+
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| (original) Curva interior canaleta 40×16 — Lexo | 6 | $460 | $2.760 |
+| (reemplazo) Ángulo Interior 40×16 mm — Comdiel (cód. 00572C) | 6 | $580 | $3.480 |
+
+**Curva exterior (4 unidades):**
+
+| Material                                                     | Cant. | V. unitario | V. total |
+| ------------------------------------------------------------ | ----- | ----------- | -------- |
+| (original) Curva exterior canaleta 40×16 — Lexo              | 4     | $460        | $1.840   |
+| (reemplazo) Ángulo Exterior 40×16 mm — Comdiel (cód. 00572B) | 4     | $580        | $2.320   |
+
+**Conexión T (4 unidades):**
+
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| (original) Conexión T canaleta 40×16 — Lexo | 4 | $500 | $2.000 |
+| (reemplazo) Derivación T Plana 40×16 mm — Comdiel (cód. 00572D) | 4 | $580 | $2.320 |
+
+**Copla unión (10 unidades):**
+
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| (original) Copla unión canaleta 40×16 — Lexo | 10 | $450 | $4.500 |
+| (reemplazo) Unión 40×16 mm — Comdiel (cód. 00572E) | 10 | $549 | $5.490 |
+
+**Tapa terminal (6 unidades):**
+
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| (original) Tapa terminal canaleta 40×16 — Lexo | 6 | $450 | $2.700 |
+| (reemplazo) Tapa Final 40×16 mm — Comdiel (cód. 00572F) | 6 | $549 | $3.294 |
+
+---
+
+## 3. Tabla IV — Versión corregida completa
+
+**Antes (original — Lexo):**
+
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| Bobina cable UTP Cat6 305 m (Ulink) | 1 | $155.000 | $155.000 |
+| Bobina cable UTP Cat6 100 m | 1 | $20.794 | $20.794 |
+| Jack RJ45 hembra Cat6 (keystone) | 18 | $3.650 | $65.700 |
+| Faceplate 1 posición | 18 | $500 | $9.000 |
+| Conector RJ45 macho Cat6 (pack 100 u) | 1 | $6.500 | $6.500 |
+| Patch cord Cat6 1 m (lado rack) | 18 | $800 | $14.400 |
+| Patch cord Cat6 2 m (lado usuario) | 18 | $1.000 | $18.000 |
+| Patch panel Cat6 24 puertos (LS Cable) | 1 | $122.770 | $122.770 |
+| Canaleta PVC 40×16 mm × 2 m | 35 | $1.900 | $66.500 |
+| Ángulo plano canaleta 40×16 | 8 | $510 | $4.080 |
+| Curva interior canaleta 40×16 | 6 | $460 | $2.760 |
+| Curva exterior canaleta 40×16 | 4 | $460 | $1.840 |
+| Conexión T canaleta 40×16 | 4 | $500 | $2.000 |
+| Copla unión canaleta 40×16 | 10 | $450 | $4.500 |
+| Tapa terminal canaleta 40×16 | 6 | $450 | $2.700 |
+| Fijaciones (tornillos, tarugos, amarras) | 1 lote | $10.000 | $10.000 |
+| Etiquetas de identificación | 1 paquete | $5.000 | $5.000 |
+| **TOTAL MATERIALES** | | | **$511.544** |
+
+**Después (corregido — Sodimac + Comdiel):**
+
+| Material | Cant. | V. unitario | V. total |
+|----------|-------|-------------|----------|
+| Bobina cable UTP Cat6 305 m (Ulink) | 1 | $155.000 | $155.000 |
+| Bobina cable UTP Cat6 100 m | 1 | $20.794 | $20.794 |
+| Jack RJ45 hembra Cat6 (keystone) | 18 | $3.650 | $65.700 |
+| Faceplate 1 posición | 18 | $500 | $9.000 |
+| Conector RJ45 macho Cat6 (pack 100 u) | 1 | $6.500 | $6.500 |
+| Patch cord Cat6 1 m (lado rack) | 18 | $800 | $14.400 |
+| Patch cord Cat6 2 m (lado usuario) | 18 | $1.000 | $18.000 |
+| Patch panel Cat6 24 puertos (LS Cable) | 1 | $122.770 | $122.770 |
+| DRL Moldura PVC 40×16 mm × 2 m — Sodimac | 35 | $1.490 | $52.150 |
+| Ángulo Plano 40×16 mm — Comdiel | 8 | $580 | $4.640 |
+| Ángulo Interior 40×16 mm — Comdiel | 6 | $580 | $3.480 |
+| Ángulo Exterior 40×16 mm — Comdiel | 4 | $580 | $2.320 |
+| Derivación T Plana 40×16 mm — Comdiel | 4 | $580 | $2.320 |
+| Unión 40×16 mm — Comdiel | 10 | $549 | $5.490 |
+| Tapa Final 40×16 mm — Comdiel | 6 | $549 | $3.294 |
+| Fijaciones (tornillos, tarugos, amarras) | 1 lote | $10.000 | $10.000 |
+| Etiquetas de identificación | 1 paquete | $5.000 | $5.000 |
+| **TOTAL MATERIALES** | | | **$500.858** |
+
+---
+
+## 4. Diferencias detalle
+
+| Producto | Original | Nuevo | Diferencia |
+|----------|----------|-------|------------|
+| Canaleta PVC 40×16 mm 2 m × 35 | $66.500 | $52.150 | **-$14.350** |
+| Ángulo Plano × 8 | $4.080 | $4.640 | +$560 |
+| Curva/Ángulo Interior × 6 | $2.760 | $3.480 | +$720 |
+| Curva/Ángulo Exterior × 4 | $1.840 | $2.320 | +$480 |
+| Conexión/Derivación T × 4 | $2.000 | $2.320 | +$320 |
+| Copla/Unión × 10 | $4.500 | $5.490 | +$990 |
+| Tapa Terminal/Final × 6 | $2.700 | $3.294 | +$594 |
+| **Total canalización** | **$84.380** | **$73.694** | **-$10.686** |
+| Cableado (sin cambios) | $427.164 | $427.164 | $0 |
+| **TOTAL MATERIALES** | **$511.544** | **$500.858** | **-$10.686** |
+
+---
+
+## 5. Actualizar texto donde aparece $511.544
+
+Buscar en el documento estas referencias y actualizar:
+
+| Ubicación | Texto original | Texto corregido |
+|-----------|---------------|-----------------|
+| Tabla IV — TOTAL | $511.544 | **$500.858** |
+| Párrafo bajo Tabla IV | $511.544 ÷ 18 puntos = $28.419 por punto | **$500.858** ÷ 18 puntos = **$27.825** por punto |
+| Tabla V — Opción premium | $511.544 | **$500.858** |
+| Sec. 6 — 1er párrafo | $511.544 ... $28.419 por punto | **$500.858** ... **$27.825** por punto |
+| Sec. 7 — I₀ | $511.544 + $180.000 = $691.544 | **$500.858** + $180.000 = **$680.858** |
+| Sec. 7 — VAN | +$132.621 | **+$143.307** |
+| Sec. 7 — TIR | 18,58% | **~19,7%** |
+| Conclusiones | $511.544 ... $28.419 por punto | **$500.858** ... **$27.825** por punto |
+
+---
+
+## 6. VAN y TIR recalculados
+
+### Nuevo VAN
+- I₀ nuevo: $500.858 + $180.000 = **$680.858**
+- Beneficios anuales (sin cambios): $260.000
+- Tasa descuento: 10%
+- Horizonte: 4 años
+
+| Año | Flujo | Factor desc. (10%) | Valor presente |
+|-----|-------|-------------------|----------------|
+| 0 | -$680.858 | 1,0000 | -$680.858 |
+| 1 | $260.000 | 0,9091 | $236.364 |
+| 2 | $260.000 | 0,8264 | $214.876 |
+| 3 | $260.000 | 0,7513 | $195.342 |
+| 4 | $260.000 | 0,6830 | $177.584 |
+| | | **VAN** | **+$143.307** |
+
+### Nueva TIR
+VAN = 0 → 0 = -680.858 + 260.000/(1+TIR)¹ + 260.000/(1+TIR)² + 260.000/(1+TIR)³ + 260.000/(1+TIR)⁴
+
+**TIR ≈ 19,7%** (vs 18,58% original)
+
+---
+
+## 7. Actualizar Tabla VI — Trazabilidad de cotizaciones
+
+**Buscar** la fila de Lexo en Tabla VI y reemplazar:
+
+| (original) | Lexo / Kersting (Pudahuel) | Canaleta PVC 40×16 y accesorios | Web | 03-07-2026 | lexo.cl — verificar stock |
+|------------|---------------------------|--------------------------------|-----|------------|--------------------------|
+| (reemplazo) | Sodimac + Comdiel | Canaleta PVC 40×16 (Sodimac) + accesorios 40×16 (Comdiel) | Web | 03-07-2026 | Links en Anexo A — precios con IVA, stock disponible |
+
+---
+
+## 8. Actualizar Anexo A — URLs de respaldo
+
+El Anexo A actual ya incluye el link de Sodimac y menciona Lexo como "agotada". **Agregar** los links de Comdiel:
 
 ```
-Fig. <N>. Captura de pantalla — Cotización <producto> en <proveedor>.
-Fuente: <proveedor>.
+• https://www.sodimac.cl/sodimac-cl/articulo/147232860/Moldura-pvc-40x16mm-2mt-tira-para-canaleta/147232861
+• https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm
+• https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm
+• https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm
+• https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm
+• https://www.comdiel.cl/union-para-canaleta-40x16mm
+• https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm
 ```
 
-| # | Fig. | Producto | URL |
-|---|------|----------|-----|
-| 1 | Fig. 3 | Bobina UTP Cat6 305m — Ulink | prafer.cl |
-| 2 | Fig. 4 | Jack RJ45 + Faceplate + Conector | prafer.cl |
-| 3 | Fig. 5 | Patch cord Cat6 1m y 2m | prafer.cl |
-| 4 | Fig. 6 | Patch Panel Cat6 24p — LS Cable | transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/ |
-| 5 | Fig. 7 | DRL Moldura PVC 40×16mm 2m | sodimac.cl/sodimac-cl/articulo/147232860/ |
-| 6 | Fig. 8 | Ángulo Plano 40×16mm | comdiel.cl/angulo-plano-para-canaleta-40x16mm |
-| 7 | Fig. 9 | Ángulo Exterior + Interior 40×16mm | comdiel.cl/angulo-exterior-para-canaleta-40x16mm + comdiel.cl/angulo-interior-para-canaleta-40x16mm |
-| 8 | Fig. 10 | Derivación T + Unión 40×16mm | comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm + comdiel.cl/union-para-canaleta-40x16mm |
-| 9 | Fig. 11 | Tapa Final 40×16mm | comdiel.cl/tapa-final-para-canaleta-40x16mm |
+**Actualizar nota final** del Anexo A:
+```
+Original: "Lexo indicaba la canaleta 40×16 como 'agotada'... como alternativa, se sugiere verificar disponibilidad en Sodimac, Dartel o Ecanor."
+```
 
-## Paso 6 — Actualizar VAN/TIR (si están calculados)
+```
+Corregido: "Lexo indicaba la canaleta 40×16 como 'agotada' en el sitio web al momento de cotizar. Los productos Lexo fueron reemplazados por Sodimac (DRL Moldura PVC) y Comdiel (accesorios), con stock disponible y precios verificados al 03-07-2026."
+```
 
-Si el informe tiene VAN y TIR basados en $511.544:
+---
 
-- Diferencia: **-$16.804** (menos inversión inicial)
-- VAN nuevo = VAN original + $16.804 (mejora)
-- TIR nueva: sube marginalmente (depende de los flujos)
-- Actualizar el valor en la fórmula/tabla correspondiente
+## 9. Tabla V — Actualizar montos
 
-Si el informe no tiene VAN/TIR, omitir este paso.
+| Ítem | Antes | Después |
+|------|-------|---------|
+| Opción premium — Total proyecto | $511.544 | **$500.858** |
+| Opción económica — Total proyecto | ~$318.989 | Sin cambios (~$318.989, no usa canalización premium) |
 
-## Paso 7 — Verificar y actualizar sugerencias
+---
 
-Revisar la sección "Sugerencias" o "Recomendaciones" al final del informe:
-- Si menciona "Lexo Chile" → cambiar a "Sodimac / Imperial DRL para canaletas y Comdiel para accesorios"
-- Si sugiere cotizar como empresa a Lexo → eliminar esa sugerencia
+## 10. Formato IEEE para capturas nuevas
 
-## Formato IEEE — Reglas estrictas
+Insertar espacios en Anexo A (continúa desde Fig. 2):
 
-| Elemento | Formato | Ejemplo |
-|----------|---------|---------|
-| Figuras | Arábigo: Fig. 1, 2, 3... | Fig. 3. Captura... Fuente: Sodimac. |
-| Tablas | Romano: Tabla I, II, III... | Tabla IV. Presupuesto... Fuente: Elaboración propia. |
-| Citas en texto | Corchetes: [1], [2] | "...como se ve en la Fig. 3 [1]." |
-| Lista referencias | Al final del documento | [1] Transworld, "Patch Panel..." |
-| Capturas | ~media página, con borde sutil | — |
+```
+Fig. 3. Captura de pantalla — Cotización DRL Moldura PVC 40×16 mm en Sodimac.cl.
+Fuente: Sodimac.
 
-## URLs definitivas
+Fig. 4. Captura de pantalla — Cotización Ángulo Plano 40×16 mm en Comdiel.cl.
+Fuente: Comdiel.
 
-| Producto | URL |
-|----------|-----|
-| Canaleta Sodimac | https://www.sodimac.cl/sodimac-cl/articulo/147232860/ |
-| Ángulo Plano Comdiel | https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm |
-| Ángulo Exterior Comdiel | https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm |
-| Ángulo Interior Comdiel | https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm |
-| Derivación T Comdiel | https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm |
-| Unión Comdiel | https://www.comdiel.cl/union-para-canaleta-40x16mm |
-| Tapa Final Comdiel | https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm |
-| Patch Panel Transworld | https://transworld.cl/producto/patch-panel-24-puertos-alta-densidad-cat6/ |
+Fig. 5. Captura de pantalla — Cotización Ángulo Interior 40×16 mm en Comdiel.cl.
+Fuente: Comdiel.
 
-## Checklist final
+Fig. 6. Captura de pantalla — Cotización Ángulo Exterior 40×16 mm en Comdiel.cl.
+Fuente: Comdiel.
 
-- [ ] ¿Canaleta Lexo reemplazada por Sodimac DRL $1.490?
-- [ ] ¿"Accesorios ~$17.880" desglosado en 6 filas con cantidades?
-- [ ] ¿Columna Precio Unitario agregada?
-- [ ] ¿Totales recalculados: $494.740?
-- [ ] ¿Espacios para 9 capturas insertados (Fig. 3 a Fig. 11)?
-- [ ] ¿Formato IEEE correcto en Fig. y Tablas?
-- [ ] ¿VAN/TIR actualizados (si aplica)?
-- [ ] ¿Sugerencias actualizadas (Lexo → Sodimac/Comdiel)?
-- [ ] ¿Restan $16.804 respecto al presupuesto original?
+Fig. 7. Captura de pantalla — Cotización Derivación T Plana 40×16 mm en Comdiel.cl.
+Fuente: Comdiel.
+
+Fig. 8. Captura de pantalla — Cotización Unión 40×16 mm en Comdiel.cl.
+Fuente: Comdiel.
+
+Fig. 9. Captura de pantalla — Cotización Tapa Final 40×16 mm en Comdiel.cl.
+Fuente: Comdiel.
+```
+
+---
+
+## URLs para capturas (producto → precio visible)
+
+| Producto | URL | Precio |
+|----------|-----|--------|
+| DRL Moldura PVC 40×16 mm | https://www.sodimac.cl/sodimac-cl/articulo/147232860/ | $1.490 |
+| Ángulo Plano — Comdiel | https://www.comdiel.cl/angulo-plano-para-canaleta-40x16mm | $580 |
+| Ángulo Interior — Comdiel | https://www.comdiel.cl/angulo-interior-para-canaleta-40x16mm | $580 |
+| Ángulo Exterior — Comdiel | https://www.comdiel.cl/angulo-exterior-para-canaleta-40x16mm | $580 |
+| Derivación T — Comdiel | https://www.comdiel.cl/derivacion-t-plana-para-canaleta-40x16mm | $580 |
+| Unión — Comdiel | https://www.comdiel.cl/union-para-canaleta-40x16mm | $549 |
+| Tapa Final — Comdiel | https://www.comdiel.cl/tapa-final-para-canaleta-40x16mm | $549 |
+
+---
+
+## Resumen de cambios (checklist)
+
+- [ ] 1. Tabla IV: canaleta $1.900 → Sodimac $1.490
+- [ ] 2. Tabla IV: ángulo plano $510 → Comdiel $580
+- [ ] 3. Tabla IV: curva interior $460 → ángulo interior $580
+- [ ] 4. Tabla IV: curva exterior $460 → ángulo exterior $580
+- [ ] 5. Tabla IV: conexión T $500 → derivación T $580
+- [ ] 6. Tabla IV: copla unión $450 → unión $549
+- [ ] 7. Tabla IV: tapa terminal $450 → tapa final $549
+- [ ] 8. Tabla IV: TOTAL $511.544 → $500.858
+- [ ] 9. Párrafo post-Tabla IV: $28.419 → $27.825 por punto
+- [ ] 10. Tabla V: opción premium $511.544 → $500.858
+- [ ] 11. Sec. 6: $511.544 → $500.858; $28.419 → $27.825
+- [ ] 12. Sec. 7: I₀ $691.544 → $680.858
+- [ ] 13. Sec. 7: VAN +$132.621 → +$143.307
+- [ ] 14. Sec. 7: TIR 18,58% → ~19,7%
+- [ ] 15. Conclusiones: $511.544 → $500.858; $28.419 → $27.825
+- [ ] 16. Tabla VI: Lexo → Sodimac + Comdiel
+- [ ] 17. Anexo A: agregar URLs Comdiel
+- [ ] 18. Anexo A: actualizar nota de alternativa Lexo
+- [ ] 19. Insertar Fig. 3-9 (capturas Sodimac + Comdiel)
