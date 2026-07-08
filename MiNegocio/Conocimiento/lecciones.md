@@ -434,3 +434,17 @@ Resultó haber DOS copias del frontend en `~/Documentos/Obsidian Vault/MiNegocio
 
 - [2026-07-01] gnome-system-monitor instalado (pacman). Módulo custom/taskmanager en Waybar modules-right con format vacío y on-click-right. Debug: Waybar lo gestiona systemd con Restart=always, no killall + lanzar manual — spawns duplicados. Siempre usar `systemctl --user restart waybar.service`.
 - [2026-07-02] Productos fantasma en Inventario: `rows.Scan` en Go falla si una columna NULL va a un `string`, y el patrón `if err == nil { append }` descarta esas filas EN SILENCIO — el producto desaparecía de /api/productos pero seguía en /api/inventario. Regla: en SELECTs con columnas anulables usar siempre COALESCE (o tipos sql.Null*) y PROPAGAR el error de Scan, nunca tragarlo. Revisar este patrón en cualquier repository nuevo.
+
+- [2026-07-07] **MCP de WhatsApp rompió opencode al reiniciar** — el server Python del MCP falló al arrancar (probablemente uv no estaba en PATH o dependencias faltantes), y opencode no pudo cargar. Tuve que editar `opencode.json` manualmente con `nano` para remover el entry.
+
+  **Soluciones creadas:**
+  1. `backup-opencode-config` → backup `.tar.gz` en `~/.config/opencode/backups/`
+  2. `restore-opencode-config` → menú interactivo para restaurar backups
+  3. `opencode-sandbox` → flujo sandbox para probar MCPs sin tocar producción:
+     ```
+     opencode-sandbox init
+     opencode-sandbox add <name> <cmd...>
+     opencode-sandbox test   # prueba que arranquen
+     opencode-sandbox apply  # solo si test pasa
+     ```
+  **Regla:** NO modificar `opencode.json` directo para experimentos. Usar sandbox siempre. Backup antes de apply.
