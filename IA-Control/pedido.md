@@ -2,7 +2,7 @@
 estado: pendiente
 dir: /home/icin
 ---
-ahora commitea los cambios, actualizando lo necesario para el paso a produccion, prepara sonar y actualiza los jenkinsfiles para que prueben sonar primero y solo pase a prod el codigo aprobado en un porcentaje prudente por sonar. y finalmente pasa a main los cambios de sta forma: primero hot fixes sin funcionalidades asociadas a historias de usuario, cambiando la version a 3.1.[numero indicativo de hotfixes realizados], luego comienza a mandar a main las historias de usuario, la version se actualiza a 3.1+[1 por historia de usuario, ejemplo si se agrega una historia de usuario, ejemplo el dashboard se le suma uno, luego para crud usuarios +1 y poara crud proveedores +1].[respectivos hotfixes por historia de usuario]   muestrame el plan y solicita aprobacion.
+ahora commitea los cambios, actualizando lo necesario para el paso a produccion, prepara sonar y ac[[Jenkins-CICD-Setup]]tualiza los jenkinsfiles para que prueben sonar primero y solo pase a prod el codigo aprobado en un porcentaje prudente por sonar. y finalmente pasa a main los cambios de sta forma: primero hot fixes sin funcionalidades asociadas a historias de usuario, cambiando la version a 3.1.[numero indicativo de hotfixes realizados], luego comienza a mandar a main las historias de usuario, la version se actualiza a 3.1+[1 por historia de usuario, ejemplo si se agrega una historia de usuario, ejemplo el dashboard se le suma uno, luego para crud usuarios +1 y poara crud proveedores +1].[respectivos hotfixes por historia de usuario]   muestrame el plan y solicita aprobacion.
 
 Plan: Paso a Produccion con SonarQube + Versionado
 Resumen del estado actual
