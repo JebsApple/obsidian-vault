@@ -6,9 +6,10 @@ vinculos:
   - "[[Sesion-2026-06-28]]"
   - "[[Sesion-2026-06-30-tabs-archivador-sidebar]]"
   - "[[Sesion-2026-07-10-auditoria-preprod-checkpoint]]"
+  - "[[Sesion-2026-07-10-handoff-opencode]]"
 ---
 
-> **2026-07-10:** Auditoría pre-producción en curso. Los 3 repos tienen commits `dev` locales sin pushear a Gitea (por diseño de esta sesión). Ver [[Sesion-2026-07-10-auditoria-preprod-checkpoint]] para el estado completo, infraestructura levantada (Air hot-reload backend, deploy frontend a :8080) y lo pendiente (SonarQube, mapeo a ramas de tarea).
+> **2026-07-10 (cortado por cuota, continúa opencode):** Auditoría pre-producción en curso. **Empezar por [[Sesion-2026-07-10-handoff-opencode]]** — tiene la acción inmediata pendiente (fix a medio hacer en `Inventario.vue`) y todo lo que falta commitear. [[Sesion-2026-07-10-auditoria-preprod-checkpoint]] tiene el contexto de la primera mitad de la sesión.
 
 # Proyecto: MiNegocio
 
