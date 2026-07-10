@@ -1,11 +1,14 @@
 ---
 tags: [proyecto, minegocio, activo]
-updated: 2026-06-30
+updated: 2026-07-10
 vinculos:
   - "[[Sesion-2026-06-27]]"
   - "[[Sesion-2026-06-28]]"
   - "[[Sesion-2026-06-30-tabs-archivador-sidebar]]"
+  - "[[Sesion-2026-07-10-auditoria-preprod-checkpoint]]"
 ---
+
+> **2026-07-10:** Auditoría pre-producción en curso. Los 3 repos tienen commits `dev` locales sin pushear a Gitea (por diseño de esta sesión). Ver [[Sesion-2026-07-10-auditoria-preprod-checkpoint]] para el estado completo, infraestructura levantada (Air hot-reload backend, deploy frontend a :8080) y lo pendiente (SonarQube, mapeo a ramas de tarea).
 
 # Proyecto: MiNegocio
 
