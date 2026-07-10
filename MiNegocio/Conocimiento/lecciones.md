@@ -447,4 +447,33 @@ Resultó haber DOS copias del frontend en `~/Documentos/Obsidian Vault/MiNegocio
      opencode-sandbox test   # prueba que arranquen
      opencode-sandbox apply  # solo si test pasa
      ```
-  **Regla:** NO modificar `opencode.json` directo para experimentos. Usar sandbox siempre. Backup antes de apply.
+   **Regla:** NO modificar `opencode.json` directo para experimentos. Usar sandbox siempre. Backup antes de apply.
+
+## 2026-07-09 — Sesión 7: Hotfix login + SideBar tests + Register + Plan merge CRUDs
+
+### Login: hash bcrypt placeholder en seed
+- **Problema:** `setup_produccion.sql:97` insertaba admin con `password_hash = 'CAMBIAR_POR_HASH_REAL'` (texto literal). `bcrypt.CompareHashAndPassword` siempre fallaba.
+- **Solución:** generar hash real con Go: `bcrypt.GenerateFromPassword([]byte("admin123"), bcrypt.DefaultCost)` → `$2a$10$aqx0YRKaR/gtJX7TnRDDge.43cmaM4qBfaCjG4NJzBvyt0OiSmyAS`. Crear `fix_admin_password.sql` para la DB existente y actualizar seed.
+- **Causa raíz:** seed copiado de template sin reemplazar placeholder.
+
+### SideBar test: métodos faltantes
+- **Problema:** 13 tests en Jenkins fallaban con `actualizarBreakpoint is not a function`. SideBar.vue no tenía `estadoInterno`, `eraAncha`, `actualizarBreakpoint()`.
+- **Solución:** agregar `data() { return { estadoInterno: false, eraAncha: window.innerWidth > 768 } }` y método `actualizarBreakpoint()` que al cruzar umbral 768px de narrow→wide auto-expande.
+
+### Register endpoint
+- **Problema:** no existía `/api/register`. Handler solo tenía Login/Refresh.
+- **Solución:** agregar `Register` a `AuthServiceI`, `AuthService.Register` (bcrypt → Create → JWT), `AuthHandler.Register` con validación. Rutas: `/api/register`, `/api/auth/register` (POST). Compila limpio.
+
+### Análisis de branches feature
+- **feat-proveedores = dev** (sin diff, ya mergeado)
+- **feat-usuarios = dev menos proveedores** (elimina 3 archivos — no mergeable)
+- Backend dev ya tiene CRUD Usuarios + Proveedores completos + routes
+
+### Hot-reload dev
+- Backend: `Dockerfile.dev` con `air-verse/air` + `.air.toml`
+- Frontend: `npm run serve` ya soporta hot-reload
+
+### Multi-agent plan aprobado (3 agentes paralelos frontend)
+- A1: Completar AdminUsuariosPage.vue (CRUD usuarios frontend)
+- A2: Crear AdminProveedoresPage.vue + proveedoresService.js
+- A3: Terminar Analisis.vue dashboard con métricas reales
