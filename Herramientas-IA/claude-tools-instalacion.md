@@ -344,7 +344,7 @@ sudo journalctl --vacuum-size=50M
 Pasó de 96% (1,1 GB libre) a **72% (6,3 GB libre)** y la terminal volvió a ser veloz.
 
 **NUNCA sin confirmar:** `docker volume prune` (volúmenes pueden tener datos de PostgreSQL),
-ni borrar contenedores corriendo (`minegocio-backend`, `minegocio-backend-dev`).
+ni borrar contenedores corriendo (`proyecto/minegocio-backend`, `proyecto/minegocio-backend-dev`).
 
 ### 6. n8n-mcp se re-descarga con npx
 `claude mcp add n8n-mcp npx n8n-mcp ...` funciona, pero cada arranque baja ~1,7 GB a `~/.npm/_npx`.
@@ -402,7 +402,7 @@ mv dagu ~/.local/bin/
 | MCP | Paquete | Propósito | Estrellas |
 |-----|---------|-----------|-----------|
 | **context7** | `@upstash/context7-mcp` | Docs oficiales de librerías | — |
-| **postgres** | `@modelcontextprotocol/server-postgres` | Consultas SQL a DB minegocio | deprecated |
+| **postgres** | `@modelcontextprotocol/server-postgres` | Consultas SQL a DB proyecto/minegocio | deprecated |
 | **github** | `ghcr.io/github/github-mcp-server` (Docker) | Issues, PRs, code search, Actions | 31k⭐ |
 | **playwright** | `@playwright/mcp` | Browser automation (click, snapshot, network) | 34k⭐ |
 
@@ -496,10 +496,10 @@ apuru ALL=(ALL:ALL) NOPASSWD: ALL
 
 > **Fix vía Docker si sudo no anda**: `docker run --rm -v /:/host alpine sed -i 's/^%wheel ALL=(ALL:ALL) ALL/#%wheel ALL=(ALL:ALL) ALL/' /host/etc/sudoers`
 
-### minegocio-db restart policy
+### proyecto/minegocio-db restart policy
 
 ```bash
-docker update --restart unless-stopped minegocio-db
+docker update --restart unless-stopped proyecto/minegocio-db
 ```
 
 ### Playwright system deps

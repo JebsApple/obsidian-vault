@@ -50,7 +50,7 @@ páginas ocurren sin recargar el navegador.
 ## 3. Estructura del proyecto
 
 ```
-minegocio-frontend/
+proyecto/minegocio-frontend/
 ├── src/
 │   ├── App.vue                 ← Componente raíz (layout, sidebar, breakpoints)
 │   ├── main.js                 ← Punto de entrada (crea la app Vue)

@@ -64,4 +64,4 @@ Incluye RTK (Rust Token Killer) para rewrite de comandos Bash.
 | Llamadas a herramientas | 2,361 |
 | Modelos usados | Sonnet 4-6, Opus 4-8, Haiku 4-5 |
 
-[[claude-desktop-instalacion.md]] — [[claude-tools-instalacion.md]] — [[configuracion-sesiones-ia.md]]
+[[claude-desktop-instalacion]] — [[claude-tools-instalacion]] — [[configuracion-sesiones-ia]]

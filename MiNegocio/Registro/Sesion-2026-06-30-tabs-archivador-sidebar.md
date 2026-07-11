@@ -1,7 +1,7 @@
 ---
 tags:
   - sesion
-  - sprint3
+  - sprint-3
   - frontend
   - S3-HU02
 fecha: 2026-06-30

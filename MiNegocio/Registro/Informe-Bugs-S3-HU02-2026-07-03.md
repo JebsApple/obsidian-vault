@@ -1,6 +1,6 @@
 ---
 tags:
-  - sprint3
+  - sprint-3
   - bugs
   - frontend
 updated: 2026-07-03

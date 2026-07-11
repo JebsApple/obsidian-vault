@@ -2,7 +2,7 @@
 tag: taiga/S3-HU02
 tags:
   - taiga
-  - sprint3
+  - sprint-3
   - frontend
   - backend
 updated: 2026-07-02
@@ -99,7 +99,7 @@ El README ya incluye la sección SonarQube y `sonar-project.properties` está cr
 2. **Pegar token** en `sonar-project.properties` (`sonar.login=TOKEN_COPIADO`)
 3. **Instalar sonar-scanner** (ver README para instrucciones según SO)
 4. **Ejecutar análisis**: `sonar-scanner` desde raíz del frontend y backend
-5. **Abrir** http://192.168.50.28:9000 → Projects → minegocio-frontend / minegocio-backend
+5. **Abrir** http://192.168.50.28:9000 → Projects → proyecto/minegocio-frontend / proyecto/minegocio-backend
 6. **Para cobertura**: instalar `@vitest/coverage-v8`, ejecutar `npx vitest run --coverage`, luego `sonar-scanner`
 
 ---

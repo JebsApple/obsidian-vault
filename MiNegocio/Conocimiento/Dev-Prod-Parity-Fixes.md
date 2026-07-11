@@ -1,5 +1,5 @@
 ---
-tags: [minegocio, devops, configuracion]
+tags: [proyecto/minegocio, devops, configuracion]
 ---
 
 # Dev-Prod Parity Fixes

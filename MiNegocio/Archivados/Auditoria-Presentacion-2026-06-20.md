@@ -1,5 +1,5 @@
 ---
-tags: [minegocio, auditoria, presentacion]
+tags: [proyecto/minegocio, auditoria, presentacion]
 ---
 
 # Auditoría Pre-Presentación — MiNegocio
@@ -17,7 +17,7 @@ El sistema está **corriendo** pero tiene **3 acciones obligatorias** antes de p
 
 | Contenedor | Puerto | Estado |
 |---|---|---|
-| `minegocio-backend` | 3001 → 3000 | ✅ Up |
+| `proyecto/minegocio-backend` | 3001 → 3000 | ✅ Up |
 | `frontend` (nginx) | 8081 → 80 | ✅ Up |
 | PostgreSQL | host:5432 | ✅ Conectado |
 
@@ -27,9 +27,9 @@ El sistema está **corriendo** pero tiene **3 acciones obligatorias** antes de p
 
 | Repo | Rama | Commits locales sin push | Cambios sin commit |
 |---|---|---|---|
-| minegocio-frontend | main | **+4** | ⚠️ App.vue + LoginPage.vue modificados |
-| minegocio-backend | main | **+8** | ✅ limpio |
-| minegocio-database | main | **+2** | ✅ limpio |
+| proyecto/minegocio-frontend | main | **+4** | ⚠️ App.vue + LoginPage.vue modificados |
+| proyecto/minegocio-backend | main | **+8** | ✅ limpio |
+| proyecto/minegocio-database | main | **+2** | ✅ limpio |
 
 ### Cambios sin commitear en Frontend
 - `App.vue`: Fix de reactividad del token (computed → data + watch + token=null al cerrar sesión)

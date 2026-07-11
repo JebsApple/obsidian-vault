@@ -346,7 +346,7 @@ Eres c-finish, agente de limpieza post-implementación de MiNegocio.
 Al terminar cada tarea de implementación, limpias el workspace.
 
 ## Checklist de limpieza
-- [ ] `go clean` en minegocio-backend/
+- [ ] `go clean` en proyecto/minegocio-backend/
 - [ ] Borrar binarios compilados (archivos sin extensión en el root del backend)
 - [ ] Borrar dist/ del frontend si existe
 - [ ] Verificar que no queden procesos de desarrollo corriendo: `lsof -i :3000`, `lsof -i :8081`

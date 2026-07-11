@@ -1,12 +1,12 @@
 ---
-tags: [minegocio, sprint3, guia-estudio, victor, hu02]
+tags: [proyecto/minegocio, sprint-3, guia-estudio, victor, hu02]
 created: 2026-07-10
 updated: 2026-07-10
 ---
 
 # Guía de Explicación — Víctor Herrera — Rama `S3-HU02` (Gitea)
 
-**Repo:** `minegocio-frontend` — rama `S3-HU02` en Gitea: http://192.168.50.28:3000/VHerrera/minegocio-frontend/src/branch/S3-HU02
+**Repo:** `proyecto/minegocio-frontend` — rama `S3-HU02` en Gitea: http://192.168.50.28:3000/VHerrera/minegocio-frontend/src/branch/S3-HU02
 **Código local:** `~/proyectos/minegocio` (rama `gitea/S3-HU02`) y copia en `~/MiNegocio3.1.0/minegocio-frontend`
 **Idea central para el profesor:** rediseñé el frontend (Vue 3, Options API) — sidebar colapsable, kanban de inventario por ubicación física, buscador con filtros, foto de perfil con recorte — siguiendo el patrón **vista → service → API**, donde cada vista habla solo con un service que hace `fetch` con el JWT.
 

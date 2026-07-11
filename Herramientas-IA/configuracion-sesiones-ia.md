@@ -48,9 +48,9 @@ El vault está en `/home/icin/obsidian-vault`. Usa las herramientas MCP de Obsid
 │   ├── Projects/                ─ Estado del proyecto
 │   ├── Knowledge/               ─ Guías, agentes, decisiones
 │   └── Tasks/                   ─ Tareas pendientes
-├── minegocio-frontend/          ← Vue.js 3 (puerto 8081)
-├── minegocio-backend/           ← Go (puerto 3000)
-└── minegocio-database/          ← PostgreSQL
+├── proyecto/minegocio-frontend/          ← Vue.js 3 (puerto 8081)
+├── proyecto/minegocio-backend/           ← Go (puerto 3000)
+└── proyecto/minegocio-database/          ← PostgreSQL
 ```
 
 ## Convenciones generales

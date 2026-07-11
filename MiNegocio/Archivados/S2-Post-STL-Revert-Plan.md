@@ -11,7 +11,7 @@ updated: 2026-06-19
 
 ## Objetivo
 
-Deshacer los cambios del `S2-STL-Frontend-Redesign` en `minegocio-frontend`, manteniendo únicamente las funcionalidades implementadas por el equipo:
+Deshacer los cambios del `S2-STL-Frontend-Redesign` en `proyecto/minegocio-frontend`, manteniendo únicamente las funcionalidades implementadas por el equipo:
 - Registro de ventas (Ignacio — S2-HU02)
 - Tokens JWT y sesiones de usuario (Gabriel — S2-HU03)
 - Lector de código de barras (Nicolás — S2-HU01)
@@ -23,7 +23,7 @@ El rediseño (NavBar, SideBar, KanbanBoard, AnalisePage, InventarioPage, nuevos 
 
 ## Estado actual (pre-ejecución)
 
-### Frontend (`minegocio-frontend`)
+### Frontend (`proyecto/minegocio-frontend`)
 
 | Capa | Rama | Quién | Estado en origin/main |
 |------|------|-------|-----------------------|
@@ -33,7 +33,7 @@ El rediseño (NavBar, SideBar, KanbanBoard, AnalisePage, InventarioPage, nuevos 
 | **S2-STL Rediseño** | **`S2-STL-Frontend-Redesign`** | **?** | **❌ Solo local (a eliminar)** |
 | feat/registro-usuarios | `feat/registro-usuarios` | Victor | ❌ Solo local (pospuesto S3) |
 
-### Backend (`minegocio-backend`)
+### Backend (`proyecto/minegocio-backend`)
 
 | Rama | Quién | Estado |
 |------|-------|--------|

@@ -14,7 +14,7 @@ Se ejecutó el plan de reversión del `S2-STL-Frontend-Redesign` conservando fun
 
 ## Resultados
 
-### Backend (`minegocio-backend`) — commit `19bbc55`
+### Backend (`proyecto/minegocio-backend`) — commit `19bbc55`
 
 | Cambio | Estado |
 |--------|--------|
@@ -25,7 +25,7 @@ Se ejecutó el plan de reversión del `S2-STL-Frontend-Redesign` conservando fun
 | CORS middleware | ✅ |
 | Tests (`go test ./...`) | ✅ Pasan todos |
 
-### Frontend (`minegocio-frontend`) — commit `898137e`
+### Frontend (`proyecto/minegocio-frontend`) — commit `898137e`
 
 | Cambio | Estado |
 |--------|--------|

@@ -1,5 +1,5 @@
 ---
-tags: [minegocio, ponytail, auditoria]
+tags: [proyecto/minegocio, ponytail, auditoria]
 ---
 
 # Ponytail Audit — MiNegocio

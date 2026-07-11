@@ -1,5 +1,5 @@
 ---
-tags: [minegocio, sprint3, guia-estudio, ignacio]
+tags: [proyecto/minegocio, sprint-3, guia-estudio, ignacio]
 created: 2026-07-10
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [investigacion, minegocio, camara, imagen, producto]
+tags: [investigacion, proyecto/minegocio, camara, imagen, producto]
 ---
 
 # Foto desde celular — MiNegocio

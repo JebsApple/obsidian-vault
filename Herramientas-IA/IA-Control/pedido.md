@@ -38,16 +38,16 @@ Para cada archivo modificado, leerlo y explicar:
 
 Crear estos 4 archivos en `/home/apuru/obsidian-vault/Projects/MiNegocio/`:
 
-- `guia-nicolas-sprint3.md`
-- `guia-ignacio-sprint3.md`
-- `guia-victor-sprint3.md`
-- `guia-gabriel-sprint3.md`
+- `guia-nicolas-sprint-3.md`
+- `guia-ignacio-sprint-3.md`
+- `guia-victor-sprint-3.md`
+- `guia-gabriel-sprint-3.md`
 
 ## Estructura de cada guía
 
 ```yaml
 ---
-tags: [proyecto/minegocio, tipo/guia-estudio, sprint3]
+tags: [proyecto/minegocio, tipo/guia-estudio, sprint-3]
 created: 2026-07-10
 ---
 ```

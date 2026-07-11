@@ -17,9 +17,9 @@ tags: [proyecto/MiNegocio, estado/reestructuracion]
 
 ```
 /home/apuru/minegocio/
-├── minegocio-frontend/   # Vue 3 SPA
-├── minegocio-backend/    # Go API REST
-└── minegocio-database/   # Scripts SQL
+├── proyecto/minegocio-frontend/   # Vue 3 SPA
+├── proyecto/minegocio-backend/    # Go API REST
+└── proyecto/minegocio-database/   # Scripts SQL
 ```
 
 ## Rutas Frontend

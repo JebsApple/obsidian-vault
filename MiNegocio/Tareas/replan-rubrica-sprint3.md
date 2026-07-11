@@ -1,5 +1,5 @@
 ---
-tags: [plan, sprint3, rubrica]
+tags: [plan, sprint-3, rubrica]
 ---
 
 # Plan Reajustado — Rúbrica Sprint 3 (254 pts)

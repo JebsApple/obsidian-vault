@@ -1,11 +1,11 @@
 ---
-tags: [minegocio, sprint3, guia-estudio, nicolas]
+tags: [proyecto/minegocio, sprint-3, guia-estudio, nicolas]
 created: 2026-07-10
 ---
 
 # Guía de Estudio — Nicolás Valdés — Sprint 3
 
-> Autor en git: `NValdes <NValdes@mail.com>`. Sus commits en `minegocio-backend` y `minegocio-database` corresponden mayormente a **Sprint 2** (HU01 lector de código de barras, HU03 vista de inventario), y en `minegocio-frontend` a **Sprint 2** (`ProductosPage.vue`) y **Sprint 3** (HU04 gestión de usuarios, Tarea #86). Se documentan todos porque forman una línea de trabajo coherente y son la base conceptual de código que sigue vivo hoy.
+> Autor en git: `NValdes <NValdes@mail.com>`. Sus commits en `proyecto/minegocio-backend` y `proyecto/minegocio-database` corresponden mayormente a **Sprint 2** (HU01 lector de código de barras, HU03 vista de inventario), y en `proyecto/minegocio-frontend` a **Sprint 2** (`ProductosPage.vue`) y **Sprint 3** (HU04 gestión de usuarios, Tarea #86). Se documentan todos porque forman una línea de trabajo coherente y son la base conceptual de código que sigue vivo hoy.
 >
 > **Dato importante para la defensa**: no todo lo que programó llegó a `main`. El endpoint de búsqueda por código de barras (Tarea #48) y la migración SQL de índice/constraint (Tarea #49) quedaron en ramas (`S2-HU01`, `S2-HU01-BD-indice-y-constraint-en-campo-codigo-de-barras`) que nunca se fusionaron. En cambio, su módulo de Gestión de Usuarios (Tarea #86, frontend) y el andamiaje inicial del CRUD de usuarios (backend, Tareas #84/#85) sí están en `main`, aunque el backend fue extendido después por un hotfix de otro compañero (soft-delete, reactivar, foto de perfil, fix de bcrypt).
 

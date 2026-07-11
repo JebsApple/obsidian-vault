@@ -1,5 +1,5 @@
 ---
-tags: [minegocio, testing, produccion]
+tags: [proyecto/minegocio, testing, produccion]
 ---
 
 # Smoke Test PROD — MiNegocio
@@ -51,7 +51,7 @@ tags: [minegocio, testing, produccion]
 
 | Contenedor | Puerto | Estado |
 |---|---|---|
-| `minegocio-backend` | 3001 → 3000 | ✅ Up |
+| `proyecto/minegocio-backend` | 3001 → 3000 | ✅ Up |
 | `frontend` nginx | 8081 → 80 | ✅ Up |
 | PostgreSQL | host:5432 | ✅ Conectado |
 

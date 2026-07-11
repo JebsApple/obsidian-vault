@@ -48,7 +48,7 @@ Ver `http://192.168.50.28:8080/job/MiNegocio.cl/`
 
 ### Backend en Producción
 ```bash
-docker run -d --name minegocio-backend \
+docker run -d --name proyecto/minegocio-backend \
   --restart unless-stopped \
   -p 3001:3000 \
   -e APP_ENV=production \
@@ -56,7 +56,7 @@ docker run -d --name minegocio-backend \
   -e DB_PASSWORD=Icin2026 \
   -e DB_NAME=cliente_prod \
   -e JWT_SECRET=ProdSecretKey2026! \
-  minegocio-backend:latest
+  proyecto/minegocio-backend:latest
 ```
 
 ### Frontend en Producción

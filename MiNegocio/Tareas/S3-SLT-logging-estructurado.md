@@ -1,5 +1,5 @@
 ---
-tags: [taiga, SLT, backend, logging, sprint3]
+tags: [taiga, SLT, backend, logging, sprint-3]
 ---
 
 # S3-SLT-logging-estructurado — Logging Estructurado en Backend

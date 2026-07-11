@@ -15,19 +15,19 @@ Tres frentes: bug de código de barras en la galería, usuarios de prueba DEV + 
 
 ## Cambios por repo
 
-### Frontend (`minegocio-frontend`)
+### Frontend (`proyecto/minegocio-frontend`)
 - **`src/components/GaleriaProductos.vue`** — bug arreglado: la vista "Productos Registrados" no mostraba el código de barras. Causa: la galería no renderizaba `codigo_barras` (el backend SÍ lo devuelve en `/api/productos` y `/api/productos/buscar`). Se añadió `<div class="card-codigo"><i class="ti ti-barcode"></i> {{ p.codigo_barras || '—' }}</div>` + estilo `.card-codigo` (mono, discreto).
 - **`src/router/index.js`** — control de acceso por rol: la ruta `/admin/usuarios` lleva `meta.requiresAdmin`; el `beforeEach` ahora redirige a `/` si `getUserFromToken()?.rol !== 'admin'`. Antes solo se ocultaba el enlace (accesible por URL).
 - **`src/components/SideBar.vue`** — el icono de **Productos** se muestra en rojo (`var(--color-brand)`) cuando el usuario está en un submenú (`/productos` o `/productos-registrados`), vía computed `enProductos` + clase `.nav-group-trigger--activo`.
 - **`README.md`** — tabla DEV: `admin/1234` → `administrador/1234` (Administrador) y nueva fila `usuario/1234` (Usuario, sin acceso a Usuarios/Sesiones). PROD sin cambios.
 - **`src/__tests__/authService.test.js`** — literal de login `'admin'` → `'administrador'` (mock; el `rol: 'admin'` de los tokens NO cambia).
 
-### Database (`minegocio-database`)
+### Database (`proyecto/minegocio-database`)
 - **`postgres/seed_dev.sql`** (NUEVO) — seed DEV idempotente: renombra `admin`→`administrador`, inserta `administrador/1234` (rol admin) y `usuario/1234` (rol usuario). Contraseñas en texto plano (DEV; login aún sin bcrypt). NO para producción.
 - **`README.md`** — documenta `seed_dev.sql` y la tabla de credenciales DEV.
 - **`postgres/setup_produccion.sql`** — **NO** se tocó (decisión: prod usa las cuentas del README).
 
-### Backend (`minegocio-backend`)
+### Backend (`proyecto/minegocio-backend`)
 - **`README.md`** — sección "Credenciales de prueba": se reemplazó la credencial suelta `Victor@user.cl / Victor264` por `administrador/1234` y `usuario/1234`, con nota de que el login es texto plano (pendiente bcrypt).
 
 ## Pendientes de ejecución (cuando se confirme)

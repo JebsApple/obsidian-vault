@@ -1,5 +1,5 @@
 ---
-tags: [proyecto, minegocio, activo]
+tags: [proyecto, proyecto/minegocio, activo]
 updated: 2026-07-10
 vinculos:
   - "[[Sesion-2026-06-27]]"

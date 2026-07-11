@@ -5,7 +5,7 @@
 ## 💼 MiNegocio (trabajo)
 - [[MiNegocio]] — estado del proyecto
 - [[MiNegocio - Dashboard]] · [[MiNegocio - Deploy Prod]]
-- 📁 **Conocimiento/** — [[agentes]] · [[decisiones]] · [[lecciones]] · [[conexion-remota]] · [[minegocio-sprint2]] · [[Analisis-Auth-JWT-Sesion]] · [[Dev-Prod-Parity-Fixes]] · [[Jenkins-CICD-Setup]]
+- 📁 **Conocimiento/** — [[agentes]] · [[decisiones]] · [[lecciones]] · [[conexion-remota]] · [[proyecto/minegocio-sprint2]] · [[Analisis-Auth-JWT-Sesion]] · [[Dev-Prod-Parity-Fixes]] · [[Jenkins-CICD-Setup]]
 - 📁 **Procedimientos/** — HU01..HU05 por integrante
 - 📁 **Registro/** — sesiones, [[Flujo-Despliegue-S3]], registros Taiga
 - 📁 **Tareas/** — [[proc-front]] y pendientes

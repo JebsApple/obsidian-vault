@@ -52,11 +52,11 @@ Todas las ramas se nombran en **español**. Nada de inglés (no `readmes`, `test
 - [2026-06-18] LoginPage.vue con toggle Login/Registro: mantener el mismo padding/margins que base.css define; no duplicar estilos de botones en CSS de página.
 - [2026-06-18] AuthHandler mock necesita Register() para que handler tests compilen al agregar registro de usuarios.
 - [2026-06-18] La tabla registro_ventas ya existía en la BD pero con esquema distinto (id en vez de id_venta, sin FK, sin CHECK). Recreada para coincidir con venta_repository.go que espera id_venta, FK a productos/usuarios, y CHECK en precio_producto y cantidad.
-- [2026-06-18] nginx sites-available debe tener symlink en sites-enabled para activarse; minegocio-dev no estaba enabled
+- [2026-06-18] nginx sites-available debe tener symlink en sites-enabled para activarse; proyecto/minegocio-dev no estaba enabled
 - [2026-06-18] ALL: `Scan()` en PostgreSQL con NULL en campos string requiere `COALESCE(col, '')` o el Scan falla silenciosamente
 - [2026-06-18] Gitea API push via SSH requiere remote `git@gitea:user/repo.git`; HTTP requiere interactive auth o token en URL
-- [2026-06-18] Puertos originales: DEV=8080 PROD=8000 con nginx reverse proxy. Docker cambió a 3000/8081. nginx config tiene minegocio-dev que apunta a 8080→3000 correctamente
-- [2026-06-18] Investigación foto celular → `capture="environment"` en `<input type="file">` es lo mínimo. Para PC+celular como cámara externa: DroidCam/Iriun + getUserMedia. Docs en Research/foto-celular-minegocio.md
+- [2026-06-18] Puertos originales: DEV=8080 PROD=8000 con nginx reverse proxy. Docker cambió a 3000/8081. nginx config tiene proyecto/minegocio-dev que apunta a 8080→3000 correctamente
+- [2026-06-18] Investigación foto celular → `capture="environment"` en `<input type="file">` es lo mínimo. Para PC+celular como cámara externa: DroidCam/Iriun + getUserMedia. Docs en Research/foto-celular-proyecto/minegocio.md
 - [2026-06-18] Investigación sync Obsidian+MCP multi-máquina → Syncthing para sync LAN + Git para backup. MCP configs sincronizados via vault. Docs en Research/sync-obsidian-mcp-multi-maquina.md
 - [2026-06-20] Hyprland 0.55 en CachyOS requiere config Lua (.lua) — `.conf` deprecated
 - [2026-06-20] Dispatchers en Hyprland 0.55: `hl.dsp.focus({ workspace = N })`, `hl.dsp.layout("preselect right")`, `hl.dsp.window.resize({ x = -N, y = 0, relative = true })` — layout() toma UN solo string
@@ -411,17 +411,17 @@ Cada nota incluye: flujo capa-por-capa, tabla de keywords para responder al prof
 
 **Problema B (build roto):** `npm run build` fallaba con `Conflict: Multiple assets emit different content to the same filename index.html`. NO era por el código ni por los iconos — fallaba igual sin el import.
 
-**Causa raíz B:** la carpeta se llamaba `minegocio-frontend (1)` (sufijo que agrega el gestor de archivos al duplicar). Los paréntesis `()` y el espacio son caracteres especiales en glob, y `copy-webpack-plugin` (de vue-cli) usa un glob para EXCLUIR `index.html` al copiar `public/`. El patrón se rompe → copia `public/index.html` a `dist/` y choca con el `index.html` que genera `html-webpack-plugin`.
+**Causa raíz B:** la carpeta se llamaba `proyecto/minegocio-frontend (1)` (sufijo que agrega el gestor de archivos al duplicar). Los paréntesis `()` y el espacio son caracteres especiales en glob, y `copy-webpack-plugin` (de vue-cli) usa un glob para EXCLUIR `index.html` al copiar `public/`. El patrón se rompe → copia `public/index.html` a `dist/` y choca con el `index.html` que genera `html-webpack-plugin`.
 
-**Solución B / Regla:** compilar Vue CLI siempre desde una ruta SIN paréntesis ni espacios. En el deploy real (`/home/icin/minegocio-frontend/`) compila bien. Verificado: misma copia en ruta limpia → `Build complete` exit 0. El frontend original (`minegocio-frontend`, sin `(1)`) buildea sin problema con la misma config.
+**Solución B / Regla:** compilar Vue CLI siempre desde una ruta SIN paréntesis ni espacios. En el deploy real (`/home/icin/minegocio-frontend/`) compila bien. Verificado: misma copia en ruta limpia → `Build complete` exit 0. El frontend original (`proyecto/minegocio-frontend`, sin `(1)`) buildea sin problema con la misma config.
 
-**Bonus:** a `minegocio-frontend (1)` también le faltaban las reglas `chainWebpack` para SVG y la devDep `raw-loader` que sí tiene el original; se alinearon con la config del original (referencia conocida-buena).
+**Bonus:** a `proyecto/minegocio-frontend (1)` también le faltaban las reglas `chainWebpack` para SVG y la devDep `raw-loader` que sí tiene el original; se alinearon con la config del original (referencia conocida-buena).
 
 ### Corrección/aclaración (2026-06-27, misma sesión)
 
 Resultó haber DOS copias del frontend en `~/Documentos/Obsidian Vault/MiNegocio-gitea/`:
-- `minegocio-frontend (1)` = baseline limpio bajado de Gitea (estado SIN tarea 11 de Taiga). Se dejó intacto.
-- `minegocio-frontend` (sin paréntesis) = copia que modificó **opencode** (tarea 11). Hizo `src/views/IconPreview.vue` + SVGs en `src/assets/icons/` cargados con `require('...svg?raw')` (por eso esta copia SÍ necesita `raw-loader` + regla `raw-svg` en `vue.config.js`), pero NO arregló los iconos reales: el `SideBar.vue`/`KanbanBoard.vue` siguen con `<i class="ti ti-*">` y la webfont Tabler no se cargaba.
+- `proyecto/minegocio-frontend (1)` = baseline limpio bajado de Gitea (estado SIN tarea 11 de Taiga). Se dejó intacto.
+- `proyecto/minegocio-frontend` (sin paréntesis) = copia que modificó **opencode** (tarea 11). Hizo `src/views/IconPreview.vue` + SVGs en `src/assets/icons/` cargados con `require('...svg?raw')` (por eso esta copia SÍ necesita `raw-loader` + regla `raw-svg` en `vue.config.js`), pero NO arregló los iconos reales: el `SideBar.vue`/`KanbanBoard.vue` siguen con `<i class="ti ti-*">` y la webfont Tabler no se cargaba.
 
 **Fuente original (confirmada):** la documentación gráfica `~/Descargas/Documentación gráfica (standalone).html` usa **Space Grotesk** (400/500/600/700) + **IBM Plex Mono** — exactamente lo que declara `variables.css`. Pero NINGUNA copia cargaba la webfont (sólo declarada → caía a Arial). "Restaurar la fuente original" = cargar esas webfonts de Google Fonts.
 

@@ -54,7 +54,7 @@ Instalado en CachyOS (Arch Linux) vía `paru -S claude-desktop-bin` el 2026-07-0
 
 ## Documentos relacionados en este vault
 
-- [[claude-tools-instalacion.md]]
-- [[configuracion-sesiones-ia.md]]
-- [[ECC-Instalacion.md]]
-- [[memoria-persistente.md]]
+- [[claude-tools-instalacion]]
+- [[configuracion-sesiones-ia]]
+- [[ECC-Instalacion]]
+- [[memoria-persistente]]

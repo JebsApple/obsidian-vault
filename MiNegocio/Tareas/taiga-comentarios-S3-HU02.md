@@ -2,7 +2,7 @@
 tag: taiga/S3-HU02
 tags:
   - taiga
-  - sprint3
+  - sprint-3
   - frontend
   - backend
 ---
