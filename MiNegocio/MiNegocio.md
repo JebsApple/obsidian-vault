@@ -1,5 +1,5 @@
 ---
-tags: [proyecto, proyecto/minegocio, activo]
+tags: [proyecto, proyecto/minegocio, dropeado, portfolio]
 updated: 2026-07-10
 vinculos:
   - "[[Sesion-2026-06-27]]"
@@ -8,6 +8,8 @@ vinculos:
   - "[[Sesion-2026-07-10-auditoria-preprod-checkpoint]]"
   - "[[Sesion-2026-07-10-handoff-opencode]]"
 ---
+
+> **2026-07-10 — DROPEADO.** Proyecto archivado como portfolio. Código queda en Gitea y local pero sin desarrollo activo. Continuaré en otros proyectos de software.
 
 > **2026-07-10 (cortado por cuota, continúa opencode):** Auditoría pre-producción en curso. **Empezar por [[Sesion-2026-07-10-handoff-opencode]]** — tiene la acción inmediata pendiente (fix a medio hacer en `Inventario.vue`) y todo lo que falta commitear. [[Sesion-2026-07-10-auditoria-preprod-checkpoint]] tiene el contexto de la primera mitad de la sesión.
 
