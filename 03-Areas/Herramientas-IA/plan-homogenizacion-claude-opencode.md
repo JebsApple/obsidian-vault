@@ -107,10 +107,11 @@ Tener todo listo para usar con coherencia entre ambas apps y comenzar a utilizar
 - [x] `opencode.jsonc` — ya no existía (eliminado en Fase 1)
 - [x] Simplificar hooks: lógica de plugin-root extraída a `~/.claude/hooks/lib/resolve-plugin-root.js`, hooks.json bajó de 49.6KB a 24.6KB (-50%), 28 hooks reescritos, verificado que siguen funcionando igual
 - [x] Ubicaciones ECC — solo existe `/home/apuru/Herramientas/ecc/` (las otras rutas del plan original ya no existían)
-- [x] Plugin versions — `opencode-notificator` no resuelve en npm registry pero funciona vía cache local (`~/.cache/opencode/packages/`), no requiere acción
+- [x] Plugin versions — corregido: `opencode-notificator` estaba realmente roto (404 en npm, cache local vacía sin archivos), removido del array `plugin` en `opencode.json`. Los "16 unknown version" en Claude Code son plugins oficiales `claude-plugins-official` sin campo `version` — comportamiento esperado del marketplace, no accionable
 
 ### Fase 5: Preparación para Nuevos Proyectos ✅ (2026-07-11)
-- [x] Verificado con `claude mcp list`: obsidian, github, context7 conectan bien. packet-tracer falla si Packet Tracer no está abierto (esperado, no es bug de config)
+- [x] Verificado con `claude mcp list`: obsidian, github, context7, playwright conectan bien. packet-tracer falla si Packet Tracer no está abierto (esperado, no es bug de config)
+- [x] Playwright agregado a Claude Code — paridad completa de MCPs en las 3 apps
 - [x] Flujo de trabajo ya documentado abajo en este archivo
 - [x] Script `project-init` en `~/.local/bin/` — crea `~/proyectos/<nombre>` con `git init`, `.mcp.json` (obsidian+github+context7), `opencode.json` (mismos MCPs + model routing) y `CLAUDE.md` stub. Uso: `project-init <nombre> [--stack web|go|python|generic]`
 
