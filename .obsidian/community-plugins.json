@@ -2,11 +2,17 @@
   "obsidian-git",
   "automatic-linker",
   "dataview",
-  "templater-obsidian",
   "periodic-notes",
   "calendar",
   "smart-connections",
   "tag-wrangler",
   "iconic",
-  "conditional-marker"
+  "conditional-marker",
+  "calendar-beta",
+  "obsidian-kanban",
+  "table-editor-obsidian",
+  "obsidian-tasks-plugin",
+  "templater-obsidian",
+  "obsidian-minimal-settings",
+  "editing-toolbar"
 ]
