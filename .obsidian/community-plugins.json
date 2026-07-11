@@ -2,8 +2,11 @@
   "obsidian-git",
   "automatic-linker",
   "dataview",
+  "templater-obsidian",
   "periodic-notes",
+  "calendar",
   "smart-connections",
   "tag-wrangler",
-  "calendar-beta"
+  "iconic",
+  "conditional-marker"
 ]
