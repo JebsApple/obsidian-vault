@@ -90,29 +90,31 @@ Tener todo listo para usar con coherencia entre ambas apps y comenzar a utilizar
 - [ ] Eliminar referencia a plugin Ponytail roto en opencode.json
 - [ ] Agregar binarios `claude` y `opencode` al PATH via `.zshrc`
 
-### Fase 2: Homogenización MCP
-- [ ] Unificar configuración de MCPs entre las 3 apps:
-  - **Obsidian:** misma versión en Claude Desktop y OpenCode (npx)
-  - **GitHub:** misma implementación (Docker wrapper en ambas)
-  - **Context7:** agregar a Claude Desktop y Claude Code
-  - **Playwright:** agregar a Claude Desktop
-- [ ] Crear archivo maestro de MCPs con versiones y dependencias
+### Fase 2: Homogenización MCP ✅ (2026-07-11)
+- [x] Unificar configuración de MCPs entre las 3 apps:
+  - **Obsidian:** misma versión en las 3 (`npx -y obsidian-mcp` v1.0.6) — de paso se corrigió un MCP obsidian fantasma en Claude Code apuntando a ruta inexistente
+  - **GitHub:** mismo wrapper Docker (`github-mcp-wrapper`, token via `gh auth token`) en las 3 — PAT en texto plano removido de Claude Desktop
+  - **Context7:** agregado a Claude Desktop y Claude Code
+  - **Playwright:** agregado a Claude Desktop
+- [x] Crear archivo maestro de MCPs → [[mcp-servers-maestro]]
 
-### Fase 3: CLAUDE.md Unificado
-- [ ] Poblar `~/.claude/CLAUDE.md` con instrucciones globales relevantes
-- [ ] Mantener `/home/apuru/CLAUDE.md` como workspace-level (proyectos específicos)
-- [ ] Sincronizar reglas entre ambos archivos
+### Fase 3: CLAUDE.md Unificado ✅ (confirmado 2026-07-11)
+- [x] `~/.claude/CLAUDE.md` con `@RTK.md` (pointer a ECC) — confirmado correcto, sin cambios
+- [x] `/home/apuru/CLAUDE.md` workspace-level intacto
+- [x] No hace falta sincronizar más — separación de responsabilidades ya es correcta
 
-### Fase 4: Limpieza y Optimización
-- [ ] Eliminar `opencode.jsonc` duplicado
-- [ ] Simplificar hooks: extraer lógica de plugin root a un script compartido
-- [ ] Consolidar ubicaciones ECC a una sola (`/home/apuru/ECC/`)
-- [ ] Actualizar plugin versions o eliminar plugins sin versión
+### Fase 4: Limpieza y Optimización ✅ (2026-07-11)
+- [x] `opencode.jsonc` — ya no existía (eliminado en Fase 1)
+- [x] Simplificar hooks: lógica de plugin-root extraída a `~/.claude/hooks/lib/resolve-plugin-root.js`, hooks.json bajó de 49.6KB a 24.6KB (-50%), 28 hooks reescritos, verificado que siguen funcionando igual
+- [x] Ubicaciones ECC — solo existe `/home/apuru/Herramientas/ecc/` (las otras rutas del plan original ya no existían)
+- [x] Plugin versions — `opencode-notificator` no resuelve en npm registry pero funciona vía cache local (`~/.cache/opencode/packages/`), no requiere acción
 
-### Fase 5: Preparación para Nuevos Proyectos
-- [ ] Verificar que todos los MCPs arrancan correctamente
-- [ ] Documentar flujo de trabajo óptimo: Claude Code (desarrollo) + Claude Desktop (investigación) + OpenCode (tareas automatizadas)
-- [ ] Crear template de proyecto base con MCPs preconfigurados
+### Fase 5: Preparación para Nuevos Proyectos ✅ (2026-07-11)
+- [x] Verificado con `claude mcp list`: obsidian, github, context7 conectan bien. packet-tracer falla si Packet Tracer no está abierto (esperado, no es bug de config)
+- [x] Flujo de trabajo ya documentado abajo en este archivo
+- [ ] Template de proyecto base con MCPs preconfigurados — pendiente, no crítico
+
+**Pendiente global:** rotar/revocar el GitHub PAT `gho_qtD...` manualmente en github.com/settings/tokens (ya no está en ningún archivo de config, pero sigue siendo válido hasta que lo revoques).
 
 ---
 
