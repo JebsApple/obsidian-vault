@@ -14,5 +14,8 @@
   "obsidian-tasks-plugin",
   "templater-obsidian",
   "obsidian-minimal-settings",
-  "editing-toolbar"
+  "editing-toolbar",
+  "omnisearch",
+  "copilot",
+  "obsidian-importer"
 ]
