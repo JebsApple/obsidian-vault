@@ -87,13 +87,19 @@ Editar el frontmatter en Obsidian y correr "Push a Sheets" (comando) escribe la 
 ## Milestones
 
 - [x] Decisión de arquitectura (plugin nativo vs MCP vs script) — 2026-07-11
-- [ ] **M1:** Setup manual Google Cloud (usuario) — OAuth Client ID + APIs habilitadas
-- [ ] **M2:** Scaffold plugin (manifest, build, esqueleto main.ts) — Claude
-- [ ] **M3:** OAuth2 flow funcionando (login → token guardado) — Claude
-- [ ] **M4:** Drive picker + Sheets read (pull → notas) — Claude
-- [ ] **M5:** Sheets write (push desde nota) — Claude
-- [ ] **M6:** Sync automático (`registerInterval`) + settings UI pulida — Claude
-- [ ] **M7:** Testing con sheet real, dashboard Dataview — usuario + Claude
+- [ ] **M1:** Setup manual Google Cloud (usuario) — OAuth Client ID + APIs habilitadas — **bloqueante, pendiente del usuario**
+- [x] **M2:** Scaffold completo — `~/proyectos/scan-tracker-obsidian-plugin/` (manifest, esbuild, tsconfig, package.json), typecheck y build limpios, symlinkeado a `~/Vault/.obsidian/plugins/scan-tracker-sheets/` y habilitado en `community-plugins.json`
+- [x] **M3 (código):** OAuth2 loopback flow completo en `src/auth.ts` (login, exchange, refresh automático) — **no probado en vivo**, requiere M1
+- [x] **M4 (código):** `src/sheets-api.ts` (Drive picker + Sheets read) y `src/sync.ts` (pull → una nota por capítulo con frontmatter) — sin probar en vivo
+- [x] **M5 (código):** Push implementado (`pushNote` en `src/sync.ts`, comando "Push: mandar esta nota de vuelta al Sheet") — sin probar en vivo
+- [x] **M6:** Auto-sync por intervalo (`autoSyncMinutes` en Settings) + settings tab con picker de series — implementado
+- [ ] **M7:** Testing con sheet real — bloqueado por M1. Una vez tengas el Client ID: abrir Obsidian → Settings → Scan Tracker Sheets Sync → pegar Client ID/Secret → Login → agregar serie → "Pull: traer todas las series"
+
+## Estado del código (2026-07-11)
+
+Repo: `~/proyectos/scan-tracker-obsidian-plugin/` (git init, 2 commits). Typecheck y build (`npm run build`) verificados sin errores. Instalado en el vault vía symlink (`main.js`/`manifest.json` → repo), así que `npm run dev` (watch) actualiza el plugin en vivo sin copiar archivos a mano.
+
+Falta únicamente credenciales reales para probar el flujo end-to-end — el código de OAuth, pull y push está escrito pero no ejercitado contra la API real todavía.
 
 ## Limitaciones conocidas
 
