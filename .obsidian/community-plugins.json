@@ -1,4 +1,10 @@
 [
   "obsidian-git",
-  "automatic-linker"
+  "automatic-linker",
+  "dataview",
+  "templater-obsidian",
+  "periodic-notes",
+  "calendar",
+  "smart-connections",
+  "tag-wrangler"
 ]

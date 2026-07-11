@@ -1,1 +1,12 @@
-{}
+{
+  "defaultViewMode": "source",
+  "showLineNumber": true,
+  "strictLineBreaks": false,
+  "readableLineLength": true,
+  "livePreview": true,
+  "attachmentFolderPath": "Assets",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "00-Inbox",
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": false
+}
