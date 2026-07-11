@@ -189,8 +189,6 @@ Coordinar demo + presentación del Sprint 3. Cada integrante prepara su parte. T
 ## Enlaces relacionados
 
 - [[Deuda Técnica]] — items DT-01 a DT-16
-- [[Propuesta Taiga Sprint 3]] — propuesta anterior con más HUs
-- [[rubricaEquipo6]] — rúbrica de evaluación
 - [[PonytailAudit - Sprint 2]] — auditoría de código muerto e inconsistencias (Sprint 2)
 - [[PonytailAudit - Sprint 3]] — auditoría de hallazgos y plan Sprint 3
 - [[Auditoria-Presentacion-2026-06-20]] — auditoría de estado pre-presentación

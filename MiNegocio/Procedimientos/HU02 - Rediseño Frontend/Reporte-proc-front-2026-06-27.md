@@ -11,7 +11,7 @@ tipo: reporte-ejecucion
 
 ## Resumen ejecutivo
 
-Se ejecutó el plan [[Tasks/proc-front]] en rama de sandbox aislada (`sandbox/proc-front`) partiendo desde `main` limpio. La base frontend definida en el plan quedó implementada y verificada: build de producción exitoso en 16.2s, 20 tests unitarios pasando. El backend no requirió cambios — `PATCH /api/inventario/{id:[0-9]+}` ya existía en `main`.
+Se ejecutó el plan [[MiNegocio/Tareas/proc-front]] en rama de sandbox aislada (`sandbox/proc-front`) partiendo desde `main` limpio. La base frontend definida en el plan quedó implementada y verificada: build de producción exitoso en 16.2s, 20 tests unitarios pasando. El backend no requirió cambios — `PATCH /api/inventario/{id:[0-9]+}` ya existía en `main`.
 
 ---
 
@@ -192,7 +192,7 @@ Listo para merge a dev: pendiente aprobación
 
 ## Referencias
 
-- [[Tasks/proc-front]] — Plan original ejecutado
+- [[MiNegocio/Tareas/proc-front]] — Plan original ejecutado
 - [[Sprint 3 - Plan de Trabajo]] — Plan completo del sprint
 - [[PonytailAudit - Sprint 3]] — Auditoría de deuda técnica sprint 3
 - [[Nicolás Valdés]] — Perfil del implementador de AdminUsuariosPage

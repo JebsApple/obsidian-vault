@@ -86,4 +86,3 @@ El trabajo del `S3-HU02` local se separó en ramas independientes en Gitea:
 Todas creadas desde `main` con cambios limpios, sin incluir tareas de otros integrantes. Cada rama es independiente y revisable por separado.
 
 ## Próximos pasos
-Ejecutar implementación cuando se autorice. Ver [[pending]] para estado general.

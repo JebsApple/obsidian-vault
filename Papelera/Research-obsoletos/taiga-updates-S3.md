@@ -4,7 +4,6 @@ tags: [proyecto/minegocio, taiga, sprint-3, update]
 
 # Taiga — Actualización de tareas S3 (post-arquitectura dev/prod)
 
-> **No modifica** [[Propuesta Taiga Sprint 3]]. Este archivo es un **addendum** documentando los cambios necesarios tras la separación de entornos dev/prod.
 
 ---
 

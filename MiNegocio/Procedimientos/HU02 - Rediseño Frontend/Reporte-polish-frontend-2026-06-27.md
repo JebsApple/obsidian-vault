@@ -158,4 +158,4 @@ Gitea:   actualizado → commit 6e3bdca
 
 - [[Reporte-proc-front-2026-06-27]] — reporte base anterior
 - [[Errores-Frontend-a-corregir-2026-06-26]] — fuente de los bugs corregidos
-- [[Knowledge/lecciones]] — lección JWT localStorage registrada
+- [[MiNegocio/Conocimiento/lecciones]] — lección JWT localStorage registrada

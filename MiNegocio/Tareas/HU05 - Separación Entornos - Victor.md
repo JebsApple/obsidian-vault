@@ -123,11 +123,10 @@ Archivos: N/A (tests de integración vía curl).
 
 ## Procedimiento detallado
 
-Ver [[Projects/MiNegocio/Procedimientos/HU05 - Separación Entornos/Procedimiento - Victor]] para el procedimiento paso a paso con comandos exactos, verificación y rollback.
+Ver [[MiNegocio/Procedimientos/HU05 - Separación Entornos/Procedimiento - Victor]] para el procedimiento paso a paso con comandos exactos, verificación y rollback.
 
 ## Enlaces relacionados
 
-- [[Projects/MiNegocio/Procedimientos/HU05 - Separación Entornos/Procedimiento - Victor]] — procedimiento detallado
-- [[Tasks/taiga-updates-S3]] — addendum Taiga con cambios en tareas
-- [[Tasks/reporte-testing-S3]] — reporte de bugs de T01/T02
-- [[Tasks/proc-front]] — plan base frontend S3-HU02
+- [[MiNegocio/Procedimientos/HU05 - Separación Entornos/Procedimiento - Victor]] — procedimiento detallado
+- [[MiNegocio/Tareas/taiga-updates-S3]] — addendum Taiga con cambios en tareas
+- [[MiNegocio/Tareas/proc-front]] — plan base frontend S3-HU02
