@@ -112,9 +112,11 @@ Tener todo listo para usar con coherencia entre ambas apps y comenzar a utilizar
 ### Fase 5: Preparación para Nuevos Proyectos ✅ (2026-07-11)
 - [x] Verificado con `claude mcp list`: obsidian, github, context7 conectan bien. packet-tracer falla si Packet Tracer no está abierto (esperado, no es bug de config)
 - [x] Flujo de trabajo ya documentado abajo en este archivo
-- [ ] Template de proyecto base con MCPs preconfigurados — pendiente, no crítico
+- [x] Script `project-init` en `~/.local/bin/` — crea `~/proyectos/<nombre>` con `git init`, `.mcp.json` (obsidian+github+context7), `opencode.json` (mismos MCPs + model routing) y `CLAUDE.md` stub. Uso: `project-init <nombre> [--stack web|go|python|generic]`
 
-**Pendiente global:** rotar/revocar el GitHub PAT `gho_qtD...` manualmente en github.com/settings/tokens (ya no está en ningún archivo de config, pero sigue siendo válido hasta que lo revoques).
+**Pendiente (skip por ahora, decisión del usuario):** rotar/revocar el GitHub PAT `gho_qtD...` manualmente en github.com/settings/tokens (ya no está en ningún archivo de config, pero sigue siendo válido hasta que lo revoques).
+
+## Plan completo (Fases 1-5) ✅ 2026-07-11
 
 ---
 
