@@ -21,9 +21,11 @@ LIMIT 10
 ```dataview
 TABLE status, deadline, file.folder as "Ubicacion"
 FROM "02-Projects"
-WHERE status = "activo"
-SORT deadline ASC
+WHERE tags AND contains(tags, "project")
+SORT status ASC, deadline ASC
 ```
+
+> Dashboard completo: [[02-Projects/_index|Projects Dashboard]]
 
 ## Areas
 - [[Linux]] — Configuracion, Hyprland, waybar, audio

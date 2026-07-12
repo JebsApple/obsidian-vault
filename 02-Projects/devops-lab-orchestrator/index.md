@@ -38,12 +38,12 @@ Orquestador declarativo de laboratorios DevOps donde usuarios definen herramient
 
 ## Notas
 
-- [[Projects/devops-lab-orchestrator/arquitectura|Arquitectura del Sistema]]
-- [[Projects/devops-lab-orchestrator/experimento|Experimento Comparativo]]
-- [[Projects/devops-lab-orchestrator/paper|Articulo Academico]]
-- [[Projects/devops-lab-orchestrator/ADR-002-Allowlist|ADR-002: Allowlist]]
-- [[Projects/devops-lab-orchestrator/ideas-claude|Ideas: Usar Claude]]
-- [[Projects/devops-lab-orchestrator/INFONOR-2026|INFONOR 2026]]
+- [[arquitectura|Arquitectura del Sistema]]
+- [[experimento|Experimento Comparativo]]
+- [[paper|Articulo Academico]]
+- [[ADR-002-Allowlist|ADR-002: Allowlist]]
+- [[ideas-claude|Ideas: Usar Claude]]
+- [[INFONOR-2026|INFONOR 2026]]
 
 ## Equipo
 
