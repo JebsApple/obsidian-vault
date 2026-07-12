@@ -13,6 +13,14 @@ WHERE status = "activo"
 SORT deadline ASC
 ```
 
+## En planeacion
+```dataview
+TABLE created as "Creado", file.folder as "Ubicacion", status
+FROM "02-Projects"
+WHERE status = "draft"
+SORT created DESC
+```
+
 ## En espera
 ```dataview
 TABLE file.folder as "Ubicacion", status

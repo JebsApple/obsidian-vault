@@ -1,25 +1,17 @@
 [
   "obsidian-git",
-  "automatic-linker",
   "dataview",
   "periodic-notes",
   "calendar",
-  "smart-connections",
   "tag-wrangler",
   "iconic",
   "conditional-marker",
-  "calendar-beta",
   "obsidian-kanban",
   "table-editor-obsidian",
-  "obsidian-tasks-plugin",
   "templater-obsidian",
   "obsidian-minimal-settings",
   "editing-toolbar",
   "omnisearch",
-  "copilot",
-  "obsidian-importer",
   "scan-tracker-sheets",
-  "google-calendar",
-  "full-calendar-remastered",
-  "project-manager"
+  "obsidian-iconize"
 ]

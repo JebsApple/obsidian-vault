@@ -49,39 +49,39 @@ SORT file.name ASC
 
 | Sprint | Estado |
 |--------|--------|
-| Sprint 0 — Foundations | ✅ |
-| Sprint 1 — Core Interaction | 📋 |
-| Sprint 2 — Polish + TypeR | 📋 |
+| Sprint 0 — Foundations | DONE |
+| Sprint 1 — Core Interaction | PEND |
+| Sprint 2 — Polish + TypeR | PEND |
 
 ### [[scan-tracker-obsidian|Scan Tracker → Obsidian]]
 > Plugin Obsidian — Sync Google Sheets ↔ markdown
 
 | Milestone | Estado |
 |-----------|--------|
-| M1-M6: Código | ✅ |
-| M7: Testing real | 📋 |
+| M1-M6: Código | DONE |
+| M7: Testing real | PEND |
 
 ### [[devops-lab-orchestrator|DevOps Lab Orchestrator]]
 > FastAPI + Docker + OpenHands + Ollama — Lab orquestado con IA
 
 | Milestone | Estado |
 |-----------|--------|
-| M1-M2, M4 | ✅ |
-| M3, M5 | 🔧 |
+| M1-M2, M4 | DONE |
+| M3, M5 | WIP |
 
 ### [[hermes-agent|Hermes Agent]]
 > Runtime autónomo de agentes IA (Nous Research)
 
 | Fase | Estado |
 |------|--------|
-| Fase 1: Local | 📋 |
+| Fase 1: Local | PEND |
 
 ### [[refactor-claude-md|Refactor CLAUDE.md]]
 > Reestructurar configuración de Opencode
 
 | Step | Estado |
 |------|--------|
-| 1.1-3.1 | 📋 |
+| 1.1-3.1 | PEND |
 
 ---
 

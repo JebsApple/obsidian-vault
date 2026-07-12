@@ -2,10 +2,12 @@
 aliases: [scan-tracker-plan]
 tags: [project, plan, scanlation, obsidian-plugin]
 created: 2026-07-12
-status: activo
+status: superseded
 ---
 
-# Scan Tracker — Plan Completo
+> ⚠️ **Superseded 2026-07-12.** Plan canónico y actualizado: [[blueprint|Blueprints/blueprint.md]] (M0-M9 revisado por Opus, fixes G1/G2 ya aplicados a `sync.ts`/`main.ts`). Este archivo queda como snapshot histórico.
+
+# Scan Tracker — Plan Completo (histórico, ver blueprint.md)
 
 ## Contexto
 
