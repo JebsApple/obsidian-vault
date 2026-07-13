@@ -34,6 +34,14 @@ Drawers válidos: bar, osd, session, launcher, dashboard, utilities, sidebar. Ve
 
 waybar, waypaper, mako, dunst, swaync, hyprpaper, hyprlock, wlogout, wofi, wl-gammarelay. `playerctl` marcado explícito (lo usan los binds de media). Configs/scripts/services legacy archivados en `~/Datos/Backups/desktop-legacy-20260713/`.
 
+## Keyhint (SUPER+SPACE) rediseñado — 2026-07-13
+
+`~/.local/bin/hypr-keyhint` reescrito: lee colores EN VIVO de `~/.local/state/caelestia/scheme.json` (cambia con el scheme/wallpaper), fallback catppuccin mocha. Secciones (Caelestia/Ventanas/Workspaces/Aplicaciones/Utilidades), chips de tecla estilo pill, búsqueda, Escape cierra. Lista de teclas actualizada a los binds reales de hyprland.lua — al cambiar binds, actualizar la lista `SECTIONS` del script.
+
+## Explorador de archivos → Thunar
+
+Dolphin (Qt/KDE) no seguía el scheme. Instalado `thunar + thunar-volman + thunar-archive-plugin + tumbler + gvfs`, aplicada config de caelestia-dots (`uca.xml`, `thunar-volman.xml`). `SUPER+E` y `ALT+SHIFT+E` ahora abren Thunar; default MIME `inode/directory` = thunar. Thunar es GTK: toma los colores generados por caelestia automáticamente. Dolphin sigue instalado por si acaso.
+
 ## Pendiente manual del usuario
 
 - `~/.face`: setear foto desde dashboard caelestia (SUPER+D).
