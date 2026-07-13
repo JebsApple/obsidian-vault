@@ -34,9 +34,20 @@ Drawers válidos: bar, osd, session, launcher, dashboard, utilities, sidebar. Ve
 
 waybar, waypaper, mako, dunst, swaync, hyprpaper, hyprlock, wlogout, wofi, wl-gammarelay. `playerctl` marcado explícito (lo usan los binds de media). Configs/scripts/services legacy archivados en `~/Datos/Backups/desktop-legacy-20260713/`.
 
-## Keyhint (SUPER+SPACE) rediseñado — 2026-07-13
+## Keyhint (SUPER+SPACE) — integrado AL launcher de caelestia — 2026-07-13
 
-`~/.local/bin/hypr-keyhint` reescrito: lee colores EN VIVO de `~/.local/state/caelestia/scheme.json` (cambia con el scheme/wallpaper), fallback catppuccin mocha. Secciones (Caelestia/Ventanas/Workspaces/Aplicaciones/Utilidades), chips de tecla estilo pill, búsqueda, Escape cierra. Lista de teclas actualizada a los binds reales de hyprland.lua — al cambiar binds, actualizar la lista `SECTIONS` del script.
+**Shell forkeado** a `~/.config/quickshell/caelestia` (copia de `/etc/xdg/quickshell/caelestia` — quickshell prioriza el user dir). ⚠️ Updates del paquete `caelestia-shell` NO aplican mientras exista el fork; para volver al original: `rm -rf ~/.config/quickshell/caelestia` y reiniciar shell.
+
+Archivos del fork (diff vs original):
+- `modules/launcher/services/Keybinds.qml` (nuevo) — Searcher que carga `~/.config/caelestia/keybinds.json` + flag `wantOpen`
+- `modules/launcher/items/KeybindItem.qml` (nuevo) — fila con icono Material + nombre/sección + chip mono con la tecla
+- `modules/launcher/AppList.qml` — estado `keys` agregado (prefijo `>keys `)
+- `modules/launcher/Content.qml` — prefill `>keys ` al abrir vía IPC
+- `modules/Shortcuts.qml` — IpcHandler `target: "keybinds"` con `open()` (toggle)
+
+Uso: `SUPER+SPACE` / `ALT+SPACE` → `caelestia shell keybinds open`. También escribir `>keys ` en el launcher normal. Búsqueda fuzzy integrada. **Teclas se editan en `~/.config/caelestia/keybinds.json`** (JSON plano, sin tocar QML).
+
+Script GTK viejo archivado en `Datos/Backups/desktop-legacy-20260713/bin/hypr-keyhint-gtk`. Submap "keyhint" eliminado de hyprland.lua.
 
 ## Explorador de archivos → Thunar
 
