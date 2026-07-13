@@ -26,6 +26,14 @@ Plan final elegido: **no** unificar (unify-disk.sh descartado), sino reformatear
 - Datos p3: 109G usados / 438G libres (20%)
 - p1/p2/p4 (~1.1 GB restos Windows) sin uso, inofensivas. Si algún día se quiere recuperar ese espacio, requiere mover particiones (ver historial sesión).
 
+## Limpieza y migración posterior (mismo día)
+
+- `_Revisar/AppData-cache` (31G), `dotfolders` (8.6G) y duplicados de `Victor-resto` (23G, verificados con rsync dry-run) borrados. `_Revisar` quedó en 1.2G.
+- **ObsidianVault de Windows** rescatado a `Datos/Documentos/ObsidianVault-Windows`.
+- Movido de raíz a Datos: `.config.bak` (26G) → `Datos/Backups/config.bak-migracion-caelestia`; `~/.ollama` (10G) y `~/.local/share/Steam` (16G) → `Datos/AppData/` con symlinks en su lugar original (mismo NVMe, sin pérdida de rendimiento).
+- Cachés raíz: npm 5.7G→1.1G, yay/uv borrados.
+- Resultado: raíz 101G usados / 209G libres (33%); Datos 97G usados / 450G libres (18%).
+
 ## Notas
 
 - Juegos Steam bajo `Program Files (x86)` NO se rescataron (reinstalables).
