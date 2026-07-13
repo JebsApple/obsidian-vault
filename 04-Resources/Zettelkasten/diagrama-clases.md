@@ -97,8 +97,8 @@ Ejemplo: `Persona` 1 ←——→ * `Libro` (una persona tiene muchos libros)
 
 ```
 ┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│  Biblioteca  │◇◆──│    Sede      │────▷│   Libro     │
-│              │     │              │     │             │
+│  Biblioteca │◇◆───│    Sede      │────▷│   Libro     │
+│             │     │              │     │             │
 └─────────────┘     └──────────────┘     └─────────────┘
                                                 │
                                            1..* │

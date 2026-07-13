@@ -23,14 +23,14 @@ Cada test está asociado a una tarea del kanban. Marcar ✅ al pasar, ❌ al fal
 
 ### 7A: Inline editing en canvas
 
-| # | Paso | Esperado | Resultado |
-|---|------|----------|-----------|
-| 7A-1 | Doble-click sobre un bloque de texto existente | Aparece textarea inline sobre el bloque con el texto actual | |
-| 7A-2 | Escribir nuevo texto y presionar Enter | Texto se guarda, textarea desaparece, bloque muestra nuevo texto | |
-| 7A-3 | Doble-click para editar, escribir algo, presionar ESC | Cambios se descartan, bloque muestra texto original | |
-| 7A-4 | Editar un bloque, presionar Tab | Selecciona el siguiente bloque (o vuelve al primero si es el último) | |
-| 7A-5 | Doble-click en un bloque vacío (recién creado) | Textarea aparece vacío, listo para escribir | |
-| 7A-6 | Verificar que el textarea se posiciona correctamente sobre el bloque en distintos tamaños de ventana | Textarea siempre cubre el área del bloque sin desfase | |
+| #    | Paso                                                                                                 | Esperado                                                             | Resultado |
+| ---- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | --------- |
+| 7A-1 | Doble-click sobre un bloque de texto existente                                                       | Aparece textarea inline sobre el bloque con el texto actual          |           |
+| 7A-2 | Escribir nuevo texto y presionar Enter                                                               | Texto se guarda, textarea desaparece, bloque muestra nuevo texto     |           |
+| 7A-3 | Doble-click para editar, escribir algo, presionar ESC                                                | Cambios se descartan, bloque muestra texto original                  |           |
+| 7A-4 | Editar un bloque, presionar Tab                                                                      | Selecciona el siguiente bloque (o vuelve al primero si es el último) |           |
+| 7A-5 | Doble-click en un bloque vacío (recién creado)                                                       | Textarea aparece vacío, listo para escribir                          |           |
+| 7A-6 | Verificar que el textarea se posiciona correctamente sobre el bloque en distintos tamaños de ventana | Textarea siempre cubre el área del bloque sin desfase                |           |
 
 ### 7B: Flujo 100% offline
 
