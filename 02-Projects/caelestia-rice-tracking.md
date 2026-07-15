@@ -116,9 +116,10 @@ Verificar que el comando terminó sin error (exit code 0) antes de continuar. Si
 3. Aplicar:
    ```bash
    spicetify config current_theme <nombre-tema>
+   grep -q "current_theme.*<nombre-tema>" ~/.config/spicetify/config-xpui.ini || { echo "ERROR: current_theme no quedó seteado, config no escribió lo esperado"; exit 1; }
    spicetify apply
    ```
-   Verificar exit code 0. Si `spicetify apply` falla, correr `spicetify restore` para revertir al cliente original antes de reportar el error — nunca dejar Spotify en estado roto sin intentar el rollback.
+   No asumir que `spicetify config` funcionó solo porque no tiró error visible — confirmar en el archivo de config real (`~/.config/spicetify/config-xpui.ini`, ruta puede variar según versión — si no existe ahí, buscar con `find ~/.config/spicetify -iname "*.ini"` antes de asumir la ruta) que el tema quedó escrito ANTES de correr `apply`. Verificar exit code 0 de `apply`. Si falla, correr `spicetify restore` para revertir al cliente original antes de reportar el error — nunca dejar Spotify en estado roto sin intentar el rollback.
 
 4. Verificación final: abrir Spotify y confirmar visualmente que cargó el tema (no hay forma de verificar esto por CLI/exit-code — requiere confirmación humana). Reportar al usuario "aplica y revisa, si se ve roto correr `spicetify restore`".
 

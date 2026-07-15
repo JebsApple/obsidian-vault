@@ -1,7 +1,6 @@
 {
   "accentColor": "#d60000",
   "enabledCssSnippets": [
-    "minegocio-embellece",
-    "caelestia"
+    "minegocio-embellece"
   ]
 }
