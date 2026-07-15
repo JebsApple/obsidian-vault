@@ -30,5 +30,6 @@ deadline: ""
 
 ## Links
 
-- [[refactor-claude-github-tracking|Steps detallados]]
+- [[refactor-claude-md/Trackers/steps|Steps detallados]]
+- [[refactor-claude-md/Blueprints/blueprint|Blueprint]]
 - [[MOCs/index|← Projects Index]]

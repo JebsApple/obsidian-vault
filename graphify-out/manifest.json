@@ -1,0 +1,2082 @@
+{
+  ".obsidian/app.json": {
+    "mtime": 1784013838.5222301,
+    "ast_hash": "7e086486c90a002b21234601ac03ccae",
+    "semantic_hash": "7e086486c90a002b21234601ac03ccae"
+  },
+  ".obsidian/appearance.json": {
+    "mtime": 1784013838.5242302,
+    "ast_hash": "9388299b7b79130860b5fae2d675d971",
+    "semantic_hash": "9388299b7b79130860b5fae2d675d971"
+  },
+  ".obsidian/community-plugins.json": {
+    "mtime": 1784013839.6442714,
+    "ast_hash": "68c5149c4a2c8eed4a5bc74cc1c06460",
+    "semantic_hash": "68c5149c4a2c8eed4a5bc74cc1c06460"
+  },
+  ".obsidian/core-plugins.json": {
+    "mtime": 1784013838.1862175,
+    "ast_hash": "896292e3aa98ca83dc259871a8fb8f6b",
+    "semantic_hash": "896292e3aa98ca83dc259871a8fb8f6b"
+  },
+  ".obsidian/daily-notes.json": {
+    "mtime": 1783747738.1046488,
+    "ast_hash": "77f48a6bcc0c2a9bff040dd2df0f0395",
+    "semantic_hash": "77f48a6bcc0c2a9bff040dd2df0f0395"
+  },
+  ".obsidian/templates.json": {
+    "mtime": 1783739543.713389,
+    "ast_hash": "1a7a1932331a57fca1d3207e18ef7ffb",
+    "semantic_hash": "1a7a1932331a57fca1d3207e18ef7ffb"
+  },
+  ".obsidian/types.json": {
+    "mtime": 1783885699.078,
+    "ast_hash": "ff98967538a3ef0ba5b18d57dcb644c1",
+    "semantic_hash": "ff98967538a3ef0ba5b18d57dcb644c1"
+  },
+  ".obsidian/workspace-mobile.json": {
+    "mtime": 1783356413.4639728,
+    "ast_hash": "c331391831a4a81f01868dffed396c07",
+    "semantic_hash": "c331391831a4a81f01868dffed396c07"
+  },
+  ".smart-env/smart_env.json": {
+    "mtime": 1783885702.2849946,
+    "ast_hash": "b4131de92ab88417927fbe66d23ac00d",
+    "semantic_hash": "b4131de92ab88417927fbe66d23ac00d"
+  },
+  ".stversions/.obsidian/plugins/automatic-linker/main.js": {
+    "mtime": 1783234458.7362194,
+    "ast_hash": "66abd5235476120580976eefd74a070f",
+    "semantic_hash": "66abd5235476120580976eefd74a070f"
+  },
+  ".stversions/.obsidian/plugins/automatic-linker/manifest.json": {
+    "mtime": 1783234458.731301,
+    "ast_hash": "4817d30d6cbb611a5f3fdb6d362e3fd3",
+    "semantic_hash": "4817d30d6cbb611a5f3fdb6d362e3fd3"
+  },
+  ".stversions/.obsidian/workspace-mobile.json": {
+    "mtime": 1783356700.97402,
+    "ast_hash": "d2da4370f7fc7a11fe35497feabc8ea2",
+    "semantic_hash": "d2da4370f7fc7a11fe35497feabc8ea2"
+  },
+  "05-Archive/MiNegocio/Archivados/ignaciovm-minegocio-6b999701-2679-4ab3-9979-2a2f918cd8b8.json": {
+    "mtime": 1781817830.10827,
+    "ast_hash": "5cd05f3bc7c6e870760989296ac4039b",
+    "semantic_hash": "5cd05f3bc7c6e870760989296ac4039b"
+  },
+  ".stfolder/syncthing-folder-940f59.txt": {
+    "mtime": 1783232642.7932932,
+    "ast_hash": "623b46dfb74efacb55a1724eb2db3792",
+    "semantic_hash": "623b46dfb74efacb55a1724eb2db3792"
+  },
+  ".stversions/MiNegocio/R\u00fabrica Evaluaci\u00f3n.md": {
+    "mtime": 1783234642.851091,
+    "ast_hash": "40f15af7e5047c1027274f41b6b1adde",
+    "semantic_hash": "40f15af7e5047c1027274f41b6b1adde"
+  },
+  "00-Inbox/investigacion-nocturna-2026-07-13.md": {
+    "mtime": 1783925355.8029203,
+    "ast_hash": "0f1c7b33b915ff13dae239fe46d74021",
+    "semantic_hash": "0f1c7b33b915ff13dae239fe46d74021"
+  },
+  "01-Daily/2026-07-11.md": {
+    "mtime": 1783790654.6944578,
+    "ast_hash": "fe4e009825ff230a06a37a847cb717e8",
+    "semantic_hash": "fe4e009825ff230a06a37a847cb717e8"
+  },
+  "01-Daily/2026-07-12.md": {
+    "mtime": 1783906069.3156238,
+    "ast_hash": "54bb11f285db9bec89997f151c64d937",
+    "semantic_hash": "54bb11f285db9bec89997f151c64d937"
+  },
+  "02-Projects/MiNegocio/Blueprints/minegocio-kanban.md": {
+    "mtime": 1783888716.315526,
+    "ast_hash": "2b08fa5cc93cebd04b8dd4eaf8b37eac",
+    "semantic_hash": "2b08fa5cc93cebd04b8dd4eaf8b37eac"
+  },
+  "02-Projects/MiNegocio/README.md": {
+    "mtime": 1783890036.9605837,
+    "ast_hash": "00e22872b2fe9812a5a7a9d601ac3751",
+    "semantic_hash": "00e22872b2fe9812a5a7a9d601ac3751"
+  },
+  "02-Projects/TL2EDIT/Blueprints/tl2edit-blueprint.md": {
+    "mtime": 1783988240.351356,
+    "ast_hash": "b768f91718f30dca93ebf6e7d222af80",
+    "semantic_hash": "b768f91718f30dca93ebf6e7d222af80"
+  },
+  "02-Projects/_index.md": {
+    "mtime": 1783890949.6560159,
+    "ast_hash": "fdbab2d935f28fdba505d649fbe3b81a",
+    "semantic_hash": "fdbab2d935f28fdba505d649fbe3b81a"
+  },
+  "02-Projects/_templates/blueprint.md": {
+    "mtime": 1783814109.4945312,
+    "ast_hash": "3aff9f3166aeec1646e41681dc6e7e68",
+    "semantic_hash": "3aff9f3166aeec1646e41681dc6e7e68"
+  },
+  "02-Projects/_templates/project-card.md": {
+    "mtime": 1783814107.9664745,
+    "ast_hash": "34dfc96aab86facd4767260cd7e1fca8",
+    "semantic_hash": "34dfc96aab86facd4767260cd7e1fca8"
+  },
+  "02-Projects/_templates/sprint-kanban.md": {
+    "mtime": 1783814111.6016088,
+    "ast_hash": "8198653c7f5a9d4565e2e1170c71e7a6",
+    "semantic_hash": "8198653c7f5a9d4565e2e1170c71e7a6"
+  },
+  "02-Projects/devops-lab-orchestrator/ADR-002-Allowlist.md": {
+    "mtime": 1783739425.708026,
+    "ast_hash": "2a067c11efffe359803e33a55dd28650",
+    "semantic_hash": "2a067c11efffe359803e33a55dd28650"
+  },
+  "02-Projects/devops-lab-orchestrator/INFONOR-2026.md": {
+    "mtime": 1783739425.7079387,
+    "ast_hash": "8d61d14b3613dde36cb1235094431940",
+    "semantic_hash": "8d61d14b3613dde36cb1235094431940"
+  },
+  "02-Projects/devops-lab-orchestrator/README.md": {
+    "mtime": 1783814208.5471878,
+    "ast_hash": "6e2204ab6ff27eabec484b84545549e0",
+    "semantic_hash": "6e2204ab6ff27eabec484b84545549e0"
+  },
+  "02-Projects/devops-lab-orchestrator/arquitectura.md": {
+    "mtime": 1783739425.7076836,
+    "ast_hash": "0fddc230bfe7065ba2a13269e06cd6a5",
+    "semantic_hash": "0fddc230bfe7065ba2a13269e06cd6a5"
+  },
+  "02-Projects/devops-lab-orchestrator/experimento.md": {
+    "mtime": 1783739425.7075076,
+    "ast_hash": "664bf46ddf9c6ee0cb38914b1a36a0d8",
+    "semantic_hash": "664bf46ddf9c6ee0cb38914b1a36a0d8"
+  },
+  "02-Projects/devops-lab-orchestrator/ideas-claude.md": {
+    "mtime": 1783739425.7075899,
+    "ast_hash": "5d87ee60582316c5ab567ee61985b1cf",
+    "semantic_hash": "5d87ee60582316c5ab567ee61985b1cf"
+  },
+  "02-Projects/devops-lab-orchestrator/index.md": {
+    "mtime": 1783814222.9177182,
+    "ast_hash": "54b6d867282a1907aa8013851c829c3f",
+    "semantic_hash": "54b6d867282a1907aa8013851c829c3f"
+  },
+  "02-Projects/devops-lab-orchestrator/paper.md": {
+    "mtime": 1783739425.7077649,
+    "ast_hash": "77edc1d6b0eb897e2488fe659386b94a",
+    "semantic_hash": "77edc1d6b0eb897e2488fe659386b94a"
+  },
+  "02-Projects/hermes-agent/Blueprints/hermes-agent-kanban.md": {
+    "mtime": 1783888794.9403036,
+    "ast_hash": "705aafa5bccc9c63077cea89f2ac7195",
+    "semantic_hash": "705aafa5bccc9c63077cea89f2ac7195"
+  },
+  "02-Projects/hermes-agent/Blueprints/plan-instalacion.md": {
+    "mtime": 1783814167.2776647,
+    "ast_hash": "9a59300875451c2d4434515149ffea01",
+    "semantic_hash": "9a59300875451c2d4434515149ffea01"
+  },
+  "02-Projects/hermes-agent/README.md": {
+    "mtime": 1783814159.1103632,
+    "ast_hash": "7530fb1ead9f5eda2e249642238cc448",
+    "semantic_hash": "7530fb1ead9f5eda2e249642238cc448"
+  },
+  "02-Projects/hermes-agent/Trackers/backlog.md": {
+    "mtime": 1783814169.3027394,
+    "ast_hash": "89a48b1bcebc8104a695bdc06413ad21",
+    "semantic_hash": "89a48b1bcebc8104a695bdc06413ad21"
+  },
+  "02-Projects/iglesia-project/Blueprints/iglesia-project-blueprint.md": {
+    "mtime": 1783888303.8071876,
+    "ast_hash": "4c8553b1de477ff6ee8322d6973274a7",
+    "semantic_hash": "4c8553b1de477ff6ee8322d6973274a7"
+  },
+  "02-Projects/iglesia-project/Blueprints/iglesia-project-kanban.md": {
+    "mtime": 1783889359.9118285,
+    "ast_hash": "be6484db956775cd3499a444e857db7c",
+    "semantic_hash": "be6484db956775cd3499a444e857db7c"
+  },
+  "02-Projects/iglesia-project/README.md": {
+    "mtime": 1783888319.5466514,
+    "ast_hash": "38e009605ca0be266d86d6a7e593b3db",
+    "semantic_hash": "38e009605ca0be266d86d6a7e593b3db"
+  },
+  "02-Projects/luciernaga-app/Blueprints/plan-001-luciernaga-app.md": {
+    "mtime": 1783888108.0563886,
+    "ast_hash": "4daefbcd5c0894233c574e7523ac6308",
+    "semantic_hash": "4daefbcd5c0894233c574e7523ac6308"
+  },
+  "02-Projects/luciernaga-app/README.md": {
+    "mtime": 1783890096.0376806,
+    "ast_hash": "be06643c4c8b123a7883136c735c8698",
+    "semantic_hash": "be06643c4c8b123a7883136c735c8698"
+  },
+  "02-Projects/luciernaga-app/tracking-sprint-0.md": {
+    "mtime": 1783890003.913404,
+    "ast_hash": "fb087f08f1cd1a685ba6ce00d4451f78",
+    "semantic_hash": "fb087f08f1cd1a685ba6ce00d4451f78"
+  },
+  "02-Projects/refactor-claude-md/README.md": {
+    "mtime": 1783814185.0193195,
+    "ast_hash": "006ee9ac315a4d46e404f16bf9e950ab",
+    "semantic_hash": "006ee9ac315a4d46e404f16bf9e950ab"
+  },
+  "02-Projects/refactor-claude-md/Trackers/steps.md": {
+    "mtime": 1783814190.5955253,
+    "ast_hash": "bd6b09bb53dc3487cb77021c09b0c9f1",
+    "semantic_hash": "bd6b09bb53dc3487cb77021c09b0c9f1"
+  },
+  "02-Projects/scan-tracker-obsidian/Blueprints/blueprint.md": {
+    "mtime": 1783840356.5813966,
+    "ast_hash": "ff178cca053768a9f49ef5a983847ae2",
+    "semantic_hash": "ff178cca053768a9f49ef5a983847ae2"
+  },
+  "02-Projects/scan-tracker-obsidian/Blueprints/plan-plugin-nativo.md": {
+    "mtime": 1783814177.934058,
+    "ast_hash": "0eb5596b6ec6ea001d0bcf3b2a7036da",
+    "semantic_hash": "0eb5596b6ec6ea001d0bcf3b2a7036da"
+  },
+  "02-Projects/scan-tracker-obsidian/Blueprints/scan-tracker-obsidian-kanban.md": {
+    "mtime": 1783888670.106555,
+    "ast_hash": "37e5a8bce2f3cca5618368d873aa7d97",
+    "semantic_hash": "37e5a8bce2f3cca5618368d873aa7d97"
+  },
+  "02-Projects/scan-tracker-obsidian/README.md": {
+    "mtime": 1783838578.39858,
+    "ast_hash": "bb36b0981fcd6f78efdfb45df0125ec6",
+    "semantic_hash": "bb36b0981fcd6f78efdfb45df0125ec6"
+  },
+  "02-Projects/scan-tracker-obsidian/Trackers/progreso.md": {
+    "mtime": 1783840397.951738,
+    "ast_hash": "bb2d11985049a289c0576d50ff64f7a0",
+    "semantic_hash": "bb2d11985049a289c0576d50ff64f7a0"
+  },
+  "02-Projects/scan-tracker-obsidian/Trackers/sprint-0.md": {
+    "mtime": 1783840384.7963085,
+    "ast_hash": "ac9319e9ea849320716ef59be0226964",
+    "semantic_hash": "ac9319e9ea849320716ef59be0226964"
+  },
+  "02-Projects/scan-tracker-obsidian/scan-tracker-obsidian-plan.md": {
+    "mtime": 1783840373.0869286,
+    "ast_hash": "dd4441a27903c729df107a8229413494",
+    "semantic_hash": "dd4441a27903c729df107a8229413494"
+  },
+  "02-Projects/scan-tracker-web/Blueprints/scan-tracker-web-blueprint.md": {
+    "mtime": 1783887002.1055489,
+    "ast_hash": "0f0552e5fbae3993cfe39c93126b2f2e",
+    "semantic_hash": "0f0552e5fbae3993cfe39c93126b2f2e"
+  },
+  "02-Projects/scan-tracker-web/Blueprints/scan-tracker-web-kanban.md": {
+    "mtime": 1783994497.1060255,
+    "ast_hash": "9804d6fa09565db45cc3ea4f847a96a2",
+    "semantic_hash": "9804d6fa09565db45cc3ea4f847a96a2"
+  },
+  "02-Projects/scan-tracker-web/README.md": {
+    "mtime": 1783887015.1230376,
+    "ast_hash": "ed180bcd5068ca45145e20091c99c649",
+    "semantic_hash": "ed180bcd5068ca45145e20091c99c649"
+  },
+  "02-Projects/scan-tracker-web/Trackers/sprint-0.md": {
+    "mtime": 1783840454.144602,
+    "ast_hash": "ea5269b3f47e4361f254c8928745226a",
+    "semantic_hash": "ea5269b3f47e4361f254c8928745226a"
+  },
+  "02-Projects/servicio-limpieza-pc/plan-servicio.md": {
+    "mtime": 1783911058.8662562,
+    "ast_hash": "5a123f6efc8517c70a7561f3e5d9dff9",
+    "semantic_hash": "5a123f6efc8517c70a7561f3e5d9dff9"
+  },
+  "02-Projects/traductor-comics-psd/Blueprints/blueprint.md": {
+    "mtime": 1783835216.9543533,
+    "ast_hash": "bdb86bba24ec35c947f08985dc18fa2b",
+    "semantic_hash": "bdb86bba24ec35c947f08985dc18fa2b"
+  },
+  "02-Projects/traductor-comics-psd/README.md": {
+    "mtime": 1783814119.7329092,
+    "ast_hash": "f01b5f4ab5524884258cc1e044d43214",
+    "semantic_hash": "f01b5f4ab5524884258cc1e044d43214"
+  },
+  "02-Projects/traductor-comics-psd/Trackers/sprint-0.md": {
+    "mtime": 1783814135.9375076,
+    "ast_hash": "0375b5f12cdddb9e554d8e318cd25989",
+    "semantic_hash": "0375b5f12cdddb9e554d8e318cd25989"
+  },
+  "02-Projects/traductor-comics-psd/Trackers/sprint-1.md": {
+    "mtime": 1783837195.3425238,
+    "ast_hash": "ae9be70e5a941a90d51d65492089e659",
+    "semantic_hash": "ae9be70e5a941a90d51d65492089e659"
+  },
+  "02-Projects/traductor-comics-psd/Trackers/sprint-2.md": {
+    "mtime": 1783814147.540936,
+    "ast_hash": "a1753b8207d0b07407847a825d2ae651",
+    "semantic_hash": "a1753b8207d0b07407847a825d2ae651"
+  },
+  "02-Projects/traductor-comics-psd/Trackers/test-manual.md": {
+    "mtime": 1783899965.766243,
+    "ast_hash": "e9390745a553c64b67de3726ef7ff4b0",
+    "semantic_hash": "e9390745a553c64b67de3726ef7ff4b0"
+  },
+  "03-Areas/Herramientas-IA/ECC-Instalacion.md": {
+    "mtime": 1783739425.70487,
+    "ast_hash": "dfb0fdc79c1532763cd40986b565b751",
+    "semantic_hash": "dfb0fdc79c1532763cd40986b565b751"
+  },
+  "03-Areas/Herramientas-IA/IA-Control/_LEEME.md": {
+    "mtime": 1783739425.7060008,
+    "ast_hash": "bd10cec6b38ba1c3f360f01f736dc23a",
+    "semantic_hash": "bd10cec6b38ba1c3f360f01f736dc23a"
+  },
+  "03-Areas/Herramientas-IA/IA-Control/pedido.md": {
+    "mtime": 1783739425.706094,
+    "ast_hash": "879d19b7ee939802c89c1479b1d9adeb",
+    "semantic_hash": "879d19b7ee939802c89c1479b1d9adeb"
+  },
+  "03-Areas/Herramientas-IA/IA-Control/respuestas/respuesta-20260629-024851.md": {
+    "mtime": 1783739425.70583,
+    "ast_hash": "17d097a23a104e1a70cbc8f5d12fa0ef",
+    "semantic_hash": "17d097a23a104e1a70cbc8f5d12fa0ef"
+  },
+  "03-Areas/Herramientas-IA/IA-Control/respuestas/respuesta-20260629-030501.md": {
+    "mtime": 1783739425.7059126,
+    "ast_hash": "55fd825cf87d2afa83a9de9746c548cb",
+    "semantic_hash": "55fd825cf87d2afa83a9de9746c548cb"
+  },
+  "03-Areas/Herramientas-IA/IA-Control/respuestas/respuesta-20260701-153501.md": {
+    "mtime": 1783739425.705741,
+    "ast_hash": "eca65062114fa97fbf6f72147753568c",
+    "semantic_hash": "eca65062114fa97fbf6f72147753568c"
+  },
+  "03-Areas/Herramientas-IA/IA-Control/respuestas/respuesta-20260710-044101.md": {
+    "mtime": 1783739425.7056367,
+    "ast_hash": "12b5ff32b11033869c9d299d5597f38d",
+    "semantic_hash": "12b5ff32b11033869c9d299d5597f38d"
+  },
+  "03-Areas/Herramientas-IA/claude-code-cli-inventario.md": {
+    "mtime": 1783739425.7050943,
+    "ast_hash": "df208d09de010c849608368bfd500f80",
+    "semantic_hash": "df208d09de010c849608368bfd500f80"
+  },
+  "03-Areas/Herramientas-IA/claude-desktop-instalacion.md": {
+    "mtime": 1783739425.70497,
+    "ast_hash": "4f31430db546224668cd6c385465981d",
+    "semantic_hash": "4f31430db546224668cd6c385465981d"
+  },
+  "03-Areas/Herramientas-IA/claude-tools-instalacion.md": {
+    "mtime": 1783739425.7043958,
+    "ast_hash": "40779fe708f8e7a88e3bc8994e52dc17",
+    "semantic_hash": "40779fe708f8e7a88e3bc8994e52dc17"
+  },
+  "03-Areas/Herramientas-IA/como-usar.md": {
+    "mtime": 1783739425.703645,
+    "ast_hash": "942e834d32a7250e29bda87025702b47",
+    "semantic_hash": "942e834d32a7250e29bda87025702b47"
+  },
+  "03-Areas/Herramientas-IA/configuracion-sesiones-ia.md": {
+    "mtime": 1783739425.7054636,
+    "ast_hash": "2d3b80a8bd3ea97cccec3527c6021ca1",
+    "semantic_hash": "2d3b80a8bd3ea97cccec3527c6021ca1"
+  },
+  "03-Areas/Herramientas-IA/mcp-ecosistema-2026.md": {
+    "mtime": 1783739425.704127,
+    "ast_hash": "933bc6cdd0588f153fec86516e3b85d8",
+    "semantic_hash": "933bc6cdd0588f153fec86516e3b85d8"
+  },
+  "03-Areas/Herramientas-IA/mcp-packet-tracer.md": {
+    "mtime": 1783739425.7053788,
+    "ast_hash": "3bec75a3c228adab478e9e75ca1ca69f",
+    "semantic_hash": "3bec75a3c228adab478e9e75ca1ca69f"
+  },
+  "03-Areas/Herramientas-IA/mcp-servers-maestro.md": {
+    "mtime": 1783751111.8202004,
+    "ast_hash": "cea69db4660f9fb6a13e4820c754b2e3",
+    "semantic_hash": "cea69db4660f9fb6a13e4820c754b2e3"
+  },
+  "03-Areas/Herramientas-IA/memoria-persistente.md": {
+    "mtime": 1783739425.7052925,
+    "ast_hash": "993ce347ec25366d7db76a39b55c5b1b",
+    "semantic_hash": "993ce347ec25366d7db76a39b55c5b1b"
+  },
+  "03-Areas/Herramientas-IA/opencode.md": {
+    "mtime": 1783739425.7051966,
+    "ast_hash": "9acd54d150a1036ea4014ea05469518d",
+    "semantic_hash": "9acd54d150a1036ea4014ea05469518d"
+  },
+  "03-Areas/Herramientas-IA/orden.md": {
+    "mtime": 1783739425.7046077,
+    "ast_hash": "2f2f0d38c82c1af5dc01de1db6b57da4",
+    "semantic_hash": "2f2f0d38c82c1af5dc01de1db6b57da4"
+  },
+  "03-Areas/Herramientas-IA/plan-homogenizacion-claude-opencode.md": {
+    "mtime": 1783751124.3582478,
+    "ast_hash": "f856e65a5f530b6ece247e95eae411f0",
+    "semantic_hash": "f856e65a5f530b6ece247e95eae411f0"
+  },
+  "03-Areas/Herramientas-IA/ponytail.md": {
+    "mtime": 1783739425.7055478,
+    "ast_hash": "398428badbcf4b1fcfb9474377b31936",
+    "semantic_hash": "398428badbcf4b1fcfb9474377b31936"
+  },
+  "03-Areas/Herramientas-IA/programar-claude-automatico.md": {
+    "mtime": 1783739425.703858,
+    "ast_hash": "cc680c217f9ecec79ecb65411f7f3e19",
+    "semantic_hash": "cc680c217f9ecec79ecb65411f7f3e19"
+  },
+  "03-Areas/Herramientas-IA/setup-sincronizacion.md": {
+    "mtime": 1783739425.7047234,
+    "ast_hash": "c4a91d37a1bf76a6692b1bd486f4d53c",
+    "semantic_hash": "c4a91d37a1bf76a6692b1bd486f4d53c"
+  },
+  "03-Areas/Herramientas-IA/sync-obsidian-mcp-multi-maquina.md": {
+    "mtime": 1783739425.7040086,
+    "ast_hash": "e31b50714f30c83beb88890e699603b3",
+    "semantic_hash": "e31b50714f30c83beb88890e699603b3"
+  },
+  "03-Areas/Linux/SETUP-NARAROUTER.md": {
+    "mtime": 1783739425.726138,
+    "ast_hash": "0f9a4b4de36231592754e52568dc62ae",
+    "semantic_hash": "0f9a4b4de36231592754e52568dc62ae"
+  },
+  "03-Areas/Linux/audio-bluetooth-celular-mic.md": {
+    "mtime": 1783739425.7264616,
+    "ast_hash": "3781f6e65f5606d050470cc4bf606f1f",
+    "semantic_hash": "3781f6e65f5606d050470cc4bf606f1f"
+  },
+  "03-Areas/Linux/auditoria-sistema-2026-07-12.md": {
+    "mtime": 1783909644.2745366,
+    "ast_hash": "1e4d5b669e36fd0ce7bfea01e43e995d",
+    "semantic_hash": "1e4d5b669e36fd0ce7bfea01e43e995d"
+  },
+  "03-Areas/Linux/caelestia-integracion-sistema.md": {
+    "mtime": 1783955293.6659374,
+    "ast_hash": "b1da5069a716b23339c791616d8e0653",
+    "semantic_hash": "b1da5069a716b23339c791616d8e0653"
+  },
+  "03-Areas/Linux/hyprland-lua-config.md": {
+    "mtime": 1783739425.7267892,
+    "ast_hash": "d3c10266473995ed6133e1fc81cfb9ce",
+    "semantic_hash": "d3c10266473995ed6133e1fc81cfb9ce"
+  },
+  "03-Areas/Linux/hyprland-lua-dispatch-y-zen-pip.md": {
+    "mtime": 1783739425.7271712,
+    "ast_hash": "de8856609b1f0192372d5328c3a910de",
+    "semantic_hash": "de8856609b1f0192372d5328c3a910de"
+  },
+  "03-Areas/Linux/hyprland-setup.md": {
+    "mtime": 1783739425.7270448,
+    "ast_hash": "3de3b8472b5c766721f8497f3fffcd52",
+    "semantic_hash": "3de3b8472b5c766721f8497f3fffcd52"
+  },
+  "03-Areas/Linux/nueva instalacion.md": {
+    "mtime": 1783739425.7260392,
+    "ast_hash": "a42cae2494673c787d049411d8d5ab59",
+    "semantic_hash": "a42cae2494673c787d049411d8d5ab59"
+  },
+  "03-Areas/Linux/plan-auditoria-sistema.md": {
+    "mtime": 1783910629.175128,
+    "ast_hash": "311ba79aa6f1412d73c9bcd285aa806b",
+    "semantic_hash": "311ba79aa6f1412d73c9bcd285aa806b"
+  },
+  "03-Areas/Linux/waybar-hyprland.md": {
+    "mtime": 1783739425.726627,
+    "ast_hash": "0924c29392ad3db26700d0ce771e801e",
+    "semantic_hash": "0924c29392ad3db26700d0ce771e801e"
+  },
+  "03-Areas/Linux/waybar-redesign-celdas-WIP.md": {
+    "mtime": 1783739425.7268853,
+    "ast_hash": "5c691b7adf76f01881f8eb64cf116ea0",
+    "semantic_hash": "5c691b7adf76f01881f8eb64cf116ea0"
+  },
+  "03-Areas/Linux/windows-eliminado-disco-datos.md": {
+    "mtime": 1783953503.656466,
+    "ast_hash": "89f350a19173c4034d8bb1651a403fb4",
+    "semantic_hash": "89f350a19173c4034d8bb1651a403fb4"
+  },
+  "03-Areas/Personal/Apps/HyprPlayer/HyprPlayer-Audit.md": {
+    "mtime": 1783739425.728977,
+    "ast_hash": "8e445fc80c5a6d2ff5d8f090c926a0f2",
+    "semantic_hash": "8e445fc80c5a6d2ff5d8f090c926a0f2"
+  },
+  "03-Areas/Personal/Apps/Mihon/mihon-suwayomi-sync.md": {
+    "mtime": 1783739425.7291276,
+    "ast_hash": "bcd18ee7902659d66f631b84c279bde9",
+    "semantic_hash": "bcd18ee7902659d66f631b84c279bde9"
+  },
+  "03-Areas/Personal/Apps/SKILL.md": {
+    "mtime": 1783739425.728805,
+    "ast_hash": "13a2abd5e3324516c4791cbd3c604dbc",
+    "semantic_hash": "13a2abd5e3324516c4791cbd3c604dbc"
+  },
+  "03-Areas/Personal/Apps/Sin t\u00edtulo.md": {
+    "mtime": 1783739425.728977,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "03-Areas/Personal/Apps/deriva/requerimientos.md": {
+    "mtime": 1783739425.7287006,
+    "ast_hash": "0c406309019608420b595449b51b342c",
+    "semantic_hash": "0c406309019608420b595449b51b342c"
+  },
+  "03-Areas/Personal/Apps/whatsapp-remote-control.md": {
+    "mtime": 1783739425.7251399,
+    "ast_hash": "735ef25a1f05d3044688f98d9f3c68dd",
+    "semantic_hash": "735ef25a1f05d3044688f98d9f3c68dd"
+  },
+  "03-Areas/Personal/PT-Caso05/00-indice.md": {
+    "mtime": 1783739425.7279134,
+    "ast_hash": "8a136e74be5e248c812dc334cb10e90d",
+    "semantic_hash": "8a136e74be5e248c812dc334cb10e90d"
+  },
+  "03-Areas/Personal/PT-Caso05/01-topologia.md": {
+    "mtime": 1783739425.7276258,
+    "ast_hash": "0b239ccc30f7725bf71cdefb382281e8",
+    "semantic_hash": "0b239ccc30f7725bf71cdefb382281e8"
+  },
+  "03-Areas/Personal/PT-Caso05/02-cableado.md": {
+    "mtime": 1783739425.7285912,
+    "ast_hash": "32748b274e31f6136b3cfbcbc2b2fa51",
+    "semantic_hash": "32748b274e31f6136b3cfbcbc2b2fa51"
+  },
+  "03-Areas/Personal/PT-Caso05/03-router.md": {
+    "mtime": 1783739425.7284899,
+    "ast_hash": "3c82b327704f89f84f789f6a23cbd61c",
+    "semantic_hash": "3c82b327704f89f84f789f6a23cbd61c"
+  },
+  "03-Areas/Personal/PT-Caso05/04-switches.md": {
+    "mtime": 1783739425.7280269,
+    "ast_hash": "464d5f5ca070252eda2eb52074f6a6b3",
+    "semantic_hash": "464d5f5ca070252eda2eb52074f6a6b3"
+  },
+  "03-Areas/Personal/PT-Caso05/05-terminales.md": {
+    "mtime": 1783739425.7278168,
+    "ast_hash": "d384f24dfaa5f71a21244c3b5ff73495",
+    "semantic_hash": "d384f24dfaa5f71a21244c3b5ff73495"
+  },
+  "03-Areas/Personal/PT-Caso05/06-telefono.md": {
+    "mtime": 1783739425.7275367,
+    "ast_hash": "225240fd1083de45857b01fa50cd6b91",
+    "semantic_hash": "225240fd1083de45857b01fa50cd6b91"
+  },
+  "03-Areas/Personal/PT-Caso05/07-verificacion.md": {
+    "mtime": 1783739425.7281265,
+    "ast_hash": "a4124296b3b52fa00bc21a0bf6abfcae",
+    "semantic_hash": "a4124296b3b52fa00bc21a0bf6abfcae"
+  },
+  "03-Areas/Personal/PT-Caso05/08-capturas.md": {
+    "mtime": 1783739425.7283838,
+    "ast_hash": "25cdfdbc7178a463b5b35c7c226535ce",
+    "semantic_hash": "25cdfdbc7178a463b5b35c7c226535ce"
+  },
+  "03-Areas/Personal/PT-Caso05/09-tutoriales.md": {
+    "mtime": 1783739425.7282128,
+    "ast_hash": "6369d286094e6a00824ce5f145dba014",
+    "semantic_hash": "6369d286094e6a00824ce5f145dba014"
+  },
+  "03-Areas/Personal/PT-Caso05/Instrucciones \u2014 Simulaci\u00f3n en Cisco Packet Tracer (Caso 05) \u2014 v2.md": {
+    "mtime": 1783739425.7254186,
+    "ast_hash": "1c430621b664a99edd549206d5a8ee22",
+    "semantic_hash": "1c430621b664a99edd549206d5a8ee22"
+  },
+  "03-Areas/Personal/PT-Caso05/Instrucciones \u2014 Simulaci\u00f3n en Cisco Packet Tracer (Caso 07).md": {
+    "mtime": 1783739425.725879,
+    "ast_hash": "fe230d2118d9ff513ec6b8ffa2d0e797",
+    "semantic_hash": "fe230d2118d9ff513ec6b8ffa2d0e797"
+  },
+  "03-Areas/Personal/PT-Caso05/Instrucciones-PT-Caso05-desde-cero.md": {
+    "mtime": 1783739425.725012,
+    "ast_hash": "ce4eab599ce29c2505437fa08369ad14",
+    "semantic_hash": "ce4eab599ce29c2505437fa08369ad14"
+  },
+  "03-Areas/Personal/PT-Caso05/Instrucciones-Packet-Tracer-Caso05-v3.md": {
+    "mtime": 1783739425.7252495,
+    "ast_hash": "8e7af31d01a0465be277461251ab4430",
+    "semantic_hash": "8e7af31d01a0465be277461251ab4430"
+  },
+  "03-Areas/Personal/PT-Caso05/Instrucciones-Packet-Tracer-Caso05-v4-subneteo.md": {
+    "mtime": 1783739425.7273297,
+    "ast_hash": "fc58401241a44671370f34252785da35",
+    "semantic_hash": "fc58401241a44671370f34252785da35"
+  },
+  "03-Areas/Personal/PT-Caso05/Reporte Lab Switch.md": {
+    "mtime": 1783739425.727724,
+    "ast_hash": "21c55b83008522d5c4bdd0b53cd12e34",
+    "semantic_hash": "21c55b83008522d5c4bdd0b53cd12e34"
+  },
+  "03-Areas/Personal/PT-Caso05/comandos-verificacion-caso05.md": {
+    "mtime": 1783739425.7257073,
+    "ast_hash": "10ff620521727f06bd2cbb0cb4ce0e9e",
+    "semantic_hash": "10ff620521727f06bd2cbb0cb4ce0e9e"
+  },
+  "03-Areas/Personal/PT-Caso05/packet tracer.md": {
+    "mtime": 1783739425.7274437,
+    "ast_hash": "4e208a609cc960109291434544a2874d",
+    "semantic_hash": "4e208a609cc960109291434544a2874d"
+  },
+  "04-Resources/Referencia/auditoria-sistema.md": {
+    "mtime": 1783739425.7248397,
+    "ast_hash": "bba546f9ef141fc410d530db53a9a9d7",
+    "semantic_hash": "bba546f9ef141fc410d530db53a9a9d7"
+  },
+  "04-Resources/Referencia/claude-code-opencode-workflows-2026.md": {
+    "mtime": 1783925268.7587156,
+    "ast_hash": "302e03ff51957c543b0b5d280d691517",
+    "semantic_hash": "302e03ff51957c543b0b5d280d691517"
+  },
+  "04-Resources/Referencia/claude-ecosistema-descubrir.md": {
+    "mtime": 1783896456.5850625,
+    "ast_hash": "7aba2d3e752189391e6795ab5c6f02ad",
+    "semantic_hash": "7aba2d3e752189391e6795ab5c6f02ad"
+  },
+  "04-Resources/Referencia/devops-cicd-gitops-2026.md": {
+    "mtime": 1783925295.0833824,
+    "ast_hash": "fc84ddc5f77a926455ebf288d4decdbc",
+    "semantic_hash": "fc84ddc5f77a926455ebf288d4decdbc"
+  },
+  "04-Resources/Referencia/fable-skills-prompts.md": {
+    "mtime": 1783895859.2928042,
+    "ast_hash": "bf225a5d15fa00282b76fbd9da5e3374",
+    "semantic_hash": "bf225a5d15fa00282b76fbd9da5e3374"
+  },
+  "04-Resources/Referencia/fragmento-de-fable.md": {
+    "mtime": 1783895069.0286672,
+    "ast_hash": "85d0f590de459cf8d13479671982e236",
+    "semantic_hash": "85d0f590de459cf8d13479671982e236"
+  },
+  "04-Resources/Referencia/hermes-agent-local-ai.md": {
+    "mtime": 1783925179.2884495,
+    "ast_hash": "515c83eb9a551649aad01e6af51e70f2",
+    "semantic_hash": "515c83eb9a551649aad01e6af51e70f2"
+  },
+  "04-Resources/Referencia/homelab-guia-completa.md": {
+    "mtime": 1783925174.1093183,
+    "ast_hash": "d804b0a9b13132bd9b0ea8be5d802d7d",
+    "semantic_hash": "d804b0a9b13132bd9b0ea8be5d802d7d"
+  },
+  "04-Resources/Referencia/instalacion-completa-plugins-skills.md": {
+    "mtime": 1783896891.977383,
+    "ast_hash": "e1203b48e10890d922c18cccb0ba7004",
+    "semantic_hash": "e1203b48e10890d922c18cccb0ba7004"
+  },
+  "04-Resources/Referencia/leyenda-estados-visuales.md": {
+    "mtime": 1783748023.814114,
+    "ast_hash": "10b3494464b272b22f2b0f93ebcfa96b",
+    "semantic_hash": "10b3494464b272b22f2b0f93ebcfa96b"
+  },
+  "04-Resources/Referencia/linux-hardening-checklist-2026.md": {
+    "mtime": 1783925161.7210045,
+    "ast_hash": "b5debc6063eec7ab1b9569a194f85283",
+    "semantic_hash": "b5debc6063eec7ab1b9569a194f85283"
+  },
+  "04-Resources/Referencia/minecraft-server-docker.md": {
+    "mtime": 1783925186.6276355,
+    "ast_hash": "c591c3b513af32203cd865d14a0800ac",
+    "semantic_hash": "c591c3b513af32203cd865d14a0800ac"
+  },
+  "04-Resources/Referencia/opencode-sandbox.md": {
+    "mtime": 1783739425.7247348,
+    "ast_hash": "3d9642dbe3c84f92e0937de27258d826",
+    "semantic_hash": "3d9642dbe3c84f92e0937de27258d826"
+  },
+  "04-Resources/Referencia/pentesting-security-tools-2026.md": {
+    "mtime": 1783925313.2118416,
+    "ast_hash": "5383fd9f294c2d4d2daad72ecb1f4b09",
+    "semantic_hash": "5383fd9f294c2d4d2daad72ecb1f4b09"
+  },
+  "04-Resources/Referencia/plan-organizacion-espacio.md": {
+    "mtime": 1783740180.9541965,
+    "ast_hash": "b144dbf6d9a1a7b8a9d8108ce945a827",
+    "semantic_hash": "b144dbf6d9a1a7b8a9d8108ce945a827"
+  },
+  "04-Resources/Referencia/software-architecture-patterns-2026.md": {
+    "mtime": 1783925248.6972077,
+    "ast_hash": "569e3c11bc6e1ba0577a787212ffdec7",
+    "semantic_hash": "569e3c11bc6e1ba0577a787212ffdec7"
+  },
+  "04-Resources/Referencia/systemd-avanzado-2026.md": {
+    "mtime": 1783925168.3841734,
+    "ast_hash": "6310104d08fa283438fa90b8b34b51b6",
+    "semantic_hash": "6310104d08fa283438fa90b8b34b51b6"
+  },
+  "04-Resources/Referencia/ui-ux-design-2026.md": {
+    "mtime": 1783925229.245715,
+    "ast_hash": "1597df7a8530e73ad19f1983ab2d78a8",
+    "semantic_hash": "1597df7a8530e73ad19f1983ab2d78a8"
+  },
+  "04-Resources/Zettelkasten/SOLID.md": {
+    "mtime": 1783812826.396069,
+    "ast_hash": "b3494983a0337a0faf38e96be0964fc6",
+    "semantic_hash": "b3494983a0337a0faf38e96be0964fc6"
+  },
+  "04-Resources/Zettelkasten/agile-manifesto.md": {
+    "mtime": 1783812725.3493257,
+    "ast_hash": "4284b2d69a16fdf722ac2c0420c255ec",
+    "semantic_hash": "4284b2d69a16fdf722ac2c0420c255ec"
+  },
+  "04-Resources/Zettelkasten/atributos-calidad-software.md": {
+    "mtime": 1783813063.249819,
+    "ast_hash": "a5fcdaeebbd9b6142fa3e5f809944f7b",
+    "semantic_hash": "a5fcdaeebbd9b6142fa3e5f809944f7b"
+  },
+  "04-Resources/Zettelkasten/audio-cambiar-perfil-tarjeta.md": {
+    "mtime": 1783746646.2057865,
+    "ast_hash": "59f17a3839a7a24719902a3c2f2e1403",
+    "semantic_hash": "59f17a3839a7a24719902a3c2f2e1403"
+  },
+  "04-Resources/Zettelkasten/authservice-logout-unificado.md": {
+    "mtime": 1783746579.1674678,
+    "ast_hash": "d07d710991dc075402ba85f49958cfea",
+    "semantic_hash": "d07d710991dc075402ba85f49958cfea"
+  },
+  "04-Resources/Zettelkasten/automatizacion-pruebas.md": {
+    "mtime": 1783813121.0569506,
+    "ast_hash": "413e581321d6b38e6bd1fc6598237db3",
+    "semantic_hash": "413e581321d6b38e6bd1fc6598237db3"
+  },
+  "04-Resources/Zettelkasten/bcrypt-hash-en-seed.md": {
+    "mtime": 1783746587.5277567,
+    "ast_hash": "44307b87a16a5f489425fea6e3ed94c1",
+    "semantic_hash": "44307b87a16a5f489425fea6e3ed94c1"
+  },
+  "04-Resources/Zettelkasten/brillo-hdmi-hyprsunset-service.md": {
+    "mtime": 1783746667.6375287,
+    "ast_hash": "ae879c194774445ecd95e8e8f6f898ea",
+    "semantic_hash": "ae879c194774445ecd95e8e8f6f898ea"
+  },
+  "04-Resources/Zettelkasten/build-ruta-con-parentesis.md": {
+    "mtime": 1783746571.2861955,
+    "ast_hash": "cfbee51367246d65edb2265694faec0f",
+    "semantic_hash": "cfbee51367246d65edb2265694faec0f"
+  },
+  "04-Resources/Zettelkasten/calidad-software.md": {
+    "mtime": 1783812840.3715863,
+    "ast_hash": "4da0225d26579eb4933f1fc900e84c3f",
+    "semantic_hash": "4da0225d26579eb4933f1fc900e84c3f"
+  },
+  "04-Resources/Zettelkasten/codigo-limpio.md": {
+    "mtime": 1783812811.5805206,
+    "ast_hash": "5a4fe3c7b79e75e05ee6831cc889ae9f",
+    "semantic_hash": "5a4fe3c7b79e75e05ee6831cc889ae9f"
+  },
+  "04-Resources/Zettelkasten/comunicacion-requerimientos.md": {
+    "mtime": 1783812911.919232,
+    "ast_hash": "fa74125a68b3dfa98a699f9529acacfe",
+    "semantic_hash": "fa74125a68b3dfa98a699f9529acacfe"
+  },
+  "04-Resources/Zettelkasten/css-huerfanos-import-roto.md": {
+    "mtime": 1783746576.0603604,
+    "ast_hash": "8385f7b01dbbad52c035f339d88a163b",
+    "semantic_hash": "8385f7b01dbbad52c035f339d88a163b"
+  },
+  "04-Resources/Zettelkasten/dev-prod-separacion.md": {
+    "mtime": 1783746555.3116438,
+    "ast_hash": "00ea3237d45b9234ba30c213be69a094",
+    "semantic_hash": "00ea3237d45b9234ba30c213be69a094"
+  },
+  "04-Resources/Zettelkasten/devops.md": {
+    "mtime": 1783812753.704377,
+    "ast_hash": "4fe94baae5364f09350ae75b80d021ec",
+    "semantic_hash": "4fe94baae5364f09350ae75b80d021ec"
+  },
+  "04-Resources/Zettelkasten/diagrama-actividades.md": {
+    "mtime": 1783812994.606286,
+    "ast_hash": "09404111b963612fc2ff217e6e1f68af",
+    "semantic_hash": "09404111b963612fc2ff217e6e1f68af"
+  },
+  "04-Resources/Zettelkasten/diagrama-clases.md": {
+    "mtime": 1783899619.4458961,
+    "ast_hash": "26606fb4107875bc490c00007ee32a37",
+    "semantic_hash": "26606fb4107875bc490c00007ee32a37"
+  },
+  "04-Resources/Zettelkasten/diagrama-despliegue.md": {
+    "mtime": 1783813022.4103124,
+    "ast_hash": "b68ee8bc9a6bfbd15ac984dc39fad099",
+    "semantic_hash": "b68ee8bc9a6bfbd15ac984dc39fad099"
+  },
+  "04-Resources/Zettelkasten/diagrama-paquetes.md": {
+    "mtime": 1783813034.3447528,
+    "ast_hash": "0040d51f11ff42fc743426a948ee5e48",
+    "semantic_hash": "0040d51f11ff42fc743426a948ee5e48"
+  },
+  "04-Resources/Zettelkasten/diagrama-secuencia.md": {
+    "mtime": 1783813010.42287,
+    "ast_hash": "2b8db5fb8a90babd9efd589d6d3ceaab",
+    "semantic_hash": "2b8db5fb8a90babd9efd589d6d3ceaab"
+  },
+  "04-Resources/Zettelkasten/diagrama-uso.md": {
+    "mtime": 1783812983.384872,
+    "ast_hash": "7b9c0fbcae2af1fa0f78064b6d428574",
+    "semantic_hash": "7b9c0fbcae2af1fa0f78064b6d428574"
+  },
+  "04-Resources/Zettelkasten/docker-build-go-compilar-dentro.md": {
+    "mtime": 1783746545.0462894,
+    "ast_hash": "ed5b9346544cc9b9d03a5587e9236657",
+    "semantic_hash": "ed5b9346544cc9b9d03a5587e9236657"
+  },
+  "04-Resources/Zettelkasten/extreme-programming.md": {
+    "mtime": 1783812739.4918501,
+    "ast_hash": "afa9a358b2967618cc3c7dd4e9fd08fc",
+    "semantic_hash": "afa9a358b2967618cc3c7dd4e9fd08fc"
+  },
+  "04-Resources/Zettelkasten/gestion-riesgos.md": {
+    "mtime": 1783812853.256063,
+    "ast_hash": "2d548f5a94b68b5f56af0689634b002a",
+    "semantic_hash": "2d548f5a94b68b5f56af0689634b002a"
+  },
+  "04-Resources/Zettelkasten/git-ramas-en-espanol.md": {
+    "mtime": 1783746595.928047,
+    "ast_hash": "af8555e77cf365c970f74ac5190bb558",
+    "semantic_hash": "af8555e77cf365c970f74ac5190bb558"
+  },
+  "04-Resources/Zettelkasten/gitea-ssh-vs-http.md": {
+    "mtime": 1783746559.3907847,
+    "ast_hash": "a67153b840c889bbed6e93a3c4021300",
+    "semantic_hash": "a67153b840c889bbed6e93a3c4021300"
+  },
+  "04-Resources/Zettelkasten/go-register-endpoint-cadena.md": {
+    "mtime": 1783746536.6429996,
+    "ast_hash": "da233fe84ba70a9fca896872772f9397",
+    "semantic_hash": "da233fe84ba70a9fca896872772f9397"
+  },
+  "04-Resources/Zettelkasten/go-scan-null-coalesce.md": {
+    "mtime": 1783746541.1061535,
+    "ast_hash": "2217f50030df7c5be4f755d33ec0a180",
+    "semantic_hash": "2217f50030df7c5be4f755d33ec0a180"
+  },
+  "04-Resources/Zettelkasten/gtk3-escala-fraccionaria-gdk-scale.md": {
+    "mtime": 1783746617.0777783,
+    "ast_hash": "86b8cdda8fac46836db5595693812ba7",
+    "semantic_hash": "86b8cdda8fac46836db5595693812ba7"
+  },
+  "04-Resources/Zettelkasten/heuristica-nielsen.md": {
+    "mtime": 1783813101.4732287,
+    "ast_hash": "c7a50a5df0b10d074d706d7027c001de",
+    "semantic_hash": "c7a50a5df0b10d074d706d7027c001de"
+  },
+  "04-Resources/Zettelkasten/historias-usuario.md": {
+    "mtime": 1783812900.6788166,
+    "ast_hash": "69ebc1a2e0ace5b30f054acd660ec4e6",
+    "semantic_hash": "69ebc1a2e0ace5b30f054acd660ec4e6"
+  },
+  "04-Resources/Zettelkasten/hyprland-config-lua.md": {
+    "mtime": 1783746604.088329,
+    "ast_hash": "e555a17e85f6a7605ba2fed6e2eaa640",
+    "semantic_hash": "e555a17e85f6a7605ba2fed6e2eaa640"
+  },
+  "04-Resources/Zettelkasten/hyprland-dispatchers-argumentos-lua.md": {
+    "mtime": 1783746608.6914883,
+    "ast_hash": "fa3a0a20adc6bafab5d19c6e5e7d3cac",
+    "semantic_hash": "fa3a0a20adc6bafab5d19c6e5e7d3cac"
+  },
+  "04-Resources/Zettelkasten/hyprland-flotar-gtk-layershell.md": {
+    "mtime": 1783746613.9666708,
+    "ast_hash": "cbf99ac14725321c1472c26b93fa147e",
+    "semantic_hash": "cbf99ac14725321c1472c26b93fa147e"
+  },
+  "04-Resources/Zettelkasten/hyprland-monitor-helper-escala.md": {
+    "mtime": 1783746621.0679164,
+    "ast_hash": "a9ea9106cd32f8e7e0a9a124dfa8c8b3",
+    "semantic_hash": "a9ea9106cd32f8e7e0a9a124dfa8c8b3"
+  },
+  "04-Resources/Zettelkasten/hyprlock-no-lanzar-en-sesion.md": {
+    "mtime": 1783746657.951193,
+    "ast_hash": "13fa631ad16052ecb0e07e036dde3515",
+    "semantic_hash": "13fa631ad16052ecb0e07e036dde3515"
+  },
+  "04-Resources/Zettelkasten/iconos-tabler-invisibles.md": {
+    "mtime": 1783746567.0500493,
+    "ast_hash": "61338e1426b3bd1651dfe06c16163d03",
+    "semantic_hash": "61338e1426b3bd1651dfe06c16163d03"
+  },
+  "04-Resources/Zettelkasten/ingenieria-software-fundamentos.md": {
+    "mtime": 1783813052.7734327,
+    "ast_hash": "f3e21e629fab4a6e7c5fd6fae82be51a",
+    "semantic_hash": "f3e21e629fab4a6e7c5fd6fae82be51a"
+  },
+  "04-Resources/Zettelkasten/jwt-auth-guard-router.md": {
+    "mtime": 1783746529.4477513,
+    "ast_hash": "3af35af5d6993fe9a5f1154a033e697f",
+    "semantic_hash": "3af35af5d6993fe9a5f1154a033e697f"
+  },
+  "04-Resources/Zettelkasten/lecciones-generales.md": {
+    "mtime": 1783746697.2655554,
+    "ast_hash": "7ff0642c1e97b068874132d1c89364a3",
+    "semantic_hash": "7ff0642c1e97b068874132d1c89364a3"
+  },
+  "04-Resources/Zettelkasten/login-texto-plano-migrar-bcrypt.md": {
+    "mtime": 1783746599.9891875,
+    "ast_hash": "1b9e51e92baa6ade6abb6ed508258eed",
+    "semantic_hash": "1b9e51e92baa6ade6abb6ed508258eed"
+  },
+  "04-Resources/Zettelkasten/mic-virtual-pipewire-loopback.md": {
+    "mtime": 1783746654.0000563,
+    "ast_hash": "4d4d07cbed87755c80df55294625b964",
+    "semantic_hash": "4d4d07cbed87755c80df55294625b964"
+  },
+  "04-Resources/Zettelkasten/modelos-desarrollo.md": {
+    "mtime": 1783812764.6277816,
+    "ast_hash": "0a9262003632e0fb6c731c3a1e2af736",
+    "semantic_hash": "0a9262003632e0fb6c731c3a1e2af736"
+  },
+  "04-Resources/Zettelkasten/moscow.md": {
+    "mtime": 1783812885.655261,
+    "ast_hash": "c32ba02fbd073ceead50316101e5fa14",
+    "semantic_hash": "c32ba02fbd073ceead50316101e5fa14"
+  },
+  "04-Resources/Zettelkasten/navbar-sidebar-no-duplicar.md": {
+    "mtime": 1783746534.2029154,
+    "ast_hash": "e89973011b6cfd9786f2fa567d1145fa",
+    "semantic_hash": "e89973011b6cfd9786f2fa567d1145fa"
+  },
+  "04-Resources/Zettelkasten/nginx-proxy-uploads-imagenes.md": {
+    "mtime": 1783746564.5119615,
+    "ast_hash": "8cf5bdf2baf76a40528e3d75ba3d2f02",
+    "semantic_hash": "8cf5bdf2baf76a40528e3d75ba3d2f02"
+  },
+  "04-Resources/Zettelkasten/nginx-symlink-sites-enabled.md": {
+    "mtime": 1783746590.7568684,
+    "ast_hash": "e800ea15bceb78d7129a66f05240c3d4",
+    "semantic_hash": "e800ea15bceb78d7129a66f05240c3d4"
+  },
+  "04-Resources/Zettelkasten/obsidian-vault-sync.md": {
+    "mtime": 1783746677.6848767,
+    "ast_hash": "866693d9fc5fb10ecd347f3d467f1299",
+    "semantic_hash": "866693d9fc5fb10ecd347f3d467f1299"
+  },
+  "04-Resources/Zettelkasten/opencode-sandbox-mcp.md": {
+    "mtime": 1783746674.1977558,
+    "ast_hash": "478c5ef95cfe955e51d01a961d2c7167",
+    "semantic_hash": "478c5ef95cfe955e51d01a961d2c7167"
+  },
+  "04-Resources/Zettelkasten/pipewire-default-nodes-limpiar.md": {
+    "mtime": 1783746650.123922,
+    "ast_hash": "511035f6dc625f5567206783477c8603",
+    "semantic_hash": "511035f6dc625f5567206783477c8603"
+  },
+  "04-Resources/Zettelkasten/plantilla-ers.md": {
+    "mtime": 1783812947.8555598,
+    "ast_hash": "9690be786478d9c33e8b894209e65635",
+    "semantic_hash": "9690be786478d9c33e8b894209e65635"
+  },
+  "04-Resources/Zettelkasten/principios-modelado.md": {
+    "mtime": 1783813076.265299,
+    "ast_hash": "3ce5e04e91b95dcfb299caf3e17bf109",
+    "semantic_hash": "3ce5e04e91b95dcfb299caf3e17bf109"
+  },
+  "04-Resources/Zettelkasten/requerimientos.md": {
+    "mtime": 1783812874.8998635,
+    "ast_hash": "5d22053fd4ef26df6387e77280555357",
+    "semantic_hash": "5d22053fd4ef26df6387e77280555357"
+  },
+  "04-Resources/Zettelkasten/scrum.md": {
+    "mtime": 1783812712.149836,
+    "ast_hash": "115ba40d58748488f6f55db510986eb9",
+    "semantic_hash": "115ba40d58748488f6f55db510986eb9"
+  },
+  "04-Resources/Zettelkasten/systemd-wantedby-default-target.md": {
+    "mtime": 1783746662.6073544,
+    "ast_hash": "4bb75686f4f26dddfbf6b1e121abd6fe",
+    "semantic_hash": "4bb75686f4f26dddfbf6b1e121abd6fe"
+  },
+  "04-Resources/Zettelkasten/tabla-schema-mismatch.md": {
+    "mtime": 1783746583.3356118,
+    "ast_hash": "e4b50bc0b703609066d9b37259ec97d1",
+    "semantic_hash": "e4b50bc0b703609066d9b37259ec97d1"
+  },
+  "04-Resources/Zettelkasten/ux-diseno.md": {
+    "mtime": 1783813085.7886503,
+    "ast_hash": "b4740b96c91a7e3da6cf608515de39c9",
+    "semantic_hash": "b4740b96c91a7e3da6cf608515de39c9"
+  },
+  "04-Resources/Zettelkasten/vue-auth-store-con-reactive.md": {
+    "mtime": 1783746521.7994876,
+    "ast_hash": "431dc87267d0d4e4a51554ae4c2b173e",
+    "semantic_hash": "431dc87267d0d4e4a51554ae4c2b173e"
+  },
+  "04-Resources/Zettelkasten/vue-localstorage-no-es-reactivo.md": {
+    "mtime": 1783746518.0663588,
+    "ast_hash": "2155d031f5a8ba81c12b93dd51b8e5a8",
+    "semantic_hash": "2155d031f5a8ba81c12b93dd51b8e5a8"
+  },
+  "04-Resources/Zettelkasten/waybar-css-hover-per-module.md": {
+    "mtime": 1783746625.416067,
+    "ast_hash": "98ca4ef6e16dc5a7ce9dc3fcb7dd3ba4",
+    "semantic_hash": "98ca4ef6e16dc5a7ce9dc3fcb7dd3ba4"
+  },
+  "04-Resources/Zettelkasten/waybar-daemon-life-cycle.md": {
+    "mtime": 1783746629.7102153,
+    "ast_hash": "ad94372d404ba168ee578ff8d4c06cb1",
+    "semantic_hash": "ad94372d404ba168ee578ff8d4c06cb1"
+  },
+  "04-Resources/Zettelkasten/waybar-double-start-problema.md": {
+    "mtime": 1783746641.1726122,
+    "ast_hash": "4c4d390e6717b4e8cb40380daa01223c",
+    "semantic_hash": "4c4d390e6717b4e8cb40380daa01223c"
+  },
+  "04-Resources/Zettelkasten/waybar-mprios-idle-iconos.md": {
+    "mtime": 1783746633.4553452,
+    "ast_hash": "8554024b398704edd1782bb4a05d752d",
+    "semantic_hash": "8554024b398704edd1782bb4a05d752d"
+  },
+  "04-Resources/Zettelkasten/waybar-pango-font-size-pt.md": {
+    "mtime": 1783746637.2164752,
+    "ast_hash": "4a8b02c8ee4ae247c02fdb5dbf080827",
+    "semantic_hash": "4a8b02c8ee4ae247c02fdb5dbf080827"
+  },
+  "04-Resources/Zettelkasten/whatsapp-mcp-rompe-opencode.md": {
+    "mtime": 1783746681.1949983,
+    "ast_hash": "7f584e62f475a0432c105322ca712be1",
+    "semantic_hash": "7f584e62f475a0432c105322ca712be1"
+  },
+  "04-Resources/Zettelkasten/zen-pip-wtype-gesto.md": {
+    "mtime": 1783746670.681634,
+    "ast_hash": "d4f3ca268d2b2412b9fa4e5adfb28ae7",
+    "semantic_hash": "d4f3ca268d2b2412b9fa4e5adfb28ae7"
+  },
+  "05-Archive/MiNegocio/Archivados/Auditoria-Official-2026-06-23.md": {
+    "mtime": 1783739425.7177176,
+    "ast_hash": "011741015f56cc4bfff7506158f10235",
+    "semantic_hash": "011741015f56cc4bfff7506158f10235"
+  },
+  "05-Archive/MiNegocio/Archivados/Auditoria-Presentacion-2026-06-20.md": {
+    "mtime": 1783739425.7169454,
+    "ast_hash": "96ccde059aeabfdb3d71eb61f5500e2e",
+    "semantic_hash": "96ccde059aeabfdb3d71eb61f5500e2e"
+  },
+  "05-Archive/MiNegocio/Archivados/Auditoria-Sistema-2026-06-23.md": {
+    "mtime": 1783739425.7186723,
+    "ast_hash": "43beb933d1239911128b2fb76b8d805f",
+    "semantic_hash": "43beb933d1239911128b2fb76b8d805f"
+  },
+  "05-Archive/MiNegocio/Archivados/Gabriel Flores.md": {
+    "mtime": 1783739425.718257,
+    "ast_hash": "c52d107a45ca9eb31b008397aa572443",
+    "semantic_hash": "c52d107a45ca9eb31b008397aa572443"
+  },
+  "05-Archive/MiNegocio/Archivados/Ignacio Varela.md": {
+    "mtime": 1783739425.7178922,
+    "ast_hash": "effd6e0306ac5f44e409f97cc89b2ca2",
+    "semantic_hash": "effd6e0306ac5f44e409f97cc89b2ca2"
+  },
+  "05-Archive/MiNegocio/Archivados/Nicol\u00e1s Vald\u00e9s.md": {
+    "mtime": 1783739425.717202,
+    "ast_hash": "2bb106e38103df7c543d78127c7124a5",
+    "semantic_hash": "2bb106e38103df7c543d78127c7124a5"
+  },
+  "05-Archive/MiNegocio/Archivados/PonytailAudit - Sprint 2.md": {
+    "mtime": 1783739425.718402,
+    "ast_hash": "5db5ac06586fa3830b43e3da9902a265",
+    "semantic_hash": "5db5ac06586fa3830b43e3da9902a265"
+  },
+  "05-Archive/MiNegocio/Archivados/PonytailAudit - Sprint 3.md": {
+    "mtime": 1783739425.7173488,
+    "ast_hash": "0ef0e5306aa665d41268752f8e2a7936",
+    "semantic_hash": "0ef0e5306aa665d41268752f8e2a7936"
+  },
+  "05-Archive/MiNegocio/Archivados/Presentacion-Sprint-2-Cliente.md": {
+    "mtime": 1783739425.7163455,
+    "ast_hash": "61e9dfa97c931db871400947e9ad9d57",
+    "semantic_hash": "61e9dfa97c931db871400947e9ad9d57"
+  },
+  "05-Archive/MiNegocio/Archivados/Rubrica_Sprint_3.md": {
+    "mtime": 1783739425.7161438,
+    "ast_hash": "53139063d43201a91554f1e6e4810997",
+    "semantic_hash": "53139063d43201a91554f1e6e4810997"
+  },
+  "05-Archive/MiNegocio/Archivados/R\u00fabrica Evaluaci\u00f3n.md": {
+    "mtime": 1783739425.7170825,
+    "ast_hash": "1fa0b81fa9785856b8fb47ea6f9c9160",
+    "semantic_hash": "1fa0b81fa9785856b8fb47ea6f9c9160"
+  },
+  "05-Archive/MiNegocio/Archivados/S2-HU04 - Explicacion Codigo.md": {
+    "mtime": 1783739425.7159724,
+    "ast_hash": "3b567aa9661c03c25a41c31b8feaba87",
+    "semantic_hash": "3b567aa9661c03c25a41c31b8feaba87"
+  },
+  "05-Archive/MiNegocio/Archivados/S2-Post-STL-Revert-Plan.md": {
+    "mtime": 1783739425.7185323,
+    "ast_hash": "c0f92392abb3fdf9cbd6ff74a6dcd1d3",
+    "semantic_hash": "c0f92392abb3fdf9cbd6ff74a6dcd1d3"
+  },
+  "05-Archive/MiNegocio/Archivados/S2-Post-STL-Revert-Report.md": {
+    "mtime": 1783739425.7192655,
+    "ast_hash": "919b7a40f5e415dcf7951a5f42d61aa2",
+    "semantic_hash": "919b7a40f5e415dcf7951a5f42d61aa2"
+  },
+  "05-Archive/MiNegocio/Archivados/SLT-Control-de-Versiones.md": {
+    "mtime": 1783739425.7166672,
+    "ast_hash": "52d13c4d99a47ab8abd51f03d99593f8",
+    "semantic_hash": "52d13c4d99a47ab8abd51f03d99593f8"
+  },
+  "05-Archive/MiNegocio/Archivados/SmokeTest-PROD-2026-06-19.md": {
+    "mtime": 1783739425.7190685,
+    "ast_hash": "7f99e335012c6131a0fd523767587aee",
+    "semantic_hash": "7f99e335012c6131a0fd523767587aee"
+  },
+  "05-Archive/MiNegocio/Archivados/Victor Herrera.md": {
+    "mtime": 1783739425.7174706,
+    "ast_hash": "24525f1e78a5cf0b6a488c8277e34e8b",
+    "semantic_hash": "24525f1e78a5cf0b6a488c8277e34e8b"
+  },
+  "05-Archive/MiNegocio/Archivados/estado-sesion-2026-06-20.md": {
+    "mtime": 1783739425.7168047,
+    "ast_hash": "4ea8641725ac980e905eb33bd02c043f",
+    "semantic_hash": "4ea8641725ac980e905eb33bd02c043f"
+  },
+  "05-Archive/MiNegocio/Archivados/estado-sesion-2026-06-21.md": {
+    "mtime": 1783739425.7165198,
+    "ast_hash": "291be1b9baeee5b5ebd871125f2a6aea",
+    "semantic_hash": "291be1b9baeee5b5ebd871125f2a6aea"
+  },
+  "05-Archive/MiNegocio/Archivados/prompt MiNegocio.md": {
+    "mtime": 1783739425.7191653,
+    "ast_hash": "9cc53292d54c7b4f779bb7f4554e69fb",
+    "semantic_hash": "9cc53292d54c7b4f779bb7f4554e69fb"
+  },
+  "05-Archive/MiNegocio/Archivados/taiga-tests-S3-HU02.md": {
+    "mtime": 1783739425.7176044,
+    "ast_hash": "98dc61d3ff55e86fb7c76f8adfff9a2b",
+    "semantic_hash": "98dc61d3ff55e86fb7c76f8adfff9a2b"
+  },
+  "05-Archive/MiNegocio/Conocimiento/Analisis-Auth-JWT-Sesion.md": {
+    "mtime": 1783739425.7131896,
+    "ast_hash": "18886cb674feac60d461ecb94948ec76",
+    "semantic_hash": "18886cb674feac60d461ecb94948ec76"
+  },
+  "05-Archive/MiNegocio/Conocimiento/Deuda T\u00e9cnica.md": {
+    "mtime": 1783739425.7126567,
+    "ast_hash": "cba195b67b42b22897d20d123a03fcc0",
+    "semantic_hash": "cba195b67b42b22897d20d123a03fcc0"
+  },
+  "05-Archive/MiNegocio/Conocimiento/Dev-Prod-Parity-Fixes.md": {
+    "mtime": 1783739425.7137294,
+    "ast_hash": "55f612c0f891f902fc7b2c015f901618",
+    "semantic_hash": "55f612c0f891f902fc7b2c015f901618"
+  },
+  "05-Archive/MiNegocio/Conocimiento/Jenkins-CICD-Setup.md": {
+    "mtime": 1783739425.7136114,
+    "ast_hash": "35199ae46c3ad3514e5b03ec69538e60",
+    "semantic_hash": "35199ae46c3ad3514e5b03ec69538e60"
+  },
+  "05-Archive/MiNegocio/Conocimiento/MiNegocio - Dashboard.md": {
+    "mtime": 1783739425.7130544,
+    "ast_hash": "78abeb19c568f38d5661a7f9c2607db5",
+    "semantic_hash": "78abeb19c568f38d5661a7f9c2607db5"
+  },
+  "05-Archive/MiNegocio/Conocimiento/MiNegocio - Deploy Prod.md": {
+    "mtime": 1783739425.713478,
+    "ast_hash": "6ef420b314513119d7ba31bb1766d6fe",
+    "semantic_hash": "6ef420b314513119d7ba31bb1766d6fe"
+  },
+  "05-Archive/MiNegocio/Conocimiento/Reporte Tecnico Post-Diagnostico.md": {
+    "mtime": 1783739425.7133214,
+    "ast_hash": "cfede038c961a2adae2b49976bc6a910",
+    "semantic_hash": "cfede038c961a2adae2b49976bc6a910"
+  },
+  "05-Archive/MiNegocio/Conocimiento/TAIGA.md": {
+    "mtime": 1783739425.714346,
+    "ast_hash": "12c9e43ae9706af27809a6d259fdf8bb",
+    "semantic_hash": "12c9e43ae9706af27809a6d259fdf8bb"
+  },
+  "05-Archive/MiNegocio/Conocimiento/agentes.md": {
+    "mtime": 1783739425.7128263,
+    "ast_hash": "dd8fe751b12d9e4e7de99a30c67112ac",
+    "semantic_hash": "dd8fe751b12d9e4e7de99a30c67112ac"
+  },
+  "05-Archive/MiNegocio/Conocimiento/conexion-remota.md": {
+    "mtime": 1783739425.714196,
+    "ast_hash": "4097bffaf1989dad03bd13e36c4ff788",
+    "semantic_hash": "4097bffaf1989dad03bd13e36c4ff788"
+  },
+  "05-Archive/MiNegocio/Conocimiento/decisiones.md": {
+    "mtime": 1783739425.715192,
+    "ast_hash": "a5f36ca9d2c1228f1e04c1949d4e977b",
+    "semantic_hash": "a5f36ca9d2c1228f1e04c1949d4e977b"
+  },
+  "05-Archive/MiNegocio/Conocimiento/guia-gabriel-sprint3.md": {
+    "mtime": 1783692070.5198257,
+    "ast_hash": "f03714f63f4c1c708fe65a4222727225",
+    "semantic_hash": "f03714f63f4c1c708fe65a4222727225"
+  },
+  "05-Archive/MiNegocio/Conocimiento/guia-ignacio-sprint3.md": {
+    "mtime": 1783692085.074469,
+    "ast_hash": "efe678f2b927022867213a6679873ee5",
+    "semantic_hash": "efe678f2b927022867213a6679873ee5"
+  },
+  "05-Archive/MiNegocio/Conocimiento/guia-nicolas-sprint3.md": {
+    "mtime": 1783692090.2486982,
+    "ast_hash": "d9b3c082147128d7d4099a46540d31fd",
+    "semantic_hash": "d9b3c082147128d7d4099a46540d31fd"
+  },
+  "05-Archive/MiNegocio/Conocimiento/guia-victor-sprint3.md": {
+    "mtime": 1783692093.7898555,
+    "ast_hash": "54ca5966e455b2d7301a0e4b15637304",
+    "semantic_hash": "54ca5966e455b2d7301a0e4b15637304"
+  },
+  "05-Archive/MiNegocio/Conocimiento/lecciones.md": {
+    "mtime": 1783739425.712061,
+    "ast_hash": "6d08408231d38a1e53b16c88bbbd8fd6",
+    "semantic_hash": "6d08408231d38a1e53b16c88bbbd8fd6"
+  },
+  "05-Archive/MiNegocio/Conocimiento/minegocio-sprint2.md": {
+    "mtime": 1783739425.7117145,
+    "ast_hash": "db4735d152ccb2e9b49a20e640d67d99",
+    "semantic_hash": "db4735d152ccb2e9b49a20e640d67d99"
+  },
+  "05-Archive/MiNegocio/MiNegocio.md": {
+    "mtime": 1783741031.4831123,
+    "ast_hash": "88c36d443fd4d8dddc687cdc94582ece",
+    "semantic_hash": "88c36d443fd4d8dddc687cdc94582ece"
+  },
+  "05-Archive/MiNegocio/Procedimientos/Guia-Pruebas-Capturas-Frontend.md": {
+    "mtime": 1783739425.7229934,
+    "ast_hash": "20180c2cc8ff943ad4a231c1eaa821d1",
+    "semantic_hash": "20180c2cc8ff943ad4a231c1eaa821d1"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU01 - Deuda T\u00e9cnica/Procedimiento - Gabriel.md": {
+    "mtime": 1783739425.7226288,
+    "ast_hash": "7db62bbe2e68095712c361f31b51ce90",
+    "semantic_hash": "7db62bbe2e68095712c361f31b51ce90"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU01 - Deuda T\u00e9cnica/Procedimiento - Ignacio.md": {
+    "mtime": 1783739425.7227185,
+    "ast_hash": "1bfa4896c0d444a868ce8477017ebc55",
+    "semantic_hash": "1bfa4896c0d444a868ce8477017ebc55"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU01 - Deuda T\u00e9cnica/Procedimiento - Nicol\u00e1s.md": {
+    "mtime": 1783739425.7225277,
+    "ast_hash": "6814c950c115bcd2a64ca1edadae3f24",
+    "semantic_hash": "6814c950c115bcd2a64ca1edadae3f24"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU01 - Deuda T\u00e9cnica/Procedimiento - Victor.md": {
+    "mtime": 1783739425.7228127,
+    "ast_hash": "f1a38cf8ed7f11a15f44c3ac95183c4b",
+    "semantic_hash": "f1a38cf8ed7f11a15f44c3ac95183c4b"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU02 - Redise\u00f1o Frontend/Errores-Frontend-a-corregir-2026-06-26.md": {
+    "mtime": 1783739425.721563,
+    "ast_hash": "59106b3284de5ff0d3e4ee6b9a00bb94",
+    "semantic_hash": "59106b3284de5ff0d3e4ee6b9a00bb94"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU02 - Redise\u00f1o Frontend/Procedimiento - Victor.md": {
+    "mtime": 1783739425.7218206,
+    "ast_hash": "c9d10a66cfb32bddbd9e669175d0efbc",
+    "semantic_hash": "c9d10a66cfb32bddbd9e669175d0efbc"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU02 - Redise\u00f1o Frontend/Reporte-polish-frontend-2026-06-27.md": {
+    "mtime": 1783739425.7214446,
+    "ast_hash": "55922a89126f58241e67d95472cd6a9e",
+    "semantic_hash": "55922a89126f58241e67d95472cd6a9e"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU02 - Redise\u00f1o Frontend/Reporte-proc-front-2026-06-27.md": {
+    "mtime": 1783739425.7216945,
+    "ast_hash": "cd5561b34690bb0dbbdd1bea02870f47",
+    "semantic_hash": "cd5561b34690bb0dbbdd1bea02870f47"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU03 - Dashboard Ventas/Procedimiento - Gabriel.md": {
+    "mtime": 1783739425.7219205,
+    "ast_hash": "f79b13b90feb90b1c47ab5bfa783299b",
+    "semantic_hash": "f79b13b90feb90b1c47ab5bfa783299b"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU03 - Dashboard Ventas/Procedimiento - Ignacio.md": {
+    "mtime": 1783739425.722002,
+    "ast_hash": "31905d486f7fa750027d4a4f7cc67d72",
+    "semantic_hash": "31905d486f7fa750027d4a4f7cc67d72"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU04 - Admin Usuarios/Procedimiento - Nicol\u00e1s.md": {
+    "mtime": 1783739425.7220836,
+    "ast_hash": "aae564c5072d762c701fbc20bddcc5d2",
+    "semantic_hash": "aae564c5072d762c701fbc20bddcc5d2"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU05 - Separaci\u00f3n Entornos/Procedimiento - Victor.md": {
+    "mtime": 1783739425.722365,
+    "ast_hash": "69a8a7ba839ef0ff6d05db0c29b2f891",
+    "semantic_hash": "69a8a7ba839ef0ff6d05db0c29b2f891"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU05 - Separaci\u00f3n Entornos/S3-HU05-historia.md": {
+    "mtime": 1783739425.7224474,
+    "ast_hash": "61b808d6e72716c54c50b06aa356264f",
+    "semantic_hash": "61b808d6e72716c54c50b06aa356264f"
+  },
+  "05-Archive/MiNegocio/Procedimientos/HU05 - Separaci\u00f3n Entornos/S3-HU05-instrucciones-gabriel.md": {
+    "mtime": 1783739425.7221715,
+    "ast_hash": "7c14c528094cd965d39a2e666d0d0eeb",
+    "semantic_hash": "7c14c528094cd965d39a2e666d0d0eeb"
+  },
+  "05-Archive/MiNegocio/Procedimientos/Plan-Produccion-Hotfix-Macrotareas.md": {
+    "mtime": 1783739425.7228954,
+    "ast_hash": "b4491f68090efb517abd15553b6b37e8",
+    "semantic_hash": "b4491f68090efb517abd15553b6b37e8"
+  },
+  "05-Archive/MiNegocio/Registro/Auditoria-2026-07-02-S3-HU02-T08-T15.md": {
+    "mtime": 1783739425.7088578,
+    "ast_hash": "abd6c91e50457fe3d02c037ca329f936",
+    "semantic_hash": "abd6c91e50457fe3d02c037ca329f936"
+  },
+  "05-Archive/MiNegocio/Registro/Explicacion-Profesor-S3-HU02.md": {
+    "mtime": 1783739425.709119,
+    "ast_hash": "4188e98e04a2a7e0892ac5ddd7a1ed4a",
+    "semantic_hash": "4188e98e04a2a7e0892ac5ddd7a1ed4a"
+  },
+  "05-Archive/MiNegocio/Registro/Flujo-Despliegue-S3.md": {
+    "mtime": 1783739425.7111254,
+    "ast_hash": "d90f7f3ea3533546346ce7b5996fd78a",
+    "semantic_hash": "d90f7f3ea3533546346ce7b5996fd78a"
+  },
+  "05-Archive/MiNegocio/Registro/Informe-Bugs-S3-HU02-2026-07-03.md": {
+    "mtime": 1783739425.7112477,
+    "ast_hash": "642800232aca08a26409fd06eb8499d8",
+    "semantic_hash": "642800232aca08a26409fd06eb8499d8"
+  },
+  "05-Archive/MiNegocio/Registro/Nicolas/README.md": {
+    "mtime": 1783739425.7099776,
+    "ast_hash": "8d4b65939dde099ad23b68849d9111aa",
+    "semantic_hash": "8d4b65939dde099ad23b68849d9111aa"
+  },
+  "05-Archive/MiNegocio/Registro/Ruta-Critica-Produccion.md": {
+    "mtime": 1783739425.7097409,
+    "ast_hash": "4facc429f4e608378e612e788c95dabe",
+    "semantic_hash": "4facc429f4e608378e612e788c95dabe"
+  },
+  "05-Archive/MiNegocio/Registro/S3-HU02-Registro-Taiga.md": {
+    "mtime": 1783739425.709376,
+    "ast_hash": "5b4276edfa819f45adeddeba923c2ac1",
+    "semantic_hash": "5b4276edfa819f45adeddeba923c2ac1"
+  },
+  "05-Archive/MiNegocio/Registro/S3-HU02-T08-T15-Plan-IVA-Proveedores-Animaciones.md": {
+    "mtime": 1783739425.708268,
+    "ast_hash": "498cd0a6431852312029234069dd74c7",
+    "semantic_hash": "498cd0a6431852312029234069dd74c7"
+  },
+  "05-Archive/MiNegocio/Registro/S3-HU02-Tareas-Faltantes.md": {
+    "mtime": 1783739425.7102075,
+    "ast_hash": "84263d5586a41205e1be5a5045094f00",
+    "semantic_hash": "84263d5586a41205e1be5a5045094f00"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-06-27-continuacion.md": {
+    "mtime": 1783739425.7103798,
+    "ast_hash": "1e1b4b70d1fbc1ec4c1e859e063209df",
+    "semantic_hash": "1e1b4b70d1fbc1ec4c1e859e063209df"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-06-27.md": {
+    "mtime": 1783739425.7104852,
+    "ast_hash": "0acc0d3429624f2ea1cb7f83d623d36a",
+    "semantic_hash": "0acc0d3429624f2ea1cb7f83d623d36a"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-06-28.md": {
+    "mtime": 1783739425.7084467,
+    "ast_hash": "1821a2b61753dfa62a32e19fa8faeb63",
+    "semantic_hash": "1821a2b61753dfa62a32e19fa8faeb63"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-06-29-recuperacion-T13.md": {
+    "mtime": 1783739425.7106998,
+    "ast_hash": "09f8e259b6a332d4e245c58bc11cb675",
+    "semantic_hash": "09f8e259b6a332d4e245c58bc11cb675"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-06-30-tabs-archivador-sidebar.md": {
+    "mtime": 1783739425.7105818,
+    "ast_hash": "c824d7557644caa89a281dd23b8e1c9d",
+    "semantic_hash": "c824d7557644caa89a281dd23b8e1c9d"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-07-02-T08-T15-IVA-proveedores-fantasmas.md": {
+    "mtime": 1783739425.7107813,
+    "ast_hash": "19fea61c1a04e340be46d9be146b636f",
+    "semantic_hash": "19fea61c1a04e340be46d9be146b636f"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-07-03-rediseno-kanban-y-gates-prod.md": {
+    "mtime": 1783739425.7101147,
+    "ast_hash": "94961a6fc7ba13e2abf7d73f605cced5",
+    "semantic_hash": "94961a6fc7ba13e2abf7d73f605cced5"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-07-10-auditoria-preprod-checkpoint.md": {
+    "mtime": 1783739425.7109861,
+    "ast_hash": "5525d702605518fbd4b50b3443f871df",
+    "semantic_hash": "5525d702605518fbd4b50b3443f871df"
+  },
+  "05-Archive/MiNegocio/Registro/Sesion-2026-07-10-handoff-opencode.md": {
+    "mtime": 1783739425.7089794,
+    "ast_hash": "40ecf079ec35e2adcf0f42ffd4cba5a0",
+    "semantic_hash": "40ecf079ec35e2adcf0f42ffd4cba5a0"
+  },
+  "05-Archive/MiNegocio/Registro/Sprint 3 - Plan de Trabajo.md": {
+    "mtime": 1783739425.7085314,
+    "ast_hash": "4ba4b7c926aa8a9a3677869acc8b853b",
+    "semantic_hash": "4ba4b7c926aa8a9a3677869acc8b853b"
+  },
+  "05-Archive/MiNegocio/Registro/test.md": {
+    "mtime": 1783739425.710904,
+    "ast_hash": "44dec125e0095a8947181e9c840992a6",
+    "semantic_hash": "44dec125e0095a8947181e9c840992a6"
+  },
+  "05-Archive/MiNegocio/Tareas/COMENTARIOS.md": {
+    "mtime": 1783739425.7201655,
+    "ast_hash": "a83212d39f19b84643ecac549cff9e74",
+    "semantic_hash": "a83212d39f19b84643ecac549cff9e74"
+  },
+  "05-Archive/MiNegocio/Tareas/HU05 - Separaci\u00f3n Entornos - Victor.md": {
+    "mtime": 1783739462.7038963,
+    "ast_hash": "dec2a2dc37697f768dc273bcdae24f4c",
+    "semantic_hash": "dec2a2dc37697f768dc273bcdae24f4c"
+  },
+  "05-Archive/MiNegocio/Tareas/Pendientes-S3-HU02-T12-codigo-barras-y-roles.md": {
+    "mtime": 1783739425.720315,
+    "ast_hash": "588c18864d5a498b2af758b5a4b3b305",
+    "semantic_hash": "588c18864d5a498b2af758b5a4b3b305"
+  },
+  "05-Archive/MiNegocio/Tareas/S3-SLT-logging-estructurado.md": {
+    "mtime": 1783739425.7195659,
+    "ast_hash": "0f3792ab16fc759fd2f6f0807feac47d",
+    "semantic_hash": "0f3792ab16fc759fd2f6f0807feac47d"
+  },
+  "05-Archive/MiNegocio/Tareas/fix-server-opencode.md": {
+    "mtime": 1783739425.7210488,
+    "ast_hash": "b944a2f0db4ce60643b0c7f0f9665a24",
+    "semantic_hash": "b944a2f0db4ce60643b0c7f0f9665a24"
+  },
+  "05-Archive/MiNegocio/Tareas/instrucciones-subida-gitea-S3.md": {
+    "mtime": 1783739425.719935,
+    "ast_hash": "0f5eebf67f14da241c64ae6b3f58c4ae",
+    "semantic_hash": "0f5eebf67f14da241c64ae6b3f58c4ae"
+  },
+  "05-Archive/MiNegocio/Tareas/para_ma\u00f1ana.md": {
+    "mtime": 1783739425.7194395,
+    "ast_hash": "d06340215a7b1bd289996216818d1d85",
+    "semantic_hash": "d06340215a7b1bd289996216818d1d85"
+  },
+  "05-Archive/MiNegocio/Tareas/por hacer.md": {
+    "mtime": 1783739425.7193484,
+    "ast_hash": "47303690022e8a8ded2c8c19c5fc1177",
+    "semantic_hash": "47303690022e8a8ded2c8c19c5fc1177"
+  },
+  "05-Archive/MiNegocio/Tareas/proc-front.md": {
+    "mtime": 1783739425.7198222,
+    "ast_hash": "550e898dbdba7663b0c4a246462237b0",
+    "semantic_hash": "550e898dbdba7663b0c4a246462237b0"
+  },
+  "05-Archive/MiNegocio/Tareas/replan-rubrica-sprint3.md": {
+    "mtime": 1783739425.720665,
+    "ast_hash": "c883330720c5132deed2854bf0f090b5",
+    "semantic_hash": "c883330720c5132deed2854bf0f090b5"
+  },
+  "05-Archive/MiNegocio/Tareas/reporte-install-open-server.md": {
+    "mtime": 1783739425.7197022,
+    "ast_hash": "795a21ab8b47cd2570c5ab467c99a8bc",
+    "semantic_hash": "795a21ab8b47cd2570c5ab467c99a8bc"
+  },
+  "05-Archive/MiNegocio/Tareas/taiga-comentarios-S3-HU02.md": {
+    "mtime": 1783739425.7205045,
+    "ast_hash": "ccfa8a87c92135c9d37503c80107ac51",
+    "semantic_hash": "ccfa8a87c92135c9d37503c80107ac51"
+  },
+  "05-Archive/MiNegocio/Tareas/taiga-comentarios-T08-T11.md": {
+    "mtime": 1783739425.7209218,
+    "ast_hash": "c658d351786515892e949b84ed0f7f4e",
+    "semantic_hash": "c658d351786515892e949b84ed0f7f4e"
+  },
+  "05-Archive/MiNegocio/Tareas/taiga-tests-S3-HU02-T12-T08-T09.md": {
+    "mtime": 1783739425.7213135,
+    "ast_hash": "df83e380d0a5db1de8830eb6e91b54ef",
+    "semantic_hash": "df83e380d0a5db1de8830eb6e91b54ef"
+  },
+  "05-Archive/MiNegocio/Tareas/taiga-updates-S3.md": {
+    "mtime": 1783739425.7204084,
+    "ast_hash": "f583bfbc81fb6f17a31ea19044bdde69",
+    "semantic_hash": "f583bfbc81fb6f17a31ea19044bdde69"
+  },
+  "05-Archive/MiNegocio/University/Archivados/Configuraci\u00f3n de usuario de despliegue entre Server A (Jenkins) y Server B (Tomcat) Objetivo.md": {
+    "mtime": 1783739425.7232451,
+    "ast_hash": "3583d4c97db2efb45987887f233983c8",
+    "semantic_hash": "3583d4c97db2efb45987887f233983c8"
+  },
+  "05-Archive/MiNegocio/University/Archivados/Cuentas Jenkins-sonarqube.md": {
+    "mtime": 1783739425.7231147,
+    "ast_hash": "7c777fed5912b420cbe5ce6b316878ac",
+    "semantic_hash": "7c777fed5912b420cbe5ce6b316878ac"
+  },
+  "05-Archive/MiNegocio/University/GUIA_ESTUDIO.md": {
+    "mtime": 1783739425.7234874,
+    "ast_hash": "2d84d8f0749c4585458db50b8d338046",
+    "semantic_hash": "2d84d8f0749c4585458db50b8d338046"
+  },
+  "05-Archive/MiNegocio/University/Laboratorio-Switch-Cisco2960.md": {
+    "mtime": 1783739425.7233472,
+    "ast_hash": "0a48d6f3ecb1a7b0c562309f84f2bf4b",
+    "semantic_hash": "0a48d6f3ecb1a7b0c562309f84f2bf4b"
+  },
+  "05-Archive/Research-obsoletos/cachyos-performance.md": {
+    "mtime": 1783739425.724466,
+    "ast_hash": "d92d745decaa1c04fd3186aa999d1e84",
+    "semantic_hash": "d92d745decaa1c04fd3186aa999d1e84"
+  },
+  "05-Archive/Research-obsoletos/foto-celular-minegocio.md": {
+    "mtime": 1783739425.7241533,
+    "ast_hash": "d9add123e70523437ba891473b319919",
+    "semantic_hash": "d9add123e70523437ba891473b319919"
+  },
+  "05-Archive/Research-obsoletos/reporte-testing-S3.md": {
+    "mtime": 1783739425.7240577,
+    "ast_hash": "9457bfc58de65558691331924803c44f",
+    "semantic_hash": "9457bfc58de65558691331924803c44f"
+  },
+  "05-Archive/Research-obsoletos/selfhosted-recomendados-2026.md": {
+    "mtime": 1783739425.7239683,
+    "ast_hash": "74dbf594553a7018508a3e318eb31f7c",
+    "semantic_hash": "74dbf594553a7018508a3e318eb31f7c"
+  },
+  "05-Archive/Research-obsoletos/suwayomi-mihon-updates.md": {
+    "mtime": 1783739425.7243805,
+    "ast_hash": "3647f460646ba29b12ec50853d7427b8",
+    "semantic_hash": "3647f460646ba29b12ec50853d7427b8"
+  },
+  "05-Archive/Research-obsoletos/taiga-updates-S3.md": {
+    "mtime": 1783739425.724285,
+    "ast_hash": "52cda7963120c846a6639013d909bb6c",
+    "semantic_hash": "52cda7963120c846a6639013d909bb6c"
+  },
+  "05-Archive/Research-obsoletos/tailscale-headscale-2026.md": {
+    "mtime": 1783739425.7238836,
+    "ast_hash": "d7ed887dfe8076c392bd294297cb77d4",
+    "semantic_hash": "d7ed887dfe8076c392bd294297cb77d4"
+  },
+  "05-Archive/System-obsoletos/backup-keybinds-2026-06-20.md": {
+    "mtime": 1783739425.7246416,
+    "ast_hash": "94b9f846156b3e3e2adf39e98a45f885",
+    "semantic_hash": "94b9f846156b3e3e2adf39e98a45f885"
+  },
+  "05-Archive/Waybar-backup/backup-20260625-working.md": {
+    "mtime": 1783739425.7245495,
+    "ast_hash": "4b8d66188ddae8b18d37536740c6ed60",
+    "semantic_hash": "4b8d66188ddae8b18d37536740c6ed60"
+  },
+  "MOCs/ai-tools.md": {
+    "mtime": 1783746509.2760558,
+    "ast_hash": "f9857203b244e7ac79b17aee36dfb1a8",
+    "semantic_hash": "f9857203b244e7ac79b17aee36dfb1a8"
+  },
+  "MOCs/index.md": {
+    "mtime": 1783814213.5853739,
+    "ast_hash": "d6788d727406ac8d7f492a2d0227da73",
+    "semantic_hash": "d6788d727406ac8d7f492a2d0227da73"
+  },
+  "MOCs/ingenieria-software.md": {
+    "mtime": 1783813160.8924189,
+    "ast_hash": "c9fe68cac3ab97a24f68e50526577038",
+    "semantic_hash": "c9fe68cac3ab97a24f68e50526577038"
+  },
+  "MOCs/linux.md": {
+    "mtime": 1783746507.5819974,
+    "ast_hash": "eb20cb0837abaf627ea52d528d7f181b",
+    "semantic_hash": "eb20cb0837abaf627ea52d528d7f181b"
+  },
+  "MOCs/projects.md": {
+    "mtime": 1783885978.2302518,
+    "ast_hash": "1c45af3ef068340df6b8d31c37566948",
+    "semantic_hash": "1c45af3ef068340df6b8d31c37566948"
+  },
+  "Plantillas/_template-procedimiento.md": {
+    "mtime": 1783739499.9396656,
+    "ast_hash": "582cbd9e43320f8e345ca697c70fe4b9",
+    "semantic_hash": "582cbd9e43320f8e345ca697c70fe4b9"
+  },
+  "Plantillas/_template-sesion.md": {
+    "mtime": 1783739498.9266257,
+    "ast_hash": "1160147aa0e859c97591e427f09c7900",
+    "semantic_hash": "1160147aa0e859c97591e427f09c7900"
+  },
+  "Plantillas/_template-tarea.md": {
+    "mtime": 1783739500.9397051,
+    "ast_hash": "93bec36da9b848d8e61b848edae26a90",
+    "semantic_hash": "93bec36da9b848d8e61b848edae26a90"
+  },
+  "Plantillas/_template.md": {
+    "mtime": 1783739425.7061791,
+    "ast_hash": "e69599611541904cc091a72d2acea90e",
+    "semantic_hash": "e69599611541904cc091a72d2acea90e"
+  },
+  "Plantillas/atomic-note.md": {
+    "mtime": 1783746495.7395892,
+    "ast_hash": "a7df86f7e826a3c4f4f061e56bb8d37f",
+    "semantic_hash": "a7df86f7e826a3c4f4f061e56bb8d37f"
+  },
+  "Plantillas/daily-note.md": {
+    "mtime": 1783746495.3025742,
+    "ast_hash": "5b83b890abf7047b7e7c135bb57f8613",
+    "semantic_hash": "5b83b890abf7047b7e7c135bb57f8613"
+  },
+  "Plantillas/project-note.md": {
+    "mtime": 1783746496.8746283,
+    "ast_hash": "195efa2d53ba38ba50f39c597f2f4992",
+    "semantic_hash": "195efa2d53ba38ba50f39c597f2f4992"
+  },
+  "Plantillas/quick-capture.md": {
+    "mtime": 1783746497.7136574,
+    "ast_hash": "d92fea969325a758c30112bd46fe95ea",
+    "semantic_hash": "d92fea969325a758c30112bd46fe95ea"
+  },
+  "Plantillas/session-log.md": {
+    "mtime": 1783746498.337679,
+    "ast_hash": "1b37ad18889b69897559feebd05c1da9",
+    "semantic_hash": "1b37ad18889b69897559feebd05c1da9"
+  },
+  "00-Inbox/Scrum.pdf": {
+    "mtime": 1783808943.796857,
+    "ast_hash": "c62ec364758b80f78b227b34872794c4",
+    "semantic_hash": "c62ec364758b80f78b227b34872794c4"
+  },
+  "Assets/Pasted image 20260701103146.png": {
+    "mtime": 1782916306.178311,
+    "ast_hash": "62a0ef9cb18f46f104882ba408401c5f",
+    "semantic_hash": "62a0ef9cb18f46f104882ba408401c5f"
+  },
+  "Assets/Pasted image 20260701103235.png": {
+    "mtime": 1782916355.798002,
+    "ast_hash": "62a0ef9cb18f46f104882ba408401c5f",
+    "semantic_hash": "62a0ef9cb18f46f104882ba408401c5f"
+  },
+  "Assets/Pasted image 20260701103334.png": {
+    "mtime": 1782916414.3760273,
+    "ast_hash": "05218fc1e41ab58bc1a2102e467c87ac",
+    "semantic_hash": "05218fc1e41ab58bc1a2102e467c87ac"
+  },
+  "Assets/Pasted image 20260701103453.png": {
+    "mtime": 1782916493.600915,
+    "ast_hash": "05218fc1e41ab58bc1a2102e467c87ac",
+    "semantic_hash": "05218fc1e41ab58bc1a2102e467c87ac"
+  },
+  "Assets/Pasted image 20260701103742.png": {
+    "mtime": 1782916662.327426,
+    "ast_hash": "df06e50e1580628991c0e94e96cee62f",
+    "semantic_hash": "df06e50e1580628991c0e94e96cee62f"
+  },
+  "Assets/Pasted image 20260701103806.png": {
+    "mtime": 1782916686.0298812,
+    "ast_hash": "02ebd470bd1bec0f092e399a99e4b0c0",
+    "semantic_hash": "02ebd470bd1bec0f092e399a99e4b0c0"
+  },
+  "Assets/Pasted image 20260701103817.png": {
+    "mtime": 1782916697.2371035,
+    "ast_hash": "88a5a9aeae16cc2b17f9076418626ba2",
+    "semantic_hash": "88a5a9aeae16cc2b17f9076418626ba2"
+  },
+  "Assets/Pasted image 20260701104020.png": {
+    "mtime": 1782916820.469814,
+    "ast_hash": "48b763271db422198f6f321cca81d96c",
+    "semantic_hash": "48b763271db422198f6f321cca81d96c"
+  },
+  "Assets/Pasted image 20260701104246.png": {
+    "mtime": 1782916966.0325432,
+    "ast_hash": "3eaf9eeb5d9cde05297e240c13f4d85a",
+    "semantic_hash": "3eaf9eeb5d9cde05297e240c13f4d85a"
+  },
+  "Assets/Pasted image 20260701104617.png": {
+    "mtime": 1782917177.352704,
+    "ast_hash": "b1e20e7a671f1908a9061e502ce6db2b",
+    "semantic_hash": "b1e20e7a671f1908a9061e502ce6db2b"
+  },
+  "Assets/Pasted image 20260701105029.png": {
+    "mtime": 1782917429.7488468,
+    "ast_hash": "4c6efbf35e077346d50a582b27b8f117",
+    "semantic_hash": "4c6efbf35e077346d50a582b27b8f117"
+  },
+  "Assets/Pasted image 20260701105208.png": {
+    "mtime": 1782917528.213183,
+    "ast_hash": "67702825a4483914c15fa88ab4693c39",
+    "semantic_hash": "67702825a4483914c15fa88ab4693c39"
+  },
+  "Assets/Pasted image 20260701105833.png": {
+    "mtime": 1782917913.005757,
+    "ast_hash": "0a53910d6f9d9a2bd52200a990c81d75",
+    "semantic_hash": "0a53910d6f9d9a2bd52200a990c81d75"
+  },
+  "Assets/Pasted image 20260701110120.png": {
+    "mtime": 1782918080.9248571,
+    "ast_hash": "1a7e33f2f0c572f9ce38fe8c957ef892",
+    "semantic_hash": "1a7e33f2f0c572f9ce38fe8c957ef892"
+  },
+  "Assets/Pasted image 20260701110309.png": {
+    "mtime": 1782918189.0448208,
+    "ast_hash": "4d54f20272c4404429be702217feade2",
+    "semantic_hash": "4d54f20272c4404429be702217feade2"
+  },
+  "Assets/Pasted image 20260701110816.png": {
+    "mtime": 1782918496.7322075,
+    "ast_hash": "22dbd0458c1e7f88ca53674060cdf323",
+    "semantic_hash": "22dbd0458c1e7f88ca53674060cdf323"
+  },
+  "Assets/Pasted image 20260701111004.png": {
+    "mtime": 1782918604.407303,
+    "ast_hash": "4dbb60a0e47c61335dc53c387ab72108",
+    "semantic_hash": "4dbb60a0e47c61335dc53c387ab72108"
+  },
+  "Assets/Pasted image 20260701111012.png": {
+    "mtime": 1782918612.8277254,
+    "ast_hash": "69cc9cee91a7219430327720e0396d94",
+    "semantic_hash": "69cc9cee91a7219430327720e0396d94"
+  },
+  "Assets/Pasted image 20260701111037.png": {
+    "mtime": 1782918637.5129545,
+    "ast_hash": "6cd25bb41e68bdbdb3e93925f5c791ca",
+    "semantic_hash": "6cd25bb41e68bdbdb3e93925f5c791ca"
+  },
+  "Assets/Pasted image 20260701111048.png": {
+    "mtime": 1782918648.832514,
+    "ast_hash": "1984ebdb91ea8d0288bce0d718dcfd99",
+    "semantic_hash": "1984ebdb91ea8d0288bce0d718dcfd99"
+  },
+  "Assets/Pasted image 20260701111126.png": {
+    "mtime": 1782918686.7283688,
+    "ast_hash": "8e8a9af301eccee69584fcc34439ea47",
+    "semantic_hash": "8e8a9af301eccee69584fcc34439ea47"
+  },
+  "Assets/Pasted image 20260701111347.png": {
+    "mtime": 1782918827.6470475,
+    "ast_hash": "5b783cc69fed4b1d400725aa2bf391d5",
+    "semantic_hash": "5b783cc69fed4b1d400725aa2bf391d5"
+  },
+  "Assets/Pasted image 20260701111652.png": {
+    "mtime": 1782919012.7244043,
+    "ast_hash": "0b6e343b60f43729e7d70b63bc387173",
+    "semantic_hash": "0b6e343b60f43729e7d70b63bc387173"
+  },
+  "Assets/Pasted image 20260701111824.png": {
+    "mtime": 1782919104.6254208,
+    "ast_hash": "889e3fb0384bcd9ebbd687cb23080b79",
+    "semantic_hash": "889e3fb0384bcd9ebbd687cb23080b79"
+  },
+  "Assets/Pasted image 20260701111844.png": {
+    "mtime": 1782919124.6922884,
+    "ast_hash": "0e36ec226a3f60af5802ef70f39e975c",
+    "semantic_hash": "0e36ec226a3f60af5802ef70f39e975c"
+  },
+  "Assets/Pasted image 20260701111902.png": {
+    "mtime": 1782919142.1480403,
+    "ast_hash": "854a0184b714ed1e3899e56e78a3aa3c",
+    "semantic_hash": "854a0184b714ed1e3899e56e78a3aa3c"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/graph-insights/blind-spots.md": {
+    "mtime": 1784014536.1178787,
+    "ast_hash": "f54291902b094e551ac3a3c762efb3e7",
+    "semantic_hash": "f54291902b094e551ac3a3c762efb3e7"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/graph-insights/cross-project-patterns.md": {
+    "mtime": 1784014563.1288693,
+    "ast_hash": "6a6846060908daa48dedbd66a30df056",
+    "semantic_hash": "6a6846060908daa48dedbd66a30df056"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/graph-insights/missing-links.md": {
+    "mtime": 1784014553.0104983,
+    "ast_hash": "86d5ff7b6f83ab1d194eb725d3ed0b34",
+    "semantic_hash": "86d5ff7b6f83ab1d194eb725d3ed0b34"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/graph-insights/orphaned-nodes.md": {
+    "mtime": 1784014545.4882224,
+    "ast_hash": "e576938c37f049f3511055e9fbf814e9",
+    "semantic_hash": "e576938c37f049f3511055e9fbf814e9"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/personas/ai-tooling-specialist.md": {
+    "mtime": 1784015833.3217797,
+    "ast_hash": "f9e6ca4f71cc3067616472c6ce9b4927",
+    "semantic_hash": "f9e6ca4f71cc3067616472c6ce9b4927"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/personas/homelab-architect.md": {
+    "mtime": 1784015828.0415807,
+    "ast_hash": "0fa2b243009b99d45e6019133266d71a",
+    "semantic_hash": "0fa2b243009b99d45e6019133266d71a"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/personas/linux-tinkerer.md": {
+    "mtime": 1784015823.1853955,
+    "ast_hash": "91fd307da38fb24373f2539bbd598a9e",
+    "semantic_hash": "91fd307da38fb24373f2539bbd598a9e"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/personas/minegocio-dev.md": {
+    "mtime": 1784015818.1231995,
+    "ast_hash": "b52ed0520bef27babbbb485b43038fa6",
+    "semantic_hash": "b52ed0520bef27babbbb485b43038fa6"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/personas/se-student.md": {
+    "mtime": 1784015838.197962,
+    "ast_hash": "abfba4ac91f2178db5e3f2f25d3f8d78",
+    "semantic_hash": "abfba4ac91f2178db5e3f2f25d3f8d78"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/00-obsidian-plugin-source.md": {
+    "mtime": 1784015099.0875094,
+    "ast_hash": "706cd0d6473be1d65402d19bddd48a4b",
+    "semantic_hash": "706cd0d6473be1d65402d19bddd48a4b"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/01-minegocio-active-dev.md": {
+    "mtime": 1784015111.802975,
+    "ast_hash": "05839ae735120bb46306b732ad792f41",
+    "semantic_hash": "05839ae735120bb46306b732ad792f41"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/02-iglesia-astro-project.md": {
+    "mtime": 1784015121.6403353,
+    "ast_hash": "bb4fec4a93f0b53db0129e77c35c3507",
+    "semantic_hash": "bb4fec4a93f0b53db0129e77c35c3507"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/03-pc-maintenance-service.md": {
+    "mtime": 1784015130.7346683,
+    "ast_hash": "cdf2caac26f20ae414742a8997571d8f",
+    "semantic_hash": "cdf2caac26f20ae414742a8997571d8f"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/04-minegocio-tech-stack.md": {
+    "mtime": 1784015138.4929523,
+    "ast_hash": "1380d5b099cac4ee3de0d5e66dfd7122",
+    "semantic_hash": "1380d5b099cac4ee3de0d5e66dfd7122"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/05-minegocio-team-knowledge.md": {
+    "mtime": 1784014970.7698092,
+    "ast_hash": "8d9ad64bcce00cb7ea8257bae2cf5de3",
+    "semantic_hash": "8d9ad64bcce00cb7ea8257bae2cf5de3"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/06-minegocio-s3-procedures.md": {
+    "mtime": 1784014981.818214,
+    "ast_hash": "37e97d632b1048ac49150f4378f819aa",
+    "semantic_hash": "37e97d632b1048ac49150f4378f819aa"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/07-diff-library-source.md": {
+    "mtime": 1784014992.3075984,
+    "ast_hash": "a45f3658d1eac3ad318102290a078cdd",
+    "semantic_hash": "a45f3658d1eac3ad318102290a078cdd"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/08-homelab-infrastructure.md": {
+    "mtime": 1784015006.229108,
+    "ast_hash": "45c8331a6efbb344d665fa134ce331db",
+    "semantic_hash": "45c8331a6efbb344d665fa134ce331db"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/09-system-audit-tooling.md": {
+    "mtime": 1784015015.5164485,
+    "ast_hash": "a92494c6bd8cd06e6afdf2ee0a11acbc",
+    "semantic_hash": "a92494c6bd8cd06e6afdf2ee0a11acbc"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/10-software-eng-concepts.md": {
+    "mtime": 1784015064.7782526,
+    "ast_hash": "ba83f648c65bf849c7cc0332cc265dc5",
+    "semantic_hash": "ba83f648c65bf849c7cc0332cc265dc5"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/11-config-code-snippets.md": {
+    "mtime": 1784015144.98319,
+    "ast_hash": "19ba7d07b025943c4ae144ebecac5783",
+    "semantic_hash": "19ba7d07b025943c4ae144ebecac5783"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/12-minegocio-ui-components.md": {
+    "mtime": 1784015089.581161,
+    "ast_hash": "c3a319b84ecc99925db26715ea0dab89",
+    "semantic_hash": "c3a319b84ecc99925db26715ea0dab89"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/13-comic-translator-psd.md": {
+    "mtime": 1784015100.385557,
+    "ast_hash": "92976c108be22683315149e95b2cad20",
+    "semantic_hash": "92976c108be22683315149e95b2cad20"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/14-linux-desktop-config.md": {
+    "mtime": 1784015116.6811535,
+    "ast_hash": "0043c7d113a4f8d68d56f3a435da5b1d",
+    "semantic_hash": "0043c7d113a4f8d68d56f3a435da5b1d"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/15-devops-gitops.md": {
+    "mtime": 1784015275.6379745,
+    "ast_hash": "268e21eb9bf80ce3cc589baa374800d7",
+    "semantic_hash": "268e21eb9bf80ce3cc589baa374800d7"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/16-minegocio-backend-lessons.md": {
+    "mtime": 1784015282.7062335,
+    "ast_hash": "8c2a42b03f663b1b154c40d7b2353ea9",
+    "semantic_hash": "8c2a42b03f663b1b154c40d7b2353ea9"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/17-archived-sprints.md": {
+    "mtime": 1784015289.7784925,
+    "ast_hash": "3867b1cf61b4121a3ee0b9eea474c407",
+    "semantic_hash": "3867b1cf61b4121a3ee0b9eea474c407"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/18-networking-lab-pt.md": {
+    "mtime": 1784015296.9037533,
+    "ast_hash": "5b0aea59963b15c8ad2738e6931d03d8",
+    "semantic_hash": "5b0aea59963b15c8ad2738e6931d03d8"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/19-hermes-agent.md": {
+    "mtime": 1784015303.3849905,
+    "ast_hash": "3eae4fc3112c06ff5ca4d7757e39a2ab",
+    "semantic_hash": "3eae4fc3112c06ff5ca4d7757e39a2ab"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/20-zettelkasten-snippets.md": {
+    "mtime": 1784015670.181375,
+    "ast_hash": "e0bca5958f5f9629b4270fea94746a1d",
+    "semantic_hash": "e0bca5958f5f9629b4270fea94746a1d"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/21-obsidian-app-json-config.md": {
+    "mtime": 1784015681.296782,
+    "ast_hash": "8f3a5acbbadc8e28486ae23f89725d65",
+    "semantic_hash": "8f3a5acbbadc8e28486ae23f89725d65"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/22-luciernaga-app-project.md": {
+    "mtime": 1784015690.690126,
+    "ast_hash": "86490642cb2965cc171a9d488d2258e1",
+    "semantic_hash": "86490642cb2965cc171a9d488d2258e1"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/23-ai-tool-config-homogenization.md": {
+    "mtime": 1784015699.6954556,
+    "ast_hash": "01a1173f6d412b35fc0820df54e628a5",
+    "semantic_hash": "01a1173f6d412b35fc0820df54e628a5"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/24-vault-sync-strategies.md": {
+    "mtime": 1784015710.1328375,
+    "ast_hash": "7e442ba625edf266ec596c8857a2b990",
+    "semantic_hash": "7e442ba625edf266ec596c8857a2b990"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/25-self-hosted-media-vpn.md": {
+    "mtime": 1784015323.144714,
+    "ast_hash": "907432f95212ae8f732e9c5920bffa17",
+    "semantic_hash": "907432f95212ae8f732e9c5920bffa17"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/26-fable-5-prompting.md": {
+    "mtime": 1784015330.6119876,
+    "ast_hash": "ee2cd92b0901105cb67e42ead42e2000",
+    "semantic_hash": "ee2cd92b0901105cb67e42ead42e2000"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/27-vue-component-patterns.md": {
+    "mtime": 1784015335.757176,
+    "ast_hash": "3ec60460561ffc71ce0e7bc49777b60f",
+    "semantic_hash": "3ec60460561ffc71ce0e7bc49777b60f"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/28-obsidian-plugin-manifest.md": {
+    "mtime": 1784015339.8753266,
+    "ast_hash": "76430523b821562ac841bc24d6c482a2",
+    "semantic_hash": "76430523b821562ac841bc24d6c482a2"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/skills/29-hyprland-desktop.md": {
+    "mtime": 1784015344.6555016,
+    "ast_hash": "179088356e2237fb994ab634f7709749",
+    "semantic_hash": "179088356e2237fb994ab634f7709749"
+  },
+  "03-Areas/Herramientas-IA/fable-knowledge/user-context.md": {
+    "mtime": 1784016027.245782,
+    "ast_hash": "4d8ba6463830faedb6815e99083517fe",
+    "semantic_hash": "4d8ba6463830faedb6815e99083517fe"
+  },
+  "03-Areas/Herramientas-IA/fable-prompt-extract-knowledge.md": {
+    "mtime": 1784014505.07174,
+    "ast_hash": "9c67f82d3f02c9b8b16fc57d1e75e9b3",
+    "semantic_hash": "9c67f82d3f02c9b8b16fc57d1e75e9b3"
+  },
+  "MOCs/community-0-obsidian-plugin-source.md": {
+    "mtime": 1784015912.5592067,
+    "ast_hash": "66e03a0a76623951f9f5fc2b7d62fac9",
+    "semantic_hash": "66e03a0a76623951f9f5fc2b7d62fac9"
+  },
+  "MOCs/community-1-minegocio-active-dev.md": {
+    "mtime": 1784015912.560686,
+    "ast_hash": "74accc4acab62231f92416cc46d2c160",
+    "semantic_hash": "74accc4acab62231f92416cc46d2c160"
+  },
+  "MOCs/community-12-minegocio-ui-components.md": {
+    "mtime": 1784015912.561363,
+    "ast_hash": "bdb91635c0a4ca48de6c5311e3a9d731",
+    "semantic_hash": "bdb91635c0a4ca48de6c5311e3a9d731"
+  },
+  "MOCs/community-13-comic-translator-psd.md": {
+    "mtime": 1784015912.5614812,
+    "ast_hash": "bd142fa93be1d76ad9ec33808c40de47",
+    "semantic_hash": "bd142fa93be1d76ad9ec33808c40de47"
+  },
+  "MOCs/community-14-linux-desktop-config.md": {
+    "mtime": 1784015912.5616083,
+    "ast_hash": "0237ea7dc1578dd4aae1ba5861369228",
+    "semantic_hash": "0237ea7dc1578dd4aae1ba5861369228"
+  },
+  "MOCs/community-15-devops-gitops.md": {
+    "mtime": 1784015912.5617454,
+    "ast_hash": "b9c84b11fce7d0dff8b5beea5aa2a518",
+    "semantic_hash": "b9c84b11fce7d0dff8b5beea5aa2a518"
+  },
+  "MOCs/community-16-minegocio-backend-lessons.md": {
+    "mtime": 1784015912.5618806,
+    "ast_hash": "ac60511a41c576c68f50f10bd6175921",
+    "semantic_hash": "ac60511a41c576c68f50f10bd6175921"
+  },
+  "MOCs/community-17-archived-sprints.md": {
+    "mtime": 1784015912.5619926,
+    "ast_hash": "ce10073cfd5520a94ec22d22692aac49",
+    "semantic_hash": "ce10073cfd5520a94ec22d22692aac49"
+  },
+  "MOCs/community-19-hermes-agent-project.md": {
+    "mtime": 1784015912.5621107,
+    "ast_hash": "9ee430764f44e52549893fdae84c7b6d",
+    "semantic_hash": "9ee430764f44e52549893fdae84c7b6d"
+  },
+  "MOCs/community-20-zettelkasten-snippets.md": {
+    "mtime": 1784015912.5622127,
+    "ast_hash": "8baedaeb3aa95f23c28180bd59adc34a",
+    "semantic_hash": "8baedaeb3aa95f23c28180bd59adc34a"
+  },
+  "MOCs/community-21-hyprland-wayland-config.md": {
+    "mtime": 1784015912.562318,
+    "ast_hash": "dbc71df1d0aa60e5c16dda837494a28d",
+    "semantic_hash": "dbc71df1d0aa60e5c16dda837494a28d"
+  },
+  "MOCs/community-24-go-code-patterns.md": {
+    "mtime": 1784015912.5624325,
+    "ast_hash": "1beb8269efc5a31a5d748aa3edfe3794",
+    "semantic_hash": "1beb8269efc5a31a5d748aa3edfe3794"
+  },
+  "MOCs/community-25-claude-code-workflows.md": {
+    "mtime": 1784015912.5625336,
+    "ast_hash": "671bdc6887c0ef3c99d279173a279667",
+    "semantic_hash": "671bdc6887c0ef3c99d279173a279667"
+  },
+  "MOCs/community-26-minegocio-procedures.md": {
+    "mtime": 1784015912.5627208,
+    "ast_hash": "eaf50dc19539cab46cf43b36b3463f02",
+    "semantic_hash": "eaf50dc19539cab46cf43b36b3463f02"
+  },
+  "MOCs/community-27-vue-component-patterns.md": {
+    "mtime": 1784015912.5628192,
+    "ast_hash": "bbbf99449611bb5f71b328ba70b089fd",
+    "semantic_hash": "bbbf99449611bb5f71b328ba70b089fd"
+  },
+  "MOCs/community-28-waybar-hover-system.md": {
+    "mtime": 1784015912.5626256,
+    "ast_hash": "5039141a1ac7b49bedf5a4c27b5b4199",
+    "semantic_hash": "5039141a1ac7b49bedf5a4c27b5b4199"
+  },
+  "MOCs/community-5-minegocio-team-knowledge.md": {
+    "mtime": 1784015912.56084,
+    "ast_hash": "d464127fab513adfe6fbb25e3e5f4fe2",
+    "semantic_hash": "d464127fab513adfe6fbb25e3e5f4fe2"
+  },
+  "MOCs/community-6-minegocio-s3-procedures.md": {
+    "mtime": 1784015912.5609806,
+    "ast_hash": "32454f5dc61702166479df3ef739f5f7",
+    "semantic_hash": "32454f5dc61702166479df3ef739f5f7"
+  },
+  "MOCs/community-8-homelab-infrastructure.md": {
+    "mtime": 1784015912.5611274,
+    "ast_hash": "170f43dc1c0a2599ad718e7b9e802a94",
+    "semantic_hash": "170f43dc1c0a2599ad718e7b9e802a94"
+  },
+  "MOCs/community-9-system-audit-tooling.md": {
+    "mtime": 1784015912.5612373,
+    "ast_hash": "32d7dfca00003206871b3f01bee4fd43",
+    "semantic_hash": "32d7dfca00003206871b3f01bee4fd43"
+  },
+  "Plantillas/_template-auditoria.md": {
+    "mtime": 1784015845.9513834,
+    "ast_hash": "2177f9cab1b9289cd3c3fb5da51c54c3",
+    "semantic_hash": "2177f9cab1b9289cd3c3fb5da51c54c3"
+  },
+  "Plantillas/_template-procedimiento-v2.md": {
+    "mtime": 1784015843.5171254,
+    "ast_hash": "e28992556f89ccbd345baa8db564bcc2",
+    "semantic_hash": "e28992556f89ccbd345baa8db564bcc2"
+  },
+  "Plantillas/_template-research.md": {
+    "mtime": 1784015844.651515,
+    "ast_hash": "e2a25f1c36281af8fa96cc7f082bdc96",
+    "semantic_hash": "e2a25f1c36281af8fa96cc7f082bdc96"
+  },
+  "Plantillas/_template-sesion-v2.md": {
+    "mtime": 1784015847.246302,
+    "ast_hash": "6335a3043bac7d96d340703d6b15c18c",
+    "semantic_hash": "6335a3043bac7d96d340703d6b15c18c"
+  },
+  "Plantillas/_template-sprint.md": {
+    "mtime": 1784015842.3421164,
+    "ast_hash": "d4a2119cec2289cf9e378486e1ad27d7",
+    "semantic_hash": "d4a2119cec2289cf9e378486e1ad27d7"
+  }
+}
