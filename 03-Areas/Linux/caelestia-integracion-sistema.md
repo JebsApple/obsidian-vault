@@ -53,6 +53,27 @@ Script GTK viejo archivado en `Datos/Backups/desktop-legacy-20260713/bin/hypr-ke
 
 Dolphin (Qt/KDE) no seguía el scheme. Instalado `thunar + thunar-volman + thunar-archive-plugin + tumbler + gvfs`, aplicada config de caelestia-dots (`uca.xml`, `thunar-volman.xml`). `SUPER+E` y `ALT+SHIFT+E` ahora abren Thunar; default MIME `inode/directory` = thunar. Thunar es GTK: toma los colores generados por caelestia automáticamente. Dolphin sigue instalado por si acaso.
 
+## Brillo por pantalla (interno + HDMI) — 2026-07-15
+
+`services/Brightness.qml` del fork traía dos bugs y una limitación de hardware sin resolver:
+
+1. **`Bar.qml` handleWheel** (scroll de brillo en la barra): `Brightness.getMonitorForScreen(screen)` podía devolver `null` (pantalla aún no registrada, ej. tras reconectar HDMI) y el código llamaba `monitor.brightness` sin chequear → TypeError silencioso, scroll no hacía nada en esa pantalla. Fix: guard `if (!monitor) return;`.
+
+2. **Panel interno se apagaba del todo al bajar brillo**: `brightnessctl s 0%` corta el backlight completo. El flag `--min-value`/`-n` de brightnessctl NO protege valores absolutos, solo deltas (`+`/`-`) — por eso no alcanzaba con pasarle esa opción. Fix real: clamp en `setBrightness()` a piso 1% (`0.01`) antes de llamar brightnessctl.
+
+3. **HDMI (AOC LE22H037) no respondía nada, ni con el fix de arriba**. Investigado a fondo con `ddcutil` directo (sin caelestia de por medio): el LE22H037 es un **TV**, no monitor de PC (línea "LE" de AOC — tuner analógico, resolución máx 1360x768 por VGA). Nunca implementó DDC/CI: `ddcutil -b 2 getvcp 10` responde `DDCRC_REPORTED_UNSUPPORTED` incluso con `--skip-ddc-checks`, `--sleep-multiplier`, `--mccs` forzado. No es config oculta ni bug de driver — el firmware del TV no tiene esa feature. Sin fix de software posible por esa vía.
+
+   Solución: recuperada de la config vieja de waybar (`legacy-scripts/brightness`, ver [[brillo-hdmi-hyprsunset-service]]) — el brillo de pantallas externas se **fingía por gamma**, no por hardware real: `hyprctl hyprsunset gamma_output <nombre> <valor 0-1>`. El servicio `hyprsunset.service` (`~/.config/systemd/user/`) había quedado deshabilitado en la migración a caelestia (el comentario en `hyprland.lua` decía "caelestia reemplaza hyprsunset", pero caelestia solo tiene night-light, no brillo por gamma) → lo re-habilité: `systemctl --user enable --now hyprsunset.service`.
+
+   Reescribí `Monitor` en `Brightness.qml`: eliminada toda la detección DDC (`ddcMonitors`, `ddcProc`, `isDdc`, `busNum` — no funcionaba y no se usaba en otro lado). Nueva clasificación por `isInternal` (regex `^(eDP|LVDS|DSI)` sobre el nombre de pantalla, igual criterio que usaba `hypr-active-monitor` en waybar):
+   - interno → `brightnessctl` (piso 1%)
+   - Apple Studio Display → `asdbctl` (sin cambios)
+   - resto (HDMI/DP externos) → `hyprctl hyprsunset gamma_output` (piso 10% — gamma más baja vuelve la imagen ilegible en vez de solo oscurecer, no hay "apagado" real que evitar)
+
+   Gamma no tiene IPC de lectura, así que el estado interno arranca en 1.0 (100%) y se trackea solo en memoria del proceso qs (se resetea a 100% si se reinicia el shell — igual que el `state file` que usaba el script viejo, pero sin persistencia entre reinicios; no implementado por ahora).
+
+Verificación: `qs -c caelestia ipc call brightness setFor "HDMI-A-1" 60%` → aplica gamma real, sin errores en `/run/user/1000/quickshell/by-id/*/log.log`.
+
 ## Pendiente manual del usuario
 
 - `~/.face`: setear foto desde dashboard caelestia (SUPER+D).

@@ -22,6 +22,7 @@ Al debuggear un módulo que "no funciona": verificar primero que el daemon/servi
 ## Conexiones
 - [[systemd-wantedby-default-target]]
 - [[audio-cambiar-perfil-tarjeta]]
+- [[caelestia-integracion-sistema]] — 2026-07-15: el mismo patrón (gamma_output vía hyprsunset) se reimplementó dentro de caelestia tras la migración de waybar. El servicio había quedado deshabilitado en la migración; además se descubrió que el monitor HDMI (AOC LE22H037) es en realidad un TV sin soporte DDC/CI real, así que gamma NO es un workaround temporal — es el único método posible para esa pantalla.
 
 ## Fuente
 - Original: `05-Archive/MiNegocio/Conocimiento/lecciones.md`
