@@ -30,4 +30,11 @@ updated: 2026-07-17
 - [x] Fix crítico: loops de lectura (`show_card_grid`, `select_episode_grid`) no cortaban cuando `/dev/tty` moría (sesión/terminal cerrada) — proceso quedaba zombie escribiendo error a máxima velocidad, llenó `/tmp` (tmpfs 3.8G) en minutos varias veces durante debug. Fix: detección por reloj real (no por `-e /dev/tty`, que siempre existe como nodo aunque el open falle con ENXIO) + `select_episode_grid` con contador de fallos de stdin. Commit 7c587a8.
 - [x] Fix: `_cg_apply_search()` no recalculaba `vrows` tras filtrar — header mostraba "fila X/Y" con Y del catálogo sin filtrar. Mismo commit 7c587a8.
 - [x] Búsqueda remota: `/` cae a `search_anime` (jkanime/animeav1/allanime) cuando el filtro local del catálogo da 0 resultados. Reutiliza `nth` (selector clásico). Gateado con `CG_REMOTE_SEARCH` — activo en Catálogo/Favoritos/Biblioteca/Recientes/Semana, desactivado en Descargas. Verificado en vivo (Cowboy Bebop → 2 resultados AnimeAV1 → 26 episodios). Commit 1c09694.
+- [x] Pase de calidad "versión final" (commit 575cd3c) — usuario reportó "la interfaz falla bastante":
+  - **Crítico**: grid de episodios leía teclas de stdin (pipe agotado de la lista de eps) — EOF caía en la rama Enter y abrir cualquier anime auto-reproducía el ep 1. La interactividad del grid nunca había funcionado de verdad. Fix: leer de `/dev/tty`, sin `stty raw`, EOF nunca es Enter.
+  - Latencia episodios: paginación ajax jkanime en paralelo (batch 8) + cache `eplists/` TTL 30min. One Piece: 54s → 11s frío → 0.2s cacheado. Thumbs: solo primera página bloquea, resto background acotado (~3 páginas), resolución lazy al pintar.
+  - Tarjetas en blanco: `thumb_display_path` devolvía ruta del render reducido inexistente. Harness pasó de decodificar 0 imágenes a 12/12.
+  - Búsqueda: repintado completo por tecla → solo header con conteo en vivo, un pintado al confirmar.
+  - Nav: Descargas vacío ya no rebota a Catálogo (empty state en tab); `CG_TAB_SEL` sucio ya no roba el Enter del grid.
+  - Métricas: arranque 624ms (cache caliente), harness completo verde.
 - [ ] Fase 5 — Diseño futuro de reproducción embebida
