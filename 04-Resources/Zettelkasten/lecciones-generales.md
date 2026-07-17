@@ -68,3 +68,9 @@ tags:
 - [[opencode-sandbox-mcp]] — Sandbox para probar MCPs
 - [[whatsapp-mcp-rompe-opencode]] — MCP mal configurado impide arrancar opencode
 - [[obsidian-vault-sync]] — Sync del vault: git + timer + plugin
+
+## Terminal TUI / ani-cli-hub
+- [[fzf-placeholder-quoting]] — fzf envuelve {} en comillas simples: nunca comillas propias; usar {n} + --delimiter
+- [[kitty-unicode-placeholders]] — imágenes como celdas de texto: scrollean con CSI S/T y son decodificables para tests
+- [[bash-source-cero-trampa]] — $0 al sourcear = nombre del shell; state dirs por $0 necesitan env override
+- [[rm-fd-abierto-inode-huerfano]] — rm de archivo con fd abierto por redirección: escrituras van a inode sin nombre
