@@ -7,6 +7,7 @@
 - **Iglesia**: Astro-based church website, GitHub Pages
 - **Traductor de Cómics**: PSD translation tool (DeepL, Gemini, OpenRouter providers)
 - **Luciérnaga App**: mobile app (Flutter, planned)
+- **ani-cli-hub**: terminal anime hub, fork de ani-cli-mx (bash, kitty graphics, jkanime) — github.com/JebsApple/ani-cli-hub
 
 ## Tech Stack
 - **Backend**: Go (Gin/Echo), PostgreSQL, Docker, Nginx
