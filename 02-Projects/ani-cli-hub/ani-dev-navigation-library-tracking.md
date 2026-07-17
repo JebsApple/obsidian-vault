@@ -37,4 +37,9 @@ updated: 2026-07-17
   - Búsqueda: repintado completo por tecla → solo header con conteo en vivo, un pintado al confirmar.
   - Nav: Descargas vacío ya no rebota a Catálogo (empty state en tab); `CG_TAB_SEL` sucio ya no roba el Enter del grid.
   - Métricas: arranque 624ms (cache caliente), harness completo verde.
+- [x] Refactor grid de episodios (commit 1241bf3) — "sigue roto" post-fix del stdin:
+  - Geometría landscape (thumbs 16:9): antes ~10 filas vacías por tarjeta y 1 fila visible; ahora tarjetas llenas, 3+ filas.
+  - Acciones Reproducir/Descargar dentro del borde (antes pisaban el borde inferior). Painter único, teclas hjkl/g/G/Esc, resize WINCH, secuencias desconocidas ignoradas (antes PgUp cerraba el grid). Sin trap RETURN (borraba imágenes tras cada helper).
+  - Flujo Descargar reparado completo: descargaba Y reproducía (break→play) · archivo "_ep.mp4" sin nombre (_DL_PENDING_* perdidos en subshell + dl_enqueue ignoraba args) · barras de progreso JAMÁS se vieron (guard `$# -eq 0` siempre-return) + logfile de campo equivocado + \n que scrolleaba el grid. Ahora: vuelve al hub, archivo `Titulo_epN.mp4`, barra anclada abajo con % en vivo (hook `CG_POST_PAINT` + tick 1s).
+  - e2e nuevo para select_episode_grid en `t/e2e.sh` (fixtures, cero red): el grid no tenía NINGUNA cobertura — por eso el auto-play vivió invisible.
 - [ ] Fase 5 — Diseño futuro de reproducción embebida
