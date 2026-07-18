@@ -26,7 +26,7 @@
 - [x] Error handling: 403, 404, rate limits con feedback claro `P0` `sprint-3`
 - [x] Deploy a GitHub Pages `P0` `sprint-3` — https://jebsapple.github.io/scan-tracker-web/
 - [ ] Testing personal: usar la app 1 semana en vez de Drive `P0` `sprint-3` — pendiente de uso real
-- [ ] **ENTREGABLE MVP** `P0` `sprint-3`
+- [x] **ENTREGABLE MVP** `P0` `sprint-3` — release v1.0.0 con APK: https://github.com/JebsApple/scan-tracker-web/releases/tag/v1.0.0 · web viva en Pages · PR #1 (app Android) mergeado con Sonar verde (2026-07-17)
 
 ### P1 — Post-MVP
 - [ ] Notificaciones push a celular (Service Worker + Web Push) `P1` `sprint-4+`
@@ -52,7 +52,7 @@
 
 ## 👀 En Revisión
 
-- [ ] PR #1 — App Android (Capacitor) con notificaciones en background — SonarCloud verde (0 issues, quality gate OK), listo para merge manual. Al mergear, GitHub Pages se actualiza solo. APK regenerado con el código final en `~/Datos/apks/ScanTracker-debug.apk` (2026-07-17)
+- [ ] PR #2 — docs: sección app Android en README — Sonar verde, solo falta merge (bloqueado por permisos del agente; correr `gh pr merge 2 --merge --delete-branch` en el repo) (2026-07-17)
 
 ---
 
