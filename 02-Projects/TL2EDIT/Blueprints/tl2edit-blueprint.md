@@ -2,6 +2,7 @@
 aliases: [tl2edit-blueprint]
 tags: [project, plan, comics, translation, ocr]
 created: 2026-07-13
+updated: 2026-07-18
 status: activo
 ---
 
@@ -10,84 +11,104 @@ status: activo
 ## Contexto
 
 Traductor de cómics a PSD editable. Detecta globos de texto, transcribe y
-traduce el diálogo, exporta `.psd` con capas editables para Photoshop.
+traduce el diálogo, exporta `.psd` con capas editables para Photoshop y
+`.docx` con el guion en formato typertools.
 Repo: [JebsApple/TL2EDIT](https://github.com/JebsApple/TL2EDIT) (público).
+Copia activa: `~/proyectos/TL2EDIT` (la copia vieja de `~/Documentos` fue borrada).
 
 ## Stack
 
 | Capa | Tecnología |
 |------|-----------|
-| Frontend | React 19 + Vite + Tailwind v4 |
-| Backend | Express + TypeScript (`tsx`) |
+| Frontend | React 19 + Vite + Tailwind v4 + design system Nocturne (`src/nocturne.css`) |
+| Backend | Express + TypeScript (`tsx`), puerto 3000 |
 | OCR | Gemini, OpenRouter (vision), Tesseract.js (local, sin key) |
 | Traducción | Gemini, OpenRouter, DeepL, LibreTranslate (sin key) |
-| Export | `ag-psd` (PSD), `jszip` (batch) |
-| Tests | Vitest |
+| Export | `ag-psd` (PSD/PSB), `docx` (guion typertools), `jszip` (batch ZIP) |
+| Tests | Vitest (81 tests, lógica pura en `src/lib/`) |
 
-## Estado actual (2026-07-13)
+## Estado actual (2026-07-18)
 
-Sistema multi-proveedor de OCR/traducción completo (HU02):
-- Modo AI (detección automática) + modo manual (dibujar recuadro)
-- OCR manual por región recortada
-- Edición inline de bloques en canvas (doble-click)
-- `/api/providers/status` real, wireado en 3 badges de UI (antes placeholders)
-- Fix de modelos free de OpenRouter (IDs verificados) + timeout 120s
-- Suite Vitest (38 tests) para lógica pura crítica
+Rama `feature/webtoon-multipagina-tipos` (commit `be8ff3d` + fixes posteriores).
+El rediseño Nocturne quedó conectado al backend multiproveedor real (el
+conflicto PR #1 vs #2 del 13-07 se resolvió reescribiendo el frontend sobre
+la base HU02).
 
-PR abierto: [#1](https://github.com/JebsApple/TL2EDIT/pull/1)
-(`HU02-feature-sistema-multiproveedor` → `main`), pendiente de revisión/merge.
+### Features completadas
 
-### Rediseño frontend Nocturne (2026-07-17)
+- **Multi-página**: tabs por imagen (cerrables), carga múltiple, botón
+  "Exportar todo" (ZIP con un PSD por página) cuando hay 2+ imágenes.
+- **Webtoons largos** (alto/ancho > 2.5):
+  - Viewer con scroll vertical y zoom por ancho; recuadros fijos a la imagen.
+  - Modal de seccionado: cortes sugeridos por detección de filas planas
+    (algoritmo local estilo SmartStitch, **sin IA**: objetivo cada ~2200 px,
+    ajustado a la fila de píxeles "plana" más cercana para no cortar globos).
+    Arrastrables, agregar/quitar. Cola cuando entran varias imágenes largas.
+  - OCR por sección (mejor lectura: Gemini escala todo a máx 3072×3072) con
+    progreso real n/N y remapeo de coordenadas a la imagen completa.
+- **Recuadros**: dibujar, redimensionar (handles en esquinas), eliminar
+  (× en canvas / tacho en sidebar), reordenar (↑↓ — define el orden del DOCX),
+  OCR bajo demanda por globo (icono escáner).
+- **Modos**: IA = detección de globos + traducción automática. Manual =
+  recuadros a mano (vacíos, se traducen a mano); toggle "OCR al dibujar" y
+  botón de OCR por globo para detectar solo lo marcado.
+- **Tipos de globo** (config separada en localStorage `tl2edit-block-types`,
+  panel propio desde Configuración): símbolo typertools + fuente PSD por
+  tipo. Fuentes personalizadas libres (datalist con sugerencias). Prefijos:
+  `-`diálogo `**`grito `()`pensamiento `/`título `[]`narración `sfx ` `Nt `
+  `<>`sistema `##`secundario `~`personalizado (etiqueta editable).
+- **Export**: DOCX (símbolo + traducción por globo, en orden, una línea por
+  globo), PSD desde la imagen completa (las secciones nunca la parten),
+  **PSB automático** si supera 30.000 px. Capa de texto siempre presente
+  (cuadros sin texto exportan capa con espacio, nombre "Globo NN").
+- **Limpieza del output IA**: `collapseLineBreaks` (la IA imita los saltos
+  del globo → se colapsan a una línea) y `normalizeShouting` (TODO EN
+  MAYÚSCULAS → mayúsculas gramaticales; SFX de una palabra intactos).
+- **Confidence OCR**: 0-1 desde Gemini/OpenRouter/Tesseract; < 0.7 marca
+  tag "Revisar" (`REVIEW_CONFIDENCE_THRESHOLD` en `src/types.ts`).
+- Idioma origen "Detección automática" (`auto`) + en/ja/ko. UI en español neutro.
 
-Handoff de Claude Design (`TL2EDIT Editor.dc.html`) implementado en
-`feature/nocturne-editor-redesign`, PR [#2](https://github.com/JebsApple/TL2EDIT/pull/2)
-(base `main`, **no** sobre HU02 — ver conflicto abajo):
-- Sistema visual Nocturne completo (tokens + clases en `index.css`, acento violeta)
-- Editor de un solo lienzo: toolbar de modo (IA/manual), edición inline con doble-click,
-  zoom, diálogo "Proveedores"
-- Export TXT nuevo
-- `/api/providers/status` y `/api/ocr-region` (versión propia, solo Gemini — más simple
-  que el sistema multiproveedor de HU02)
-- Panel avanzado por globo conservado bajo "Ajustes avanzados"
+### Arquitectura clave (no romper)
 
-⚠️ **Conflicto con PR #1**: ambos PRs tocan `server.ts` y la lógica de modo manual/proveedores,
-pero PR #1 (HU02) ya implementó `/api/providers/status` con soporte multiproveedor real
-(OpenRouter, DeepL, Tesseract.js) — el `/api/providers/status` de PR #2 es una versión
-más simple (solo Gemini). Antes de mergear ambos hay que decidir cuál lógica de backend
-queda y reaplicar el rediseño visual de PR #2 sobre la base de HU02, no al revés.
+- **Las secciones son metadato** (`ComicPage.cutsPx: number[]`), nunca parten
+  la imagen: OCR recorta y remapea (`src/lib/sections.ts:remapBoxToFull`,
+  sin redondeo a enteros — fidelidad en imágenes largas); PSD/visor usan
+  siempre el original. Elimina todo problema de "encaje" al exportar.
+- Bloques en coordenadas 0-1000 de la imagen completa (floats permitidos).
+- Config de tipos de globo separada de settings generales
+  (`src/config/blockTypes.ts` + `useBlockTypes`); settings generales en
+  `comic-translator-settings` (`src/config/settings.ts`).
+- Export de texto: `buildExportLines` (`src/lib/exportTxt.ts`) es la única
+  fuente del formato typertools; DOCX la consume.
+
+## Checklist de prueba manual (pre-release)
+
+- [ ] Webtoon real coreano: cargar, revisar cortes sugeridos, detectar, verificar
+      posiciones de recuadros y calidad OCR por sección
+- [ ] Dos imágenes largas a la vez → el seccionador debe abrirse para ambas en secuencia
+- [ ] Modo manual: dibujar cuadro (sin OCR), escribir traducción, exportar PSD →
+      capa "Globo NN" presente y editable en Photoshop
+- [ ] Botón escáner por globo (OCR de un cuadro manual ya dibujado)
+- [ ] Reordenar globos con ↑↓ y verificar orden en el DOCX
+- [ ] Tipos de globo: cambiar símbolo y fuente (incluida una personalizada
+      instalada en Photoshop), exportar PSD y verificar fuente de la capa
+- [ ] PSD > 30.000 px de alto → debe salir `.psb` y abrir en Photoshop
+- [ ] Exportar todo (ZIP) con 2+ páginas
+- [ ] Traducciones: sin saltos de línea, sin TODO MAYÚSCULAS (salvo SFX)
+
+## Backlog
+
+### P1
+- [ ] Merge de `feature/webtoon-multipagina-tipos` a `main` tras el checklist
+- [ ] Primera release (tag + README actualizado con flujo webtoon)
+- [ ] Métricas reales de calidad OCR (comparar transcripción vs corrección manual)
+
+### P2
+- [ ] Multi-idioma de UI
+- [ ] Historial de páginas procesadas
+- [ ] Persistir sesión de trabajo (páginas/bloques) en localStorage o archivo
 
 ## Convención de ramas
 
-`S{sprint}-HU{hu}-{descripción}` (sin `T{tarea}`, ver
-`~/.claude/projects/-home-apuru/memory/feedback-git-naming-authorship.md`).
-Ramas ya pusheadas antes del cambio de convención (`HU02-feature-...`) no se
-renombran retroactivo.
-
-## Backlog priorizado
-
-### P0 — Cerrar HU02 y resolver conflicto con rediseño visual
-- [ ] Revisar y mergear PR #1
-- [ ] Probar con página real de cómic, comparar calidad entre proveedores
-- [ ] Decidir orden de merge entre PR #1 (HU02, backend multiproveedor) y PR #2
-      (rediseño Nocturne) — probablemente mergear #1 primero y reaplicar el
-      CSS/layout de #2 sobre esa base para no perder el sistema multiproveedor
-
-### P1 — Próximo bloque (candidatos, sin priorizar aún)
-- [ ] Exportación batch con progreso visual (ya existe `jszip`, falta UI de progreso)
-- [ ] Métricas reales de calidad OCR: comparar transcripción del proveedor vs
-      corrección manual del usuario, alimentar `capabilities.quality` (hoy
-      estático) con datos de uso real
-- [ ] Guía de uso ampliada con más casos de error documentados
-
-### P2 — Futuro
-- [ ] Multi-idioma de UI (hoy solo español)
-- [ ] Historial de páginas procesadas (similar a scan-tracker-web)
-
-## Decisiones pendientes
-1. ¿Merge de PR #1 directo a `main`, o esperar testing manual con cómic real primero?
-2. Métricas de calidad OCR: ¿vale la pena el esfuerzo de tracking, o es
-   sobre-ingeniería para un proyecto de uso personal/pequeño grupo?
-
----
-
-*Generado 2026-07-13, primera vez que TL2EDIT tiene blueprint en el vault.*
+`{tipo}/{descripción}` para trabajo general; HUs universitarias usan
+`S{sprint}-HU{hu}-{descripción}`. Commits `feat/fix/...` sin co-autoría.
