@@ -52,7 +52,7 @@
 
 ## 👀 En Revisión
 
-*Vacío al inicio*
+- [ ] PR #1 — App Android (Capacitor) con notificaciones en background — SonarCloud verde (0 issues, quality gate OK), listo para merge manual. Al mergear, GitHub Pages se actualiza solo. APK regenerado con el código final en `~/Datos/apks/ScanTracker-debug.apk` (2026-07-17)
 
 ---
 
