@@ -43,6 +43,24 @@
 | Granola-to-Obsidian | ❌ No encontrado | Solo `granola-sync` (Python, no en PyPI) — instalar manual desde GitHub |
 | mcp-obsidian | 📚 Alternativa | MCP server via REST API (4k⭐), alternativa a obsidian-mcp-plugin |
 
+### Skills/Plugins tododeia.com (community catalog, 390 items escaneados 2026-07-19)
+
+| Herramienta | Estado | Notas |
+|------------|--------|-------|
+| all-deploy | ✅ Skill instalado | `~/.claude/skills/all-deploy` — `/all-deploy`, rutea a Vercel/Railway/Docker+SSH |
+| cyber-neo | ✅ Skill instalado | `~/.claude/skills/cyber-neo` — `/cyber-neo <ruta>`, read-only, 11 dominios OWASP/CWE |
+| the-architect | ✅ Proyecto clonado | `~/proyectos/the-architect` — cd + `claude` para persona de blueprint 16 secciones |
+| claude-db | ✅ Plugin instalado | vía `claude plugin marketplace add Hainrixz/claude-db` → `claude plugin install claude-db@claude-db`. Audita/explica/arregla DB, offline por default, `$DATABASE_URL` opcional read-only |
+| postgres-mcp (crystaldba) | ✅ Instalado (pipx) | Falta agregar a MCP config con `DATABASE_URI` real del proyecto — no configurado con credenciales aún |
+| mgrep (mixedbread-ai) | ✅ Instalado (npm -g) | Falta correr `mgrep login` (interactivo) antes de usar |
+| dlt (dlt-hub) | ✅ Instalado (pipx) | CLI `dlt` / `dlthub` — pipelines de datos, útil si se centralizan métricas homelab/proyectos |
+| airbyte | ⏭️ Descartado | Overkill vs dlt para el caso de uso actual — requiere Docker Compose multi-contenedor |
+| agent-browser (vercel-labs) | ✅ Ya estaba instalado | `~/.claude/skills/agent-browser` — no reinstalado |
+| ECC / security-scan (AgentShield) | ✅ Ya estaba instalado | `~/.claude/skills/ecc` cubre postgres-patterns + security-scan |
+| ui-ux-pro-max | ✅ Ya estaba instalado | No reinstalado |
+
+Guías leídas y resumidas en notas propias: [[niveles-de-esfuerzo-claude]], [[syncthing-sincroniza-claude]]
+
 ### Notas del usuario
 - Modelos IA locales (Ollama) no sirven por recursos del PC — buscar orquestador para opencode + OpenRouter + Claude subagéntico
 - Homelab: sin HomeLab aún, skip repos de homelab
@@ -139,4 +157,28 @@
 
 ---
 
-*Última actualización: 2026-07-14*
+## 7. tododeia.com — Community Catalog (2026-07-19)
+
+Fuente: `tododeia.com/community` (390 items: guías, repos, skills, MCPs). Filtrado contra stack (Go/Postgres/Docker, Vue, Astro, Flutter planeado, Python PSD-translator, homelab Proxmox).
+
+| Item | Tipo | Repo/link | Por qué |
+|------|------|-----------|---------|
+| Hainrixz/all-deploy | skill | github.com/Hainrixz/all-deploy | Deploy automático Vercel/Railway/VPS con audit pre-deploy |
+| Hainrixz/cyber-neo | skill | github.com/Hainrixz/cyber-neo | Audit seguridad read-only, 5 subagentes, OWASP/CWE |
+| Hainrixz/the-architect | skill | github.com/Hainrixz/the-architect | Blueprint arquitectónico 16 secciones antes de código |
+| Hainrixz/claude-db | plugin | github.com/Hainrixz/claude-db | Audit/fix DB, offline-first, nunca auto-escribe destructivo |
+| crystaldba/postgres-mcp | MCP | github.com/crystaldba/postgres-mcp | Índices/queries Postgres, modo restricted para producción |
+| mixedbread-ai/mgrep | CLI | github.com/mixedbread-ai/mgrep | Búsqueda semántica, ~50% menos tokens que grep |
+| dlt-hub/dlt | lib | github.com/dlt-hub/dlt | Pipelines de datos con poco código |
+| affaan-m/agentshield | — | ya cubierto por `ecc` skill | Escanea harness (hooks/MCP/permisos) buscando secretos |
+| vercel-labs/agent-browser | skill | ya instalado | Browser automation, ~10x menos tokens |
+
+### Borderline (no instalado, anotado por si se necesita)
+- **Supabase MCP** — solo si se migra de Postgres plano a Supabase
+- **n8n-mcp** — ya configurado en `.claude.json`, automatización de flujos sin código
+- **ui-ux-pro-max / Cult UI** — soportan Astro/Vue; Cult UI más React-céntrico
+- **airbytehq/airbyte** — descartado por ahora, dlt cubre el caso
+
+---
+
+*Última actualización: 2026-07-19*

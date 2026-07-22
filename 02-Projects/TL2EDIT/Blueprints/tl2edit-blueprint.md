@@ -96,6 +96,24 @@ la base HU02).
 - [ ] Exportar todo (ZIP) con 2+ páginas
 - [ ] Traducciones: sin saltos de línea, sin TODO MAYÚSCULAS (salvo SFX)
 
+### BYOK (2026-07-18)
+
+Cada usuario carga su propia API key (Gemini/OpenRouter/DeepL) en Configuración
+→ "Tus API keys" (localStorage, viaja por request en `apiKeys`, nunca se guarda
+en el servidor). Si falta, cae al fallback del `.env` del servidor. Guía
+integrada ("¿Cómo consigo una?") con pasos + link a aistudio.google.com.
+Decisión: se descartó BYOK 100% cliente→Gemini (sin pasar por el backend)
+por alcance — la key SÍ pasa por el server como proxy (visible al operador
+de esa instancia, no a otros usuarios), documentado en el README.
+
+**Corrección importante de dominio**: Tesseract NO es capaz de detectar
+globos en una página completa (no es modelo de visión, solo transcribe
+texto plano de un recorte ya marcado). Modo IA (detección automática)
+exige Gemini u OpenRouter — filtrado en el selector y bloqueado con error
+claro si se intenta con Tesseract. `AUTO_DETECT_OCR_PROVIDERS` en
+`src/config/providers.ts`. Default `ocrProvider: 'gemini'`,
+`translationProvider: 'libretranslate'` (`src/config/settings.ts`).
+
 ## Backlog
 
 ### P1
