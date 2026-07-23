@@ -1,12 +1,41 @@
 # User Context — apuru
 
+## Profile
+- **Name**: Víctor, apodo "Manzana"
+- **Studies**: Ingeniería Civil en Informática, UTA (Chile)
+- **Location**: Chile
+
+## Learning Style
+- Videos + hands-on > documentación escrita
+- Prefiere aprender creando con IA: que le explique mientras construyen
+- Se frustra si no entiende el por qué antes de implementar
+- No le gustan los conceptos nuevos de golpe — prefiere ir de a poco
+
+## AI Workflow Preferences
+- **NO** comentarios redundantes en código
+- Planificaciones concretas antes de ejecutar
+- Investigar primero, preguntar para afinar ambigüedades
+- Ofrecer rutas diferentes, pensar como experto
+- Nunca descartar crear ruta propia (pero nunca hardcodear)
+- Quiere control pero en equilibrio: hacer lo justo y necesario
+- Se frustra cuando las cosas se ramifican demasiado y pierde el orden
+
+## Daily Patterns
+- Programa según hiperfoco, sin horario fijo
+- Actualmente full CLI IA (Claude Code / opencode)
+- Sesiones cuando el foco aparece
+- Solo estudia (sin trabajo actual)
+- Sin otros ingresos
+- Descubrió opencode/Claude Code por internet, redes sociales, YouTube
+
 ## Active Projects
 - **MiNegocio**: small business app (Go + Vue + PostgreSQL + S3), team of 4 developers
-- **Scan Tracker**: Obsidian plugin + web app, Google Sheets API, desktop (paused)
+- **Scan Tracker**: web app para organizar trabajo de scanlation (compartida con compañeros scanlators)
 - **Hermes Agent**: autonomous agent runtime (Claude Code, Gemini, Groq)
 - **Iglesia**: Astro-based church website, GitHub Pages
-- **Traductor de Cómics**: PSD translation tool (DeepL, Gemini, OpenRouter providers)
-- **Luciérnaga App**: mobile app (Flutter, planned)
+- **Traductor de Cómics (TL2EDIT)**: PSD translation tool — proyecto con potencial de ingresos, el más emocionante junto con ScanTracker
+- **Luciérnaga App**: mobile app (Flutter, solo idea) — aporte a la iglesia, sin reuniones con pastores para afinar requerimientos
+- **Limpieza de computadores (software)**: otra opción de negocio
 - **ani-cli-hub**: terminal anime hub, fork de ani-cli-mx (bash, kitty graphics, jkanime) — github.com/JebsApple/ani-cli-hub
 
 ## Tech Stack
