@@ -358,3 +358,15 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 - [[plan-lanzamiento-google]] — Plan SEO/landing
 - Auditoría completa: 2026-07-23 (esta sesión)
 - Competidores analizados: Koharu, KomaKun, manga-image-translator, PSImera, OCR-Cleaner, AutoScanlate-AI, FrankYomik
+
+---
+
+## Changelog
+
+### 2026-07-23 — Split-hooks completado
+- **Rama**: `refactor/split-hooks` → mergeada a `main` (commit `4b9b2ac`)
+- **Resultado**: `useComicEditor.ts` de 1011 → ~115 líneas
+- **Hooks creados**: usePages, useDetection, useOCR, useBlocks, useExport
+- **Utilitarios**: editorHelpers.ts, pageHelpers.ts
+- **Tests**: 149 pasan, 0 regresiones
+- **Siguiente**: Fase 1.2 (TypeScript errors) + 1.3 (mover binarios) + 2.1 (undo/redo)
