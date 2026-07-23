@@ -2,7 +2,7 @@
 aliases: [tl2edit-plan-v2, tl2edit-auditoria]
 tags: [project, plan, comics, translation, ocr, audit]
 created: 2026-07-23
-updated: 2026-07-23 (split-hooks completado)
+updated: 2026-07-23 (split-hooks + Drive fix + PSD folder)
 status: activo
 related: [[tl2edit-blueprint]], [[plan-lanzamiento-google]]
 ---
@@ -369,4 +369,21 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 - **Hooks creados**: usePages, useDetection, useOCR, useBlocks, useExport
 - **Utilitarios**: editorHelpers.ts, pageHelpers.ts
 - **Tests**: 149 pasan, 0 regresiones
-- **Siguiente**: Fase 1.2 (TypeScript errors) + 1.3 (mover binarios) + 2.1 (undo/redo)
+
+### 2026-07-23 — Google Drive session fix
+- **Rama**: `fix/google-drive-session` → mergeada a `main` (PR #47)
+- **Problema**: `savePageImages()` duplicaba base64 en IndexedDB para páginas con `driveFileId`
+- **Solución**: omitir base64 cuando existe `driveFileId`, hidratar al restaurar sesión
+- **Archivos**: `sessionStore.ts`, `useSessionPersistence.ts`, `App.tsx`
+- **Verificación**: TypeScript compila, 171 tests pasan
+
+### 2026-07-23 — Capas de texto en carpeta PSD
+- **Rama**: `feat/psd-text-folder` → mergeada a `main` (PR #48)
+- **Cambio**: todas las capas de texto van dentro de una carpeta `📁 Capas de Texto` en el PSD/PSB exportado
+- **Beneficio**: el editor puede ocultar/mostrar todas las traducciones de un click
+- **Archivo**: `psdExport.ts` (+8/-3)
+- **Verificación**: TypeScript compila, 171 tests pasan
+
+### Siguiente
+- Fase 1.2 (TypeScript errors) + 1.3 (mover binarios)
+- Fase 2.1 (undo/redo) — ya tiene hooks separados como dependencia completada
