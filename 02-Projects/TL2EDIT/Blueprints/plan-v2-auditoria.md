@@ -296,6 +296,8 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 | Rama | Fase | Dependencia |
 |---|---|---|
 | ~~`refactor/split-hooks`~~ ✅ | 1.1 | Ninguna |
+| ~~`fix/google-drive-session`~~ ✅ | Bugfix | split-hooks |
+| ~~`feat/psd-text-folder`~~ ✅ | Feature | Ninguna |
 | `fix/typescript-errors` | 1.2 | Ninguna |
 | `chore/move-binaries` | 1.3 | Ninguna |
 | `feature/undo-redo` | 2.1 | 1.1 (necesita hooks separados) |
@@ -318,7 +320,9 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 ## Orden de ejecución (con sub-agentes en paralelo)
 
 ### Semana 1
-- ~~**Agente A**: `refactor/split-hooks` (Fase 1.1) — el más crítico~~ ✅ COMPLETADO
+- ~~**Agente A**: `refactor/split-hooks` (Fase 1.1)~~ ✅ COMPLETADO
+- ~~**Fix ad-hoc**: `fix/google-drive-session` (Drive session fix)~~ ✅ COMPLETADO
+- ~~**Fix ad-hoc**: `feat/psd-text-folder` (PSD text folder)~~ ✅ COMPLETADO
 - **Agente B**: `fix/typescript-errors` + `chore/move-binaries` (Fases 1.2 + 1.3)
 - **Agente C**: `chore/purge-providers` + `test/provider-quality` (Fases 2.3 + 4.4)
 
