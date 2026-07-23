@@ -58,18 +58,14 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 
 ## Fase 2: Features Críticas (Sin esto no hay producto profesional)
 
-### 2.1 Undo/Redo
+### 2.1 ~~Undo/Redo~~ ✅ COMPLETADO (2026-07-23)
 
-**Por qué es crítico**: Sin esto, un error del usuario borra trabajo hecho. En cualquier editor de texto es básico.
-
-**Implementación**:
-- `useReducer` con history stack (máximo 50 pasos)
-- Atajos: `Ctrl+Z` / `Ctrl+Shift+Z`
-- Scope: texto, movimiento de bloques, tipos, delete, resize
-- Botones visibles en toolbar
-- Historial visible en panel lateral (opcional)
-
-**Ramas**: `feature/undo-redo`
+- **Rama**: `feat/undo-redo` → PR #50
+- **Implementación**: hook `useUndoRedo.ts` — snapshot-based (max 50 pasos)
+- **Cobertura**: todas las mutaciones (updatePage, setPages, reorderPage, sortPages, closePage, addPageFromData, handleFiles)
+- **Atajos**: `Ctrl+Z` / `Ctrl+Shift+Z` / `Ctrl+Y`
+- **UI**: botones en barra de estado junto al zoom
+- **Verificación**: TypeScript compila, 177 tests pasan
 
 ### 2.2 Redraw IA (el feature #1 que falta)
 
@@ -298,9 +294,9 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 | ~~`refactor/split-hooks`~~ ✅ | 1.1 | Ninguna |
 | ~~`fix/google-drive-session`~~ ✅ | Bugfix | split-hooks |
 | ~~`feat/psd-text-folder`~~ ✅ | Feature | Ninguna |
-| `fix/typescript-errors` | 1.2 | Ninguna |
-| `chore/move-binaries` | 1.3 | Ninguna |
-| `feature/undo-redo` | 2.1 | 1.1 (necesita hooks separados) |
+| `fix/typescript-errors` | 1.2 | ✅ PR #49 |
+| `chore/move-binaries` | 1.3 | ✅ YA RESUELTO |
+| ~~`feature/undo-redo`~~ ✅ | 2.1 | ✅ PR #50 |
 | `feature/redraw-ai` | 2.2 | Ninguna |
 | `chore/purge-providers` | 2.3 | Ninguna |
 | `feature/loading-skeletons` | 3.1 | Ninguna |
@@ -388,6 +384,13 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 - **Archivo**: `psdExport.ts` (+8/-3)
 - **Verificación**: TypeScript compila, 171 tests pasan
 
+### 2026-07-23 — Undo/Redo
+- **Rama**: `feat/undo-redo` → PR #50
+- **Hook**: `useUndoRedo.ts` — snapshot-based history (max 50 pasos)
+- **Integración**: envuelve todas las mutaciones en `useComicEditor.ts`
+- **Atajos**: `Ctrl+Z`, `Ctrl+Shift+Z`, `Ctrl+Y`
+- **UI**: botones undo/redo en barra de estado
+- **Verificación**: TypeScript compila, 177 tests pasan
+
 ### Siguiente
-- Fase 1.2 (TypeScript errors) + 1.3 (mover binarios)
-- Fase 2.1 (undo/redo) — ya tiene hooks separados como dependencia completada
+- Fase 2.2 (Redraw IA) o Fase 2.3 (Purgar proveedores) — según prioridad
