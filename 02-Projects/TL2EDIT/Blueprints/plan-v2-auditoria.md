@@ -13,10 +13,12 @@ related: [[tl2edit-blueprint]], [[plan-lanzamiento-google]]
 
 Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con competidores, problemas de ingeniería, UX/UI, estándares de la industria, monetización, y qué falta para producto público.
 
-**Repo**: [JebsApple/TL2EDIT](https://github.com/JebsApple/TL2EDIT)
+**Repo**: [JebsApple/TL2EDIT](https://github.com/JebsApple/TL2EDIT) → **PRIVADO**
 **Copia local**: `~/proyectos/TL2EDIT`
 **Stack**: React 19 + Vite + Tailwind v4 + Express + TypeScript
 **Estado**: 209 commits, 2 semanas activo, 38 PRs mergeados
+**Equipo**: JebsApple (desarrollador), LaManzana, Rodrinario
+**Audiencia**: Uso personal + equipos scanlation → aspiración a estándar
 
 ---
 
@@ -74,30 +76,36 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 
 **Ramas**: `feature/undo-redo`
 
-### 2.2 Inpainting (el feature #1 que falta)
+### 2.2 Redraw IA (el feature #1 que falta)
 
-**El problema**: Todos los competidores serios (Koharu, KomaKun, manga-image-translator, PSImera) tienen inpainting. TL2EDIT exporta PSD editable pero no limpia el texto original. Para uso profesional, el usuario tiene que ir a Photoshop a borrar manualmente.
+**El problema**: Todos los competidores serios (Koharu, KomaKun, manga-image-translator, PSImera) tienen limpieza de texto. TL2EDIT exporta PSD editable pero no limpia el texto original. Para uso profesional, el usuario tiene que ir a Photoshop a borrar manualmente.
 
-**Opciones evaluadas**:
-
-| Opción | Pros | Contras | Costo |
-|---|---|---|---|
-| **LaMa via API** | La mejor quality, BYOK compatible | Requiere API key (Replicate) | ~$0.01/página |
-| **Canvas API local** | Gratis, sin dependencias | Quality baja, artefactos | $0 |
-| **OpenCV.js** | Funcional, gratis | Peso (~8MB WASM), lento | $0 |
-| **Inpainting manual** | El usuario pinta区域 | No es automático | $0 |
-
-**Recomendación dada tu presupuesto**: Empezar con **inpainting manual** (el usuario pinta la区域 que quiere limpiar, se rellena con color de fondo). Es gratis, funciona, y cubre el 80% del caso de uso. LaMa via API se agrega después como premium.
+**Enfoque**: NO inpainting genérico. **Redraw asistido por IA** — el usuario marca un recuadro, y Gemini redibuja la región sin texto, preservando el arte original.
 
 **Implementación**:
-- Modo "pintar" en el canvas (brush tool)
-- Selector de tamaño de pincel
-- Color de fondo: automático (sample de bordes) o manual
+- Modo "redraw" activado por botón en el canvas
+- El usuario selecciona el recuadro a limpiar
+- Se envía la imagen recortada + prompt especial a Gemini Vision
+- Gemini genera la versión sin texto
 - Preview antes de aplicar
 - Toggle por bloque (no todas las páginas necesitan limpieza)
-- Export PSD incluye la capa "cleaned" separada
+- Export PSD incluye la capa "redrawn" separada
 
-**Ramas**: `feature/inpainting`
+**Prompt para Gemini** (ejemplo):
+```
+Remove all text from this speech bubble image while preserving the original 
+art style, colors, lines and background. Fill the text area with content 
+that matches the surrounding artwork. Do not add new elements.
+```
+
+**Limitaciones conocidas**:
+- Gemini puede cambiar el arte sutilmente (colores, líneas)
+- No funciona bien con texto sobre arte complejo
+- Calidad variable según el modelo usado
+
+**Fallback**: Si Gemini falla o el usuario no tiene key, ofrecer borrado manual con herramienta de recorte de color de fondo.
+
+**Ramas**: `feature/redraw-ai`
 
 ### 2.3 Purgar proveedores que no funcionan
 
@@ -184,6 +192,20 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 - Headers `Retry-After` cuando se excede
 - BYOK mitigador, pero rate limiting protege contra abuso
 
+### 4.4 Tests de calidad de proveedores OpenRouter
+
+**El problema**: Modelos OCR de OpenRouter son inconsistentes — algunos no son vision models y devuelven bloques vacíos.
+
+**Implementación**:
+- Suite de tests que verifica calidad OCR por modelo
+- Dataset de prueba: 5 imágenes con texto conocido
+- Métricas: detección de bloques, accuracy de transcripción, tiempo de respuesta
+- Run automático en CI (no blocking, solo reporte)
+- Filter automático: solo modelos que pasen el threshold se muestran en UI
+- Re-ejecución periódica (semanal) para detectar modelos que cambian
+
+**Ramas**: `test/provider-quality`
+
 ---
 
 ## Fase 5: Preparación para Público
@@ -209,12 +231,20 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 - Formato Keep a Changelog
 - Tags semánticos en git (v1.0.0, v1.1.0, etc.)
 
+### 5.5 Deploy
+
+- **Actual**: Render free tier (512MB RAM). Sin problemas reportados con pocos usuarios.
+- **Plan**: Mantener Render free tier por ahora. Evaluar si hay problemas con más carga.
+- **Alternativa gratis**: Railway ($5 crédito mensual), Fly.io (free tier), Vercel (serverless).
+- **Auto-deploy**: GitHub Actions → Render (ya configurado)
+
 ### 5.4 Legal / ToS
 
 - Página de privacidad/ToS
 - Aclarar que API keys no se almacenan server-side
 - Disclaimer: "Herramienta de traducción. El usuario es responsable del uso del contenido traducido."
 - Esto mitiga el riesgo legal de traducción no autorizada
+- **Decisión del repo**: Pasar a privado. No hay contribuciones externas que motivar.
 
 ---
 
@@ -252,16 +282,9 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 
 ## Estado del PR #35 (refactor)
 
-La rama `refactor/app-hook-and-batch-errors` está **desactualizada** — es ancestro de `main`, significa que `main` se movió adelante con features nuevas (rotación, fixes) y el refactor se quedó atrás.
+La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commit `2753d5e`). Los fixes de batch y error handling ya están en `main`. La rama se quedó atrás porque `main` continuó con features nuevas (rotación Canva-style, fixes de resize, etc.).
 
-**Diferencia neta**: 845 inserciones, 70,178 eliminaciones. El refactor eliminó:
-- Google Drive integration (archivos completos)
-- NSpell orthography
-- Replacements system
-- Select component personalizado
-- Varios hooks y utilidades
-
-**Recomendación**: No mergear este refactor tal cual. mejor hacer el refactor incremental (Fase 1.1) sobre `main` actual, extrayendo hooks uno por uno. El refactor viejo eliminaba features que podrían ser útiles después.
+**Recomendación**: Descartar la rama. Los cambios útiles ya están en main. El refactor incremental (Fase 1.1) se hace sobre main directamente.
 
 ---
 
@@ -273,13 +296,14 @@ La rama `refactor/app-hook-and-batch-errors` está **desactualizada** — es anc
 | `fix/typescript-errors` | 1.2 | Ninguna |
 | `chore/move-binaries` | 1.3 | Ninguna |
 | `feature/undo-redo` | 2.1 | 1.1 (necesita hooks separados) |
-| `feature/inpainting` | 2.2 | Ninguna |
+| `feature/redraw-ai` | 2.2 | Ninguna |
 | `chore/purge-providers` | 2.3 | Ninguna |
 | `feature/loading-skeletons` | 3.1 | Ninguna |
 | `feature/bulk-translate` | 3.2 | 1.1 |
 | `feature/responsive` | 3.3 | Ninguna |
 | `fix/error-handling` | 4.1 | 1.1 |
 | `test/critical-paths` | 4.2 | 1.1 |
+| `test/provider-quality` | 4.4 | Ninguna |
 | `chore/rate-limiting` | 4.3 | Ninguna |
 | `feature/i18n` | 5.1 | Ninguna |
 | `docs/landing-page` | 5.2 | Ninguna |
@@ -293,11 +317,11 @@ La rama `refactor/app-hook-and-batch-errors` está **desactualizada** — es anc
 ### Semana 1
 - **Agente A**: `refactor/split-hooks` (Fase 1.1) — el más crítico
 - **Agente B**: `fix/typescript-errors` + `chore/move-binaries` (Fases 1.2 + 1.3)
-- **Agente C**: `chore/purge-providers` (Fase 2.3)
+- **Agente C**: `chore/purge-providers` + `test/provider-quality` (Fases 2.3 + 4.4)
 
 ### Semana 2
 - **Agente A**: `feature/undo-redo` (Fase 2.1) — requiere 1.1 completado
-- **Agente B**: `feature/inpainting` (Fase 2.2)
+- **Agente B**: `feature/redraw-ai` (Fase 2.2)
 - **Agente C**: `fix/error-handling` + `chore/rate-limiting` (Fases 4.1 + 4.3)
 
 ### Semana 3
@@ -318,10 +342,12 @@ La rama `refactor/app-hook-and-batch-errors` está **desactualizada** — es anc
 |---|---|---|---|
 | `useComicEditor` rompe durante refactor | Alta | Crítico | Tests antes de cada extracción |
 | Google bloquea API no oficial | Media | Alto | Eliminar, usar LibreTranslate |
-| Sin inpainting, usuarios serios se van | Alta | Crítico | Inpainting manual como MVP |
+| Sin redraw IA, usuarios serios se van | Media | Crítico | Redraw IA + fallback manual |
 | Legal: traducción no autorizada | Media | Alto | ToS + disclaimer |
 | Render free tier: 512MB RAM insuficiente | Baja | Medio | Monitorear, upgrade si es necesario |
-| PR #35 conflictos de merge | Alta | Bajo | No mergear, hacer refactor incremental |
+| Gemini redraw cambia el arte | Alta | Medio | Preview antes de aplicar, fallback manual |
+| OpenRouter modelos inconsistentes | Alta | Bajo | Tests de calidad, filtro automático |
+| Repo privado: sin community | Baja | Bajo | Asumido, no es prioridad |
 
 ---
 
