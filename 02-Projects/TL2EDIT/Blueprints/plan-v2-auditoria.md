@@ -278,6 +278,14 @@ that matches the surrounding artwork. Do not add new elements.
 - Documentación automática del backend
 - Prioridad: baja (los usuarios no consumen la API directamente)
 
+### 6.6 Redraw IA (última prioridad)
+
+- Requiere paint/clean similar a Photoshop
+- Gemini redraw con prompt especial
+- Preview antes de aplicar
+- Fallback manual
+- Prioridad: muy baja (nice to have, no esencial)
+
 ---
 
 ## Estado del PR #35 (refactor)
@@ -342,10 +350,8 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 |---|---|---|---|
 | `useComicEditor` rompe durante refactor | Alta | Crítico | Tests antes de cada extracción |
 | Google bloquea API no oficial | Media | Alto | Eliminar, usar LibreTranslate |
-| Sin redraw IA, usuarios serios se van | Media | Crítico | Redraw IA + fallback manual |
-| Legal: traducción no autorizada | Media | Alto | ToS + disclaimer |
+| Legal: traducción no autorizada | Media | Alto | ToS + disclaimer (largoplazo) |
 | Render free tier: 512MB RAM insuficiente | Baja | Medio | Monitorear, upgrade si es necesario |
-| Gemini redraw cambia el arte | Alta | Medio | Preview antes de aplicar, fallback manual |
 | OpenRouter modelos inconsistentes | Alta | Bajo | Tests de calidad, filtro automático |
 | Repo privado: sin community | Baja | Bajo | Asumido, no es prioridad |
 
