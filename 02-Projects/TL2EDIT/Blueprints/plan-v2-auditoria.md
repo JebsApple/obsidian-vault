@@ -2,7 +2,7 @@
 aliases: [tl2edit-plan-v2, tl2edit-auditoria]
 tags: [project, plan, comics, translation, ocr, audit]
 created: 2026-07-23
-updated: 2026-07-23
+updated: 2026-07-23 (split-hooks completado)
 status: activo
 related: [[tl2edit-blueprint]], [[plan-lanzamiento-google]]
 ---
@@ -24,28 +24,23 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 
 ## Fase 1: Cimientos (Sin esto nada funciona)
 
-### 1.1 Refactorizar `useComicEditor` (869 líneas → 5 hooks)
+### 1.1 ~~Refactorizar `useComicEditor`~~ ✅ COMPLETADO (2026-07-23)
 
-**El problema**: Un solo hook maneja TODO: estado del editor, llamadas a APIs, exportación, drag and drop, pestañas, seccionado, procesamiento. Cada cambio nuevo puede romper algo que ya funcionaba.
+**Resultado**: `useComicEditor.ts`: 1011 → ~115 líneas. 5 hooks + 2 archivos utilitarios.
 
-**La solución**: Dividir en 5 hooks especializados:
-
-| Hook nuevo | Responsabilidad | Líneas estimadas |
+| Hook | Responsabilidad | Líneas |
 |---|---|---|
-| `usePageManager` | Estado de páginas, tabs, reorder, close, sort | ~150 |
-| `useBlockEditor` | Selección, drag, resize, tipos, agrupación, undo/redo | ~200 |
-| `useExport` | PSD/PSB/DOCX, modal, progress, batch ZIP | ~150 |
-| `useSectioning` | Webtoon cuts, queue, auto-cuts | ~80 |
-| `useProcessing` | OCR, translate, phase, stager, abort controllers | ~180 |
+| `usePages` | Estado de páginas, tabs, reorder, close, sort, sectioning | ~118 |
+| `useDetection` | Detección de bocadillos (local + API) | ~198 |
+| `useOCR` | OCR + traducción de bloques | ~342 |
+| `useBlocks` | CRUD de bloques, tipos, agrupación, reorder | ~150 |
+| `useExport` | PSD/DOCX/ZIP export, Google Drive | ~150 |
 
-**Orden de extracción**:
-1. `usePageManager` (menos dependencias, base para los demás)
-2. `useSectioning` (aislado, solo depende de pageManager)
-3. `useProcessing` (depende de pageManager + sectioning)
-4. `useExport` (depende de pageManager + blocks)
-5. `useBlockEditor` (el más complejo, depende de todo)
+**Utilitarios**: `lib/editorHelpers.ts` (ApiError, mapServerBlock, emptyBlockAt), `lib/pageHelpers.ts` (extractTrailingNumber, sortPagesByName, baseFileName).
 
-**Criterio de éxito**: Cada hook se puede testear independientemente. `useComicEditor` queda como orquestador delgado (~100 líneas).
+**Rama**: `refactor/split-hooks` mergeada a `main` (commit `4b9b2ac`). 149 tests pasan, 0 regresiones.
+
+**Nota**: Los nombres difieren del plan original porque el refactoring real siguió las dependencias naturales del código, no las estimaciones previas.
 
 ### 1.2 Arreglar errores TypeScript activos
 
@@ -300,7 +295,7 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 
 | Rama | Fase | Dependencia |
 |---|---|---|
-| `refactor/split-hooks` | 1.1 | Ninguna |
+| ~~`refactor/split-hooks`~~ ✅ | 1.1 | Ninguna |
 | `fix/typescript-errors` | 1.2 | Ninguna |
 | `chore/move-binaries` | 1.3 | Ninguna |
 | `feature/undo-redo` | 2.1 | 1.1 (necesita hooks separados) |
@@ -323,7 +318,7 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 ## Orden de ejecución (con sub-agentes en paralelo)
 
 ### Semana 1
-- **Agente A**: `refactor/split-hooks` (Fase 1.1) — el más crítico
+- ~~**Agente A**: `refactor/split-hooks` (Fase 1.1) — el más crítico~~ ✅ COMPLETADO
 - **Agente B**: `fix/typescript-errors` + `chore/move-binaries` (Fases 1.2 + 1.3)
 - **Agente C**: `chore/purge-providers` + `test/provider-quality` (Fases 2.3 + 4.4)
 
