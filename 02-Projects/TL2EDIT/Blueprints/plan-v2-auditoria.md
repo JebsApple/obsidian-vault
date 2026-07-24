@@ -2,7 +2,7 @@
 aliases: [tl2edit-plan-v2, tl2edit-auditoria]
 tags: [project, plan, comics, translation, ocr, audit]
 created: 2026-07-23
-updated: 2026-07-23 (split-hooks + Drive fix + PSD folder)
+updated: 2026-07-23 (sesión completa: 14 PRs, fases 1-2.3 + features extras)
 status: activo
 related: [[tl2edit-blueprint]], [[plan-lanzamiento-google]]
 ---
@@ -16,7 +16,7 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 **Repo**: [JebsApple/TL2EDIT](https://github.com/JebsApple/TL2EDIT) → **PRIVADO**
 **Copia local**: `~/proyectos/TL2EDIT`
 **Stack**: React 19 + Vite + Tailwind v4 + Express + TypeScript
-**Estado**: 209 commits, 2 semanas activo, 38 PRs mergeados
+**Estado**: 220+ commits, 2 semanas activo, 56+ PRs (14 creados hoy)
 **Equipo**: JebsApple (desarrollador), LaManzana, Rodrinario
 **Audiencia**: Uso personal + equipos scanlation → aspiración a estándar
 
