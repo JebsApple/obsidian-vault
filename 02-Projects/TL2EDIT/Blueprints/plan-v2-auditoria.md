@@ -42,17 +42,17 @@ Auditoría completa del proyecto TL2EDIT. Cubre: estado actual, comparativa con 
 
 **Nota**: Los nombres difieren del plan original porque el refactoring real siguió las dependencias naturales del código, no las estimaciones previas.
 
-### 1.2 Arreglar errores TypeScript activos
+### 1.2 ~~Arreglar errores TypeScript activos~~ ✅ COMPLETADO (2026-07-23)
 
-- `src/hooks/useComicEditor.ts(223,79)`: Property 'window' does not exist on type 'DetectorProgress'
-- `src/hooks/useComicEditor.ts(223,87)`: Property 'totalWindows' does not exist on type 'DetectorProgress'
-- `src/lib/localDetector.test.ts`: test vacío (evaluar si es por cambio incompleto o feature abandonada)
+- **Rama**: `fix/typescript-errors` → PR #49
+- **Resultado**: TypeScript compila limpio (errores pre-existentes resueltos por split-hooks)
+- **Tests agregados**: 6 unit tests para `localDetector.decodeBlocks` (reemplazó test vacío)
+- **Verificación**: 177 tests pasan, 0 fallos
 
-### 1.3 Mover archivos binarios del repo
+### 1.3 ~~Mover archivos binarios del repo~~ ✅ COMPLETADO (ya resuelto)
 
-- `eng.traineddata` (5MB) → GitHub Releases
-- `kor.traineddata` (2MB) → GitHub Releases
-- Actualizar `localDetector.ts` para descargar on-demand con fallback
+- `eng.traineddata` (5MB) y `kor.traineddata` (2MB) ya están en `.gitignore` (`*.traineddata`)
+- Nunca fueron committeados al repo. No hay acción necesaria.
 
 ---
 
@@ -98,35 +98,75 @@ that matches the surrounding artwork. Do not add new elements.
 
 **Ramas**: `feature/redraw-ai`
 
-### 2.3 Purgar proveedores que no funcionan
+### 2.3 ~~Purgar proveedores que no funcionan~~ ✅ COMPLETADO (2026-07-23)
 
-**Estado actual de proveedores**:
+- **Rama**: `chore/purge-providers` → PR #51
+- **Eliminados**: Google Translate (`client=gtx` no oficial), MyMemory, Lingva, Tesseract
+- **Mantenidos**: Gemini, OpenRouter, DeepL, LibreTranslate (traducción); Detector local, Gemini, OpenRouter (OCR)
+- **Default**: traducción cambió de `google` a `libretranslate`
+- **Archivos eliminados**: `google.ts`, `mymemory.ts`, `lingva.ts`, `tesseract.ts` + tests
+- **Líneas eliminadas**: -728
+- **Fallback chain**: Gemini → OpenRouter → LibreTranslate
+- **Verificación**: TypeScript compila, 161 tests pasan
 
-| Proveedor | OCR | Traducción | Estado |
-|---|---|---|---|
-| Gemini | ✅ Funciona bien | ✅ Funciona bien | **MANTENER** |
-| OpenRouter | ⚠️ Modelos inconsistentes | ✅ Funciona | **MANTENER** (filtrar modelos) |
-| Tesseract | ❌ No detecta globos | ❌ No traduce | **ELIMINAR de OCR** |
-| Local detector | ⚠️ Depende del modelo ONNX | ❌ No traduce | **MANTENER** (sin key) |
-| Google Translate | ❌ API no oficial (`client=gtx`) | ⚠️ Puede bloquearse | **ELIMINAR** |
-| LibreTranslate | ❌ | ⚠️ Calidad variable | **MANTENER** (sin key) |
-| MyMemory | ❌ | ⚠️ Calidad baja | **ELIMINAR** |
-| Lingva | ❌ | ⚠️ Inestable | **ELIMINAR** |
-| DeepL | ❌ | ✅ Excelente | **MANTENER** (requiere key) |
+### 2.4 ~~Reemplazar Google Translate no oficial~~ ✅ COMPLETADO (incluido en 2.3)
 
-**Plan de purga**:
-1. Eliminar Google Translate, MyMemory, Lingva de `src/config/providers.ts`
-2. Eliminar archivos: `server/providers/translation/google.ts`, `mymemory.ts`, `lingva.ts`
-3. Eliminar Tesseract de OCR_PROVIDERS (mantener solo local detector + Gemini + OpenRouter)
-4. Filtrar modelos OpenRouter: solo los que son vision models para OCR
-5. Actualizar SettingsPanel para mostrar solo proveedores activos
-6. Actualizar fallback chain: Gemini → OpenRouter → LibreTranslate
+Eliminado completamente. LibreTranslate es el fallback gratis.
 
-### 2.4 Reemplazar Google Translate no oficial
+### 2.5 ~~Bloques NT inmunes a IA~~ ✅ COMPLETADO (2026-07-23)
 
-- Eliminar `client=gtx` de `server/providers/translation/google.ts`
-- Usar `@vitalets/google-translate-api` (wrapper community, funciona)
-- O simplemente eliminar Google Translate y usar LibreTranslate como fallback gratis
+- **Rama**: `feat/nt-immune` → PR #52
+- Bloques con `blockType === 'nota'` saltan OCR, traducción y retranslate
+- UI oculta botones de traducir/OCR para bloques NT
+- **Verificación**: 171 tests pasan
+
+### 2.6 ~~Fix nav 100dvh~~ ✅ COMPLETADO (2026-07-23, en PR #52)
+
+- Nav se ocultaba detrás de la barra del navegador en móvil
+- Fix: `100vh` → `100dvh` en App.tsx y ErrorBoundary.tsx
+
+### 2.7 ~~Fix sesión local~~ ✅ COMPLETADO (2026-07-23)
+
+- **Rama**: `fix/session-local-restore` → PR #53
+- `savePageImages()` guardaba base64 vacío para páginas de Drive
+- Fix: siempre guardar base64 en IndexedDB sin importar origen
+- **Segundo fix** (en PR #55): eliminado check `existingKeys` que impedía actualizar entradas viejas
+
+### 2.8 ~~Toasts fijos + Auto-save Drive~~ ✅ COMPLETADO (2026-07-23)
+
+- **Rama**: `fix/notice-toast` → PR #55
+- `globalNotice` y `globalError` convertidos de flex items a toasts fijos (position: fixed)
+- Auto-dismiss: notice 4s, error 6s. Botón de cerrar manual.
+- **Auto-save Drive**: `GoogleDriveControls.tsx` reescrito con auto-save cada 2s (debounce)
+- Toggle `[()]` "Auto" en nav con CSS custom (`.toggle`, `.toggle-track`)
+- Indicador visual: pulso morrado + "Guardando..."
+
+### 2.9 ~~Adjuntar imagen a bloques NT~~ ✅ COMPLETADO (2026-07-23)
+
+- **Rama**: `feat/nt-attach-image` → PR #54
+- Nuevo campo `attachedImage?: string` en `TextBlock`
+- Componente `CropDialog.tsx` con Cropper.js v1.6.2 (recorte libre)
+- Botón "Adjuntar imagen" en sidebar para bloques NT seleccionados
+- Thumbnail con botón de eliminar cuando imagen existe
+- Export: imagen debajo del texto en PSD, ImageRun en DOCX
+
+### 2.10 ~~Exportar a Google Docs~~ ✅ COMPLETADO (2026-07-23)
+
+- **Rama**: `feat/nt-image-export` → PR #56
+- `convertToGoogleDoc()` en `googleDrive.ts` (upload DOCX con convert:true)
+- Botón "Google Docs" en menú de export DOCX (solo con Drive conectado)
+- `DriveFolderPicker` para elegir destino en Drive
+- Export modal con modo `gdocs`
+
+### 2.11 ~~Capa de imagen (bloque imagen)~~ ✅ COMPLETADO (2026-07-23)
+
+- **Rama**: `feat/image-layer` → PR #57
+- Nuevo tipo de bloque `imagen` con `defaultPrefix: '[IMG]'`
+- Botón "Insertar imagen" en sidebar (siempre visible)
+- Recorte con CropDialog antes de insertar
+- PSD: capa de imagen escalada al boundingBox
+- DOCX: ImageRun inline con Uint8Array (fix de Buffer que no funciona en browser)
+- Bloques imagen inmunes a IA (misma lógica que NT)
 
 ---
 
@@ -281,61 +321,78 @@ that matches the surrounding artwork. Do not add new elements.
 
 ## Estado del PR #35 (refactor)
 
-La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commit `2753d5e`). Los fixes de batch y error handling ya están en `main`. La rama se quedó atrás porque `main` continuó con features nuevas (rotación Canva-style, fixes de resize, etc.).
-
-**Recomendación**: Descartar la rama. Los cambios útiles ya están en main. El refactor incremental (Fase 1.1) se hace sobre main directamente.
+Descartado. La rama `refactor/app-hook-and-batch-errors` fue mergeada como PR #19. Los bugs ya están en main. Rama stale, sin merge.
 
 ---
 
 ## Ramas a crear
 
-| Rama | Fase | Dependencia |
-|---|---|---|
-| ~~`refactor/split-hooks`~~ ✅ | 1.1 | Ninguna |
-| ~~`fix/google-drive-session`~~ ✅ | Bugfix | split-hooks |
-| ~~`feat/psd-text-folder`~~ ✅ | Feature | Ninguna |
-| `fix/typescript-errors` | 1.2 | ✅ PR #49 |
-| `chore/move-binaries` | 1.3 | ✅ YA RESUELTO |
-| ~~`feature/undo-redo`~~ ✅ | 2.1 | ✅ PR #50 |
-| `feature/redraw-ai` | 2.2 | Ninguna |
-| `chore/purge-providers` | 2.3 | Ninguna |
-| `feature/loading-skeletons` | 3.1 | Ninguna |
-| `feature/bulk-translate` | 3.2 | 1.1 |
-| `feature/responsive` | 3.3 | Ninguna |
-| `fix/error-handling` | 4.1 | 1.1 |
-| `test/critical-paths` | 4.2 | 1.1 |
-| `test/provider-quality` | 4.4 | Ninguna |
-| `chore/rate-limiting` | 4.3 | Ninguna |
-| `feature/i18n` | 5.1 | Ninguna |
-| `docs/landing-page` | 5.2 | Ninguna |
-| `docs/changelog` | 5.3 | Ninguna |
-| `legal/tos` | 5.4 | Ninguna |
+| Rama | Fase | Estado | PR |
+|---|---|---|---|
+| ~~`refactor/split-hooks`~~ | 1.1 | ✅ Mergeada | — |
+| ~~`fix/google-drive-session`~~ | Bugfix | ✅ Mergeada | #47 |
+| ~~`feat/psd-text-folder`~~ | Feature | ✅ Mergeada | #48 |
+| ~~`fix/typescript-errors`~~ | 1.2 | ✅ Mergeada | #49 |
+| ~~`feat/undo-redo`~~ | 2.1 | ✅ Mergeada | #50 |
+| ~~`chore/purge-providers`~~ | 2.3 | ✅ Mergeada | #51 |
+| ~~`feat/nt-immune`~~ | 2.5 | ✅ Mergeada | #52 |
+| ~~`fix/session-local-restore`~~ | 2.7 | ✅ Mergeada | #53 |
+| ~~`feat/nt-attach-image`~~ | 2.9 | ✅ Mergeada | #54 |
+| ~~`fix/notice-toast`~~ | 2.8 | ✅ Mergeada | #55 |
+| ~~`feat/nt-image-export`~~ | 2.10 | ✅ Mergeada | #56 |
+| ~~`feat/image-layer`~~ | 2.11 | ✅ Rebased, mergeable | #57 |
+| `feature/redraw-ai` | 2.2 | Pendiente | — |
+| `feature/loading-skeletons` | 3.1 | Pendiente | — |
+| `feature/bulk-translate` | 3.2 | Pendiente | — |
+| `feature/responsive` | 3.3 | Pendiente | — |
+| `fix/error-handling` | 4.1 | Pendiente | — |
+| `test/critical-paths` | 4.2 | Pendiente | — |
+| `test/provider-quality` | 4.4 | Pendiente | — |
+| `chore/rate-limiting` | 4.3 | Pendiente | — |
+| `feature/i18n` | 5.1 | Pendiente | — |
+| `docs/landing-page` | 5.2 | Pendiente | — |
+| `docs/changelog` | 5.3 | Pendiente | — |
+| `legal/tos` | 5.4 | Pendiente | — |
 
 ---
 
-## Orden de ejecución (con sub-agentes en paralelo)
+## Orden de ejecución
 
-### Semana 1
-- ~~**Agente A**: `refactor/split-hooks` (Fase 1.1)~~ ✅ COMPLETADO
-- ~~**Fix ad-hoc**: `fix/google-drive-session` (Drive session fix)~~ ✅ COMPLETADO
-- ~~**Fix ad-hoc**: `feat/psd-text-folder` (PSD text folder)~~ ✅ COMPLETADO
-- **Agente B**: `fix/typescript-errors` + `chore/move-binaries` (Fases 1.2 + 1.3)
-- **Agente C**: `chore/purge-providers` + `test/provider-quality` (Fases 2.3 + 4.4)
+### Semana 1 (2026-07-23) — COMPLETADA
 
-### Semana 2
-- **Agente A**: `feature/undo-redo` (Fase 2.1) — requiere 1.1 completado
-- **Agente B**: `feature/redraw-ai` (Fase 2.2)
-- **Agente C**: `fix/error-handling` + `chore/rate-limiting` (Fases 4.1 + 4.3)
+Todas las tareas de la semana completadas en una sola sesión de hyperfocus:
 
-### Semana 3
-- **Agente A**: `feature/loading-skeletons` + `feature/bulk-translate` (Fases 3.1 + 3.2)
-- **Agente B**: `feature/responsive` (Fase 3.3)
-- **Agente C**: `test/critical-paths` (Fase 4.2)
+- ~~Fase 1.1: `refactor/split-hooks`~~ ✅ PR merged
+- ~~Fase 1.2: `fix/typescript-errors`~~ ✅ PR #49
+- ~~Fase 1.3: mover binarios~~ ✅ Ya resuelto (gitignored)
+- ~~Fase 2.1: `feat/undo-redo`~~ ✅ PR #50
+- ~~Fase 2.3: `chore/purge-providers`~~ ✅ PR #51
+- ~~Fase 2.5: `feat/nt-immune`~~ ✅ PR #52
+- ~~Fase 2.7: `fix/session-local-restore`~~ ✅ PR #53
+- ~~Fase 2.8: `fix/notice-toast`~~ ✅ PR #55
+- ~~Fase 2.9: `feat/nt-attach-image`~~ ✅ PR #54
+- ~~Fase 2.10: `feat/nt-image-export`~~ ✅ PR #56
+- ~~Fase 2.11: `feat/image-layer`~~ ✅ PR #57
 
-### Semana 4
-- **Agente A**: `feature/i18n` (Fase 5.1)
-- **Agente B**: `docs/landing-page` + `docs/changelog` (Fases 5.2 + 5.3)
-- **Agente C**: `legal/tos` (Fase 5.4)
+### Semana 2 — Pendiente
+
+- Fase 2.2: `feature/redraw-ai` (Redraw IA)
+- Fase 4.1: `fix/error-handling`
+- Fase 4.3: `chore/rate-limiting`
+
+### Semana 3 — Pendiente
+
+- Fase 3.1: `feature/loading-skeletons`
+- Fase 3.2: `feature/bulk-translate`
+- Fase 3.3: `feature/responsive`
+- Fase 4.2: `test/critical-paths`
+
+### Semana 4 — Pendiente
+
+- Fase 5.1: `feature/i18n`
+- Fase 5.2: `docs/landing-page`
+- Fase 5.3: `docs/changelog`
+- Fase 5.4: `legal/tos`
 
 ---
 
@@ -344,7 +401,7 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 | Riesgo | Probabilidad | Impacto | Mitigación |
 |---|---|---|---|
 | `useComicEditor` rompe durante refactor | Alta | Crítico | Tests antes de cada extracción |
-| Google bloquea API no oficial | Media | Alto | Eliminar, usar LibreTranslate |
+| Google bloquea API no oficial | ~~Media~~ | ~~Alto~~ | ✅ Eliminado (PR #51) |
 | Legal: traducción no autorizada | Media | Alto | ToS + disclaimer (largoplazo) |
 | Render free tier: 512MB RAM insuficiente | Baja | Medio | Monitorear, upgrade si es necesario |
 | OpenRouter modelos inconsistentes | Alta | Bajo | Tests de calidad, filtro automático |
@@ -370,27 +427,53 @@ La rama `refactor/app-hook-and-batch-errors` fue **mergeada** como PR #19 (commi
 - **Utilitarios**: editorHelpers.ts, pageHelpers.ts
 - **Tests**: 149 pasan, 0 regresiones
 
-### 2026-07-23 — Google Drive session fix
-- **Rama**: `fix/google-drive-session` → mergeada a `main` (PR #47)
-- **Problema**: `savePageImages()` duplicaba base64 en IndexedDB para páginas con `driveFileId`
-- **Solución**: omitir base64 cuando existe `driveFileId`, hidratar al restaurar sesión
-- **Archivos**: `sessionStore.ts`, `useSessionPersistence.ts`, `App.tsx`
-- **Verificación**: TypeScript compila, 171 tests pasan
+### 2026-07-23 — Google Drive session fix (PR #47)
+- `savePageImages()` duplicaba base64 en IndexedDB para páginas con `driveFileId`
+- Fix: omitir base64 cuando existe `driveFileId`, hidratar al restaurar
 
-### 2026-07-23 — Capas de texto en carpeta PSD
-- **Rama**: `feat/psd-text-folder` → mergeada a `main` (PR #48)
-- **Cambio**: todas las capas de texto van dentro de una carpeta `📁 Capas de Texto` en el PSD/PSB exportado
-- **Beneficio**: el editor puede ocultar/mostrar todas las traducciones de un click
-- **Archivo**: `psdExport.ts` (+8/-3)
-- **Verificación**: TypeScript compila, 171 tests pasan
+### 2026-07-23 — Capas de texto en carpeta PSD (PR #48)
+- Todas las capas de texto van dentro de carpeta `📁 Capas de Texto` en PSD/PSB
 
-### 2026-07-23 — Undo/Redo
-- **Rama**: `feat/undo-redo` → PR #50
-- **Hook**: `useUndoRedo.ts` — snapshot-based history (max 50 pasos)
-- **Integración**: envuelve todas las mutaciones en `useComicEditor.ts`
-- **Atajos**: `Ctrl+Z`, `Ctrl+Shift+Z`, `Ctrl+Y`
-- **UI**: botones undo/redo en barra de estado
-- **Verificación**: TypeScript compila, 177 tests pasan
+### 2026-07-23 — TypeScript errors + tests (PR #49)
+- 6 unit tests para `localDetector.decodeBlocks` (reemplazó test vacío)
+- TypeScript compila limpio
 
-### Siguiente
-- Fase 2.2 (Redraw IA) o Fase 2.3 (Purgar proveedores) — según prioridad
+### 2026-07-23 — Undo/Redo (PR #50)
+- Hook `useUndoRedo.ts` — snapshot-based (max 50 pasos)
+- `Ctrl+Z` / `Ctrl+Shift+Z` / `Ctrl+Y` + botones en UI
+
+### 2026-07-23 — Purgar proveedores (PR #51)
+- Eliminados: Google Translate, MyMemory, Lingva, Tesseract (-728 líneas)
+- Default traducción: `google` → `libretranslate`
+
+### 2026-07-23 — NT immune + nav fix (PR #52)
+- Bloques NT inmunes a OCR/traducción
+- Nav fix: `100vh` → `100dvh`
+
+### 2026-07-23 — Session local restore fix (PR #53)
+- Siempre guardar base64 en IndexedDB sin importar origen Drive
+
+### 2026-07-23 — NT image attach (PR #54)
+- Campo `attachedImage` en TextBlock + CropDialog con Cropper.js
+- Botón "Adjuntar imagen" en sidebar para bloques NT
+
+### 2026-07-23 — Toasts + auto-save Drive (PR #55)
+- Notices convertidos a toasts fijos (no empujan el nav)
+- Auto-save a Drive cada 2s con toggle "Auto" en nav
+
+### 2026-07-23 — NT image export + Google Docs (PR #56)
+- PSD: imagen debajo del texto escalada al boundingBox
+- DOCX: ImageRun con Uint8Array (fix Buffer en browser)
+- Nuevo: exportar a Google Docs (convert:true via Drive API)
+
+### 2026-07-23 — Image layer + Google Docs folder picker (PR #57)
+- Nuevo tipo de bloque `imagen` con `[IMG]` prefix
+- Botón "Insertar imagen" en sidebar
+- Google Docs: DriveFolderPicker para elegir destino
+- Rebased sobre main, conflictos resueltos, mergeable
+
+---
+
+## Siguiente paso
+
+Merge PR #57 → Fase 2.2 (Redraw IA) o Fase 3.1 (Loading skeletons) según prioridad del usuario.
