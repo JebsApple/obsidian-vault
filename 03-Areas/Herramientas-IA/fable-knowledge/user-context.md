@@ -37,6 +37,7 @@
 - **Luciérnaga App**: mobile app (Flutter, solo idea) — aporte a la iglesia, sin reuniones con pastores para afinar requerimientos
 - **Limpieza de computadores (software)**: otra opción de negocio
 - **ani-cli-hub**: terminal anime hub, fork de ani-cli-mx (bash, kitty graphics, jkanime) — github.com/JebsApple/ani-cli-hub
+- **Manga de Weones**: lector de manga con traducciones al chileno (Astro + Cloudflare Pages/R2/D1/Workers, free tier) — github.com/JebsApple/manga-de-weones (privado)
 
 ## Tech Stack
 - **Backend**: Go (Gin/Echo), PostgreSQL, Docker, Nginx
