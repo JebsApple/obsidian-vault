@@ -7,7 +7,6 @@ created: "2026-07-24"
 
 ## 🔴 Bloqueado (decisión pendiente)
 
-- [ ] **Definir qué contenido se publica** — obra propia / licenciada / dominio público / scanlation. Bloquea solo la Fase 4 (monetización), no el desarrollo. Ver blueprint.
 - [ ] **Elegir y registrar dominio** — afecta las URLs de R2 que quedan grabadas en la DB.
 
 ## 📋 Por hacer — Fase 0 (Scaffold)
@@ -47,11 +46,14 @@ created: "2026-07-24"
 - [ ] Búsqueda en el catálogo
 - [ ] Modo oscuro
 
-## 📋 Por hacer — Fase 4 (Monetización)
+## 📋 Por hacer — Fase 4 (Sostenibilidad)
 
-- [ ] Confirmar viabilidad según el contenido elegido
-- [ ] Ko-fi o MercadoPago para donaciones
-- [ ] Evaluar ads solo si el contenido lo permite
+Decidido: **sin ads, solo donaciones voluntarias con encuadre de costos.**
+
+- [ ] Página `apoyar.astro` con costos reales y meta mensual visible
+- [ ] MercadoPago o Khipu como método de donación (no Ko-fi ni Patreon: sus términos lo prohíben)
+- [ ] Banner discreto — nunca intersticial ni encima del lector
+- [ ] Explorar patrocinio directo de tiendas de manga/anime chilenas
 
 ## ✅ Hecho
 

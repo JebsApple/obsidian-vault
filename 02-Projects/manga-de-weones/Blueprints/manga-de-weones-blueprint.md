@@ -118,24 +118,41 @@ Todo el stack en un solo proveedor, todo con free tier usable de verdad y escala
 - **Decisión:** nada de login en esta fase. Favoritos y progreso en `localStorage` cubren el 90% del valor con el 5% del trabajo. Cuentas solo si aparece una razón concreta.
 - **Verificación:** cerrar y reabrir el navegador conserva el progreso; el catálogo se busca sin recargar.
 
-### Fase 4: Monetización
-- **Objetivo:** que el proyecto se pague solo.
-- **Depende del escenario de contenido** (ver la tabla al inicio). Si el contenido lo permite:
-  - **Donaciones primero**: Ko-fi (0% de comisión propia, solo cobra el procesador) y MercadoPago para pagos locales chilenos.
-  - **Ads después**: AdSense exige tráfico y contenido propio/licenciado. Alternativas menos exigentes: Ezoic, o patrocinio directo de tiendas de manga/anime chilenas — que además calza mejor con el nicho.
-- **Verificación:** los ingresos de un mes cubren dominio + almacenamiento.
+### Fase 4: Sostenibilidad (decidida 2026-07-24)
+
+**Decisión tomada: el sitio se lanza sin ads. Solo donaciones voluntarias, con encuadre de costos.**
+
+- **Objetivo:** que el sitio cubra sus propios gastos (dominio + almacenamiento), no que genere lucro.
+
+**Por qué sin ads:**
+1. Las sanciones de AdSense son **a nivel de cuenta**, atadas a identidad y datos de pago — no a dominio. Un ban sigue a la persona a proyectos futuros. Arriesgar la cuenta de Google acá compromete [[TL2EDIT]], que es el proyecto con potencial real de ingresos. Intercambio malo.
+2. Los ads son **hostiles al producto**. Los intersticiales al cambiar de página son la razón número uno de abandono en lectores de manga. Un lector limpio y rápido es diferenciador real.
+3. **No hay presión de costos** que obligue a monetizar: con Pages + R2 el bandwidth es gratis y el gasto total ronda los $10/año de dominio.
+
+**Vías de donación, en orden:**
+- **MercadoPago / Khipu / transferencia directa** — sin filtro editorial de contenido, y son los métodos que la audiencia chilena ya usa.
+- **Ko-fi y Patreon quedan descartados**: sus términos prohíben monetizar contenido no licenciado y cierran cuentas con el saldo dentro.
+- **Patrocinio directo del nicho** (tiendas de manga/anime chilenas) — se negocia sin intermediario, mejor CPM que ads programáticos porque el público está segmentado.
+
+**Encuadre público:** "ayúdanos a pagar el hosting", con meta mensual visible y costos reales publicados. Costos, no suscripción. Es honesto y es como funciona el espacio.
+
+**Puerta que queda abierta:** si más adelante se suma una sección de obra original chilena (con acuerdo de los autores), *esa* sección sí es monetizable con AdSense sin riesgo, porque el contenido es limpio. Sería la vía de crecimiento, no un parche.
+
+- **Archivos:**
+  - `src/pages/apoyar.astro` — página de donación con costos y meta transparentes
+  - `src/components/DonateBanner.astro` — banner discreto, nunca intersticial ni sobre el lector
+- **Verificación:** las donaciones de un mes cubren dominio + almacenamiento.
+- **Lo que esto NO resuelve:** las donaciones no son escudo legal. Un DMCA puede llegar igual al dominio o al host. Cambia quién puede sancionar (se sale del alcance de Google), no la naturaleza del contenido.
 
 ---
 
 ## Dependencias entre fases
 
 ```
-Fase 0 (deploy) → Fase 1 (lector) → Fase 2 (subida) → Fase 3 (UX) → Fase 4 (plata)
-                                        ↑
-                        decisión de contenido bloquea solo la Fase 4
+Fase 0 (deploy) → Fase 1 (lector) → Fase 2 (subida) → Fase 3 (UX) → Fase 4 (donaciones)
 ```
 
-Fases 0 a 3 son idénticas en cualquier escenario de contenido — se pueden construir sin haber resuelto la pregunta legal. Solo la Fase 4 depende de ella.
+Ninguna fase queda bloqueada por decisiones pendientes: la vía de sostenibilidad ya está resuelta (donaciones, sin ads), así que las cinco fases se pueden construir seguidas.
 
 ## Rollback
 

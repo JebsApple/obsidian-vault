@@ -30,10 +30,12 @@ estado: activo
 - **R2 en vez de B2 + Bunny**: el egreso en R2 es $0 para siempre; Bunny cobra $0,035–0,045/GB en Latinoamérica. Con audiencia chilena, la diferencia es pagar algo versus pagar nada.
 - **Sin cuentas de usuario** en las primeras fases: `localStorage` cubre favoritos y progreso.
 
+- **Sostenibilidad sin ads**: solo donaciones voluntarias con encuadre de costos. Las sanciones de AdSense son a nivel de cuenta y seguirían a [[TL2EDIT]], que es el proyecto con potencial real de ingresos. Además los intersticiales son la causa número uno de abandono en lectores de manga, así que sacarlos mejora el producto.
+
 ## Decisiones pendientes
 
-- **Qué contenido se publica.** No bloquea las Fases 0-3, pero define si la Fase 4 (ads/donaciones) es viable. Detalle en el blueprint.
 - **Estructura de rutas en R2.** Hay que fijarla en la Fase 1 antes de subir el primer capítulo: es lo único irreversible del proyecto.
+- **Dominio.** Bloquea el cierre del sprint (tarea 8).
 
 ## Lecciones
 
