@@ -1,42 +1,22 @@
 ---
 tags: [proyecto/manga-de-weones, kanban, tracker]
 created: "2026-07-24"
+updated: "2026-07-26"
 ---
 
 # Kanban: Manga de Weones
 
 ## 🔴 Bloqueado (decisión pendiente)
 
-- [ ] **Elegir y registrar dominio** — afecta las URLs de R2 que quedan grabadas en la DB.
+- [ ] **Habilitar R2 en el dashboard de Cloudflare** — bloquea `wrangler r2 bucket create` y por lo tanto el deploy. Manual, pide método de pago aunque el tier sea gratis. Guía dejada en el chat de la sesión 2026-07-26.
+- [ ] **Elegir y registrar dominio** — bloquea el deploy público (se decidió no salir con `.pages.dev` mientras tanto).
 
-## 📋 Por hacer — Fase 0 (Scaffold)
+## 📋 Por hacer — Deploy
 
-- [ ] Crear cuenta Cloudflare y activar R2 + D1 (tarjeta requerida para R2 aunque el tier sea gratis)
-- [ ] `npm create astro@latest` con Tailwind en `~/proyectos/manga-de-weones`
-- [ ] Layout base con nav y footer, tono chileno en los textos de UI
-- [ ] Conectar repo a Cloudflare Pages (deploy automático desde `main`)
-- [ ] `wrangler.toml` con bindings de R2 y D1
+- [ ] Crear bucket R2 una vez habilitado (`wrangler r2 bucket create manga-de-weones`)
+- [ ] Crear proyecto Cloudflare Pages y conectarlo al repo para deploy automático desde `main`
+- [ ] Configurar `ADMIN_PASSWORD` como secret de producción (`wrangler pages secret put`), no como var en `wrangler.toml`
 - [ ] Apuntar dominio y verificar HTTPS
-
-## 📋 Por hacer — Fase 1 (Lector)
-
-- [ ] Definir esquema D1: `series`, `chapters`, `pages` + `schema.sql`
-- [ ] **Fijar estructura de rutas en R2** (`/{serie}/{cap}/{001.webp}`) — decisión irreversible
-- [ ] Subir un capítulo a mano a R2 como caso de prueba
-- [ ] Página de ficha de serie con lista de capítulos
-- [ ] Lector con scroll vertical (estilo webtoon)
-- [ ] Navegación anterior/siguiente entre capítulos
-- [ ] Probar en móvil real, no solo en el responsive del navegador
-
-## 📋 Por hacer — Fase 2 (Subida)
-
-- [ ] Worker de subida en el mismo origen del panel (evita CORS por diseño)
-- [ ] Conversión a WebP q80
-- [ ] Corte automático de imágenes sobre 16.383 px
-- [ ] Natural sort de nombres de archivo
-- [ ] Panel drag & drop protegido con Cloudflare Access
-- [ ] Confirmación al reemplazar un capítulo existente (mostrar conteo de páginas)
-- [ ] Subida en chunks si aparecen archivos sobre 50 MB
 
 ## 📋 Por hacer — Fase 3 (UX)
 
@@ -46,9 +26,9 @@ created: "2026-07-24"
 - [ ] Búsqueda en el catálogo
 - [ ] Modo oscuro
 
-## 📋 Por hacer — Fase 4 (Sostenibilidad)
+## ⏸️ En pausa — Fase 4 (Sostenibilidad / monetización)
 
-Decidido: **sin ads, solo donaciones voluntarias con encuadre de costos.**
+Decisión del usuario (2026-07-26): dejar de lado por ahora, foco en publicar gratis.
 
 - [ ] Página `apoyar.astro` con costos reales y meta mensual visible
 - [ ] MercadoPago o Khipu como método de donación (no Ko-fi ni Patreon: sus términos lo prohíben)
@@ -62,3 +42,17 @@ Decidido: **sin ads, solo donaciones voluntarias con encuadre de costos.**
 - [x] Comparar R2 vs Backblaze B2 + Bunny para audiencia chilena (2026-07-24)
 - [x] Crear repo privado [JebsApple/manga-de-weones](https://github.com/JebsApple/manga-de-weones) (2026-07-24)
 - [x] Blueprint con fases, stack y análisis de monetización (2026-07-24)
+- [x] Scaffold Astro + Tailwind + Cloudflare adapter (2026-07-24/25)
+- [x] Esquema D1 (`series`, `chapters`, `pages`) y creación de la base real en Cloudflare (2026-07-26)
+- [x] Layout base, ficha de serie, lector webtoon y paginado, navegación anterior/siguiente (2026-07-24/25)
+- [x] Fijada estructura de rutas en R2: `/{serie}/{cap}/{orden}.webp`
+- [x] Panel admin: login, crear serie, crear/reemplazar capítulo (2026-07-26)
+- [x] Subida de páginas: conversión a WebP q80 y corte automático >16.383px en el navegador, natural sort (2026-07-26)
+- [x] Fix: migración de `Astro.locals.runtime.env` (removido en Astro v6) a `import { env } from 'cloudflare:workers'` (2026-07-26)
+- [x] Probado end-to-end en local: login → crear serie → subir capítulo → se lee en el lector (2026-07-26)
+
+## Simplificaciones conocidas (MVP, revisar después)
+
+- Subida en una sola request — sin chunking todavía para archivos >50 MB (poco probable con WebP q80, pero no está implementado).
+- Reemplazo de capítulo es directo, sin pantalla de confirmación mostrando conteo de páginas.
+- Auth del panel es una contraseña compartida en cookie, no Cloudflare Access — migrar cuando haya dominio propio.

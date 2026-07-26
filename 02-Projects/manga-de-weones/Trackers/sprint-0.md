@@ -2,8 +2,10 @@
 tags: [proyecto/manga-de-weones, sprint, tracker]
 created: "2026-07-24"
 sprint: 0
-estado: activo
+estado: superado
 ---
+
+> **Nota (2026-07-26):** el trabajo avanzó directo hasta Fase 2 (lector + panel de subida funcionando) sin cerrar formalmente este sprint. Estado real y próximos pasos en [[manga-de-weones-kanban]].
 
 # Sprint 0 — Scaffold y deploy
 

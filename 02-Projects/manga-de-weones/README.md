@@ -1,7 +1,8 @@
 ---
 tags: [proyecto/manga-de-weones, project-card]
 created: "2026-07-24"
-status: fase-0
+updated: "2026-07-26"
+status: fase-2
 ---
 
 # Manga de Weones
@@ -10,11 +11,13 @@ Lector de manga con traducciones al **chileno** (no español neutro — ese es e
 
 ## Estado
 
-**Fase 0 — Scaffold.** Repo creado, sin deploy todavía.
+**Fase 2 — Subida.** Lector completo y panel de administración funcionando en local contra D1/R2 reales. Monetización (Fase 4) en pausa por decisión del usuario — foco en dejar la página arriba gratis.
 
 - **Repo**: [JebsApple/manga-de-weones](https://github.com/JebsApple/manga-de-weones) (privado)
 - **Local**: `~/proyectos/manga-de-weones`
-- **Deploy**: pendiente (Cloudflare Pages)
+- **D1**: creada y con schema aplicado (`manga-de-weones`, cuenta `mnznpremium756@gmail.com`)
+- **R2**: bloqueado — falta habilitarlo manualmente en el dashboard de Cloudflare (pide método de pago aunque el tier sea gratis)
+- **Deploy público**: pendiente — a la espera de que se defina un dominio propio (se decidió no salir con el subdominio `.pages.dev` gratis)
 
 ## Decisión de stack en una línea
 
@@ -32,8 +35,12 @@ Todo Cloudflare: **Pages** (bandwidth ilimitado gratis) + **R2** (10 GB gratis, 
 - **[[TL2EDIT]]** / **[[traductor-comics-psd]]** — producen los PSD traducidos que alimentan este sitio. Pipeline natural: TL2EDIT → export → subida a Manga de Weones.
 - **Investigación raventard.xyz** (julio 2026) — de ahí salen las decisiones de pipeline de imágenes: WebP q80, corte a 16.383 px, subida en chunks, anti-hotlink.
 
-## Lo que hay que decidir antes de escribir código
+## Lo que falta para salir en línea
 
-1. **Contenido**: ¿obra original/propia, licenciada, dominio público, o scanlation? Define si la monetización es viable (ver blueprint, sección Monetización).
-2. **Dominio**: nombre y registrar. Afecta las URLs de R2 que quedan grabadas en la DB.
-3. **Estructura de rutas del bucket** — única decisión irreversible del proyecto.
+1. **Habilitar R2** en el dashboard de Cloudflare (manual, pide tarjeta).
+2. **Elegir y registrar dominio** — bloquea el deploy público a Cloudflare Pages.
+3. **Contenido real**: qué serie(s) publicar primero.
+
+## Decisión de rutas del bucket (ya tomada, no se toca)
+
+`/{serie-slug}/{capitulo}/{orden}.webp` — ver `claveDePagina()` en `src/lib/media.ts`.
