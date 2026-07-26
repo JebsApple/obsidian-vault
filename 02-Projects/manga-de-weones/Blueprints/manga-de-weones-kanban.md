@@ -20,11 +20,8 @@ updated: "2026-07-26"
 
 ## 📋 Por hacer — Fase 3 (UX)
 
-- [ ] Precarga de la página siguiente en el lector
-- [ ] Progreso de lectura en `localStorage`
-- [ ] Favoritos sin cuenta de usuario
-- [ ] Búsqueda en el catálogo
-- [ ] Modo oscuro
+- [ ] Modo oscuro — nota: el diseño actual ya es 100% oscuro por defecto (no hay toggle claro/oscuro, no había tema claro que alternar)
+- [ ] Precarga de la página siguiente en el lector — parcial: las imágenes ya usan `loading="lazy"` nativo; falta evaluar si vale la pena precarga explícita de la siguiente imagen
 
 ## ⏸️ En pausa — Fase 4 (Sostenibilidad / monetización)
 
@@ -50,6 +47,10 @@ Decisión del usuario (2026-07-26): dejar de lado por ahora, foco en publicar gr
 - [x] Subida de páginas: conversión a WebP q80 y corte automático >16.383px en el navegador, natural sort (2026-07-26)
 - [x] Fix: migración de `Astro.locals.runtime.env` (removido en Astro v6) a `import { env } from 'cloudflare:workers'` (2026-07-26)
 - [x] Probado end-to-end en local: login → crear serie → subir capítulo → se lee en el lector (2026-07-26)
+- [x] Progreso de lectura en `localStorage`, con "Continuar leyendo" en la ficha de serie (2026-07-26)
+- [x] Favoritos sin cuenta de usuario (toggle en ficha de serie + página `/favoritos`) (2026-07-26)
+- [x] Búsqueda por título en `/series` (2026-07-26)
+- [x] Tutorial `docs/onboarding-cloudflare.md` para que un tercero cree y administre la cuenta Cloudflare (2026-07-26)
 
 ## Simplificaciones conocidas (MVP, revisar después)
 
