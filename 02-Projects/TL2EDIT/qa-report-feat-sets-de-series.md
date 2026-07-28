@@ -16,8 +16,8 @@ related:
 # QA Report — feat/sets-de-series
 
 > Auditoría integral de la rama `feat/sets-de-series` del repo `TL2EDIT`.
-> 83 commits, 94 archivos, +9,210 / -1,251 líneas.
-> Branch point: 2026-07-27, HEAD: `0b0061f`
+> 86 commits, 94 archivos, +9,210 / -1,251 líneas.
+> Branch point: 2026-07-27, HEAD: `0adf445`
 
 ---
 
@@ -28,10 +28,10 @@ related:
 | Crítico | 0 | — |
 | Alto | 2 | Pendiente |
 | Medio | 5 | Pendiente |
-| Bajo | 4 | Pendiente |
+| Bajo | 3 | Pendiente |
 | Mejora | 3 | Opcional |
 
-**Veredicto:** La rama es funcionalmente sólida. No hay bugs críticos que impidan merge. Hay 2 problemas altos que conviene resolver antes de merge y 5 medios que deberían resolverse pronto. El código generalmente sigue el estilo del proyecto y las decisiones de arquitectura son correctas.
+**Veredicto:** La rama es funcionalmente sólida. No hay bugs críticos que impidan merge. Hay 2 problemas altos que conviene resolver antes de merge y 5 medios que deberían resolverse pronto. El código generalmente sigue el estilo del proyecto y las decisiones de arquitectura son correctas. 566 tests (386 client + 180 server) pasando.
 
 ---
 
@@ -100,30 +100,22 @@ related:
 
 ### C. Seguridad
 
-#### C1. 🟢 [BAJO] `as any` casts en `exportDocx.ts`
+#### C1. 🟢 [BAJO] `as any` cast en `exportDocx.ts`
 
-- **Archivo:** `exportDocx.ts:71,95`
-- **Código:** `type: ParagraphChild as any` para ImageRun
-- **Problema:** Type assertion que oculta posibles errores de tipo. El tipo `ParagraphChild` de docx no incluye `ImageRun` en su unión, pero funcionalmente funciona.
-- **Impacto:** Si la librería docx cambia su API, el `as any` ocultaría el error en compile-time.
-- **Fix:** Usar el tipo correcto o extender la unión con un type assertion más específico.
+- **Archivo:** `exportDocx.ts:71,95` (2 instancias)
+- **Código:** `type: type as any` — `dataUrlToUint8Array` retorna `type: string` (ej: `"png"`) pero `ImageRun` espera un union type específico.
+- **Problema:** Type assertion que oculta posibles errores de tipo. Funciona porque el string coincide con los valores válidos, pero no está validado en compile-time.
+- **Impacto:** Si la librería docx cambia su API o el MIME mapping, el `as any` ocultaría el error.
+- **Fix:** Tipar el retorno de `dataUrlToUint8Array` como `{ buffer: Uint8Array; type: "png" | "jpeg" | "gif" | "bmp" }` y validar el MIME antes de retornar.
 - **Prioridad:** Bajo — funciona, pero es deuda técnica.
 
-#### C2. 🟢 [BAJO] `console.warn` en producción (~20 instancias)
+#### C2. 🟢 [BAJO] `console.warn` en server (~10 instancias)
 
-- **Archivo:** `server/*.ts`, `server/**/*.ts`
-- **Problema:** ~20 `console.warn` en server/ para situaciones operacionales (fallback a libretranslate, errores de telemetry, auto-save failures). Solo 1 `console.log` (startup). No hay debug noise pero tampoco hay logging estructurado.
+- **Archivo:** `server/**/*.ts`
+- **Problema:** ~10 `console.warn` en server/ para situaciones operacionales (fallback a libretranslate, errores de telemetry, auto-save failures, provider fallback). Solo 1 `console.log` en `server.ts:1485` (startup). No hay debug noise pero tampoco hay logging estructurado.
 - **Impacto:** En producción, los warnings se pierden en logs sin estructura. No es un problema de seguridad pero dificulta debugging.
 - **Fix:** Considerar logging estructurado (JSON) para producción. No urgente.
 - **Prioridad:** Bajo — mejora observabilidad.
-
-#### C3. 🟢 [BAJO] Sin validación de `max_results` en notebooklm_notebook_list
-
-- **Archivo:** MCP server notebooklm
-- **Problema:** `max_results` tiene default 100 pero no se valida contra un máximo server-side. Un usuario podría pedir 10000 resultados.
-- **Impacto:** Performance del server, no un riesgo de seguridad directo.
-- **Fix:** Agregar clamp: `min(max_results, 1000)`.
-- **Prioridad:** Bajo — edge case.
 
 ### D. Performance
 
@@ -203,7 +195,7 @@ related:
 | `imageBlockGeometry.ts` | ~100 | ✅ Correcto |
 | `useBlockTypes.ts` | ~200 | ✅ Font resolution funciona |
 | `convertToGoogleDoc.ts` | ~100 | ✅ Limpio |
-| `exportDocx.ts` | ~200 | ⚠️ 3x `as any` |
+| `exportDocx.ts` | ~200 | ⚠️ 2x `as any` en ImageRun type |
 | `prompt.ts` (server) | ~300 | ✅ Series injection correcta |
 | `server.ts` | ~800 | ✅ Endpoints bien integrados |
 | `useOcrWithProgress.ts` | ~300 | ⚠️ Sin progreso visible |
@@ -267,4 +259,4 @@ La rama `feat/sets-de-series` es un feature grande pero bien ejecutado. La arqui
 
 ---
 
-*Creado: 2026-07-27 | Última actualización: 2026-07-27*
+*Creado: 2026-07-27 | Última actualización: 2026-07-27 (verificación independiente)*
