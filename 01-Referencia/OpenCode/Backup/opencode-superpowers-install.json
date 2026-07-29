@@ -1,0 +1,25 @@
+{
+  "projectId": "opencode-superpowers",
+  "installerVersion": 1,
+  "packageVersion": "0.4.0",
+  "installMode": "copy",
+  "source": "/home/apuru/.cache/opencode/packages/opencode-superpowers/node_modules/opencode-superpowers",
+  "installedAt": "2026-07-25T04:36:24.287Z",
+  "lockSha256": "5d92e4109300015b838040401a070db2c1b3dbe8ffde8557c9a8fbcef8a07cae",
+  "upstreamCommit": "6efe32c9e2dd002d0c394e861e0529675d1ab32e",
+  "installedAgents": [
+    "/home/apuru/.config/opencode/agents/superpowers-spec-writer.md",
+    "/home/apuru/.config/opencode/agents/superpowers-plan-writer.md",
+    "/home/apuru/.config/opencode/agents/superpowers-code-reviewer.md",
+    "/home/apuru/.config/opencode/agents/superpowers-implementer.md",
+    "/home/apuru/.config/opencode/agents/superpowers.md"
+  ],
+  "installedSkills": [
+    "/home/apuru/.config/opencode/skills/superpowers-brainstorming",
+    "/home/apuru/.config/opencode/skills/superpowers-executing-plans",
+    "/home/apuru/.config/opencode/skills/superpowers-writing-plans",
+    "/home/apuru/.config/opencode/skills/superpowers-verification-before-completion",
+    "/home/apuru/.config/opencode/skills/superpowers-subagent-driven-development",
+    "/home/apuru/.config/opencode/skills/superpowers-using-superpowers"
+  ]
+}

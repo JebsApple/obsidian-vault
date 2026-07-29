@@ -1,0 +1,133 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "big-pickle",
+  "small_model": "openrouter/meta-llama/llama-3.1-8b-instruct:free",
+  "agent": {
+    "plan": {
+      "model": "big-pickle",
+      "description": "Planificador: usar para tareas complejas, arquitectura, y dise\u00f1o de sistemas"
+    },
+    "build": {
+      "model": "big-pickle",
+      "description": "Constructor: trabajo principal de c\u00f3digo, ediciones, implementaci\u00f3n",
+      "permission": {
+        "plan_exit": {
+          "*": "allow"
+        }
+      }
+    },
+    "general": {
+      "model": "big-pickle",
+      "description": "General: consultas, explicaciones, tareas de complejidad media"
+    },
+    "explore": {
+      "model": "north-mini-code-free",
+      "description": "Explorador: búsquedas rápidas, navigación de código, tareas triviales"
+    },
+    "title": {
+      "model": "north-mini-code-free"
+    },
+    "summary": {
+      "model": "north-mini-code-free"
+    },
+    "compaction": {
+      "model": "deepseek-v4-flash-free"
+    }
+  },
+  "provider": {
+    "opencode": {
+      "options": {
+        "chunkTimeout": 120000
+      }
+    }
+  },
+  "mcp": {
+    "obsidian": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "obsidian-mcp",
+        "/home/apuru/Vault"
+      ]
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    },
+    "github": {
+      "type": "local",
+      "command": [
+        "/home/apuru/.local/bin/github-mcp-wrapper"
+      ]
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp"
+      ]
+    },
+    "notebooklm": {
+      "type": "local",
+      "command": [
+        "notebooklm-mcp"
+      ],
+      "enabled": true,
+      "timeout": 300000
+    },
+    "graphify-vault": {
+      "type": "local",
+      "command": [
+        "/home/apuru/.local/share/uv/tools/graphifyy/bin/python",
+        "-m",
+        "graphify.serve",
+        "/home/apuru/Vault/graphify-out/graph.json"
+      ]
+    },
+    "serena": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--project-from-cwd",
+        "--context",
+        "codex",
+        "--open-web-dashboard",
+        "False"
+      ]
+    },
+    "headroom": {
+      "type": "local",
+      "command": [
+        "headroom",
+        "mcp",
+        "serve"
+      ]
+    }
+  },
+  "compaction": {
+    "auto": false,
+    "prompt": "Eres un asistente que resume conversaciones. Responde SIEMPRE en español neutro. Genera un resumen conciso pero completo de lo discutido hasta ahora, incluyendo: código modificado, errores encontrados, soluciones aplicadas, y contexto relevante para continuar el trabajo."
+  },
+  "plugin": [
+    "/home/apuru/Herramientas/ponytail/.opencode/plugins/ponytail.mjs",
+    "opencode-wakatime",
+    "opencode-vibeguard",
+    "opencode-websearch-cited",
+    "@prevalentware/opencode-goal-plugin",
+    "opencode-mem",
+    "opencode-superpowers"
+  ],
+  "experimental": {
+    "mcp_timeout": 300000
+  }
+}
