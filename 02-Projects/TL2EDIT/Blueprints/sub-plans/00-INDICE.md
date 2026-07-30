@@ -2,6 +2,7 @@
 
 > **Estado**: Todos los sub-plans han sido auditados por agente externo.
 > **Errores corregidos**: F1.6 obsoleto, E3.1 incompleto, orden de dependencias.
+> **Todos los sub-plans incluyen nota**: "Al ejecutor: el código sugerido es una guía, no un mandato. Si encuentras una mejor solución, critícala y mejórala. Si algo no está claro o falta contexto, PREGUNTA."
 
 ---
 

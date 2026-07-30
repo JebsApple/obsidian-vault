@@ -247,6 +247,10 @@ Cada tramo del plan tiene un sub-plan detallado en `Blueprints/sub-plans/` con:
 - Código exacto a escribir/modificar
 - Skills a cargar
 - Tests y verificación
+- **Nota al ejecutor**: el código sugerido es una guía. El ejecutor puede criticarlo, mejorarlo, y debe preguntar si tiene dudas.
+- **🥩 Grilling**: preguntas que resolver antes de empezar (aplicado con skill `grill-me`)
+
+### Rama 1: Foundation
 
 ### Rama 1: Foundation
 | Tramo | Sub-Plan | 
