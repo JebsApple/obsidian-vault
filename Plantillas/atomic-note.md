@@ -1,8 +1,9 @@
 ---
-created: {{date}} {{time}}
-tags:
-  - tipo/zettel
+tipo: zettel
+creado: {{date}}
+tags: []
 aliases: []
+fuentes: []
 ---
 
 # {{title}}
@@ -11,7 +12,6 @@ aliases: []
 
 
 ## Conexiones
-- 
+-
 
 ## Fuentes
-

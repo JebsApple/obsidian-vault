@@ -1,20 +1,20 @@
 ---
-tags: [tipo/sesion, sprint-3, proyecto/minegocio]
-date: "{{date}}"
+tipo: sesion
+creado: {{date}}
+tags: [sesion]
+proyecto: ""
+duracion: ""
 ---
-# Sessión — {{title}}
 
-## Contexto
-- **Objetivo de la sesión:**
-- **Quién:** 
+# Sesión — {{title}}
 
-## Log
--
+## Objetivo
 
-## Decisiones tomadas
--
 
-## Pendientes para próxima sesión
--
+## Lo que se hizo
 
-## Notas
+
+## Bloqueos
+
+
+## Proximos pasos

@@ -1,7 +1,7 @@
 ---
-created: {{date}} {{time}}
-tags:
-  - tipo/capture
+tipo: capture
+creado: {{date}}
+tags: [inbox]
 ---
 
 # {{title}}

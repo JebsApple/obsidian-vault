@@ -1,31 +1,13 @@
 ---
-tags:
-  - cheatsheet
-  - referencia
-created: {{date}}
-tool: ""
+tipo: recurso
+creado: {{date}}
+tags: [cheatsheet, referencia]
+herramienta: ""
 ---
 
 # Cheatsheet: {{title}}
 
-> Referencia rápida. Solo comandos/patrones que uso de verdad — no documentación completa.
+## Comandos
 
-## Uso frecuente
 
-| Qué quiero | Comando/Patrón |
-|------------|----------------|
-| | `` |
-| | `` |
-
-## Casos específicos
-
-### {Caso}
-```bash
-# comando con contexto
-```
-
-## Trampas conocidas
-- ⚠️ {gotcha} — {cómo evitarlo}
-
-## Links Relacionados
-- {docs oficiales / nota del vault}
+## Recursos relacionados

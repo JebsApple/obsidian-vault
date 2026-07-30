@@ -1,31 +1,22 @@
 ---
-tags:
-  - research
-  - zettelkasten
-created: {{date}}
-status: activo|obsoleto
+tipo: zettel
+creado: {{date}}
+tags: [research]
+aliases: []
+estado: activo
+fuentes: []
 ---
 
 # {{title}}
 
-## Pregunta de Investigación
-{What question are we trying to answer?}
+## Resumen
 
-## Contexto
-{Why is this relevant?}
 
-## Hallazgos
-### Fuente 1: 
-- 
+## Hallazgos clave
 
-### Fuente 2: 
-- 
 
-## Conclusiones
-1. 
+## Fuentes
 
-## Acciones Sugeridas
-- [ ] 
 
-## Links Relacionados
-- 
+## Conexiones
+-

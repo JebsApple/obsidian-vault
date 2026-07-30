@@ -1,14 +1,16 @@
 ---
-date: {{date}}
-tags:
-  - tipo/diario
-created: {{date}} {{time}}
+tipo: diario
+creado: {{date}}
+tags: [daily]
 ---
 
 # {{date:dddd, DD [de] MMMM [de] YYYY}}
 
-## Tareas del dia
-- [ ] 
+## Objetivo del dia
+
+
+## Tareas
+- [ ]
 
 ## Notas rapidas
 
@@ -17,4 +19,3 @@ created: {{date}} {{time}}
 
 
 ## Resumen del dia
-

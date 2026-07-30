@@ -58,11 +58,11 @@
 
 ```bash
 # 1. Copiar archivos de vuelta
-cp -r 01-Referencia/OpenCode/Backup/opencode.json ~/.config/opencode/
-cp -r 01-Referencia/OpenCode/Backup/opencode-mem.jsonc ~/.config/opencode/
-cp -r 01-Referencia/OpenCode/Backup/commands ~/.config/opencode/
-cp -r 01-Referencia/OpenCode/Backup/agents ~/.config/opencode/
-cp -r 01-Referencia/OpenCode/Backup/skills ~/.config/opencode/
+cp -r 05-Archive/OpenCode-Backup/opencode.json ~/.config/opencode/
+cp -r 05-Archive/OpenCode-Backup/opencode-mem.jsonc ~/.config/opencode/
+cp -r 05-Archive/OpenCode-Backup/commands ~/.config/opencode/
+cp -r 05-Archive/OpenCode-Backup/agents ~/.config/opencode/
+cp -r 05-Archive/OpenCode-Backup/skills ~/.config/opencode/
 
 # 2. Reinstalar plugins npm globales
 npm install -g opencode-wakatime opencode-vibeguard opencode-websearch-cited

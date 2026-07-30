@@ -105,11 +105,10 @@ Un archivo que Fable (o cualquier AI persona) pueda cargar al inicio de sesión 
 - Nicolas Valdes: barcodes, inventory
 
 ## Vault Structure
-- 01-Referencia: external knowledge, guides
-- 02-Projects: active project blueprints + trackers
-- 03-Areas: personal knowledge (Linux, IA, Personal)
-- 04-Resources: Zettelkasten concepts, research
-- 05-Archive: completed/superseded content
+- 04-Resources/: Zettelkasten + IA references + guides (replaces old 01-Referencia)
+- 02-Projects/: active project blueprints + trackers
+- 03-Areas/: personal knowledge (Linux, IA, Personal)
+- 05-Archive/: completed/superseded content + old backups
 ```
 
 ### Fase 6: Escribe los archivos

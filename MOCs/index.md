@@ -45,3 +45,7 @@ LIST
 FROM "05-Archive"
 SORT file.name DESC
 ```
+
+## Nota
+> `01-Referencia/` fue integrado a `04-Resources/` (jul 2026).
+> `OpenCode/Backup/` movido a `05-Archive/OpenCode-Backup/`.

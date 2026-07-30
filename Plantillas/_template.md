@@ -1,17 +1,20 @@
 ---
-tags: [proyecto, template]
+tipo: proyecto
+creado: {{date}}
+tags: [project/active]
+proyecto: ""
+estado: activo
 ---
 
-# Proyecto: [Nombre]
+# Proyecto: {{title}}
 
 ## Stack
-- Lenguaje/Framework:
+
 
 ## Contexto
--
+
 
 ## Decisiones activas
--
 
-## Próximos pasos
--
+
+## Proximos pasos

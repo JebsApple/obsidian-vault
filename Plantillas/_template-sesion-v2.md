@@ -1,30 +1,17 @@
 ---
-tags:
-  - sesion
-  - registro
-created: {{date}}
-project: 
-duration: 
+tipo: sesion
+creado: {{date}}
+tags: [sesion, registro]
+proyecto: ""
+duracion: ""
 ---
 
 # Sesión {{date}}
 
-## Objetivo de la Sesión
-{What am I trying to accomplish?}
+## Objetivo
 
-## Trabajo Realizado
-1. 
 
-## Decisiones Tomadas
-- 
+## Avances
 
-## Bloqueos Encontrados
-- 
 
-## Siguiente Sesión
-- [ ] 
-
-## Tiempo
-- Inicio: 
-- Fin: 
-- Total: 
+## Pendientes

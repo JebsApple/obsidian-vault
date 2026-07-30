@@ -1,15 +1,14 @@
 ---
-created: {{date}} {{time}}
-tags:
-  - tipo/sesion
-project: ""
-session: 
-duration: ""
+tipo: sesion
+creado: {{date}}
+tags: [sesion]
+proyecto: ""
+duracion: ""
 ---
 
 # Sesion — {{date:YYYY-MM-DD}}
 
-## Objetivo de la sesion
+## Objetivo
 
 
 ## Lo que se hizo
@@ -20,3 +19,7 @@ duration: ""
 
 ## Proximos pasos
 
+
+## Contexto guardado
+
+> Al cerrar: actualizar `CONTEXTO.md`

@@ -1,14 +1,18 @@
 ---
-tags: [tipo/tarea, proyecto/minegocio]
+tipo: capture
+creado: {{date}}
+tags: [tarea]
+proyecto: ""
 estado: pendiente
-asignado: 
+asignado: ""
 ---
+
 # Tarea — {{title}}
 
-## Descripción
+## Descripcion
+
+
+## Criterios de aceptacion
 -
 
-## Criterios de aceptación
-- [ ] 
-
-## Notas
+## Links

@@ -61,11 +61,15 @@
 - **Nicolas Valdes**: barcodes, inventory, SonarQube/Jenkins
 
 ## Vault Structure
-- `01-Referencia/`: external knowledge, guides, research
-- `02-Projects/`: active project blueprints + trackers (6 projects)
+- `02-Projects/`: active project blueprints + trackers (15+ projects)
 - `03-Areas/`: personal knowledge (Linux, IA, Personal)
-- `04-Resources/`: Zettelkasten concepts (150+ atomic notes)
-- `05-Archive/`: completed/superseded content
+- `04-Resources/`: Zettelkasten concepts + IA refs + reference guides (88+ notes)
+- `05-Archive/`: completed/superseded content + old backups
+- `00-Inbox/`: temporary capture
+- `01-Daily/`: daily notes
+- `MOCs/`: maps of content (26 communities)
+- `Plantillas/`: templates (16)
+- `Assets/`: images organized by project
 
 ## Graph Summary (1475 nodes, 1465 edges, 235 communities — updated 2026-07-14)
 - **30 communities** have MOCs (Maps of Content) — 20 new

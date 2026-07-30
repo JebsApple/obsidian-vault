@@ -1,35 +1,18 @@
 ---
-tags:
-  - auditoria
-  - review
-created: {{date}}
-scope: 
-severity: 
+tipo: reporte
+creado: {{date}}
+tags: [auditoria, review]
+proyecto: ""
+alcance: ""
+severidad: ""
 ---
 
 # Auditoría: {{title}}
 
-## Alcance
-{What was audited}
+## Resumen
 
-## Descubrimientos
 
-### Crítico
-1. 
+## Hallazgos
 
-### Mayor
-1. 
-
-### Menor
-1. 
 
 ## Recomendaciones
-1. 
-
-## Acciones Correctivas
-- [ ] {action} — Responsable: — Fecha: 
-
-## Métricas
-| Métrica | Antes | Después |
-|---------|-------|---------|
-|  |  |  |

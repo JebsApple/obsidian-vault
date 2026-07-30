@@ -1,35 +1,18 @@
 ---
-tags:
-  - procedimiento
-  - howto
-created: {{date}}
-difficulty: basico|intermedio|avanzado
-estimated_time: 
+tipo: procedimiento
+creado: {{date}}
+tags: [procedimiento, howto]
+proyecto: ""
+dificultad: basico
+tiempo_estimado: ""
 ---
 
 # {{title}}
 
-## Requisitos
-- 
+## Contexto
+
 
 ## Pasos
 
-### Paso 1: 
-1. 
-2. 
-3. 
 
-### Paso 2: 
-1. 
-2. 
-
-## Verificación
-- [ ] 
-
-## Solución de Problemas
-| Problema | Causa | Solución |
-|----------|-------|----------|
-|  |  |  |
-
-## Referencias
-- 
+## Verificacion

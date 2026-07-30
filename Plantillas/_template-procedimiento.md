@@ -1,6 +1,10 @@
 ---
-tags: [tipo/procedimiento, proyecto/minegocio]
+tipo: procedimiento
+creado: {{date}}
+tags: [procedimiento]
+proyecto: ""
 ---
+
 # Procedimiento — {{title}}
 
 ## Contexto
@@ -8,12 +12,6 @@ tags: [tipo/procedimiento, proyecto/minegocio]
 - **Prerequisitos:**
 
 ## Pasos
-1. 
 
-## Verificación
-- [ ] 
-
-## Rollback (si aplica)
--
 
 ## Notas
