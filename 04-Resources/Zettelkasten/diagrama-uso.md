@@ -88,6 +88,17 @@ Bibliotecario ─────│─ Registrar Usuario          │     │
 | **Dirección** | Caso base → incluido | Extensión → caso base |
 | **Ejemplo** | Pagar Multa incluye "Autenticar" | Pagar Multa extiende "si online" |
 
+## Herramientas para Diagramas UML
+
+| Herramienta | Tipo | Costo |
+|-------------|------|-------|
+| **Draw.io** | Navegador + escritorio | Gratis |
+| **Lucidchart** | Online colaborativa | Freemium |
+| **StarUML** | Escritorio profesional | Pago |
+| **Visual Paradigm** | Suite educativa/empresarial | Pago |
+| **Figma** | Diseño + diagramado | Freemium |
+| **Miro** | Pizarra colaborativa | Freemium |
+
 ## Ver También
 - [[diagrama-clases]] — estructura estática del sistema
 - [[diagrama-secuencia]] — interacciones paso a paso

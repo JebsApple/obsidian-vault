@@ -19,7 +19,11 @@ Cómo diseñar interfaces centradas en el usuario.
 
 > "La experiencia de usuario es todo lo que el usuario experimenta al interactuar con el producto." — Donald Norman
 
+> "Para producir tecnología que se adapte a los seres humanos, es necesario estudiar a éstos. Pero en la actualidad tendemos a estudiar sólo a la primera. Es tiempo de que esta tendencia se revierta, es el momento de que la tecnología se adapte a las personas." — Donald Norman
+
 UX ≠ UI: UX es la experiencia completa, UI es la capa visual.
+
+Las **reglas doradas** son principios de diseño. Los **mecanismos de interacción** (botones, menús, formularios, iconos, ventanas) son los componentes de UI que implementan esas reglas. Ejemplo: la regla "el conductor debe saber la velocidad" se implementa con un velocímetro.
 
 ## Los 5 Planos de Garrett
 
@@ -37,11 +41,11 @@ UX ≠ UI: UX es la experiencia completa, UI es la capa visual.
 └─────────────────────────────────────────┘
 ```
 
-1. **Estrategia:** ¿Para quién es? ¿Qué problema resuelve?
-2. **Alcance:** ¿Qué features incluye? ¿Qué no incluye?
-3. **Estructura:** ¿Cómo se organiza la información?
-4. **Esqueleto:** ¿Cómo se distribuye en pantalla?
-5. **Superficie:** Colores, tipografía, iconografía
+1. **Estrategia:** necesidades del usuario + objetivos del negocio. Preguntas clave: ¿Qué quiere lograr la empresa? ¿Qué necesitan los usuarios? Fuentes: entrevistas, encuestas, objetivos del producto.
+2. **Alcance:** funcionalidades y contenido. Preguntas clave: ¿Qué características se incluirán? ¿Qué contenido es necesario? Fuentes: requerimientos funcionales, historias de usuario, especificaciones de contenido.
+3. **Estructura:** cómo se organiza la información y cómo interactúa el usuario. Preguntas clave: ¿Cómo se navega el sistema? ¿Qué ocurre cuando el usuario interactúa? Fuentes: mapas de sitio, diagramas de flujo, modelos de interacción.
+4. **Esqueleto:** wireframes, diseño de navegación, layout. Herramientas: Figma, Balsamiq, Adobe XD. Entregables: prototipos baja fidelidad, esquemas de UI.
+5. **Superficie:** apariencia visual — colores, tipografía, iconografía. Entregables: mockups visuales, prototipos navegables, guías de estilo.
 
 ## Características de Buen UX
 
