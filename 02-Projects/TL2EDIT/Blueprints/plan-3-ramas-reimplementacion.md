@@ -1,40 +1,61 @@
-# Plan de Re-implementación TL2EDIT — Features Post-PR #80
+# Plan de Re-implementación TL2EDIT — 3 Ramas (Menor a Mayor Complejidad)
 
 > Estado base: **main = post-revert #88 = commit a5dbd30 (PR #80 merged)**
-> Estrategia: Implementación secuencial por features, no por ramas.
-> Stitch: NO se toca (solo si cambio 100% seguro).
+> Objetivo: Re-implementar PRs #81–#87 con modificaciones acordadas, **sin romper** export, Drive, ni stitch.
+> Estrategia: 3 ramas secuenciales, cada una con tramos paralelizables por sub-agentes.
+> Stitch: NO se modifica (solo si cambio 100% seguro).
 
 ---
 
-## Features a implementar (orden de ejecución)
+## Arquitectura de Ramas
 
 ```
 main (PR #80)
- │
- ├──► Paso 1: Formato exportación DOCX mejorado
- │      (cada bloque su párrafo, sin separación páginas, imágenes incluidas)
- │
- ├──► Paso 2: Apodos para nombre original + traducido
- │      (NicknameRule, hook, UI panel)
- │
- ├──► Paso 3: Series con tipos de bloque propios
- │      (Series con blockTypeOverrides, UI selector)
- │
- ├──► Paso 4: Unificar botones de exportación en UI
- │      (Exportar → DOCX / Google Docs, PSD igual)
- │
- └──► Paso 5: Drive hardening
-        (exponential backoff, URL encoding audit)
+  │
+  ├─► rama/foundation       ← BAJA-MEDIA  (independiente, sin tocar export/Drive/stitch)
+  │       │
+  │       └─► rama/drive-features    ← MEDIA-ALTA (depende de foundation estable)
+  │               │
+  │               └─► rama/engine-polish  ← MUY ALTA (depende de drive-features estable)
+  │
+  └─► (merge squash a main tras validación de cada rama)
 ```
 
 ---
 
-## Paso 1: Formato DOCX mejorado
+## Rama 1: `rama/foundation` — Telemetría, UI Fixes y Apodos
+**Dificultad: BAJA-MEDIA** | **Esfuerzo: 4–8h** | **Riesgo: NULO para export/Drive/stitch**
 
-**Archivo**: `src/lib/exportDocx.ts`
-**Descripción**: Cambiar el formato de exportación DOCX.
+### Tramos Paralelizables (sub-agentes)
 
-### Formato nuevo
+| Tramo | Archivos | Descripción | Agente |
+|-------|----------|-------------|--------|
+| **F1.1** | `src/hooks/useAnclarScrollRaiz.ts` (nuevo), `src/App.tsx`, `src/components/Select.tsx`, `src/components/SpellCheckedTextarea.tsx` | **Fix header scroll** (PR #82). Hook que ancla scroll root a 0 en evento `scroll`. `preventScroll: true` en 3 `focus()`. | Sub-agente A |
+| **F1.2** | `server/telemetry/store.ts`, `scripts/telemetria.mjs` | **Verificar telemetría per-unit** (PR #80). Confirmar que `costo_por_unidad` (mediana de cocientes) ya funciona en main. Si falta, implementar. | Sub-agente B |
+| **F1.3** | `src/index.css`, `src/components/Toast.tsx` | **Fixes UI puros #86**: scrollbar-corner transparente, Firefox `scrollbar-color`, Toast sin `calc(100%-32px)`. | Sub-agente C |
+| **F1.4** | `src/hooks/useAnclarScrollRaiz.ts`, `src/components/StitchModal.tsx` | **Scroll root en fase captura** (#86 Tanda 2.3). Extender hook para cubrir fase de captura de StitchModal. | Sub-agente A (después F1.1) |
+| **F1.5** | `src/types.ts`, `src/hooks/useNicknames.ts` (nuevo), `src/components/NicknamesPanel.tsx` (nuevo) | **Sistema de apodos**: `NicknameRule` con `nickname`, `originalPattern`, `translatedPattern`. Hook con store módulo. Panel con 3 campos. | Sub-agente D |
+| **F1.6** | `src/lib/exportDocx.ts`, `src/lib/exportTxt.ts` | **Integrar apodos en exportación**: función `applyNicknames()` que reemplaza en original y traducido antes de escribir cada párrafo. | Sub-agente D (después F1.5) |
+
+### Criterios de Merge a main
+- [ ] `npm run build` pasa
+- [ ] `npm test` pasa
+- [ ] Header no se desplaza al hacer focus en inputs
+- [ ] Telemetría muestra `c/unidad` en reporte
+- [ ] Panel de apodos funcional (3 campos)
+- [ ] Apodos se aplican en exportación DOCX
+
+---
+
+## Rama 2: `rama/drive-features` — Exportación, Series, Drive Hardening
+**Dificultad: MEDIA-ALTA** | **Esfuerzo: 20–35h** | **Riesgo: MEDIO (toca Drive API y export)**
+
+> **BASE**: `rama/foundation` merged a main
+
+### Paso 2.1: `formato-exportacion` — Nuevo formato DOCX + Unificación UI
+**4–6h** | Archivos: `src/lib/exportDocx.ts`, `src/App.tsx`, `src/hooks/useExport.ts`, `src/hooks/useComicEditor.ts`
+
+#### Formato nuevo de exportación DOCX
 
 ```
 -diálogo
@@ -43,207 +64,181 @@ main (PR #80)
 
 **grito
 
--dialogo 2
+[imagen: sticker.png]         ← bloque imagen, insertado como imagen (ImageRun)
 
-[imagen: sticker.png]    ← bloque imagen insertado como imagen
-
--dialogo 3
+-diálogo siguiente
 ```
 
-### Cambios concretos
-- **Cada bloque = su propio párrafo** (eliminar lógica de `groupId` que unía bloques en una línea)
-- **Párrafo en blanco entre cada bloque** (`spacing: { after: 200 }`)
-- **Sin separación entre páginas** (todo corrido en una sola sección)
-- **Bloques imagen se mantienen** con `ImageRun` (ya funciona)
+**Cambios en `exportDocx.ts`**:
+- **Cada bloque = su propio párrafo**: eliminar lógica de `groupId` que unía bloques en una misma línea
+- **Línea en blanco entre bloque y bloque**: `spacing: { after: 200 }` en cada párrafo
+- **Sin separación entre páginas**: todo el texto corrido en una sola sección, sin reset por página (eliminar `buildPageParagraphs`, todo directo en `buildDocxBlobMulti`)
+- **Imágenes se mantienen**: bloque tipo `imagen` se exporta con `ImageRun` (igual que ahora)
 - **Apodos**: aplicar `applyNicknames()` al texto aprobado antes de escribir
-- **Google Docs**: se queda igual (sube DOCX con `convert: true`)
-- DOCX se mantiene como formato único (ni .txt ni nada más)
+- **Google Docs**: se queda igual (el DOCX se sube con `convert: true`)
 
-### Criterios de éxito
-- [ ] `npm test` pasa
-- [ ] `npm run build` pasa
-- [ ] Output DOCX tiene cada bloque en su propio párrafo
-- [ ] Hay línea en blanco entre bloque y bloque
-- [ ] No hay separación entre páginas
+| Sub-tramo | Archivos | Descripción |
+|-----------|----------|-------------|
+| **2.1.1** | `src/lib/exportDocx.ts` | Re-escribir `buildDocxBlobMulti`: cada bloque su párrafo, sin separación páginas, imágenes con ImageRun, apodos integrados |
+| **2.1.2** | `src/App.tsx` | Unificar botones: eliminar DOCX + GDOCS separados, crear un solo **Exportar** con hover (Descargar DOCX / Google Docs). PSD se queda igual |
+| **2.1.3** | `src/hooks/useExport.ts` | Ajustar `handleExportDocxMulti` y `handleExportGoogleDocs` para nuevo flujo. Eliminar `buildDocxBlob` (solo multi) |
+| **2.1.4** | `src/hooks/useComicEditor.ts` | Ajustar exports exportados |
+
+### Paso 2.2: `series-blocktypes` — Series con tipos de bloque propios
+**6–8h** | Archivos: `src/types.ts`, `src/hooks/useSeries.ts` (nuevo), `src/components/SeriesPanel.tsx` (nuevo), `src/App.tsx`, `src/components/SidebarTextBlocks.tsx`, `src/components/BlockTypesPanel.tsx`
+
+| Sub-tramo | Archivos | Descripción |
+|-----------|----------|-------------|
+| **2.2.1** | `src/types.ts` | Agregar `Series`, `SeriesBlockTypeOverride`. Extender `resolveBlockType()` con parámetro `seriesOverrides` |
+| **2.2.2** | `src/hooks/useSeries.ts` (nuevo) | Hook con store módulo: `seriesList`, `currentSeries`, `setCurrentSeries`, CRUD |
+| **2.2.3** | `src/components/SeriesPanel.tsx` (nuevo) | Selector de serie activa + editor de overrides por tipo de bloque |
+| **2.2.4** | `src/App.tsx` | Integrar SeriesPanel en sidebar. Pasar serie activa a `resolveBlockType` |
+| **2.2.5** | `src/components/SidebarTextBlocks.tsx`, `src/components/BlockTypesPanel.tsx` | Mostrar prefijos de la serie activa en lugar de los globales |
+
+### Paso 2.3: `drive-hardening` — Exponential Backoff + URL Encoding
+**3–5h** | Archivos: `src/lib/googleDrive.ts`
+
+| Sub-tramo | Archivos | Descripción |
+|-----------|----------|-------------|
+| **2.3.1** | `src/lib/googleDrive.ts` | Envolver `driveFetch()` con `driveFetchWithRetry()`: reintenta con backoff exponencial (2s, 4s, 8s) en 429, 500, 503 |
+| **2.3.2** | `src/lib/googleDrive.ts` | Auditar URL encoding: verificar que todas las queries usan `encodeURIComponent()`. En particular: `listDriveSessions`, `ensureSessionsFolder`, `ensureExportsFolder`, `listDriveFolder`, `createDriveFolder` |
+
+### Criterios de Merge rama/drive-features → main
+- [ ] DOCX exporta cada bloque en su propio párrafo con espacio entre ellos
+- [ ] DOCX no separa por páginas (todo corrido)
 - [ ] Imágenes aparecen insertadas en el DOCX
-
----
-
-## Paso 2: Apodos para nombre original + traducido
-
-### 2.1 Modelo de datos (`src/types.ts`)
-```typescript
-export interface NicknameRule {
-  id: string
-  nickname: string
-  originalPattern: string    // Patrón en texto ORIGINAL
-  translatedPattern: string  // Patrón en texto TRADUCIDO
-  enabled: boolean
-}
-```
-
-### 2.2 Hook (`src/hooks/useNicknames.ts`)
-Mismo patrón que `useReplacements.ts` (store a nivel módulo + `useSyncExternalStore`):
-- `nicknames: NicknameRule[]`
-- `addRule`, `removeRule`, `updateRule`, `toggleRule`
-- `importRules`, `exportRules`
-
-### 2.3 UI (`src/components/NicknamesPanel.tsx`)
-Panel similar a ReplacementsPanel con 3 campos por entrada:
-| Campo | Ejemplo |
-|-------|---------|
-| Apodo | Naruto |
-| Nombre original | うずまきナルト |
-| Nombre traducido | Uzumaki Naruto |
-
-### 2.4 Integración en export
-- En `exportDocx.ts`: función `applyNicknames(text, nicknames, mode)` 
-  - `mode='original'`: reemplaza `originalPattern` → `nickname`
-  - `mode='translated'`: reemplaza `translatedPattern` → `nickname`
-- Aplicar al texto aprobado antes de escribir cada párrafo
-- En OCR: aplicar apodos al original ANTES de enviar a traducir (mejora calidad)
-
-### Criterios de éxito
-- [ ] Panel de apodos visible y funcional
-- [ ] Apodo reemplaza en texto original
-- [ ] Apodo reemplaza en texto traducido
-- [ ] `npm test` pasa
-
----
-
-## Paso 3: Series con tipos de bloque propios
-
-### 3.1 Modelo de datos (`src/types.ts`)
-```typescript
-export interface SeriesBlockTypeOverride {
-  blockTypeId: string        // 'dialogo', 'grito', o id de custom type
-  prefix?: string            // ej: '→' en vez de '-'
-  fontFamily?: string
-  label?: string
-}
-
-export interface Series {
-  id: string
-  name: string
-  blockTypeOverrides: SeriesBlockTypeOverride[]
-}
-```
-
-### 3.2 Resolución (`src/types.ts` — modificar `resolveBlockType`)
-```typescript
-export function resolveBlockType(
-  typeConfig: BlockTypesConfig,
-  blockType: string,
-  seriesOverrides?: SeriesBlockTypeOverride[]
-): { label, prefix, fontFamily, icon }
-```
-Regla:
-1. Si hay override de la serie activa para ese `blockTypeId` → usar override
-2. Si no → usar el blockType global (actual)
-
-### 3.3 Hook (`src/hooks/useSeries.ts`)
-- `seriesList: Series[]`
-- `currentSeries: Series | null`
-- `setCurrentSeries(id)`
-- `addSeries`, `removeSeries`, `updateSeries`
-
-### 3.4 UI (`src/components/SeriesPanel.tsx`)
-- Selector de serie activa (dropdown)
-- Editor de overrides por serie
-
-### Criterios de éxito
-- [ ] Selector de serie en UI
-- [ ] Override cambia prefijo en sidebar y export
-- [ ] `npm test` pasa
-
----
-
-## Paso 4: Unificar botones de exportación en UI
-
-### Cambios en `src/App.tsx`
-| Antes | Después |
-|-------|---------|
-| Botón DOCX + hover (Descargar / Drive / Google Docs) | Botón **Exportar** + hover (Descargar DOCX / Google Docs) |
-| Botón GDOCS aparte | ❌ Eliminado (unificado en Exportar) |
-| Botón PSD + hover (Descargar / Guardar en Drive) | ✅ Igual |
-
-### Cambios en `src/hooks/useExport.ts`
-- `handleExportDocxMulti` se mantiene (DOCX → local)
-- `handleExportGoogleDocs` se mantiene (DOCX → Drive con convert)
-- Eliminar `buildDocxBlobMulti` si es necesario (no, se usa para ambos)
-
-### Criterios de éxito
 - [ ] Un solo botón "Exportar" con hover: "Descargar DOCX" y "Google Docs"
 - [ ] Botón PSD igual que ahora
-- [ ] Exportar a local descarga .docx
-- [ ] Exportar a Drive → Google Docs funciona
+- [ ] Selector de serie activa en UI
+- [ ] Override de serie cambia prefijo en sidebar y export
+- [ ] `npm run build` + `npm test` pasan
 
 ---
 
-## Paso 5: Drive hardening
+## Rama 3: `rama/engine-polish` — Refactor Export + Telemetría Final
+**Dificultad: MEDIA** | **Esfuerzo: 15–25h** | **Riesgo: MEDIO (refactor export)**
 
-### 5.1 Exponential backoff genérico (`src/lib/googleDrive.ts`)
-```typescript
-async function driveFetchWithRetry(
-  accessToken, url, init?, signal?, maxRetries = 3
-): Promise<Response> {
-  // Reintenta con backoff exponencial en 429, 500, 503
-  // 1er reintento: 2s, 2do: 4s, 3ro: 8s
-}
+> **BASE**: `rama/drive-features` merged a main
+> **Nota**: Stitch NO se toca en esta rama.
+
+### Tramos Paralelizables
+
+| Tramo | Archivos | Descripción | Prioridad |
+|-------|----------|-------------|-----------|
+| **E3.1** | `src/lib/googleDrive.ts`, `src/hooks/useExport.ts`, `src/utils/psdExport.ts` | **Refactor exports (PR #87)**. SOLO REFACTOR. Cero cambio de comportamiento. Separar googleDrive.ts en api.ts + folders.ts + naming.ts. | **ALTA** |
+| **E3.2** | 14 archivos (ver #86) | **Telemetría 3.1.4 fixes**. Defectos P0-P1-P2 finales. | **ALTA** |
+
+### Dependencias
+```
+E3.1 (refactor) ────┐
+                     ├──► (independientes, paralelos)
+E3.2 (telemetry) ────┘
 ```
 
-### 5.2 URL encoding audit
-- Verificar TODOS los `q=` params usan `encodeURIComponent()`
-- En particular: `listDriveSessions`, `ensureSessionsFolder`, `ensureExportsFolder`, `listDriveFolder`
+### E3.1: Refactor Exports
+**Archivos**: googleDrive.ts (469 líneas → separar en):
 
-### Criterios de éxito
-- [ ] `npm test` pasa
-- [ ] Todas las queries a Drive API están URL-encodeadas
+```
+src/lib/drive/
+├── api.ts          ← Solo HTTP calls (testeable con mocks)
+├── folders.ts      ← Lógica de carpetas (ensureExportsFolder, ensureSessionsFolder)
+├── naming.ts       ← Convenciones de nombres (baseFileName, sessionFileName)
+└── types.ts        ← DriveSessionFile, DriveExportResult, etc.
+```
+
+- Neto: -230 líneas (objetivo)
+- Validación: snapshot test del output binario PRE vs POST refactor
+
+### E3.2: Telemetría 3.1.4 Fixes
+14 defectos categorizados por severidad:
+
+| Prioridad | Defectos | Estrategia |
+|-----------|----------|------------|
+| **P0** (bloqueante) | • Error 400 en Drive con `orderBy` (ya cubierto en 2.3.2)
+• DOCX multi-página no separa correctamente (ya cubierto en 2.1.1)
+• Tildes rotas en UI | **Test first** |
+| **P1** (grave) | • Bloques imagen/nota no se renderizan
+• Scroll-sidebar pierde posición al cambiar página
+• Error silencioso en export cuando falta accessToken | **Surgical fix** |
+| **P2** (molesto) | • DriveFolderPicker no refresca
+• Telemetría: evento duplicado en cancelación
+• UI: padding inconsistente en botones | **Batch commit** |
+
+### Criterios de Merge
+- [ ] Refactor: idempotente (mismo output binario pre/post)
+- [ ] Tests de snapshot para refactor
+- [ ] `npm run build` + `npm test` pasan
+- [ ] Los 14 defectos tienen test que los reproduce
+
+---
+
+## Integración vertical de features entre ramas
+
+| Feature | Foundation | Drive-Features | Engine-Polish |
+|---------|-----------|----------------|---------------|
+| Apodos | F1.5 (modelo + hook + UI) | — | — |
+| Apodos en export | F1.6 (applyNicknames) | — | — |
+| DOCX formato nuevo | — | 2.1.1 (re-escribir) | — |
+| UI botones Exportar | — | 2.1.2 + 2.1.3 | — |
+| Series blocktypes | — | 2.2 (completo) | — |
+| Drive hardening | — | 2.3 (completo) | — |
+| Refactor exports | — | — | E3.1 |
+| Telemetría fixes | — | — | E3.2 |
 
 ---
 
-## Archivos a crear
+## Resumen de Esfuerzo
 
-| Archivo | Propósito |
-|---------|-----------|
-| `src/hooks/useNicknames.ts` | Hook de apodos |
-| `src/components/NicknamesPanel.tsx` | UI de apodos |
-| `src/hooks/useSeries.ts` | Hook de series |
-| `src/components/SeriesPanel.tsx` | UI de series |
-
-## Archivos a modificar
-
-| Archivo | Cambio |
-|---------|--------|
-| `src/lib/exportDocx.ts` | Nuevo formato (cada bloque su párrafo, sin separación páginas, apodos) |
-| `src/types.ts` | Agregar `NicknameRule`, `Series`, `SeriesBlockTypeOverride`. Modificar `resolveBlockType()` |
-| `src/hooks/useExport.ts` | Ajustar para nuevo flujo |
-| `src/hooks/useComicEditor.ts` | Integrar apodos y series |
-| `src/App.tsx` | Unificar botones Exportar + PSD. Integrar NicknamesPanel y SeriesPanel |
-| `src/lib/googleDrive.ts` | Exponential backoff, URL encode audit |
-| `src/lib/pageHelpers.ts` | Si aplica para baseFileName |
-
-## Archivos que NO se tocan
-
-| Archivo | Motivo |
-|---------|--------|
-| `server/stitchEngine.ts` | Stitch no se modifica |
-| `server/stitch.ts` | Stitch no se modifica |
-| `src/components/StitchModal.tsx` | Stitch no se modifica |
-| `src/components/DriveSessionModal.tsx` | Ya funciona (PR #80) |
-| `src/hooks/useSessionPersistence.ts` | Ya funciona |
-
----
+| Rama | Esfuerzo (h) | Complejidad |
+|------|--------------|-------------|
+| foundation (con apodos) | 6–12 | BAJA-MEDIA |
+| drive-features (export + series + drive) | 13–19 | MEDIA-ALTA |
+| engine-polish (refactor + telemetry) | 15–25 | MEDIA |
+| **TOTAL** | **34–56h** | ~1-2 semanas (1 dev senior) |
 
 ## Checklist de Seguridad (NO ROMPER)
 
 | Área | Archivos intocables sin validación |
 |------|-----------------------------------|
-| **Drive** | `googleDrive.ts` — solo agregar, no cambiar firmas existentes |
-| **Stitch** | `stitchEngine.ts`, `stitch.ts`, `StitchModal.tsx` — NO TOCAR |
+| **Export** | `exportDocx.ts` — solo tocar en 2.1.1 con test antes/después |
+| **Drive** | `googleDrive.ts` — solo agregar, no cambiar firmas existentes hasta E3.1 |
+| **Stitch** | `stitchEngine.ts`, `stitch.ts`, `StitchModal.tsx` — **NO TOCAR NUNCA** |
 | **Session** | `useSessionPersistence.ts`, `SESSION_FORMAT_VERSION` |
 | **Telemetry** | `TELEMETRY_SCHEMA_VERSION`, sanitize, consent flow |
 
+## Archivos a crear
+
+| Rama | Archivo |
+|------|---------|
+| F1.5 | `src/hooks/useNicknames.ts` |
+| F1.5 | `src/components/NicknamesPanel.tsx` |
+| 2.2.2 | `src/hooks/useSeries.ts` |
+| 2.2.3 | `src/components/SeriesPanel.tsx` |
+| E3.1 | `src/lib/drive/api.ts` (desde googleDrive.ts) |
+| E3.1 | `src/lib/drive/folders.ts` (desde googleDrive.ts) |
+| E3.1 | `src/lib/drive/naming.ts` (desde googleDrive.ts) |
+| E3.1 | `src/lib/drive/types.ts` (desde googleDrive.ts + types.ts) |
+
+## Archivos a modificar
+
+| Rama | Archivo | Cambio |
+|------|---------|--------|
+| F1.5 | `src/types.ts` | Agregar `NicknameRule` |
+| F1.6 | `src/lib/exportDocx.ts` | Integrar `applyNicknames()` |
+| 2.1.1 | `src/lib/exportDocx.ts` | Nuevo formato: cada bloque su párrafo, sin separación páginas |
+| 2.1.2 | `src/App.tsx` | Unificar botones Exportar |
+| 2.1.3 | `src/hooks/useExport.ts` | Ajustar handlers |
+| 2.1.4 | `src/hooks/useComicEditor.ts` | Integrar apodos, adjustar exports |
+| 2.2.1 | `src/types.ts` | Agregar `Series`, `SeriesBlockTypeOverride`. Extender `resolveBlockType()` |
+| 2.2.4 | `src/App.tsx` | Integrar SeriesPanel |
+| 2.2.5 | `src/components/SidebarTextBlocks.tsx` | Prefijos de serie activa |
+| 2.2.5 | `src/components/BlockTypesPanel.tsx` | Prefijos de serie activa |
+| 2.3 | `src/lib/googleDrive.ts` | Exponential backoff + URL encode audit |
+| E3.1 | `src/lib/googleDrive.ts` | Separar en drive/ subdirectorio |
+| E3.1 | `src/hooks/useExport.ts` | Actualizar imports |
+| E3.1 | `src/utils/psdExport.ts` | Actualizar imports |
+| E3.2 | Varios (14 archivos) | Telemetría fixes |
+
 ---
 
-*Generado: 2026-07-30. Prioriza estabilidad sobre velocidad.*
+*Generado: 2026-07-30. Basado en análisis de PRs #80–#88 y modificaciones acordadas. Prioriza estabilidad sobre velocidad.*
