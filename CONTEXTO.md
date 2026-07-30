@@ -32,7 +32,7 @@ tags:
 
 ---
 
-<!-- @FOLD: secciones siguientes solo para reanudación técnica -->
+<!-- fold(tema="session-state", lineas=69, leer_si="reanudando sesión técnica") -->
 
 ## Bloqueos actuales
 

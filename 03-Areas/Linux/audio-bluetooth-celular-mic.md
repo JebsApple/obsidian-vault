@@ -1,3 +1,4 @@
+<!-- fold(tema="linux-audio", lineas=269, leer_si="debuggeando audio/bluetooth") -->
 ---
 tags: [linux, audio, bluetooth, pipewire, celular, microfono, discord]
 fecha: 2026-07-01

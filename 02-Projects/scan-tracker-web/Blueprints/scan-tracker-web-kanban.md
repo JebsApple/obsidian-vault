@@ -1,3 +1,4 @@
+<!-- fold(tema="scan-tracker-web", lineas=129, leer_si="trabajando en Scan Tracker Web") -->
 # Kanban Board — Scan Tracker Web
 
 > Copiar este tablero a tu sistema de gestión (Obsidian, Notion, Trello, etc.)

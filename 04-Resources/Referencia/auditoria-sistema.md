@@ -1,3 +1,4 @@
+<!-- fold(tema="auditoria-sistema", lineas=341, leer_si="haciendo auditoría de sistema") -->
 ---
 tags:
   - sistema/auditoria

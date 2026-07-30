@@ -1,3 +1,4 @@
+<!-- fold(tema="hyprplayer", lineas=133, leer_si="trabajando en HyprPlayer") -->
 ---
 tags: [audit, hyprland, ponytail]
 ---

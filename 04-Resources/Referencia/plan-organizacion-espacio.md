@@ -1,3 +1,4 @@
+<!-- fold(tema="vault-org", lineas=114, leer_si="reorganizando espacio/vault") -->
 ---
 tags:
   - referencia

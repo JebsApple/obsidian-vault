@@ -1,3 +1,4 @@
+<!-- fold(tema="ia-control", lineas=92, leer_si="trabajando en guías IA-Control") -->
 # Pedido: Guías de Estudio Sprint 3 — Por Integrante
 
 ## Contexto

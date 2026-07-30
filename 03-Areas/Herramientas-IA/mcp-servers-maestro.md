@@ -1,3 +1,4 @@
+<!-- fold(tema="mcp-servers", lineas=82, leer_si="configurando MCP servers") -->
 ---
 title: MCP Servers — Registro Maestro
 date: 2026-07-11

@@ -1,3 +1,4 @@
+<!-- fold(tema="ia-setup", lineas=91, leer_si="configurando sesiones IA") -->
 ---
 tags: [configuracion, agentes, ia, setup]
 ---

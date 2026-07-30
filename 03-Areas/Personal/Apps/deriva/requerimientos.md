@@ -1,3 +1,4 @@
+<!-- fold(tema="deriva", lineas=122, leer_si="trabajando en Deriva") -->
 ---
 tags: [proyecto, deriva, desktop, widgets, física, python, wayland]
 status: definición

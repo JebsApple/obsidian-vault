@@ -1,3 +1,4 @@
+<!-- fold(tema="scan-tracker-web", lineas=146, leer_si="trabajando en Scan Tracker Web") -->
 ---
 aliases: [scan-tracker-web-blueprint]
 tags: [project, plan, scanlation, web-app]

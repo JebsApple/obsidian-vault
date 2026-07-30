@@ -1,3 +1,4 @@
+<!-- fold(tema="plugins-skills", lineas=173, leer_si="instalando plugins/skills de Claude") -->
 ---
 created: 2026-07-12
 tags:

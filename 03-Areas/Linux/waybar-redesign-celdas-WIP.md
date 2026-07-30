@@ -1,5 +1,6 @@
+<!-- fold(tema="waybar-redesign", lineas=209, leer_si="trabajando en waybar redesign") -->
 ---
-tags: [hyprland, waybar, lua, wayland, zen, picture-in-picture, redesign, WIP, playbook, scripting]
+tags: [hyprland, waybar, lua, wayland, zen, picture-in-picture, waybar, redesign, WIP, playbook, scripting]
 created: 2026-06-26
 aliases: [Waybar celdas, rediseño módulos waybar, waybar hover celdas, SUPER+SHIFT+B toggle]
 status: in-progress

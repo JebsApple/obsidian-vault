@@ -1,3 +1,4 @@
+<!-- fold(tema="linux-setup", lineas=80, leer_si="integrando Caelestia al sistema") -->
 ---
 created: 2026-07-13
 tags:

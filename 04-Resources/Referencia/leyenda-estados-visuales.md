@@ -1,3 +1,4 @@
+<!-- fold(tema="vault-style", lineas=83, leer_si="revisando convenciones visuales del vault") -->
 ---
 created: 2026-07-11
 tags:

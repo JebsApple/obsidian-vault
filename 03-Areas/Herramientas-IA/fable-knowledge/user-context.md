@@ -1,3 +1,4 @@
+<!-- fold(tema="user-context", lineas=117, leer_si="necesitas contexto del usuario") -->
 # User Context — apuru
 
 ## Profile

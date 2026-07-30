@@ -1,3 +1,4 @@
+<!-- fold(tema="hyprland-lua", lineas=229, leer_si="trabajando en Hyprland/dispatch/zen") -->
 ---
 tags: [hyprland, lua, wayland, zen, picture-in-picture, waybar, playbook, scripting]
 created: 2026-06-25

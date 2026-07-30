@@ -1,3 +1,4 @@
+<!-- fold(tema="fable-docs", lineas=559, leer_si="necesitas referencia de Fable") -->
 ---
 tags:
   - referencia/claude

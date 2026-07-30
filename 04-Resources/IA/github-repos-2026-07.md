@@ -1,3 +1,4 @@
+<!-- fold(tema="github-research", lineas=184, leer_si="buscando repos específicos") -->
 # GitHub Repos Research — Julio 2026
 
 > Investigación de repositorios relevantes a proyectos y stack del usuario. Actualizar cuando se necesite.

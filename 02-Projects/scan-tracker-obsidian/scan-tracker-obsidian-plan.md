@@ -1,3 +1,4 @@
+<!-- fold(tema="scan-tracker", lineas=190, leer_si="trabajando en Scan Tracker") -->
 ---
 aliases: [scan-tracker-plan]
 tags: [project, plan, scanlation, obsidian-plugin]

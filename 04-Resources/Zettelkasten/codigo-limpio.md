@@ -1,3 +1,4 @@
+<!-- fold(tema="sw-engineering", lineas=101, leer_si="buscando código limpio") -->
 ---
 tags:
   - ingenieria-software

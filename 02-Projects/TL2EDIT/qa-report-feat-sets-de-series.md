@@ -1,3 +1,4 @@
+<!-- fold(tema="tl2edit", lineas=262, leer_si="haciendo QA en TL2EDIT") -->
 ---
 title: QA Report — feat/sets-de-series
 created: 2026-07-27

@@ -1,3 +1,4 @@
+<!-- fold(tema="ia-setup", lineas=212, leer_si="configurando sincronización/setup") -->
 ---
 tags: [configuracion, sincronizacion, obsidian, setup]
 ---

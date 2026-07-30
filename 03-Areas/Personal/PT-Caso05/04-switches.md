@@ -1,3 +1,4 @@
+<!-- fold(tema="packet-tracer", lineas=161, leer_si="trabajando en Caso 05 switches") -->
 ---
 tags: [caso05, packet-tracer, switches, CLI]
 ---

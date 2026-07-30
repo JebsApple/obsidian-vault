@@ -1,3 +1,4 @@
+<!-- fold(tema="hermes-agent", lineas=122, leer_si="trabajando en Hermes Agent") -->
 ---
 title: Hermes Agent — Plan de Instalación
 tags: [proyecto, proyecto/hermes, ia, agentes, plan]

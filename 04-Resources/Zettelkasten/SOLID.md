@@ -1,3 +1,4 @@
+<!-- fold(tema="sw-engineering", lineas=131, leer_si="buscando principios SOLID") -->
 ---
 tags:
   - ingenieria-software

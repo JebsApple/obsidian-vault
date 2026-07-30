@@ -1,4 +1,4 @@
-<!-- @RESUMEN: Plan de ejecución de Caelestia Rice (197 líneas). Solo leer completo si trabajas en este proyecto. El resumen está en líneas 15-60. -->
+<!-- fold(tema="caelestia-rice", lineas=198, leer_si="trabajando en Caelestia Rice") -->
 ---
 tags:
   - project/active

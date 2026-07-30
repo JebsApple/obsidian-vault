@@ -1,3 +1,4 @@
+<!-- fold(tema="manga-de-weones", lineas=166, leer_si="trabajando en manga-de-weones") -->
 ---
 tags: [proyecto/manga-de-weones, blueprint, planning]
 created: "2026-07-24"

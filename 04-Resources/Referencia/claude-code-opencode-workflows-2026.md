@@ -1,3 +1,4 @@
+<!-- fold(tema="workflows-ia", lineas=183, leer_si="necesitas referencia de workflows Claude/opencode") -->
 ---
 tags:
   - claude-code

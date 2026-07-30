@@ -1,3 +1,4 @@
+<!-- fold(tema="hyprland", lineas=161, leer_si="configurando/reinstalando Hyprland") -->
 ---
 tags:
   - hyprland

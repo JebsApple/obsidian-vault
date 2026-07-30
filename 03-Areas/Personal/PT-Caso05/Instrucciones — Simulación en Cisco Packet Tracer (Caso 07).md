@@ -1,4 +1,4 @@
-<!-- @RESUMEN: Laboratorio Packet Tracer Caso 07 (441 líneas). NO LEER a menos que estés trabajando en este laboratorio. -->
+<!-- fold(tema="packet-tracer", lineas=442, leer_si="trabajando en Caso 07") -->
 # Instrucciones — Simulación en Cisco Packet Tracer (Caso 07)
 
 > Topología: **estrella jerárquica** — 4 switches de acceso/distribución conectados a 1 switch principal + 1 router de borde. Total: **17 puntos terminales** (12 estaciones cliente + 2 impresoras + 3 servidores). Red `192.168.0.0/24` dividida en subredes por sector.

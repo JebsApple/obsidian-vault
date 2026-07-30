@@ -1,3 +1,4 @@
+<!-- fold(tema="minegocio", lineas=115, leer_si="trabajando en MiNegocio") -->
 # Kanban Board — MiNegocio
 
 > Copiar este tablero a tu sistema de gestión (Obsidian, Notion, Trello, etc.)

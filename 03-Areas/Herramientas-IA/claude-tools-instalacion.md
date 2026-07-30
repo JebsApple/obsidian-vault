@@ -1,4 +1,4 @@
-<!-- @RESUMEN: Guía de instalación de Claude Code tools (538 líneas). NO LEER a menos que estés instalando/configurando. -->
+<!-- fold(tema="ia-setup", lineas=538, leer_si="instalando/configurando herramientas IA") -->
 ---
 tags: [claude, devtools, instalacion, mcp, ai, servidor]
 fecha: 2026-06-28

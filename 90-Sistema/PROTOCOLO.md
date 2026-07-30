@@ -63,6 +63,22 @@ Al TERMINAR una sesión de trabajo:
 
 ## 3. Reglas de lectura
 
+### 3.0 fold() — Lazy-reading de archivos grandes
+
+Los archivos grandes (>80 líneas) llevan `<!-- fold(tema, lineas, leer_si) -->` en su línea 1.
+
+```
+fold(tema="<categoría>", lineas=<N>, leer_si="<condición>")
+```
+
+**Regla:** al encontrar `fold(...)` en línea 1:
+1. Lee solo el marcador `fold(...)`.
+2. Evalúa `leer_si`. Si la condición NO aplica a tu tarea actual → **detente, no sigas leyendo**.
+3. Si la condición SÍ aplica → lee el archivo completo.
+4. Si el archivo NO tiene `fold()` → léelo completo (es corto o crítico).
+
+El `tema` agrupa archivos relacionados. Úsalo para decidir si necesitas el bloque.
+
 ### 3.1 Orden de búsqueda
 
 1. **MOCs** — si existe un MOC del tema, úsalo como punto de entrada.

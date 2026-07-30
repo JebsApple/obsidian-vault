@@ -1,3 +1,4 @@
+<!-- fold(tema="architecture", lineas=123, leer_si="necesitas referencia de arquitectura de software") -->
 ---
 tags:
   - arquitectura

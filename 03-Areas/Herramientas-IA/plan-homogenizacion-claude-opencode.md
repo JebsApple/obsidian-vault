@@ -1,3 +1,4 @@
+<!-- fold(tema="ia-setup", lineas=145, leer_si="homogenizando configs Claude/opencode") -->
 ---
 title: Plan de Homogenización Claude Code + Claude Desktop + OpenCode
 date: 2026-07-10

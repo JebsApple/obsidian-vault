@@ -1,3 +1,4 @@
+<!-- fold(tema="hermes-agent", lineas=112, leer_si="trabajando en Hermes Agent") -->
 # Kanban Board — Hermes Agent
 
 > Copiar este tablero a tu sistema de gestión (Obsidian, Notion, Trello, etc.)

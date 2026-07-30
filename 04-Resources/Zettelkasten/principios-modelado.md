@@ -1,3 +1,4 @@
+<!-- fold(tema="sw-engineering", lineas=92, leer_si="buscando principios de modelado") -->
 ---
 tags:
   - ingenieria-software

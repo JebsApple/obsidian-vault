@@ -1,3 +1,4 @@
+<!-- fold(tema="servicio-limpieza", lineas=106, leer_si="trabajando en servicio-limpieza") -->
 ---
 created: 2026-07-12
 tags:

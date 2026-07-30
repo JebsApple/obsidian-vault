@@ -1,3 +1,4 @@
+<!-- fold(tema="scan-tracker-web", lineas=92, leer_si="trabajando en Scan Tracker Web") -->
 ---
 aliases: [scantracker-lanzamiento-google, plan-aprobacion-google-scantracker]
 tags: [project, plan, seo, google-oauth, launch]

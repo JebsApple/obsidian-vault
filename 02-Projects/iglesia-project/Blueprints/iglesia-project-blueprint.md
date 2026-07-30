@@ -1,3 +1,4 @@
+<!-- fold(tema="iglesia-project", lineas=188, leer_si="trabajando en Iglesia Project") -->
 ---
 aliases: [iglesia-project, iglesia-web, jesus-reigns]
 tags: [project, church, web, community]

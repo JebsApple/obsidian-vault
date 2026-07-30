@@ -1,3 +1,4 @@
+<!-- fold(tema="ia-setup", lineas=234, leer_si="configurando automatización Claude") -->
 ---
 tags: [herramientas-ia, claude, automatizacion, cron, server]
 created: 2026-07-10

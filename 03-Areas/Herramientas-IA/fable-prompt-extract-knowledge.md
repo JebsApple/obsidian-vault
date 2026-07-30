@@ -1,3 +1,4 @@
+<!-- fold(tema="fable-extract", lineas=172, leer_si="extrayendo knowledge graph") -->
 # Fable: Extract Knowledge Graph → Skills
 
 ## Contexto del usuario

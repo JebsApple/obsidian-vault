@@ -1,3 +1,4 @@
+<!-- fold(tema="claude-ecosystem", lineas=170, leer_si="descubriendo ecosistema Claude") -->
 ---
 tags:
   - referencia/claude

@@ -1,3 +1,4 @@
+<!-- fold(tema="sw-engineering", lineas=90, leer_si="buscando diagramas de paquetes") -->
 ---
 tags:
   - ingenieria-software

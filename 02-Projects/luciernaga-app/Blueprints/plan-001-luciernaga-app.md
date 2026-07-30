@@ -1,3 +1,4 @@
+<!-- fold(tema="luciernaga-app", lineas=266, leer_si="trabajando en Luciernaga App") -->
 ---
 tags: [iglesia, oracion, app-mobile, plan, luciernaga]
 created: 2026-07-12

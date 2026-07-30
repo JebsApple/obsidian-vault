@@ -1,7 +1,7 @@
+<!-- fold(tema="packet-tracer", lineas=595, leer_si="trabajando en Caso 05") -->
 ---
 tags: [caso05, packet-tracer, verificacion]
 ---
-
 # Comandos de verificación — Caso 05
 
 ## R-PRINCIPAL (router)

@@ -1,3 +1,4 @@
+<!-- fold(tema="packet-tracer", lineas=220, leer_si="trabajando en Caso 05") -->
 ---
 tags: [caso05, packet-tracer, instrucciones]
 ---

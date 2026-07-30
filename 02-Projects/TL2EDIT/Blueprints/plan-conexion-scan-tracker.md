@@ -1,3 +1,4 @@
+<!-- fold(tema="tl2edit", lineas=422, leer_si="trabajando en integración TL2EDIT/Scan-Tracker") -->
 ---
 aliases: [conexion-tl2edit-scantracker, plan-integracion-scan-tracker]
 tags: [project, plan, tl2edit, scan-tracker, integracion, comics, scanlation]

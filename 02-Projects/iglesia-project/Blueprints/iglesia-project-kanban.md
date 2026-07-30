@@ -1,3 +1,4 @@
+<!-- fold(tema="iglesia-project", lineas=131, leer_si="trabajando en Iglesia Project") -->
 # Kanban Board — Iglesia Project
 
 > Copiar este tablero a tu sistema de gestión (Obsidian, Notion, Trello, etc.)

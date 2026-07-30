@@ -1,3 +1,4 @@
+<!-- fold(tema="tl2edit", lineas=132, leer_si="trabajando en TL2EDIT") -->
 ---
 aliases: [tl2edit-blueprint]
 tags: [project, plan, comics, translation, ocr]

@@ -1,3 +1,4 @@
+<!-- fold(tema="ecc", lineas=108, leer_si="instalando/configurando ECC") -->
 ---
 tags: [herramienta, ecc, claude-code, configuracion, ia]
 updated: 2026-06-28

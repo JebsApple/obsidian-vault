@@ -1,3 +1,4 @@
+<!-- fold(tema="openrouter", lineas=168, leer_si="buscando modelos OpenRouter gratuitos") -->
 # Modelos Gratuitos OpenRouter — Guía Subagéntica
 
 > Última actualización: 2026-07-14

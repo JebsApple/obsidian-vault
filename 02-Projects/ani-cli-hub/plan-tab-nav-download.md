@@ -1,3 +1,4 @@
+<!-- fold(tema="ani-cli-hub", lineas=303, leer_si="trabajando en ani-cli-hub") -->
 # Plan: Tab Navigation + Episode Actions + Download Manager
 
 **Branch**: `feature/hub-tabs-library-playback`

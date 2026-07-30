@@ -1,3 +1,4 @@
+<!-- fold(tema="sw-engineering", lineas=119, leer_si="buscando diagramas de clases") -->
 ---
 tags:
   - ingenieria-software

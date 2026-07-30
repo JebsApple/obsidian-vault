@@ -1,3 +1,4 @@
+<!-- fold(tema="sw-engineering", lineas=85, leer_si="buscando automatización de pruebas") -->
 ---
 tags:
   - ingenieria-software

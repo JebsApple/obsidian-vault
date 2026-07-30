@@ -1,3 +1,4 @@
+<!-- fold(tema="nararouter", lineas=94, leer_si="configurando NaraRouter") -->
 # Configurar NaraRouter en opencode (CLI) — instrucciones reproducibles
 
 Objetivo: dejar opencode usando NaraRouter como provider OpenAI-compatible,

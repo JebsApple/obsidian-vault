@@ -1,3 +1,4 @@
+<!-- fold(tema="obsidian-sync", lineas=172, leer_si="configurando sync Obsidian MCP") -->
 ---
 tags: [investigacion, obsidian, sync, mcp, multi-maquina]
 ---

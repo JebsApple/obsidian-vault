@@ -1,3 +1,4 @@
+<!-- fold(tema="tl2edit", lineas=479, leer_si="trabajando en TL2EDIT") -->
 ---
 aliases: [tl2edit-plan-v2, tl2edit-auditoria]
 tags: [project, plan, comics, translation, ocr, audit]

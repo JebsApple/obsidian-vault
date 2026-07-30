@@ -1,3 +1,4 @@
+<!-- fold(tema="packet-tracer", lineas=211, leer_si="trabajando en Caso 05 v3") -->
 # Instrucciones — Simulación Packet Tracer (Caso 05) — v3
 
 > Topología: **estrella jerárquica segmentada** — 3 switches de acceso conectados a 1 switch principal. 18 puntos terminales. **Una sola red plana `192.168.10.0/24`** (sin subredes ni VLANs: el informe las declara como *mejora futura*, así que la simulación NO debe implementarlas).

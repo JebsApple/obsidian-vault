@@ -1,3 +1,4 @@
+<!-- fold(tema="waybar-hyprland", lineas=222, leer_si="debuggeando/configurando waybar") -->
 ---
 tags: [proyecto, hyprland, waybar, desktop, linux]
 created: 2026-06-22

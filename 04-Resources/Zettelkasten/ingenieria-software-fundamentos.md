@@ -1,3 +1,4 @@
+<!-- fold(tema="sw-engineering", lineas=94, leer_si="buscando fundamentos de ingeniería de software") -->
 ---
 tags:
   - ingenieria-software

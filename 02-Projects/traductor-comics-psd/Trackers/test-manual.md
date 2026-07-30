@@ -1,3 +1,4 @@
+<!-- fold(tema="traductor-comics", lineas=185, leer_si="haciendo testing en traductor-comics") -->
 ---
 tags:
   - proyecto/traductor-comics

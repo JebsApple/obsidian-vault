@@ -1,4 +1,4 @@
-<!-- @RESUMEN: Subneteo Packet Tracer Caso 05 (164 líneas). NO LEER a menos que estés en este laboratorio. -->
+<!-- fold(tema="packet-tracer", lineas=165, leer_si="trabajando en Caso 05 subneteo") -->
 # Instrucciones Packet Tracer — Caso 05 — v4 (SUBNETEO + VLANs) ★ VERSIÓN VIGENTE
 
 > Diseño definitivo: **4 VLANs con subneteo** y router-on-a-stick. Reemplaza a la v3 (red plana, descartada) y **corrige 4 errores de la versión con subredes que circulaba antes** — ver Registro de cambios al final.

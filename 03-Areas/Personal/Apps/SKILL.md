@@ -1,3 +1,4 @@
+<!-- fold(tema="apps", lineas=277, leer_si="trabajando en traducción de manhwa") -->
 ---
 name: manhwa-translator
 description: Traductor especializado de manhwa y manga al español. Usa este skill cuando el usuario envíe imágenes de páginas de manhwa/manga para traducir, especialmente si están en coreano o japonés, o cuando pida traducir paneles, globos de diálogo, efectos de sonido o texto de viñetas. También úsalo cuando el usuario mencione "cap", "capítulo", "traducir paneles", "traducir imágenes" o cuando quiera subir la traducción a Google Drive. Este skill define el formato de símbolos exacto y el formato de presentación que debe seguirse siempre. SIEMPRE úsalo cuando lleguen imágenes de manhwa/manga, incluso si el usuario solo dice "traduce esto". También úsalo cuando el usuario entregue archivos .docx con traducciones para revisar, perfeccionar o subir a Google Drive.
