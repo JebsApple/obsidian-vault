@@ -1,3 +1,4 @@
+<!-- @RESUMEN: Plan de ejecución de Caelestia Rice (197 líneas). Solo leer completo si trabajas en este proyecto. El resumen está en líneas 15-60. -->
 ---
 tags:
   - project/active

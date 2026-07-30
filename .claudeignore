@@ -1,0 +1,25 @@
+# Claude Ignore — archivos que el agente NO debe leer
+# Reduce ruido en contexto y ahorra tokens.
+
+# Auto-generado / binario
+graphify-out/
+Assets/
+.stversions/
+.stfolder/
+.stignore
+
+# Config de sistema (no relevante para el agente)
+.smart-env/
+.obsidian/plugins/
+.obsidian/themes/
+.obsidian/snippets/
+
+# Scripts de mantenimiento (solo se ejecutan, no se leen)
+90-Sistema/SCRIPTS/
+
+# Archive (proyectos completados — referenciar solo si es necesario)
+05-Archive/
+
+# Cache / temp
+*.log
+*.lock

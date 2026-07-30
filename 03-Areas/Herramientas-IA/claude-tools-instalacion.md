@@ -1,7 +1,7 @@
+<!-- @RESUMEN: Guía de instalación de Claude Code tools (538 líneas). NO LEER a menos que estés instalando/configurando. -->
 ---
 tags: [claude, devtools, instalacion, mcp, ai, servidor]
 fecha: 2026-06-28
-actualizado: 2026-06-29 (sesión 3: fixes GitHub MCP, sudo, Playwright, config completa)
 ---
 
 # Instalación de herramientas para Claude Code

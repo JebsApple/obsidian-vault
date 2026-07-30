@@ -1,3 +1,4 @@
+<!-- @RESUMEN: Laboratorio Packet Tracer Caso 05 (737 líneas). NO LEER a menos que estés trabajando en este laboratorio. -->
 # Instrucciones — Simulación en Cisco Packet Tracer (Caso 05)
 
 > Topología: **estrella jerárquica segmentada** — 3 switches de acceso conectados a 1 switch principal. Total: 18 equipos finales (puntos terminales). Red `192.168.10.0/24` dividida en subredes por sector.
