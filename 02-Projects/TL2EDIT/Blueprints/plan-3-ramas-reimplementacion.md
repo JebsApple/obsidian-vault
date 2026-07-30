@@ -241,4 +241,39 @@ src/lib/drive/
 
 ---
 
+## Sub-Plans de Ejecución por Sub-Agente
+
+Cada tramo del plan tiene un sub-plan detallado en `Blueprints/sub-plans/` con:
+- Código exacto a escribir/modificar
+- Skills a cargar
+- Tests y verificación
+
+### Rama 1: Foundation
+| Tramo | Sub-Plan | 
+|-------|----------|
+| F1.1 | `sub-plans/F1.1-fix-header-scroll.md` |
+| F1.2 | `sub-plans/F1.2-telemetria-per-unit.md` |
+| F1.3 | `sub-plans/F1.3-fixes-ui.md` |
+| F1.4 | `sub-plans/F1.4-scroll-root-stitchmodal.md` |
+| F1.5 | `sub-plans/F1.5-nicknames-system.md` |
+| ~~F1.6~~ | ~~OBSOLETO (reemplazado por 2.1.1)~~ |
+
+### Rama 2: Drive Features
+| Tramo | Sub-Plan |
+|-------|----------|
+| 2.1.1 | `sub-plans/2.1.1-nuevo-formato-docx.md` |
+| 2.1.2-4 | `sub-plans/2.1.2-2.1.4-unificar-botones-export.md` |
+| 2.2 | `sub-plans/2.2-series-blocktypes.md` |
+| 2.3 | `sub-plans/2.3-drive-hardening.md` |
+
+### Rama 3: Engine Polish
+| Tramo | Sub-Plan |
+|-------|----------|
+| E3.1 | `sub-plans/E3.1-refactor-exports.md` |
+| E3.2 | `sub-plans/E3.2-telemetry-fixes.md` |
+
+### Orden de ejecución auditado
+Ver `sub-plans/00-INDICE.md` para el orden exacto con dependencias.
+F1.6 está OBSOLETO. 2.3 debe ejecutarse antes que E3.1.
+
 *Generado: 2026-07-30. Basado en análisis de PRs #80–#88 y modificaciones acordadas. Prioriza estabilidad sobre velocidad.*
