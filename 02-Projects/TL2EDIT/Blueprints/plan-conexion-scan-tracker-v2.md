@@ -4,7 +4,7 @@ aliases: [conexion-tl2edit-scantracker, plan-integracion-scan-tracker-v2]
 tags: [project, plan, tl2edit, scan-tracker, integracion, comics, scanlation]
 created: 2026-07-28
 updated: 2026-07-31
-status: adaptado-a-v3.14.8
+status: implementado-en-v4.6.3
 related:
   - "[[plan-conexion-scan-tracker]]"
   - "[[tl2edit-blueprint]]"
@@ -280,3 +280,45 @@ Cortar red a mitad → chip revierte + error.
 | Modelo de series (persistencia) | `~/proyectos/TL2EDIT/src/config/series.ts` + `src/types.ts:261` |
 | Hook de series (contexto) | `~/proyectos/TL2EDIT/src/hooks/useSeries.tsx` |
 | Panel de series (UI, tabs) | `~/proyectos/TL2EDIT/src/components/SeriesPanel.tsx` |
+
+---
+
+## Actualización 2026-07-31 — implementado en v4.6.3 (PR de `feature/conexion-scan-tracker-v2`)
+
+> Cambios de alcance respecto al plan original, aplicados durante la implementación
+> y confirmados por el usuario. Este bloque documenta el estado final para que sirva
+> de fuente de verdad en lugar del plan original donde difieran.
+
+### Cambios de alcance (vs. "Fuera de alcance" del plan)
+
+| Original (plan) | Realidad (v4.6.3) |
+|---|---|
+| No instalar SDK de Firebase en TL2EDIT | **Sí se instaló** (`firebase@12`). Se usa para autenticar contra el proyecto `scan-tracker-5ef75` (canje del access_token de Google por sesión de Firebase Auth, mismo patrón que scan-tracker-web) y leer el perfil del usuario. |
+| No leer el catálogo compartido `series/{id}` de Firestore | Se **intentó** (commit 33fc384) y luego se **descartó**: la fuente de series pasó a ser **`users/{uid}.series`** (las series que el usuario registró en scan-tracker-web con hoja vinculada). `listScanTrackerCatalog` se eliminó en la auditoría (sin uso). |
+| No tocar scan-tracker-web | Se tocó una vez: **PR #7** de scan-tracker-web abrió la lectura de `users/{uid}` (alias + series) y `series/*` en `firestore.rules` (la integración la necesita). |
+| No crear capítulos ni filas nuevas desde TL2EDIT | Se mantiene: TL2EDIT solo **lee** capítulos y **marca etapas** (who/done), nunca crea filas. |
+
+### Decisiones de UX finales (difieren del plan)
+
+- **Apodo**: NO se configura a mano (el plan lo dejaba como input). Se **detecta automáticamente** cruzando los alias del perfil de Scan Tracker ("Mis nombres", `users/{uid}.aliases`) con los "quién" de la hoja de cada serie. Si ninguno coincide → "Ningún apodo coincide con esta serie" y el marcado queda deshabilitado.
+- **Modal "Agregar serie"**: muestra **las series del usuario** (de su perfil, con hoja) con botón Agregar (marca "Agregada" si ya existe). El camino manual queda colapsado en segundo plano.
+- **Avance de capítulos**: solo los capítulos donde aparece el apodo del usuario, en filas/tarjetas con sus etapas (las ajenas se ven como "—"). Toggle **"Ocultar listos"** activo por defecto (listo = sin etapas tuyas pendientes).
+- **Capítulo activo**: se elige tocando la fila del capítulo (toggle). Al seleccionar una serie, si no había capítulo activo se deja el primer capítulo pendiente de traducción del usuario.
+- **Título del trabajo**: al seleccionar una serie vinculada → `"Serie - Cap N"` (primer capítulo en Traducción asignado al usuario y sin marcar); sin pendientes → solo el nombre de la serie.
+- **Export a Drive**: el selector de carpeta permite **editar el nombre** antes de guardar (también en Google Docs). Los nombres default van **sin extensión** (los handlers la agregan al crear el archivo).
+
+### Fases del plan → estado real
+
+1. Modelo y persistencia (`ScanTrackerLink` en `Series`, sanitize) ✅
+2. Lectura de la hoja (`scanTrackerSheet.ts`, scope `spreadsheets` + `prompt=consent`) ✅
+3. UI de vinculación (`ScanTrackerSection`, métodos en `useSeries.tsx`) ✅
+4. Panel de capítulos ✅ (evolucionó: grilla personal → tarjetas con filtro "ocultar listos")
+5. Escritura de vuelta ✅ (marcar etapas con rollback + gancho "Typeo" al exportar)
+
+### Archivos clave del estado final
+
+- `src/lib/scanTrackerCatalog.ts` — Firebase Auth + `getMyScanTrackerSeries` / `getMyScanTrackerAliases`
+- `src/lib/scanTrackerSheet.ts` — contrato de la hoja, lectura, `markEtapa`, `detectAliasFromChapters`, `findNextTradChapter`
+- `src/hooks/useScanTrackerSeries.ts`, `useScanTrackerChapters.ts`, `useMyScanTrackerAliases.ts`
+- `src/components/CreateSeriesModal.tsx`, `ScanTrackerSection.tsx`, `DriveFolderPicker.tsx` (nombre editable)
+- `src/App.tsx` — efecto de título automático por serie + gancho de auto-marcado "Typeo"
